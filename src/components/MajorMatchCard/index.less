@@ -1,0 +1,423 @@
+@import '../../assets/theme.less';
+
+.barContainer {
+  height: 12px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .bar {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    margin-top: 2px;
+    overflow: hidden;
+    border-radius: 4px;
+
+    .barH {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 0;
+      height: 100%;
+      background: @home-color;
+      transform: skew(-30deg);
+    }
+
+    .barH::before {
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: 8px;
+      height: 8px;
+      background: @home-color;
+      content: '';
+    }
+
+    .barD {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      box-sizing: content-box;
+      width: 0;
+      height: 100%;
+      background: @draw-color;
+      border-right: 1px #fff solid;
+      border-left: 1px #fff solid;
+      transform: skew(-30deg);
+    }
+
+    .barA {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      width: 0;
+      height: 100%;
+      background: @away-color;
+      transform: skew(-30deg);
+    }
+
+    .barA::before {
+      position: absolute;
+      top: 0;
+      right: -4px;
+      width: 8px;
+      height: 8px;
+      background: @away-color;
+      content: '';
+    }
+  }
+
+  .homePercent {
+    color: @home-color;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: Barlow;
+    font-style: normal;
+    line-height: 12px;
+    margin-right: 10px;
+  }
+
+  .opponentPercent {
+    color: @away-color;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: Barlow;
+    font-style: normal;
+    line-height: 12px;
+    text-align: right;
+    margin-left: 10px;
+  }
+
+  @media (max-width: @screen-xs) {
+    .homePercent {
+      text-align: center;
+    }
+
+    .opponentPercent {
+      text-align: center;
+    }
+  }
+}
+
+.tipsCard {
+  position: absolute;
+  top: 85px;
+  //left: 50%;
+  //transform: translateX(-50%);
+  padding: 0 12px;
+  //width: 121%;
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.21);
+  border-radius: 16px;
+  .header {
+    display: flex;
+    background-color: #fff;
+    padding: 12px 0 8px 0;
+    align-items: center;
+    border-bottom: 1px solid rgba(141, 141, 141, .25);
+    .logo {
+      width: 22px;
+      height: 22px;
+    }
+    .name {
+      font-size: 12px;
+      color: #333;
+      line-height: 16px;
+      margin-left: 5px;
+      max-width: 52px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .value {
+      font-size: 12px;
+      font-weight: 500;
+      color: #D80000;
+      line-height: 15px;
+      margin-left: 10px;
+      font-style: italic;
+    }
+    .confidence {
+      margin-left: auto;
+    }
+    .rate {
+      display: flex;
+      margin-left: 7px;
+    }
+  }
+  .body {
+    padding-bottom: 12px;
+    .barChartTitle {
+      font-size: 12px;
+      color: #666;
+      line-height: 17px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .barChartInfo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .info {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        &.home .num {
+          color: #39906A;
+        }
+        &.away .num {
+          color: #F00;
+        }
+        span {
+          color: #6B6B6B;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+}
+
+.card {
+  display: inline-block;
+  width: 32%;
+  height: 210px;
+  padding: 12px 8px;
+  background: #fafafa;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+
+  .cardContainer {
+    width: 100%;
+    height: 100%;
+
+    .headContainer {
+      width: 100%;
+      height: 28px;
+      border-bottom: 1px solid #ddd;
+
+      .icon {
+        color: #fff;
+        font-size: 18px;
+      }
+
+      .icon:hover {
+        :global(.hoverSVG) {
+          stroke: @primary-color;
+        }
+      }
+
+      .iconDisabled {
+        color: #fff;
+        font-size: 18px;
+      }
+
+      .matchLogo {
+        width: 16px;
+        height: 16px;
+      }
+
+      .match {
+        position: relative;
+        z-index: 9;
+        overflow: hidden;
+        color: #999;
+        font-size: 10px;
+        font-family: 'PingFang SC Normal';
+        line-height: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+      }
+
+      .match:hover {
+        overflow: visible;
+
+        .matchName {
+          background: rgb(255, 255, 255);
+          border: rgb(105, 105, 105) solid 1px;
+        }
+      }
+    }
+
+    .logoContainer {
+      height: 66px;
+      margin-top: 8px;
+
+      .dateContainer {
+        margin-top: 20px;
+        color: #000;
+        font-size: 10px;
+        font-family: 'PingFang SC Normal';
+        line-height: 14px;
+        opacity: 0.5;
+        mix-blend-mode: normal;
+
+        .dateText {
+          width: 100%;
+          text-align: center;
+        }
+
+        .score {
+          color: #6b6b6b;
+          font-weight: bold;
+          font-size: 12px;
+          font-family: Barlow;
+          font-style: normal;
+          line-height: 15px;
+          text-align: center;
+        }
+      }
+
+      .logoBox {
+        text-align: center;
+        position: relative;
+
+        .lightTip {
+          position: absolute;
+          top: -9px;
+          right: 6px;
+          width: 28px;
+          height: 28px;
+          &.away {
+            right: unset;
+            left: 6px;
+          }
+        }
+
+        .logo {
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          margin: 8px 0;
+        }
+
+        .logoText {
+          color: #333;
+          font-size: 12px;
+          font-family: 'PingFang SC Normal';
+          line-height: 16px;
+          white-space: nowrap;
+          text-align: center;
+          text-overflow: ellipsis;
+          word-break: break-all;
+          overflow: hidden;
+        }
+
+        .logoText:hover {
+          position: relative;
+          z-index: 3;
+          overflow: visible;
+
+          .logoInnerText {
+            background: #fafafa;
+            border: rgb(200, 200, 200) solid 1px;
+          }
+        }
+      }
+    }
+
+    .videoContainer {
+      height: 14px;
+      justify-content: center;
+
+      .videoIcon {
+        width: 12px;
+        height: 12px;
+        margin: 1px 0;
+      }
+
+      .videoText {
+        padding-left: 4px;
+        line-height: 16px;
+        font-family: 'PingFang SC normal';
+        font-size: 12px;
+        color: #EA8384;
+      }
+
+      .playback {
+        color: #A30B0B;
+      }
+
+      .hasVideo {
+        color: #D80000;
+      }
+
+      .noVideo {
+        color: #EA8384;
+      }
+    }
+
+
+
+    .cardContainer {
+      margin: 12px -2px 0 -2px;
+
+      .handicap {
+        height: 30px;
+        padding: 2px;
+        font-weight: bold;
+        font-size: 12px;
+        font-family: Barlow;
+        font-style: normal;
+        line-height: 30px;
+        text-align: center;
+
+        .home {
+          color: @home-color;
+          background: #fff;
+          border-radius: 4px;
+        }
+
+        .draw {
+          color: @draw-color;
+          background: #fff;
+          border-radius: 4px;
+        }
+
+        .away {
+          color: @away-color;
+          background: #fff;
+          border-radius: 4px;
+        }
+
+        .voted {
+          background: #D3E5DD;
+          cursor: no-drop;
+        }
+
+        .notvoted {
+          background: #F3F3F3;
+          cursor: no-drop;
+        }
+
+        .abled {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-xs) {
+  .card {
+    width: 100%;
+  }
+}
+
+.card {
+  margin-left: 2%;
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.card:hover {
+  background: #fafafa;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}

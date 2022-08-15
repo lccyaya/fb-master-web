@@ -1,0 +1,96 @@
+.container{
+    // 92 是全局以前的固定高度  46 是赛程赛单的高度
+    height: calc(100vh - 92PX - 46px); 
+    // height: 400px;
+    background-color: #FAFAFA;
+    // 44 是搜索功能的高度
+    &.has_search{
+        height: calc(100vh - 92PX - 46px - 44px);
+    }
+    :global{
+        .ant-spin-nested-loading{
+            height: 100%;
+            // height: calc(100vh - 44px);
+            // min-height: 50vh;
+            .ant-spin-container{
+                height: 100%;
+            }
+        }
+    }
+}
+.menu{
+    position: relative;
+    z-index: 1;
+    // padding-right: 70px;
+}
+.menu_right{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    height: 44px;
+    padding-right: 8px;
+    align-items: center;
+    background-color: #fff;
+    // background: linear-gradient(to right,  rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 20%, #fff);
+    justify-content: center;
+    &::before{
+        position: absolute;
+        top: 0;
+        left: -30px;
+        width: 30px;
+        height: 44px;
+        background: linear-gradient(to right,  rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 20%, #fff);
+        content: '';
+    }
+    
+    .icon{
+        position: relative;
+        padding: 0 8px;
+        color: #999;
+        background-color: #fff;
+        &::after{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 1px;
+            height: 18px;
+            margin-top: -9px;
+            background: #EBEBEB;
+            content: '';
+        }
+    }
+    .img{
+        position: relative;
+        height: 16px;
+        padding: 0 8px;
+        background-color: #fff;
+    }
+}
+
+.scroll_view{
+    height: 100%;
+    >div{
+        &:first-child{
+            height: 100%;
+        }
+    }
+}
+.search{
+    display: flex;
+    height: 44px;
+    padding: 0 16px;
+    border-bottom: 1px solid #DEDEDE;
+    background-color: #fff;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .text{
+        padding-left: 16px;
+        color: #999;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+}

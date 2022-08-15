@@ -1,0 +1,224 @@
+@import '~antd/es/style/themes/default.less';
+
+.link {
+  display: inline-block;
+}
+
+.historyTipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .box {
+    position: relative;
+    width: 32%;
+    height: 194px;
+    margin-top: 24px;
+    margin-left: 1.99%;
+    padding: 16px 8px;
+    background: #fafafa;
+
+    .winOrLose {
+      position: absolute;
+      top: 0;
+      right: 12px;
+      min-width: 50px;
+      height: 42px;
+      padding: 0 8px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      background-size: 100% 100%;
+      span {
+        color: #fff;
+        font-size: 18px;
+        font-family: 'Barlow';
+        margin-top: 2px;
+        font-style: italic;
+      }
+    }
+
+    .tips {
+      width: 100%;
+      height: 72px;
+
+      .nameContainer {
+        .logoContainer {
+          width: 72px;
+          height: 32px;
+          margin: 4px 0;
+          text-align: center;
+
+          .logo {
+            width: 32px;
+            height: 32px;
+            vertical-align: top;
+          }
+        }
+
+        .name {
+          width: 72px;
+          color: #333;
+          font-size: 12px;
+          font-family: 'PingFang SC Bold';
+          line-height: 18px;
+          text-align: center;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          word-break: break-all;
+          overflow: hidden;
+        }
+
+        .name:hover {
+          position: relative;
+          z-index: 3;
+          overflow: visible;
+
+          .nameText {
+            background: #fafafa;
+            border: rgb(200, 200, 200) solid 1px;
+          }
+        }
+      }
+
+      .info {
+        height: 100%;
+
+        .tipsInfo {
+          width: 100%;
+          height: 32px;
+          border-bottom: 1px solid #ddd;
+
+          .time {
+            color: #666;
+            font-weight: 500;
+            font-size: 10px;
+            font-family: Barlow;
+            font-style: normal;
+            line-height: 24px;
+          }
+
+          .tipsValue {
+            color: #39906a;
+            font-weight: bold;
+            font-size: 10px;
+            font-family: Barlow;
+            font-style: italic;
+            line-height: 24px;
+          }
+
+          .away {
+            color: #d80000;
+          }
+
+          .starNumber {
+            color: #d80000;
+            font-weight: bold;
+            font-size: 10px;
+            font-family: Barlow;
+            font-style: italic;
+            line-height: 20px;
+            text-align: right;
+          }
+
+          .starContainer {
+            width: 100%;
+            height: 24px;
+            padding-left: 4px;
+
+            .star {
+              margin-top: 2px;
+              color: #d80000;
+              font-size: 10px;
+              vertical-align: top;
+
+              :global(.ant-rate-star:not(:last-child)) {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+
+        .matchInfo {
+          width: 100%;
+          height: 26px;
+
+          .vs {
+            margin-top: 8px;
+            color: #000;
+            font-size: 10px;
+            font-family: 'PingFang SC Bold';
+            line-height: 18px;
+            opacity: 0.3;
+            mix-blend-mode: normal;
+          }
+
+          .opponent {
+            margin-top: 8px;
+            color: #333;
+            font-size: 12px;
+            font-family: 'PingFang SC Bold';
+            line-height: 18px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            overflow: hidden;
+          }
+
+          .opponent:hover {
+            position: relative;
+            z-index: 3;
+            overflow: visible;
+
+            .opponentText {
+              background: #fafafa;
+              border: rgb(200, 200, 200) solid 1px;
+            }
+          }
+
+          .match {
+            padding-left: 12px;
+            margin-top: 8px;
+            color: #666;
+            font-size: 10px;
+            font-family: 'PingFang SC Normal';
+            line-height: 18px;
+            text-align: right;
+            mix-blend-mode: normal;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            overflow: hidden;
+          }
+
+          .match:hover {
+            position: relative;
+            z-index: 3;
+            overflow: visible;
+
+            .matchText {
+              background: #fafafa;
+              border: rgb(200, 200, 200) solid 1px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .box:nth-child(3n + 1) {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .historyTipsContainer {
+    display: block;
+
+    .box {
+      width: 100%;
+      margin-left: 0;
+      border-radius: 8px;
+    }
+  }
+}

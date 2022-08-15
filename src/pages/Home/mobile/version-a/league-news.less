@@ -1,0 +1,66 @@
+.leagueNews {
+  padding: 16px 0;
+}
+
+.wrapper {
+  padding: 0 16px;
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .container {
+    min-height: 100vw;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 62px;
+    padding-bottom: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    /*
+     * fix canvas overflow bug for safari
+     * see https://stackoverflow.com/questions/10616668/how-to-hide-canvas-content-from-parent-rounded-corners-in-any-webkit-for-mac
+    */
+    transform: translate3d(0,0,0);
+    .canvas {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 73.06vw;
+      height: 77.6vw;
+    }
+    .logo {
+      width: 90px;
+      height: 90px;
+      position: absolute;
+      top: 10px;
+      left: 0;
+      &.small {
+        top: 14px;
+        left: 12px;
+        width: 34px;
+        height: 34px;
+      }
+    }
+    .name {
+      position: absolute;
+      top: 20px;
+      right: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      font-style: italic;
+      color: #FFF;
+      line-height: 22px;
+    }
+    .list {
+      border-radius: 8px;
+      position: relative;
+      z-index: 1;
+      padding: 0 6px;
+      .listWrapper {
+        border-radius: 8px;
+        padding: 0 8px;
+        background-color: #fff;
+      }
+    }
+  }
+}

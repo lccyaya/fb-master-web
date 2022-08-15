@@ -1,0 +1,138 @@
+.liveContainer {
+  width: 100%;
+  background: white;
+
+  .channel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      color: #46494c;
+      font-weight: bold;
+      font-size: 24px;
+      font-family: Barlow;
+      font-style: italic;
+      line-height: 32px;
+    }
+
+    .change {
+      border-radius: 32px;
+    }
+  }
+
+  .video {
+    margin-top: 16px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+
+    .videoHead {
+      width: 100%;
+      height: 92px;
+      background: #FAFAFA;
+
+      .competitionCon {
+        height: 44px;
+        padding: 12px;
+
+        .competition {
+          font-family: 'PingFang SC Normal';
+          font-size: 12px;
+          line-height: 20px;
+          color: #999;
+        }
+      }
+
+      .infoCon {
+        margin-bottom: 16px;
+        line-height: 32px;
+        height: 32px;
+
+        .homeTeam {
+          font-family: 'PingFang SC Normal';
+          font-size: 12px;
+          line-height: 32px;
+          text-align: right;
+          color: #333;
+          white-space: nowrap;
+          text-align: center;
+          text-overflow: ellipsis;
+          word-break: break-all;
+          overflow: hidden;
+          padding-left: 12px;
+        }
+
+        // .homeTeam:hover {
+        //   position: relative;
+        //   z-index: 3;
+        //   overflow: visible;
+
+        //   .homeTeamText {
+        //     background: #fafafa;
+        //     border: rgb(200, 200, 200) solid 1px;
+        //   }
+        // }
+
+        .logoCon {
+          text-align: center;
+
+          .logo {
+            width: 28px;
+            height: 28px;
+          }
+        }
+
+        .time {
+          font-family: 'PingFang SC Normal';
+          font-size: 12px;
+          line-height: 16px;
+          text-align: center;
+          color: #999;
+        }
+
+        .awayTeam {
+          font-family: 'PingFang SC Normal';
+          font-size: 12px;
+          line-height: 32px;
+          color: #333;
+          white-space: nowrap;
+          text-align: center;
+          text-overflow: ellipsis;
+          word-break: break-all;
+          overflow: hidden;
+          padding-right: 12px;
+        }
+
+        // .awayTeam:hover {
+        //   position: relative;
+        //   z-index: 3;
+        //   overflow: visible;
+
+        //   .awayTeamText {
+        //     background: #fafafa;
+        //     border: rgb(200, 200, 200) solid 1px;
+        //     padding: 2px 8px;
+        //     border-radius: 4px;
+        //   }
+        // }
+      }
+    }
+
+    .iframeContainer {
+      width: 100%;
+      height: 0%;
+      padding-bottom: 50%;
+      position: relative;
+
+      .iframe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+
+  // height: 100%;
+}
