@@ -15,7 +15,7 @@ export default function MobileHomeA() {
       {/* <DownloadTip /> */}
       {/* <Highlight /> */}
       <Ad />
-      <HotNews />
+      {/* <HotNews /> */}
       {/* <LeagueNews /> */}
       <HotSchemes />
     </div>

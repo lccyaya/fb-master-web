@@ -351,7 +351,7 @@ export const formatGoldCoin = (val:any) => {
 // 时间格式化
 export const formatDate = (date:any) => {
   if (getLocale() === 'zh-CN') {
-    return moment(date * 1000).format('ddd,YYYY-DD-MM');
+    return moment(date * 1000).format('ddd,YYYY-MM-DD');
   }
   return moment(date * 1000).format('ddd,MM/DD YYYY');
 };

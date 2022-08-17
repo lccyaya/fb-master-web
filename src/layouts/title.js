@@ -12,9 +12,9 @@ export default {
     desc: 'Watch Soccer Football Live Stream on TV | Playbacks | News, Scores Tables, Updates, Tips Here! EPL, SPA La Liga, UEFA, FIFA in your desired language',
   },
   'zh.home': {
-    title: 'Best Free Livestream Soccer TV App | Live Football Score',
+    title: '34体育',
     keywords: '',
-    desc: 'Watch Soccer Football Live Stream on TV | Playbacks | News, Scores Tables, Updates, Tips Here! EPL, SPA La Liga, UEFA, FIFA in your desired language',
+    desc: '34体育',
   },
   'ar.home': {
     title: 'Best Free Livestream Soccer TV App | Live Football Score',
@@ -64,9 +64,9 @@ export default {
     desc: 'Get The Latest News Updates On Soccer Football News, Transfers, Rumors, Gossip | EPL, SPA La Liga, UEFA, FIFA in EN-CN-THAI Language',
   },
   'zh.news': {
-    title: 'Live Soccer Tv App | Latest Football Transfer | News Today !',
+    title: '34体育',
     keywords: '',
-    desc: 'Get The Latest News Updates On Soccer Football News, Transfers, Rumors, Gossip | EPL, SPA La Liga, UEFA, FIFA in EN-CN-THAI Language',
+    desc: '34体育',
   },
   'ar.news': {
     title: 'Live Soccer Tv App | Latest Football Transfer | News Today !',
@@ -126,9 +126,9 @@ export default {
     desc: 'Missed the live stream of your favorite football team on TV? Live Soccer Scores & Watch Matches Playback Here for Free! EPL | SPA La Liga & ETC',
   },
   'zh.live': {
-    title: 'Live Soccer Tv App | Best Free Live Football Stream On Tv HD',
+    title: '34体育',
     keywords: '',
-    desc: 'Missed the live stream of your favorite football team on TV? Live Soccer Scores & Watch Matches Playback Here for Free! EPL | SPA La Liga & ETC',
+    desc: '34体育',
   },
   'ar.live': {
     title: 'Live Soccer Tv App | Best Free Live Football Stream On Tv HD',
@@ -177,9 +177,9 @@ export default {
     desc: 'Missed the live stream of your favorite football team on TV? Live Soccer Scores & Watch Matches Playback Here for Free! EPL | SPA La Liga & ETC',
   },
   'zh.match': {
-    title: 'Watch Playback Matches | Live Soccer Score Results',
+    title: '34体育',
     keywords: '',
-    desc: 'Missed the live stream of your favorite football team on TV? Live Soccer Scores & Watch Matches Playback Here for Free! EPL | SPA La Liga & ETC',
+    desc: '34体育',
   },
   'ar.match': {
     title: 'Watch Playback Matches | Live Soccer Score Results',
@@ -239,9 +239,9 @@ export default {
     desc: 'Get The Latest News Updates On Soccer Football News, Transfers, Rumors, Gossip | EPL, SPA La Liga, UEFA, FIFA in EN-CN-THAI Language',
   },
   'zh.info': {
-    title: 'Live Soccer Tv App | Latest Football Transfer | News Today !',
+    title: '34体育',
     keywords: '',
-    desc: 'Get The Latest News Updates On Soccer Football News, Transfers, Rumors, Gossip | EPL, SPA La Liga, UEFA, FIFA in EN-CN-THAI Language',
+    desc: '34体育',
   },
   'ar.info': {
     title: 'Live Soccer Tv App | Latest Football Transfer | News Today !',

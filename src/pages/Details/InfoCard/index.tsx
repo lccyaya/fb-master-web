@@ -57,7 +57,7 @@ export default (props: {
   const status = getMatchStatus(match.status);
   const showScore = status !== MatchStatus.Before && status !== MatchStatus.TBD;
   const final = match.final_scores;
-  const time = moment(new Date(match.match_time * 1000)).format('DD-MM HH:mm');
+  const time = moment(new Date(match.match_time * 1000)).format('MM-DD HH:mm');
   const { round } = match;
   let nameSuffix = '';
 
