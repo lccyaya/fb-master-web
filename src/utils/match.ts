@@ -37,6 +37,38 @@ export const getMatchStatus = (code: number): MatchStatus => {
   }
 };
 
+export const getMatchStatusDes = (code: number): String => {
+  if (code === 0) {
+    return "异常";
+  } else if (code === 1) {
+    return "未开赛";
+  } else if (code === 2) {
+    return "上半场";
+  } else if (code === 3) {
+    return "中场";
+  } else if (code === 4) {
+    return "下半场";
+  } else if (code === 5) {
+    return "加时赛";
+  } else if (code === 7) {
+    return "点球决战";
+  } else if (code === 8) {
+    return "完场";
+  } else if (code === 9) {
+    return "推迟";
+  } else if (code === 10) {
+    return "中断";
+  } else if (code === 11) {
+    return "腰斩";
+  } else if (code === 12) {
+    return "取消";
+  } else if (code === 13) {
+    return "待定";
+  } else {
+    return "异常";
+  }
+}
+
 export const getScore = (scores: number[]) => {
   if (scores && scores.length >= 7) {
     // 0:"比分(常规时间) - int" 1:"半场比分 - int" 2:"红牌 - int" 3:"黄牌 - int" 4:"角球，-1表示没有角球数据 - int" 5:"加时比分(120分钟，即包括常规时间比分)，加时赛才有 - int" 6:"点球大战比分(不包含常规时间及加时赛比分)，点球大战才有 - int"

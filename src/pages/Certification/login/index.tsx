@@ -230,11 +230,11 @@ const Login: React.FC<LoginProps> = (props) => {
         ]}
       />
 
-      <div className={styles.actions}>
+      {/* <div className={styles.actions}> */}
         {/* <ProFormCheckbox noStyle name="autoLogin">
     <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
   </ProFormCheckbox> */}
-        <div />
+        {/* <div />
         <a
           onClick={() => {
             onForgetPassword({ channel, ...formValues });
@@ -242,7 +242,7 @@ const Login: React.FC<LoginProps> = (props) => {
         >
           <FormattedMessage id="key_forgot_password" />
         </a>
-      </div>
+      </div> */}
     </ProForm>
   );
   const PhoneForm = (
@@ -373,14 +373,14 @@ const Login: React.FC<LoginProps> = (props) => {
           });
         }}
       >
-        {/* <TabPane
+        <TabPane
           tab={intl.formatMessage({
             id: 'key_email_tab',
           })}
           key="email"
         >
           {EmailForm}
-        </TabPane> */}
+        </TabPane>
         <TabPane
           tab={intl.formatMessage({
             id: 'key_phone_tab',

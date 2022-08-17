@@ -208,9 +208,9 @@ const Details: React.FC<DetailProps> = (props) => {
   return (
     <Spin spinning={loading}>
       <div className={styles.main}>
-        {checkIsPhone() && (
+        {/* {checkIsPhone() && (
           <CallAppModal title={useIntl().formatMessage({ id: 'key_watch_in_app' })} />
-        )}
+        )} */}
         <InfoCard
           match={data}
           reportCate={REPORT_CATE.match_detail}

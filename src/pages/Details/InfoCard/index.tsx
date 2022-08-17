@@ -2,7 +2,7 @@ import styles from './index.less';
 import type * as matchService from '@/services/match';
 import moment from 'moment';
 import emptyLogo from '@/assets/emptyLogo.png';
-import { getMatchStatus, MatchStatus } from '@/utils/match';
+import { getMatchStatus, getMatchStatusDes, MatchStatus } from '@/utils/match';
 import { useRef, useState } from 'react';
 import { Link, useIntl } from 'umi';
 import * as homeService from '@/services/home';
@@ -57,7 +57,7 @@ export default (props: {
   const status = getMatchStatus(match.status);
   const showScore = status !== MatchStatus.Before && status !== MatchStatus.TBD;
   const final = match.final_scores;
-  const time = moment(new Date(match.match_time * 1000)).format('DD/MM HH:mm');
+  const time = moment(new Date(match.match_time * 1000)).format('DD-MM HH:mm');
   const { round } = match;
   let nameSuffix = '';
 
@@ -144,8 +144,8 @@ export default (props: {
           {final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : ''}
           {!final.has_ot && !final.has_penalty ? (
             <>
-              {status === MatchStatus.Complete && 'FT'}
-              {status === MatchStatus.TBD && 'TBD'}
+              {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
+              {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
               {(status === MatchStatus.Before || status === MatchStatus.Going) && (
                 <div className={styles.progress}>
                   {status === MatchStatus.Before
@@ -162,8 +162,8 @@ export default (props: {
         <div className={styles.name}>{match.competition_name}</div>
         <div className={styles.time}>{time}</div>
         <div className={styles.progress}>
-          {status === MatchStatus.Complete && 'FT'}
-          {status === MatchStatus.TBD && 'TBD'}
+          {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
+          {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
           {(status === MatchStatus.Before || status === MatchStatus.Going) && (
             <>
               {status === MatchStatus.Before

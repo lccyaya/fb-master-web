@@ -71,7 +71,7 @@ export async function getTipHistoryData() {
 }
 
 export async function getMajorData() {
-  const result = await externalRequest('/api/match/major', {
+  const result = await request('/api/match/major', {
     method: 'GET',
   });
   return normalizeResponse<majorMatch>(result);

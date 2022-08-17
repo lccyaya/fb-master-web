@@ -8,6 +8,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { getPageFromPath, pageRegex } from '@/utils/page-info';
 import { report } from '@/services/ad';
 import { TabBar } from 'antd-mobile';
+import IconFont from '@/components/IconFont';
 
 const { TabPane } = Tabs;
 
@@ -19,6 +20,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       pathRegex: pageRegex.get('home'),
       path: '/home',
       locale: 'key_home_tab',
+      icon: (active: boolean) => <IconFont type={active ? "icon-shouye-dianji" : "icon-shouye"} size={22}/>,
     },
     // {
     //   key: 'news',
@@ -43,6 +45,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       pathRegex: pageRegex.get('match'),
       path: '/match',
       locale: 'key_match',
+      icon: (active: boolean) => <IconFont type={active ? "icon-saizhi-dianji" : "icon-saizhi"} size={22}/>,
     },
     // {
     //   key: 'views_match',
@@ -61,6 +64,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       pathRegex: pageRegex.get('expert'),
       path: '/expert',
       locale: 'key_expert',
+      icon: (active: boolean) => <IconFont type={active ? "icon-zhuanjia-dianji" : "icon-zhuanjia"} size={22}/>,
     },
     // {
     //   key: 'info',
@@ -134,7 +138,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
           </Tabs> */}
           <TabBar activeKey={curKey} onChange={handleTabClick}>
             {navs.map(item => (
-              <TabBar.Item key={item.key} title={formatMsg({ id: item.locale })} />
+              <TabBar.Item key={item.key} title={formatMsg({ id: item.locale })} icon={item.icon}/>
             ))}
           </TabBar>
         </div>
