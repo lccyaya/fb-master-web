@@ -47,7 +47,7 @@ const ExpertRank = ({ currentUser = {} }) => {
         activeKey={curKey}
         className={styles.navTab}
         onTabClick={handleTabClick}
-        style={{ position: 'sticky', top: '92px' }}
+        style={{ position: 'sticky', top: '0px' }}
       >
         {navs.map((n) => (
           <TabPane tab={n.title} key={n.key} />

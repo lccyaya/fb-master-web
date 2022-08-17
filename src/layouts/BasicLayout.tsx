@@ -249,7 +249,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         </div>
       ) : (
         <>
-          {checkCurrentIsPhone && <OpenApp />}
+          {/* {checkCurrentIsPhone && <OpenApp />} */}
           <ProLayout
             logo={() => (
               <img
@@ -340,7 +340,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
                 children
               )}
             </Authorized>
-            <ADPopup pathname={pathname} />
+            {/* <ADPopup pathname={pathname} /> */}
             {checkCurrentIsPhone ? <FixedBtnsMobile /> : null}
             {!checkCurrentIsPhone ? <FixedBtns /> : null}
             <LoginModal

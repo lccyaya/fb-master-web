@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request, { externalRequest } from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 import type { matchType } from '@/services/matchPage';
 
@@ -71,7 +71,7 @@ export async function getTipHistoryData() {
 }
 
 export async function getMajorData() {
-  const result = await request('/api/match/major', {
+  const result = await externalRequest('/api/match/major', {
     method: 'GET',
   });
   return normalizeResponse<majorMatch>(result);

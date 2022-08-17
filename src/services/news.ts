@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request, { externalRequest } from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 
 export type FetchNewsListParams = {
@@ -84,12 +84,12 @@ export async function fetchLatestInfo(params?: {
   page: number;
   size: number;
 }) {
-  const result = await request('/api/home/news/latest', { params });
+  const result = await externalRequest('/api/home/news/latest', { params });
   return normalizeResponse<TopInfo[]>(result);
 }
 
 export async function fetchTopInfo() {
-  const result = await request('/api/home/hot-info');
+  const result = await externalRequest('/api/home/hot-info');
   return normalizeResponse<TopInfo[]>(result);
 }
 
@@ -120,7 +120,7 @@ export async function visitNews(id: number) {
 }
 
 export async function getNews(id: number) {
-  const result = await request('/api/news/detail', { params: { id } });
+  const result = await externalRequest('/api/news/detail', { params: { id } });
   return normalizeResponse<News>(result);
 }
 

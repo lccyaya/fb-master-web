@@ -329,7 +329,7 @@ const Login: React.FC<LoginProps> = (props) => {
         />
       ) : null}
 
-      <div className={styles.actions}>
+      {/* <div className={styles.actions}>
         <div
           className={styles.switch}
           onClick={() => {
@@ -358,7 +358,7 @@ const Login: React.FC<LoginProps> = (props) => {
             <FormattedMessage id="key_forgot_password" />
           </a>
         ) : null}
-      </div>
+      </div> */}
     </ProForm>
   );
   return (
@@ -373,14 +373,14 @@ const Login: React.FC<LoginProps> = (props) => {
           });
         }}
       >
-        <TabPane
+        {/* <TabPane
           tab={intl.formatMessage({
             id: 'key_email_tab',
           })}
           key="email"
         >
           {EmailForm}
-        </TabPane>
+        </TabPane> */}
         <TabPane
           tab={intl.formatMessage({
             id: 'key_phone_tab',

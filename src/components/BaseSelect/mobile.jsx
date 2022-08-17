@@ -26,7 +26,7 @@ export default function BaseSelect({ data = [], activeKey, onChange = () => {} }
   );
 
   return (
-    <div className={styles.select_wrap} style={{ position: 'sticky', top: '92px' }}>
+    <div className={styles.select_wrap} style={{ position: 'sticky', top: '0px' }}>
       <div className={styles.select_box}>
         {data.map((item) => {
           return (

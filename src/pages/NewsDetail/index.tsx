@@ -182,16 +182,16 @@ function NewsDetail(props: {}) {
         ) : null}
       </Row>
 
-      {!isExternal && (
+      {/* {!isExternal && (
         <BottomCommentList
           commentCount={commentCount}
           newsId={id}
           isMobile={isMobile}
           onAddComment={() => setCommentCount((p) => p + 1)}
         />
-      )}
+      )} */}
 
-      {!isExternal && (
+      {/* {!isExternal && (
         <div className={styles.mobile}>
           <List
             className={styles.hotListWrapper}
@@ -202,7 +202,7 @@ function NewsDetail(props: {}) {
             <div className={styles.hotList}>{more}</div>
           </List>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

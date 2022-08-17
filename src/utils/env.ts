@@ -11,14 +11,22 @@ export function isTest() {
 }
 
 export function getAPIHost() {
+  // return '//api.football-master.net';
   return '//api.34.com';
 }
 
 export function getFeedbackAPIHost() {
+  // return '//feedback.football-master.net';
   return '//feedback.34.com';
 }
 
 export function getLangAPIHost() {
+  // return '//language.football-master.net';
   return '//language.34.com';
+}
+
+export function getExternalAPIHost() {
+  return '//api.football-master.net';
+  // return '//language.34.com';
 }
 

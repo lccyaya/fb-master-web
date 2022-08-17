@@ -3,7 +3,7 @@ import type { RequestMethod } from 'umi-request';
 import { extend } from 'umi-request';
 
 import { FOOTBALL_MASTER_TOKEN } from '@/constants';
-import { getAPIHost, isServer, getFeedbackAPIHost, getLangAPIHost } from '@/utils/env';
+import { getAPIHost, isServer, getFeedbackAPIHost, getLangAPIHost, getExternalAPIHost } from '@/utils/env';
 import { checkIsPhone, isForChina } from '@/utils/utils';
 import { locale } from '@/app';
 import { timeStorageGet, timeStorageRemove } from '@/utils/timestorage';
@@ -115,4 +115,11 @@ export const langRequest = async (...args: any[]) => {
   // @ts-ignore
   return request(...args);
 }
+
+export const externalRequest = (async (...args: any[]) => {
+  const request = await createClient(getExternalAPIHost(), isForChina() ? { "x-project": "1" } : {})
+  // @ts-ignore
+  return request(...args);
+}) as RequestMethod<false>
+
 

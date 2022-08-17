@@ -68,12 +68,12 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     //   path: '/info',
     //   locale: 'key_info_tab',
     // },
-    {
-      key: 'download',
-      pathRegex: pageRegex.get('download'),
-      path: '/download',
-      locale: 'key_download',
-    },
+    // {
+    //   key: 'download',
+    //   pathRegex: pageRegex.get('download'),
+    //   path: '/download',
+    //   locale: 'key_download',
+    // },
   ];
   const navs = useMemo(() => {
     if (isForChina()) {

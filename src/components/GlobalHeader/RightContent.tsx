@@ -107,7 +107,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
             <FormattedMessage id="key_log_in" />
           </Button>
 
-          {!isPhone ? (
+          {/* {!isPhone ? (
             <Button
               className={styles.signUp}
               type="primary"
@@ -122,7 +122,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
               <div className={styles.icon} />
               <div className={styles.text}>APP</div>
             </Button>
-          ) : null}
+          ) : null} */}
         </Space>
       )}
       <Certification
