@@ -247,7 +247,7 @@ const Live: React.FC<IProps> = (props) => {
         }}
       />
       <div className={classnames(styles.main, canPlayLiveMatches.length === 1 ? styles.min : null)}>
-        <Row className={styles.switchRow}>
+        {/* <Row className={styles.switchRow}>
           <Button
             className={styles.switchButton}
             icon={<SwapOutlined />}
@@ -257,7 +257,7 @@ const Live: React.FC<IProps> = (props) => {
           >
             <FormattedMessage id={switchType === 'Score' ? 'key_index' : 'key_score'} />
           </Button>
-        </Row>
+        </Row> */}
         <Row className={classnames(isPhone ? styles.phone : '')}>
           {showLiveVideo && (
             <MatchLive
