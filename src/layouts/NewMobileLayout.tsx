@@ -20,7 +20,9 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       pathRegex: pageRegex.get('home'),
       path: '/home',
       locale: 'key_home_tab',
-      icon: (active: boolean) => <IconFont type={active ? "icon-shouye-dianji" : "icon-shouye"} size={22}/>,
+      icon: (active: boolean) => (
+        <IconFont type={active ? 'icon-shouye-dianji' : 'icon-shouye'} size={22} />
+      ),
     },
     // {
     //   key: 'news',
@@ -34,18 +36,23 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     //   path: '/highlight',
     //   locale: 'key_highlight',
     // },
-    // {
-    //   key: 'live',
-    //   pathRegex: pageRegex.get('live'),
-    //   path: '/live',
-    //   locale: 'key_live',
-    // },
+    {
+      key: 'live',
+      pathRegex: pageRegex.get('live'),
+      path: '/live',
+      locale: 'key_spot',
+      icon: (active: boolean) => (
+        <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
+      ),
+    },
     {
       key: 'match',
       pathRegex: pageRegex.get('match'),
       path: '/match',
       locale: 'key_match',
-      icon: (active: boolean) => <IconFont type={active ? "icon-saizhi-dianji" : "icon-saizhi"} size={22}/>,
+      icon: (active: boolean) => (
+        <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
+      ),
     },
     // {
     //   key: 'views_match',
@@ -64,7 +71,9 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       pathRegex: pageRegex.get('expert'),
       path: '/expert',
       locale: 'key_expert',
-      icon: (active: boolean) => <IconFont type={active ? "icon-zhuanjia-dianji" : "icon-zhuanjia"} size={22}/>,
+      icon: (active: boolean) => (
+        <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />
+      ),
     },
     // {
     //   key: 'info',
@@ -126,19 +135,16 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
   if (Boolean(curKey)) {
     return (
       <div className={styles.navTabWrapperBox}>
-        
-        <div className={styles.navTabWrapperChildren}>
-          {props.children}
-        </div>
+        <div className={styles.navTabWrapperChildren}>{props.children}</div>
         <div className={styles.navTabWrapper}>
-          {/* <Tabs activeKey={curKey} className={styles.navTab} onTabClick={handleTabClick}>
+        {/* <Tabs activeKey={curKey} className={styles.navTab} onTabClick={handleTabClick}>
             {navs.map((n) => (
               <TabPane tab={formatMsg({ id: n.locale })} key={n.key} />
             ))}
           </Tabs> */}
           <TabBar activeKey={curKey} onChange={handleTabClick}>
-            {navs.map(item => (
-              <TabBar.Item key={item.key} title={formatMsg({ id: item.locale })} icon={item.icon}/>
+            {navs.map((item) => (
+              <TabBar.Item key={item.key} title={formatMsg({ id: item.locale })} icon={item.icon} />
             ))}
           </TabBar>
         </div>

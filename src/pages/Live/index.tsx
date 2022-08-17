@@ -236,7 +236,7 @@ const Live: React.FC<IProps> = (props) => {
   console.log(liveList, '**', matchList, '&&&&')
   return (
     <Spin spinning={loading}>
-      {checkIsPhone() && <CallAppModal title={intl.formatMessage({ id: 'key_watch_in_app' })} />}
+      {/* {checkIsPhone() && <CallAppModal title={intl.formatMessage({ id: 'key_watch_in_app' })} />} */}
       <LoginModal
         visible={loginVisible}
         onLogin={() => {
