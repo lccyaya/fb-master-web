@@ -10,11 +10,12 @@ import HotSchemes from './hot-schemes';
 export default function MobileHomeA() {
   return (
     <div>
-      <TopRecommend />
+      <Ad />
+      {/* <TopRecommend /> */}
       <MajorMatch />
       {/* <DownloadTip /> */}
       {/* <Highlight /> */}
-      <Ad />
+      
       {/* <HotNews /> */}
       {/* <LeagueNews /> */}
       <HotSchemes />

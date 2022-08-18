@@ -415,7 +415,8 @@ const Mobile = () => {
         />
         <BottomIcon
           onClick={onBottomClick}
-          icons={[indexData, { type: 'icon-sousuo', color: '#39906A' }]}
+          // icons={[indexData, { type: 'icon-sousuo', color: '#39906A' }]}
+          icons={[{ type: 'icon-sousuo', color: '#39906A' }]}
         />
         {showTopIcon ? (
           <FixedBtns

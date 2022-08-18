@@ -82,7 +82,7 @@ const SelectFunc = (props: any) => {
             icon="icon-bisai"
             title={intl.formatMessage({ id: 'key_league', defaultMessage: 'key_league' })}
           />
-          <BottomIcon onClick={onBottomClick} className={styles.bottom_icon} icons={[icons]} />
+          {/* <BottomIcon onClick={onBottomClick} className={styles.bottom_icon} icons={[icons]} /> */}
         </>
       ) : (
         <>
