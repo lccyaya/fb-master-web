@@ -38,7 +38,12 @@ export const getReportCate = () => {
     return REPORT_CATE.expert;
   } else if (href.includes('scheme')) {
     return REPORT_CATE.scheme_detail
+  } else if (href.includes('live')) {
+    return REPORT_CATE.live
+  } else if (href.includes('match')) {
+    return REPORT_CATE.match
   }
+  
   return REPORT_CATE.home;
 };
 
@@ -353,7 +358,15 @@ export const formatDate = (date:any) => {
   if (getLocale() === 'zh-CN') {
     return moment(date * 1000).format('ddd,YYYY-MM-DD');
   }
-  return moment(date * 1000).format('ddd,MM/DD YYYY');
+  return moment(date * 1000).format('ddd,DD/MM YYYY');
+};
+
+// 时间格式化 
+export const formatDateMMDD = (date:any, extra:string = '') => {
+  if (getLocale() === 'zh-CN') {
+    return moment(date * 1000).format('MM-DD' + extra);
+  }
+  return moment(date * 1000).format('DD/MM' + extra);
 };
 
 // 时间格式化
@@ -387,4 +400,15 @@ export const getTheSame = (Aarr:any, Barr:any) => {
       }
   }
   return result;
+}
+
+// 是否在里面 兼容大小写
+export const includes = (val:string, keyword: string) => {
+  try {
+    val = val.toLocaleUpperCase();
+    keyword = keyword.toLocaleUpperCase();
+    return val.includes(keyword);
+  } catch (error) {
+    return false;
+  }
 }

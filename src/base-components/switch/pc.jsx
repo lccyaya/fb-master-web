@@ -8,7 +8,7 @@ const SwitchCom = ({ title, className, value, onChange = () => {} }) => {
     <div className={cls(styles.switch, className)}>
       <div className={styles.title}>{title}</div>
       <Switch
-        className={cls(styles.button, value ? styles.active : null)}
+        className={cls(styles.button, value === true ? styles.active : null)}
         checked={value}
         onChange={(e) => {
           onChange(e);

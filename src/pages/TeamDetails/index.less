@@ -2,28 +2,28 @@
 
 .headerArea {
   height: 48px;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
 
   .head {
     display: flex;
     justify-content: space-between;
 
     .back {
+      display: flex;
       width: 100px;
       line-height: 48px;
-      display: flex;
       cursor: pointer;
 
       .arrow {
-        font-size: 16px;
         color: @primary-color;
+        font-size: 16px;
         line-height: 48px;
       }
 
       .text {
-        font-family: 'PingFang SC Medium';
-        font-size: 14px;
         margin-left: 8px;
+        font-size: 14px;
+        font-family: 'PingFang SC Medium';
       }
 
       @media screen and (max-width: @screen-sm) {
@@ -36,15 +36,15 @@
     }
 
     .followButton {
-      line-height: 30px;
-      height: 30px;
       width: 80px;
-      border-radius: 4px;
-      font-family: 'PingFang SC Bold';
-      font-size: 14px;
-      line-height: 24px;
+      height: 30px;
       margin-top: 9px;
       margin-right: 24px;
+      font-size: 14px;
+      font-family: 'PingFang SC Bold';
+      line-height: 30px;
+      line-height: 24px;
+      border-radius: 4px;
 
       @media screen and (max-width: @screen-sm) {
         margin-right: 12px;
@@ -61,26 +61,26 @@
     width: 100%;
 
     .left {
-
       .detailCard {
-        background: @primary-color;
         width: 100%;
         height: 138px;
-        border-radius: 8px;
         text-align: center;
+        background: @primary-color;
+        border-radius: 8px;
 
         .logo {
           width: 56px;
           height: 56px;
           margin-top: 24px;
+          object-fit: contain;
         }
 
         .text {
-          font-family: 'PingFang SC Bold';
-          font-size: 18px;
-          line-height: 26px;
-          color: #FFFFFF;
           margin-top: 8px;
+          color: #ffffff;
+          font-size: 18px;
+          font-family: 'PingFang SC Bold';
+          line-height: 26px;
         }
       }
 
@@ -113,36 +113,35 @@
     }
 
     .right {
-
       .title {
-        font-family: 'PingFang SC Bold';
+        color: #333333;
         font-weight: bold;
         font-size: 14px;
+        font-family: 'PingFang SC Bold';
         line-height: 22px;
-        color: #333333;
       }
 
       .info {
         width: 100%;
-        border-radius: 4px;
-        background: #FAFAFA;
         margin: 8px 0 16px 0;
         padding: 10px 16px;
+        background: #fafafa;
+        border-radius: 4px;
 
         .intro {
-          font-family: 'PingFang SC Medium';
-          font-size: 14px;
-          line-height: 22px;
-          color: #999999;
           margin: 6px 0;
+          color: #999999;
+          font-size: 14px;
+          font-family: 'PingFang SC Medium';
+          line-height: 22px;
         }
 
         .text {
-          font-family: 'PingFang SC Medium';
-          font-size: 14px;
-          line-height: 22px;
-          color: #333333;
           margin: 6px 0;
+          color: #333333;
+          font-size: 14px;
+          font-family: 'PingFang SC Medium';
+          line-height: 22px;
           word-wrap: break-word;
         }
       }
@@ -150,12 +149,12 @@
       .footer {
         width: 100%;
         height: 32px;
-        font-family: 'PingFang SC Medium';
-        font-size: 14px;
-        line-height: 22px;
-        border-radius: 4px;
         margin-top: 12px;
         margin-bottom: 24px;
+        font-size: 14px;
+        font-family: 'PingFang SC Medium';
+        line-height: 22px;
+        border-radius: 4px;
       }
     }
   }

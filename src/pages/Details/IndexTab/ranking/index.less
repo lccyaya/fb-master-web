@@ -14,14 +14,14 @@
 
 .mark {
   position: absolute;
-  left: 0;
   top: -21px;
+  left: 0;
   padding: 0 !important;
   border-bottom: none !important;
   opacity: 0;
   @media screen and (max-width: @screen-sm) {
-    left: 6px;
     top: -16px;
+    left: 6px;
     height: 22px;
   }
 }
@@ -32,7 +32,6 @@
 
   .name {
     display: inline-block;
-    border-bottom: none;
     padding: 0 15px;
     color: @font-color-6;
     font-weight: bold;
@@ -40,19 +39,19 @@
     font-family: 'PingFang SC';
     line-height: 32px;
     text-align: center;
-    border-radius: 2px;
-    word-break: break-all;
     word-wrap: normal;
+    word-break: break-all;
+    border-bottom: none;
+    border-radius: 2px;
 
     @media screen and (max-width: @screen-sm) {
-      padding: 0 5px;
-      font-size: 12px;
       width: 100%;
+      padding: 0 5px;
       overflow: hidden;
+      font-size: 12px;
       text-overflow: ellipsis;
     }
   }
-
 }
 
 .company {
@@ -61,7 +60,8 @@
   }
 
   &.smallView {
-    div, span {
+    div,
+    span {
       padding: 0 10px;
       color: #999;
     }
@@ -73,24 +73,19 @@
   &.home,
   &.draw {
     .spot {
-      color: #D80000;
+      color: #d80000;
     }
   }
 
   &.away {
     .spot {
-      color: #39906A;
+      color: #39906a;
     }
   }
 
   div,
   span {
     padding: 0 15px;
-
-    @media screen and (max-width: @screen-sm) {
-      padding: 0 5px;
-      font-size: 12px;
-    }
 
     color: @font-color-6;
     font-weight: bold;
@@ -99,15 +94,20 @@
     line-height: 32px;
     // text-align: center;
     border-radius: 2px;
+
+    @media screen and (max-width: @screen-sm) {
+      padding: 0 5px;
+      font-size: 12px;
+    }
   }
 }
 
 .stats {
   :global(.ant-table-thead > tr > th) {
-    border: 2px #fff solid;
-    background: #fafafa;
     padding: 3px 15px;
     text-align: center;
+    background: #fafafa;
+    border: 2px #fff solid;
 
     @media screen and (max-width: @screen-sm) {
       padding: 3px 5px;
@@ -115,17 +115,17 @@
     }
   }
   &.smallView .title .name {
-    line-height: 24px;
-    text-align: left;
+    width: 100%;
     padding: 0 10px;
     color: #999;
-    width: 100%;
+    line-height: 24px;
+    text-align: left;
   }
   &.smallView :global(.ant-table-thead > tr > th) {
-    text-align: left;
-    border: none;
-    background: #fff;
     padding: 3px 10px;
+    text-align: left;
+    background: #fff;
+    border: none;
     .ant-table-thead > tr > th::before {
       display: none !important;
     }
@@ -135,13 +135,6 @@
   }
 
   :global(.ant-table-tbody > tr > td) {
-    border: 2px #fff solid;
-    background: #fafafa;
-
-    :hover {
-      // background: red;
-    }
-
     padding: 0;
     // padding: 3px 15px;
     color: @font-color-3;
@@ -150,16 +143,22 @@
     font-family: 'PingFang SC';
     line-height: 22px;
     white-space: nowrap;
+    background: #fafafa;
+    border: 2px #fff solid;
+
+    :hover {
+      // background: red;
+    }
 
     @media screen and (max-width: @screen-sm) {
       font-size: 12px;
     }
   }
   &.smallView :global(.ant-table-tbody > tr > td) {
+    color: #999;
     background-color: #fff;
     border: none;
     border-bottom: 1px solid #d8d8d8;
-    color: #999;
   }
   &.smallView :global(.ant-table-tbody > tr:last-child > td) {
     border: none;
@@ -170,12 +169,12 @@
     font-weight: bold;
     font-size: 14px;
 
+    font-family: 'PingFang SC';
+    line-height: 22px;
+
     @media screen and (max-width: @screen-sm) {
       font-size: 12px;
     }
-
-    font-family: 'PingFang SC';
-    line-height: 22px;
   }
 
   .leagueRanking {
@@ -187,13 +186,13 @@
       font-weight: bold;
       font-size: 18px;
       font-family: 'Barlow';
-      line-height: 26px;
       font-style: italic;
+      line-height: 26px;
     }
 
     .logo {
+      width: 22px;
       height: 22px;
-      width: auto;
       margin: auto 12px;
       vertical-align: middle;
     }

@@ -6,27 +6,27 @@
     .date {
       .day,
       .divide {
+        color: #46494c;
+        font-weight: 500;
         font-size: 16px;
         font-family: Barlow-Medium, Barlow;
-        font-weight: 500;
-        color: #46494C;
       }
 
       .month {
+        color: #46494c;
+        font-weight: 500;
         font-size: 16px;
         font-family: Barlow-Medium, Barlow;
-        font-weight: 500;
-        color: #46494C;
       }
     }
 
     .content {
       .matchItem {
+        position: relative;
         margin-top: 12px;
         padding: 6px 12px 9px;
-        background: #FAFAFA;
+        background: #fafafa;
         border-radius: 6px;
-        position: relative;
 
         .header {
           display: flex;
@@ -43,12 +43,12 @@
           }
         }
         .scheme_num {
-          background: #D61E25;
-          border-radius: 4px;
-          font-size: 12px;
-          font-weight: 400;
-          color: #FFF;
           padding: 0 6px;
+          color: #fff;
+          font-weight: 400;
+          font-size: 12px;
+          background: #d61e25;
+          border-radius: 4px;
         }
 
         .vs {
@@ -61,12 +61,12 @@
           line-height: 28px;
         }
         .body {
+          position: relative;
           display: flex;
           align-items: center;
-          margin-top: 10px;
-          width: 100%;
           justify-content: center;
-          position: relative;
+          width: 100%;
+          margin-top: 10px;
         }
         .team_wrap {
           display: flex;
@@ -81,6 +81,7 @@
           .name {
             display: inline-block;
             width: 80px;
+            margin-top: 5px;
             overflow: hidden;
             color: #333;
             font-size: 12px;
@@ -89,14 +90,14 @@
             text-align: center;
             text-overflow: ellipsis;
             word-wrap: break-word;
-            margin-top: 5px;
           }
 
           .logo {
+            display: block;
             width: 28px;
             height: 28px;
             margin: auto 12px;
-            display: block;
+            object-fit: contain;
             border: none;
           }
         }
@@ -104,14 +105,12 @@
           // color: #999;
           // margin-left: 25px;
           position: absolute;
-          right: 12px;
           top: 50%;
-          transform: translateY(-50%);
+          right: 12px;
           color: #999;
+          transform: translateY(-50%);
         }
-        
       }
     }
   }
 }
-

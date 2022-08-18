@@ -114,50 +114,47 @@ const Expert = function ({ currentUser }) {
   };
   return (
     <div className={styles.main}>
-      {rankList.length > 0 ? (
-        <div className={cls(styles.export_wrap, styles.section)}>
-          <img src={FootballImg} alt="" className={styles.football} />
-          <BaseTabs
-            activeKey={rankType}
-            theme="dark"
-            className={styles.base_tab}
-            onClick={() => {
-              handleReport({
-                action: 'expert_ranking',
-                tag: ['continuous', 'hit'][rankType],
-              });
-              const lang = toShortLangCode(locale.getLocale());
-              history.push(`/${lang}/expert/rank?tab=${rankType}`);
-            }}
-            list={[
-              {
-                key: RANKING_TYPE.GLZ,
-                title: '高连中',
-                node: (
-                  <Spin spinning={loading}>
-                    <div className={styles.content}>
-                      {!loading ? <ShortExpertList list={rankList} /> : null}
-                    </div>
-                  </Spin>
-                ),
-              },
-              {
-                key: RANKING_TYPE.GMZ,
-                title: '高命中',
-                node: (
-                  <Spin spinning={loading}>
-                    <div className={styles.content}>
-                      {!loading ? <ShortExpertList list={rankList} type="gmz" /> : null}
-                    </div>
-                  </Spin>
-                ),
-              },
-            ]}
-            onChange={setRankType}
-          />
-        </div>
-      ) : null}
-
+      <div className={cls(styles.export_wrap, styles.section)}>
+        <img src={FootballImg} alt="" className={styles.football} />
+        <BaseTabs
+          activeKey={rankType}
+          theme="dark"
+          className={styles.base_tab}
+          onClick={() => {
+            handleReport({
+              action: 'expert_ranking',
+              tag: ['continuous', 'hit'][rankType],
+            });
+            const lang = toShortLangCode(locale.getLocale());
+            history.push(`/${lang}/expert/rank?tab=${rankType}`);
+          }}
+          list={[
+            {
+              key: RANKING_TYPE.GLZ,
+              title: '高连中',
+              node: (
+                <Spin spinning={loading}>
+                  <div className={styles.content}>
+                    {!loading ? <ShortExpertList list={rankList} /> : null}
+                  </div>
+                </Spin>
+              ),
+            },
+            {
+              key: RANKING_TYPE.GMZ,
+              title: '高命中',
+              node: (
+                <Spin spinning={loading}>
+                  <div className={styles.content}>
+                    {!loading ? <ShortExpertList list={rankList} type="gmz" /> : null}
+                  </div>
+                </Spin>
+              ),
+            },
+          ]}
+          onChange={setRankType}
+        />
+      </div>
       {recommendMatchesList.length > 0 ? (
         <section className={cls(styles.match_wrap, styles.section)}>
           <Title

@@ -1,6 +1,6 @@
 .match_card_box {
   width: 100%;
-  min-height: 90px;
+  min-height: 70px;
   margin: 4px 0;
   background-color: #fff;
   .match_card_header {
@@ -42,7 +42,7 @@
     justify-content: flex-end;
     width: 155px;
     height: 42px;
-    padding: 12px;
+    padding: 12px 8px;
   }
   .match_away {
     justify-content: flex-start;
@@ -50,22 +50,23 @@
   .match_home_name,
   .match_away_name {
     max-width: 89px;
-    padding-right: 0px;
+    padding-right: 0;
     padding-left: 4px;
     font-weight: 600;
   }
   .match_away_name {
     padding-right: 4px;
-    padding-left: 0px;
+    padding-left: 0;
   }
   .match_red_card {
-    min-width: 14px;
+    min-width: 12px;
     height: 16px;
     padding: 0 3px;
     color: #fff;
     font-size: 12px;
     font-family: Barlow-Bold;
     line-height: 16px;
+    text-align: center;
     background-color: #d20004;
     border-radius: 2px;
   }
@@ -73,13 +74,13 @@
   .match_away_logo {
     width: 20px;
     height: 20px;
-    margin-right: 0px;
+    margin-right: 0;
     margin-left: 8px;
     object-fit: contain;
   }
   .match_away_logo {
     margin-right: 8px;
-    margin-left: 0px;
+    margin-left: 0;
   }
   .match_vs {
     display: flex;
@@ -110,7 +111,7 @@
     display: flex;
     justify-content: flex-end;
     width: 155px;
-    padding: 0 12px;
+    padding: 0 12px 0 2px;
   }
   .match_index_header_status {
     display: flex;
@@ -120,6 +121,7 @@
   }
   .match_index_header_tags {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
   }
   .match_index_subscribe {
@@ -145,7 +147,7 @@
     right: 0;
     width: 1px;
     height: 54px;
-    background-color: #dddddd;
+    background-color: #ddd;
     content: '';
   }
   .match_index_body_right {
@@ -197,6 +199,7 @@
 .score_map {
   display: flex;
   width: 100vw;
+  padding-bottom: 10px;
   color: #969ea6;
   font-size: 12px;
   .score_map_left {
@@ -213,27 +216,26 @@
       margin-bottom: 4px;
       padding-right: 23px;
     }
-    .score_map_item::before {
+    .score_map_item_before {
       position: absolute;
       top: 6px;
       right: 16px;
-      width: 4px;
-      height: 4px;
+      width: calc(3px);
+      height: calc(3px);
       background: #c3ccd3;
       border-radius: 50%;
-      content: '';
     }
-    .score_map_item::after {
+    .score_map_item_before::after {
       position: absolute;
-      top: 6px;
-      right: 17.5px;
+      top: 0;
+      right: 50%;
       width: 1px;
       height: 18px;
+      margin-right: -0.5px;
       background: #c3ccd3;
-      border-radius: 50%;
       content: '';
     }
-    .score_map_item:last-child::after {
+    .score_map_item:last-child .score_map_item_before::after {
       display: none;
     }
     .score_map_left_name {
@@ -260,9 +262,7 @@
   .score_map_right {
     display: flex;
     flex-direction: column;
-
     width: 155px;
-    padding-bottom: 8px;
     .score_map_item {
       position: relative;
       display: flex;
@@ -272,29 +272,29 @@
       margin-bottom: 4px;
       padding-left: 23px;
     }
-    .score_map_item::before {
+    .score_map_item_before {
       position: absolute;
       top: 6px;
       left: 16px;
-      width: 4px;
-      height: 4px;
+      width: 3px;
+      height: 3px;
       background: #c3ccd3;
       border-radius: 50%;
-      content: '';
     }
-    .score_map_item::after {
+    .score_map_item_before::after {
       position: absolute;
-      top: 6px;
-      left: 17.5px;
+      top: 0;
+      right: 50%;
       width: 1px;
       height: 18px;
+      margin-right: -0.5px;
       background: #c3ccd3;
-      border-radius: 50%;
       content: '';
     }
-    .score_map_item:last-child::after {
+    .score_map_item:last-child .score_map_item_before::after {
       display: none;
     }
+
     .score_map_right_name {
       width: 102px;
       font-size: 12px;
@@ -312,12 +312,13 @@
 
 .font_size_10 {
   display: -webkit-box;
-  width: 120%;
   overflow: hidden;
+  font-size: 12px;
   text-overflow: ellipsis;
   word-break: break-all;
-  transform: scale(0.87);
   transform-origin: left;
+  // 这边哪怕字体是12px的也可以正常展示,所以可以使用兼容性并不怎么好的zoom属性
+  zoom: 0.83333;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
@@ -328,7 +329,7 @@
   justify-content: center;
   width: 44px;
   height: 16px;
-  color: #999999;
+  color: #999;
   text-align: center;
   border: 1px solid #999;
   border-radius: 8px;

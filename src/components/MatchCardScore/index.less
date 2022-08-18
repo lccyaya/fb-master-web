@@ -3,13 +3,13 @@
 .card {
   width: 100%;
   margin-top: 16px;
+  padding: 6px;
   background: #fafafa;
   border-radius: 8px;
-  padding: 6px;
   &.whiteBg {
+    padding: 0;
     background-color: #fff;
     border-bottom: 1px solid #eee;
-    padding: 0;
     &:hover {
       background-color: #fff;
       box-shadow: none;
@@ -22,7 +22,7 @@
   .row {
     height: 72px;
   }
- 
+
   .competitionCon {
     height: 100%;
     padding: 14px 0 14px 12px;
@@ -32,28 +32,28 @@
     }
 
     .time {
-      font-family: 'PingFang SC normal';
-      font-size: 12px;
-      line-height: 16px;
       color: #999;
+      font-size: 12px;
+      font-family: 'PingFang SC normal';
+      line-height: 16px;
     }
 
     .competition {
-      font-family: 'PingFang SC normal';
-      font-size: 12px;
-      line-height: 16px;
+      overflow: hidden;
       color: #999;
+      font-size: 12px;
+      font-family: 'PingFang SC normal';
+      line-height: 16px;
       white-space: nowrap;
       text-overflow: ellipsis;
       word-break: break-all;
-      overflow: hidden;
     }
   }
   .team_info {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     height: 80px;
     .top_wrap {
       display: flex;
@@ -63,8 +63,8 @@
     }
     .team {
       display: flex;
-      align-items: center;
       flex: 1;
+      align-items: center;
       overflow: hidden;
       &.homeTeam {
         justify-content: flex-end;
@@ -72,14 +72,14 @@
     }
     .teamText {
       height: 100%;
-      font-family: 'PingFang SC normal';
-      font-size: 16px;
+      overflow: hidden;
       color: #333;
-      text-align: center;
+      font-size: 16px;
+      font-family: 'PingFang SC normal';
       white-space: nowrap;
+      text-align: center;
       text-overflow: ellipsis;
       word-break: break-all;
-      overflow: hidden;
       &.lose {
         color: #999;
       }
@@ -90,8 +90,8 @@
       margin: 0 10px;
     }
     .score_wrap {
-      color: #999;
       margin-top: 3px;
+      color: #999;
       .score {
         margin-right: 5px;
         &:last-child {
@@ -102,13 +102,13 @@
   }
 
   .vs {
-    font-family: 'PingFang SC normal';
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center;
-    color: #333;
     position: relative;
     margin: 0 30px;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'PingFang SC normal';
+    text-align: center;
 
     @media (max-width: @screen-xs) {
       font-size: 12px;
@@ -116,14 +116,14 @@
 
     .minutes {
       position: absolute;
-      left: 50%;
       top: 12px;
-      transform: translate(-50%, 0);
-      font-family: 'PingFang SC normal';
+      left: 50%;
+      color: #999;
       font-size: 12px;
+      font-family: 'PingFang SC normal';
       line-height: 16px;
       text-align: center;
-      color: #999;
+      transform: translate(-50%, 0);
       opacity: 0;
     }
 
@@ -132,7 +132,6 @@
       height: 100%;
     }
   }
-  
 
   .line {
     margin: 0 6px;
@@ -142,7 +141,7 @@
   }
 
   .going {
-    color: #39906A;
+    color: #39906a;
   }
 
   .win {
@@ -153,28 +152,24 @@
     color: #999;
   }
 
-  
-
-
-
   .video {
-    height: 100%;
     display: flex;
-    padding-left: 8px;
     align-items: center;
+    height: 100%;
+    padding-left: 8px;
     .videoTip {
       display: flex;
-      align-items: center;
       flex: 1;
+      align-items: center;
     }
 
     @media (max-width: @screen-xs) {
-      padding-left: 0;
       flex-direction: column;
       justify-content: center;
+      padding-left: 0;
       .videoTip {
-        transform: scale(.8);
         flex: initial;
+        transform: scale(0.8);
         & + .videoTip {
           margin-top: 6px;
         }
@@ -191,14 +186,14 @@
     }
 
     .videoText {
-      height: 100%;
-      line-height: 16px;
-      padding-left: 4px;
-      font-family: 'PingFang SC normal';
-      font-size: 12px;
-      color: #EA8384;
       display: table;
       width: 100%;
+      height: 100%;
+      padding-left: 4px;
+      color: #ea8384;
+      font-size: 12px;
+      font-family: 'PingFang SC normal';
+      line-height: 16px;
 
       .textType {
         display: table-cell;
@@ -207,15 +202,15 @@
     }
 
     .playback {
-      color: #A30B0B;
+      color: #a30b0b;
     }
 
     .hasVideo {
-      color: #D80000;
+      color: #d80000;
     }
 
     .noVideo {
-      color: #EA8384;
+      color: #ea8384;
     }
   }
 
@@ -250,8 +245,8 @@
 }
 
 .minutesSmall {
-  font-size: 12px;
   font-weight: 500;
+  font-size: 12px;
   opacity: 1;
 }
 
@@ -261,109 +256,109 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #999;
     font-size: 12px;
     line-height: 14px;
-    color: #999;
     .left {
       flex: auto;
+      overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      overflow: hidden;
       .leagueName {
         margin-left: 8px;
       }
     }
     .right {
-      margin-left: 14px;
-      width: 130px;
       display: flex;
+      width: 130px;
+      margin-left: 14px;
       .score + .score {
         margin-left: 4px;
       }
       .status {
         margin-left: auto;
         .active {
-          color: #39906A;
+          color: #39906a;
         }
         .icon {
-          font-size: 14px;
           color: transparent;
+          font-size: 14px;
         }
       }
     }
   }
   .body {
-    margin-top: 10px;
-    height: 48px;
     display: flex;
     align-items: stretch;
+    height: 48px;
+    margin-top: 10px;
     .left {
-      flex: auto;
-      border-right: 1px solid #ddd;
-      padding-right: 12px;
       display: flex;
+      flex: auto;
       flex-direction: column;
+      padding-right: 12px;
       overflow: hidden;
+      border-right: 1px solid #ddd;
       .row {
+        display: flex;
+        align-items: center;
         height: auto;
+        overflow: hidden;
+        color: #333;
+        font-size: 13px;
+        line-height: 17px;
         & + .row {
           margin-top: auto;
         }
-
-        display: flex;
-        align-items: center;
-        font-size: 13px;
-        color: #333;
-        line-height: 17px;
-        overflow: hidden;
         &.loser {
           color: #999;
         }
         .logo {
           width: 20px;
           height: 20px;
+          object-fit: contain;
         }
         .name {
-          margin-left: 10px;
           flex: auto;
+          margin-left: 10px;
+          padding-right: 4px;
           overflow: hidden;
+          font-weight: 500;
           white-space: nowrap;
           text-overflow: ellipsis;
-          padding-right: 4px;
-          font-weight: 500;
         }
         .score {
           margin-left: auto;
           font-weight: 500;
           font-style: italic;
           &.active {
-            color: #39906A;
+            color: #39906a;
           }
         }
       }
     }
     .right {
-      padding: 5px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
       width: 93px;
+      padding: 5px;
       .item {
-        font-size: 12px;
-        line-height: 16px;
-        color: #A30B0B;
         display: flex;
         align-items: center;
+        color: #a30b0b;
+        font-size: 12px;
+        line-height: 16px;
         &.isLive {
-          color: #D80000;
+          color: #d80000;
         }
         & + .item {
           margin-top: auto;
         }
         &.disabled {
-          opacity: .4
+          opacity: 0.4;
         }
         .text {
           margin-left: 2px;
@@ -375,5 +370,5 @@
 
 .expandContainer {
   padding: 12px;
-  background: #F4F4F4;
+  background: #f4f4f4;
 }

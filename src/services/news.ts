@@ -1,4 +1,4 @@
-import request, { externalRequest } from '@/utils/request';
+import request from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 
 export type FetchNewsListParams = {

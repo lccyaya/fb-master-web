@@ -30,16 +30,18 @@ export default function FixedBtns({ showTopIcon, onTopClick = () => {} }) {
       window.scrollTo(0, c - c / 8);
     }
   };
-  const notMatchPage = history?.location?.pathname?.indexOf('/match') === -1;
 
+  const pathname = history?.location?.pathname;
+
+  const notMatchPage = pathname?.indexOf('/match') === -1 && pathname?.indexOf('/live') === -1;
   return (
     <div>
       <CSSTransition timeout={300} in={show || showTopIcon} classNames="fade" unmountOnExit>
         <div className={styles.wrapper}>
           <div
             className={styles.back}
-            onClick={() => {
-              onTopClick();
+            onClick={(e) => {
+              onTopClick(e);
               scrollToTop();
             }}
           >

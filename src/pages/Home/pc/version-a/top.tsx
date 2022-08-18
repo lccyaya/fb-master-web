@@ -19,6 +19,7 @@ import Header from '@/pages/Home/pc/components/header';
 import { toShortLangCode } from '@/utils/utils';
 import { locale } from '@/app';
 import { playgroundCovers } from '@/pages/Highlight/playground_cover';
+import { Empty } from '@/base-components/pc';
 function HotNewsItem(props: { index: number; data: newsService.News }) {
   const { index, data } = props;
   const date = moment(data.source_published_at).format('YYYY/MM/DD HH:mm');
@@ -90,6 +91,7 @@ function News(props: { latest: newsService.News[]; hot: newsService.News[] }) {
           {hot.map((d, i) => (
             <HotNewsItem key={d.ID} data={d} index={i} />
           ))}
+          { hot.length === 0 ? <Empty/> : null }
         </div>
       </div>
     </div>

@@ -28,14 +28,13 @@ export const useUpdateMatch = (matchList = [], updateMatchList) => {
             updateMatchList(
               listRef.current,
               e.data?.map((item) => {
-                item.away_team_name += '1';
                 return item;
               }),
             );
           }
         });
       }
-    }, 3000);
+    }, 10000);
 
     return () => {
       clearInterval(timer);

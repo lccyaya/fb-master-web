@@ -12,7 +12,10 @@ export default function MobileHome() {
   const content = { A: <VersionA />, B: <VersionB />, '': null }[abVersion];
   return (
     <Spin spinning={!abVersion}>
-      <div className={styles.wrapper}>{content}</div>
+      <div className={styles.wrapper}>
+        {/* {content} */}
+        <VersionA />
+      </div>
     </Spin>
   );
 }

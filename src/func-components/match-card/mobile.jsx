@@ -13,7 +13,7 @@ import { locale } from '@/app';
 import { normalizeFloat } from '@/utils/tools';
 import EmptyLogo from '@/assets/emptyLogo.png';
 import cls from 'classnames';
-
+import { handleReport } from '@/utils/report';
 import styles from './mobile.module.less';
 
 const FontSize10 = ({ text, position = 'left' }) => {
@@ -25,6 +25,14 @@ const FontSize10 = ({ text, position = 'left' }) => {
 };
 
 const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, children }) => {
+  if (
+    !children &&
+    !home_incidents?.length &&
+    !away_incidents?.length &&
+    matchStatusText.text !== 'FT'
+  ) {
+    return null;
+  }
   return (
     <div className={styles.score_map}>
       {away_incidents?.length || home_incidents?.length ? (
@@ -32,6 +40,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
           {home_incidents.map((item, index) => {
             return (
               <div className={styles.score_map_item} key={index}>
+                <div className={styles.score_map_item_before} />
                 <div className={styles.score_map_left_name}>
                   <FontSize10 text={item.player_name + ' ' + item.time + '′'} />
                 </div>
@@ -42,7 +51,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
         </div>
       ) : null}
       <div className={styles.score_map_tags}>
-        {matchStatusText.text === 'FT' && children ? (
+        {matchStatusText.text === 'FT' && !children ? (
           <div className={styles.match_card_ft_tag}>
             <FontSize10 text={matchStatusText.text} position="center" />
           </div>
@@ -55,9 +64,10 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
           {away_incidents.map((item, index) => {
             return (
               <div className={styles.score_map_item} key={index}>
+                <div className={styles.score_map_item_before} />
                 <img src={item.event_pic_url} className={styles.score_map_right_logo} />
                 <div className={styles.score_map_right_name}>
-                  <FontSize10 text={item.player_name + ' ' + item.time + '′'} />
+                  <FontSize10 text={item.time + '′ ' + item.player_name} />
                 </div>
               </div>
             );
@@ -68,7 +78,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
   );
 };
 
-// type 支持 score【比分模式】 和 index[指数模式]
+// type 支持 score【比分模式】和 index[指数模式]
 const Mobile = ({ data, type = 'score' }) => {
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -80,22 +90,23 @@ const Mobile = ({ data, type = 'score' }) => {
   let status = getMatchStatus(data.status);
   let matchStatusText = {
     text: '',
-    color: '#333',
+    color: '#999',
+    headerColor: '#999',
   };
   if (status === MatchStatus.Complete) {
     matchStatusText.text = 'FT';
-    matchStatusText.color = '#333';
-    matchStatusText.headerColor = '#999';
+    matchStatusText.color = '#191919';
+    matchStatusText.headerColor = '#191919';
   } else if (status === MatchStatus.TBD) {
     matchStatusText.text = 'TBD';
-    matchStatusText.color = '#333';
+    matchStatusText.color = '#999';
     matchStatusText.headerColor = '#999';
   } else if ([MatchStatus.Before].includes(status)) {
     matchStatusText.text = intl.formatMessage({ id: 'key_to_play' });
-    matchStatusText.color = '#333';
+    matchStatusText.color = '#999';
     matchStatusText.headerColor = '#999';
   } else if (status === MatchStatus.Going) {
-    matchStatusText.text = data.minutes + '‘';
+    matchStatusText.text = data.minutes;
     matchStatusText.color = '#39906A';
     matchStatusText.headerColor = '#39906A';
   }
@@ -117,25 +128,31 @@ const Mobile = ({ data, type = 'score' }) => {
   const final = data.final_scores;
 
   const handleSubscribe = async (data) => {
+    setSubscribed(!subscribed);
     if (subscribed) {
       const result = await homeService.cancelSubscribe(data.match_id);
       if (result.success) {
         message.success(intl.formatMessage({ id: 'key_unsubscribed' }));
         setSubscribed(false);
-        setMatchInfo(matchInfo);
+      } else {
+        setSubscribed(true);
       }
     } else {
       const result = await homeService.setSubscribe(data.match_id);
+
       if (result.success) {
+        handleReport({ action: 'subscribe', tag: data.status + '' });
         setSubscribed(true);
         message.success(intl.formatMessage({ id: 'key_subscribed' }));
+      } else {
+        setSubscribed(false);
       }
     }
   };
   const AET_PEN_TEXT = [
-    final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : '',
+    final.has_ot ? `AET: ${final.ot_home || 0}-${final.ot_away || 0}` : '',
     final.has_ot && final.has_penalty ? ' ' : '',
-    final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : '',
+    final.has_penalty ? `PEN: ${final.penalty_home || 0}-${final.penalty_away || 0}` : '',
   ].join('');
   if (type === 'score') {
     return (
@@ -143,6 +160,7 @@ const Mobile = ({ data, type = 'score' }) => {
         className={styles.match_card_box}
         onClick={() => {
           const lang = toShortLangCode(locale.getLocale());
+          handleReport({ action: 'match_enter', tag: data.status + '' });
           history.push(`/${lang}/details/${data.match_id}`);
         }}
       >
@@ -166,7 +184,13 @@ const Mobile = ({ data, type = 'score' }) => {
             </div>
           ) : null}
           <div className={styles.match_card_header_right}>
-            <Text numberOfLines={1} fontSize={12} text={AET_PEN_TEXT} width="auto" />
+            <Text
+              numberOfLines={1}
+              fontSize={12}
+              text={AET_PEN_TEXT}
+              width="auto"
+              color={'#999999'}
+            />
             <div
               className={styles.macth_subscribe}
               onClick={(e) => {
@@ -230,52 +254,54 @@ const Mobile = ({ data, type = 'score' }) => {
           away_incidents={data.away_incidents}
           matchStatusText={matchStatusText}
         >
-          <>
-            {hasPlayBack ? (
-              <Tag
-                icon="icon-shipin"
-                color="#E9616B"
-                text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
-              />
-            ) : null}
-            {hasHighlight ? (
-              <Tag
-                icon="icon-jijin1"
-                color="#40A04E"
-                text={intl.formatMessage({
-                  id: 'key_highlight',
-                  defaultMessage: 'key_highlight',
-                })}
-              />
-            ) : null}
-            {hasScheme ? (
-              <Tag
-                icon="icon-fangan"
-                color="#D28602"
-                text={
-                  intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
-                  data?.schemes
-                }
-              />
-            ) : null}
-            {hasLive ? (
-              <Tag
-                icon="icon-shipin"
-                color="#E9616B"
-                text={intl.formatMessage({
-                  id: 'key_live_video',
-                  defaultMessage: 'key_live_video',
-                })}
-              />
-            ) : null}
-            {hasDoingLive ? (
-              <Tag
-                icon="icon-zhibo"
-                color="#DA000B"
-                text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
-              />
-            ) : null}
-          </>
+          {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
+            <>
+              {hasPlayBack ? (
+                <Tag
+                  icon="icon-shipin"
+                  color="#E9616B"
+                  text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
+                />
+              ) : null}
+              {hasHighlight ? (
+                <Tag
+                  icon="icon-jijin1"
+                  color="#40A04E"
+                  text={intl.formatMessage({
+                    id: 'key_highlight',
+                    defaultMessage: 'key_highlight',
+                  })}
+                />
+              ) : null}
+              {hasScheme ? (
+                <Tag
+                  icon="icon-fangan"
+                  color="#D28602"
+                  text={
+                    intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
+                    data?.schemes
+                  }
+                />
+              ) : null}
+              {hasLive ? (
+                <Tag
+                  icon="icon-shipin"
+                  color="#E9616B"
+                  text={intl.formatMessage({
+                    id: 'key_live_video',
+                    defaultMessage: 'key_live_video',
+                  })}
+                />
+              ) : null}
+              {hasDoingLive ? (
+                <Tag
+                  icon="icon-zhibo"
+                  color="#DA000B"
+                  text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
+                />
+              ) : null}
+            </>
+          ) : null}
         </SocreMaps>
       </div>
     );
@@ -285,6 +311,7 @@ const Mobile = ({ data, type = 'score' }) => {
         className={styles.match_index_box}
         onClick={() => {
           const lang = toShortLangCode(locale.getLocale());
+          handleReport({ action: 'match_enter', tag: data.status });
           history.push(`/${lang}/details/${data.match_id}`);
         }}
       >
@@ -311,12 +338,14 @@ const Mobile = ({ data, type = 'score' }) => {
             <div className={styles.match_index_header_tags}>
               {hasPlayBack ? (
                 <Tag
+                  type="index"
                   color="#E9616B"
                   text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
                 />
               ) : null}
               {hasHighlight ? (
                 <Tag
+                  type="index"
                   color="#40A04E"
                   text={intl.formatMessage({
                     id: 'key_highlight',
@@ -326,6 +355,7 @@ const Mobile = ({ data, type = 'score' }) => {
               ) : null}
               {hasScheme ? (
                 <Tag
+                  type="index"
                   color="#D28602"
                   text={
                     intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
@@ -335,6 +365,7 @@ const Mobile = ({ data, type = 'score' }) => {
               ) : null}
               {hasLive ? (
                 <Tag
+                  type="index"
                   color="#E9616B"
                   text={intl.formatMessage({
                     id: 'key_live_video',
@@ -344,6 +375,7 @@ const Mobile = ({ data, type = 'score' }) => {
               ) : null}
               {hasDoingLive ? (
                 <Tag
+                  type="index"
                   icon="icon-zhibo"
                   color="#DA000B"
                   text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
@@ -381,7 +413,9 @@ const Mobile = ({ data, type = 'score' }) => {
               </div>
               <div className={styles.match_index_team_score}>
                 <Text
-                  text={`${homeScore}`}
+                  text={
+                    [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${homeScore}` : ''
+                  }
                   fontSize={20}
                   color={matchStatusText.color}
                   width={'auto'}
@@ -398,7 +432,9 @@ const Mobile = ({ data, type = 'score' }) => {
               </div>
               <div className={styles.match_index_team_score}>
                 <Text
-                  text={`${awayScore}`}
+                  text={
+                    [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${awayScore}` : ''
+                  }
                   fontSize={20}
                   color={matchStatusText.color}
                   width={'auto'}

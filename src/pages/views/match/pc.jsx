@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
-import { useIntl } from 'umi';
+import { useIntl, history } from 'umi';
 import styles from './pc.module.less';
 import ScrollView from 'react-custom-scrollbars';
 import { Content, League, MatchCard, TimeTitle, Calendar } from '@/func-components/pc';
@@ -8,42 +8,27 @@ import { MatchListV3, getMatchesTabs } from '@/services/matchPage';
 import { Spin, Row } from 'antd';
 import moment from 'moment';
 import { formatDate, getScrollDirection } from '@/utils/utils';
-import { useLocalStorageState, useRequest } from 'ahooks';
-import { STORAGE_INDEX_VALUE } from '@/constants';
+import { useLocalStorageState, useRequest, useSessionStorageState } from 'ahooks';
+import { STORAGE_INDEX_VALUE, SESS_STORAGE_SELECTED_LEAGUES, getSessionStorage } from '@/constants';
 import { useUpdateMatch } from '@/hooks/update-match';
+import { handleReport } from '@/utils/report';
+import { getCalendarTitle, handlerData, initParams, initPageData } from './tools'; // 比赛页面的公用方法
 
-// 初始化的数据
-const initParams = {
-  zone: -new Date().getTimezoneOffset() / 60, // 获取时区
-  // timestamp: new Date().setHours(0, 0, 0, 0) / 1000, // 初始化 今日 0 点 0 分
-  timestamp: moment().startOf('days') / 1000,
-  // moment()
-  keywords: '', // 搜索的 key
-  page: 1,
-  size: 20,
-};
-let firstTime = null;
 const Match = () => {
-  const [indexVal, setIndexVal] = useLocalStorageState(STORAGE_INDEX_VALUE, false);
-
+  const [indexVal, setIndexVal] = useLocalStorageState(STORAGE_INDEX_VALUE, { defaultValue: false });
+  const [competition_ids] = useSessionStorageState(SESS_STORAGE_SELECTED_LEAGUES, { defaultValue: '' });
   const [menuActive, setMenuActive] = useState({});
+  const [apiTimestamp, setApiTimestamp] = useState('');
   const [leagueShow, setLeagueShow] = useState(false); // league 是否显示
 
+  const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
   const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
-  const [calenderVal, setCalendarVal] = useState(''); // 日历的值
   const [currentHeight, setCurrentHeight] = useState(null);
   const [ignoreScroll, setIgnoreScroll] = useState(false); // 临时禁止滚动
 
   // 获取列表的参数 和 page 的参数
-  const [params, setParams] = useState(initParams);
-  const [pageInfo, setPageInfo] = useState({
-    is_pre: false,
-    page: 1,
-    prePage: 0,
-    isLoading: false,
-    has_pre: true,
-    has_next: true,
-  });
+  const [params, setParams] = useState({ ...initParams, competition_ids });
+  const [pageInfo, setPageInfo] = useState({ ...initPageData });
 
   const [searchVal, setSearchVal] = useState('');
   const [menuList, setMenuList] = useState(null);
@@ -67,19 +52,32 @@ const Match = () => {
     if (item.param_value === menuActive.param_value) {
       return;
     }
+    setApiTimestamp('');
     setMenuActive(item);
     onParamsChange({
       param_key: item.param_key,
       param_value: item.param_value,
-      timestamp: moment().startOf('days') / 1000,
+      timestamp: 0,
     });
-    setCalendarVal(''); // 日历的数据每次切换 tab 需要初始化
+    setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化
+    window.history.pushState(window.location.pathname, {}, `?type=${item.param_value}&key=${item.param_key}`); //前两个参数可以为空
+
+    // 埋点
+    if(item.param_value === 2) {
+      handleReport({ action: 'schedule_tab' });
+    } else if(item.param_value === 3) {
+      handleReport({ action: 'finished_tab' });
+    } else if(item.param_value === 4) {
+      handleReport({ action: 'subscribe_tab' });
+    } else {
+      handleReport({ action: item.param_value + '_tab' });
+    }
   };
 
   // 日历变化
   const calendarChange = (v) => {
     const date = v.format('YYYY-MM-DD');
-    setCalendarVal(date);
+    setApiTimestamp('');
     onParamsChange({ timestamp: moment(date) / 1000 });
     setCalenderShow(false);
   };
@@ -89,19 +87,28 @@ const Match = () => {
     onParamsChange({ competition_ids: e });
   };
 
-  // 获取联赛列表
+  // 获取联赛的tab列表
   const getTabList = async () => {
     const { data = [] } = await getMatchesTabs();
-    data.map((item) => {
+    const query = history.location.query;
+    let active = null;
+    data.map((item, key) => {
+      item.key = key;
       item.label = item.name;
+      if (item.param_key === query.key && item.param_value === +query.type) {
+        active = item;
+      }
     });
+    active = active === null ? data[0] : active;
     setMenuList(data);
     onParamsChange({
-      param_key: data[0].param_key,
-      param_value: data[0].param_value,
+      param_key: active.param_key,
+      param_value: active.param_value,
     });
-    setMenuActive(data[0]);
+    setMenuActive(active);
   };
+
+  // 获取联赛列表
   const getRequestMatchListV3 = (params) => {
     return MatchListV3(params).then(({ success, code, data: newData, message }) => {
       if (success) {
@@ -112,25 +119,32 @@ const Match = () => {
         const matches = data?.matches || [];
         const pageExtra = {};
         if (params.page !== 1) {
-          if (pageInfo.is_pre) {
+          if (pageInfo.isLoading === 'pre') {
+            // 翻动上一页时
             if (newData.matches.length < params.size) {
               pageExtra.has_pre = false;
             }
-            newData.matches = [...newData.matches, ...matches];
+            newData.matches = [...newData.matches.reverse(), ...matches];
           } else {
+            // 翻动下一页时
             if (newData.matches.length < params.size) {
               pageExtra.has_next = false;
             }
             newData.matches = [...matches, ...newData.matches];
           }
+        } else {
+          setApiTimestamp(newData.timestamp)
         }
-        setPageInfo({ ...pageInfo, isLoading: false, ...pageExtra });
+        setPageInfo({ ...pageInfo, isLoading: '', ...pageExtra });
         return newData;
       } else {
-        return { matches: [] };
+        const matches = data?.matches || [];
+        return { matches };
       }
     });
   };
+
+  // hooks的获取联赛的请求方法
   const {
     data,
     mutate,
@@ -140,6 +154,8 @@ const Match = () => {
     initialData: {},
     manual: true,
   });
+
+  // 实时兼听列表的变化
   useUpdateMatch(data?.matches || [], (oldList, list) => {
     const newList = oldList.map((old) => {
       let newObj = list?.find((item) => item.match_id === old.match_id);
@@ -151,12 +167,17 @@ const Match = () => {
   // 点击加载更多
   const getPreMore = () => {
     const { prePage, has_pre } = pageInfo;
-    setPageInfo({ ...pageInfo, prePage: prePage - 1, is_pre: true, isLoading: 'pre' });
+    const current = scrollRef.current;
+    setCurrentHeight(current?.getValues()?.scrollHeight);
+    setPageInfo({ ...pageInfo, prePage: prePage - 1, isLoading: 'pre' });
     onParamsChange({ page: prePage - 1});
   }
 
-  // 滚动临时禁止
-  const disableScroll = () => {
+  // 滚动临时禁止 防止滚动条频繁刷新
+  const disableScroll = (val) => {
+    if (val) {
+      scrollRef?.current?.scrollTop(val);
+    }
     setIgnoreScroll(true);
     setTimeout(() => {
       setIgnoreScroll(false);
@@ -167,53 +188,58 @@ const Match = () => {
   const handleUpdate = () => {
     if (loading || ignoreScroll || !scrollRef.current) return;
     const current = scrollRef.current;
-    const status = getScrollDirection(current.getValues());
+    const status = getScrollDirection(current?.getValues());
+    getCalendarTitle(current, setCalendarValue, renderData); // 获取当前的日历日期
 
     const { page, prePage, has_pre, has_next } = pageInfo;
     // 下拉加载之前的数据 two_way 获取是否支持
     if (status === 'top' && menuActive.two_way && has_pre) {
       setCurrentHeight(current.getValues().scrollHeight);
-      setPageInfo({ ...pageInfo, prePage: prePage - 1, is_pre: true, page, isLoading: 'pre' });
+      setPageInfo({ ...pageInfo, prePage: prePage - 1, page, isLoading: 'pre' });
       onParamsChange({ page: prePage - 1 });
+      disableScroll();
     }
 
     // 上滑到底加载之后的数据
     if (status === 'bottom' && has_next) {
-      setPageInfo({ ...pageInfo, page: page + 1, is_pre: false, prePage, isLoading: 'next' });
+      setPageInfo({ ...pageInfo, page: page + 1, prePage, isLoading: 'next' });
       onParamsChange({ page: page + 1 });
+      disableScroll();
     }
   };
 
   // 获取渲染的数据
-  const handlerData = (data) => {
-    const { matches } = data || {};
-    if (matches) {
-      let obj = {};
-      matches.map((item) => {
-        const { time } = item;
-        if (obj[time]) {
-          obj[time].push(item);
-        } else {
-          obj[time] = [item];
-        }
-      });
-      return [Object.keys(obj), obj];
-    }
-    return [[], []];
-  };
   const [renderList, renderData] = handlerData(data);
 
-  // 兼听是否要处理滚动条位置
+  // loading
+  const spinning = useMemo(() => {
+    if (menuList === null) {
+      return true;
+    }
+    if (params.page !== 1) {
+      return false;
+    }
+    setPageInfo({ ...initPageData }); // 重置page的默认数据
+    return loading;
+  }, [loading, menuList, params]);
+
+  // 兼听滚动条的处理的逻辑
   useEffect(() => {
+    const current = scrollRef.current;
+    // 下拉加载以后，要返回到之前的位置
     if (currentHeight && !loading) {
-      const height = currentHeight;
-      setTimeout(() => {
-        const current = scrollRef.current;
-        disableScroll();
-        console.log(current.getValues().scrollHeight, height);
-        current.scrollTop(current.getValues().scrollHeight - height);
-      }, 1500)
-      setCurrentHeight(null);
+      const current = scrollRef.current;
+      if (!current) return;
+      const val = current.getValues().scrollHeight - currentHeight;
+      if (current.getValues().scrollHeight - currentHeight > 100) {
+        disableScroll(val);
+        setCurrentHeight(null);
+      }
+    }
+
+    // 当前tab支持下拉加载时，scrollTop 为 0 的时候，需要置为1 否则上滑无效
+    if (menuActive.two_way && current?.getValues().scrollTop === 0) {
+      disableScroll(1);
     }
   }, [currentHeight, loading])
 
@@ -224,7 +250,7 @@ const Match = () => {
     } else {
       const data = {
         zone: params.zone,
-        timestamp: params.timestamp,
+        timestamp: apiTimestamp || params.timestamp,
         keywords: params.keywords,
         page: params.page,
         size: params.size,
@@ -238,58 +264,52 @@ const Match = () => {
     }
   }, [params]);
 
-  // loading
-  const spinning = useMemo(() => {
-    if (menuList === null) {
-      return true;
-    }
-    if (params.page !== 1) {
-      return false;
-    }
-    setPageInfo({ ...pageInfo, has_next: true, has_pre: true }); // 重置是否有上下一页
-    return loading;
-  }, [loading, menuList, params]);
-
   return (
     <Container>
       <Spin spinning={spinning}>
-        <Content menus={menuList || []} onChange={onMenusChange}>
+        <Content menus={menuList || []} onChange={onMenusChange} activeKey={menuActive.param_value}>
           {/* 操作栏 */}
           <div className={styles.tools}>
             <Search
               width={456}
               value={searchVal}
               onChange={setSearchVal}
+              onFocus={() => handleReport({ action: 'search_team' })}
               onEnter={(e) => onParamsChange({ keywords: e })}
             />
             <div className={styles.aside}>
               <Switch
-                title={intl.formatMessage({ id: indexVal ? 'key_score' : 'key_index' })}
+                title={intl.formatMessage({ id: 'key_index' })}
                 value={indexVal}
-                onChange={setIndexVal}
+                onChange={e => {
+                  handleReport({ action: e ? 'open_index' : 'close_index' });
+                  setIndexVal(e);
+                }}
               />
               <IconButton
-                onClick={() => setLeagueShow(true)}
-                active={params.competition_ids}
+                onClick={() => {
+                  setLeagueShow(true);
+                  handleReport({ action: 'league_filter' });
+                }}
+                active={params?.competition_ids.length}
                 icon="icon-bisai"
                 show={menuActive.has_competition}
                 title={intl.formatMessage({ id: 'key_league', defaultMessage: 'key_league' })}
               />
               <IconButton
-                active={calenderVal}
                 show={menuActive.has_calendar}
-                onClick={() => setCalenderShow(true)}
+                onClick={() => {
+                  setCalenderShow(true)
+                  handleReport({ action: 'calendar' });
+                }}
                 icon="icon-rili"
-                title={
-                  calenderVal
-                    ? calenderVal
-                    : intl.formatMessage({
-                        id: 'key_calendar',
-                        defaultMessage: 'key_calendar',
-                      })
-                }
+                title={intl.formatMessage({
+                  id: 'key_calendar',
+                  defaultMessage: 'key_calendar',
+                })}
               >
                 <Calendar
+                  value={calendarValue} setValue={setCalendarValue}
                   params={params}
                   show={calenderShow}
                   onClose={() => setCalenderShow(false)}
@@ -304,14 +324,14 @@ const Match = () => {
             {/* 列表渲染加上滚动监听 */}
             {renderList.length && !spinning ? (
               <ScrollView className={styles.scroll_view} onScroll={handleUpdate} ref={scrollRef}>
-                <Spining show={pageInfo.isLoading === 'pre'} />
+                <Spining className={styles.pre_loading} show={pageInfo.isLoading === 'pre'} />
                 <More
                   show={pageInfo.isLoading !== 'pre' && pageInfo.has_pre && menuActive.two_way}
                   className={styles.more} onClick={getPreMore}
                 />
                 {renderList.map((dataKey, key) => (
                   <>
-                    <TimeTitle title={dataKey} sticky key={key} />
+                    <TimeTitle title={dataKey} sticky key={key} className="time_title"/>
                     <div className={styles.match_card_wrap} key={key}>
                       {renderData[dataKey].map((item) => (
                         <MatchCard

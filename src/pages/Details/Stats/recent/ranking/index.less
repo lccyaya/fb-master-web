@@ -1,16 +1,14 @@
 @import '~@/assets/theme.less';
 
-
 .table {
-
   :global(.ant-table-thead) {
     display: none;
   }
 
   :global(.ant-table-thead > tr > th) {
-    border: 2px #fff solid;
-    background: #fafafa;
     padding: 3px 15px;
+    background: #fafafa;
+    border: 2px #fff solid;
     @media screen and (max-width: @screen-sm) {
       padding: 3px 5px;
       font-size: 12px;
@@ -18,14 +16,14 @@
   }
 
   :global(.ant-table-tbody > tr > td) {
-    border: 2px #fff solid;
-    background: #fafafa;
     padding: 3px 15px;
     color: @font-color-3;
     font-weight: bold;
     font-size: 14px;
     font-family: 'PingFang SC';
     line-height: 22px;
+    background: #fafafa;
+    border: 2px #fff solid;
     @media screen and (max-width: @screen-sm) {
       padding: 3px 5px;
       font-size: 12px;
@@ -34,11 +32,11 @@
 
   .score {
     color: @font-color-6;
+    font-weight: 400;
     font-size: 20px;
     font-family: 'Barlow Medium';
     // font-style: normal;
     line-height: 28px;
-    font-weight: 400;
     text-align: center;
     @media screen and (max-width: @screen-sm) {
       font-size: 12px;
@@ -51,8 +49,8 @@
     max-width: 124px;
 
     &.home {
-      flex-flow: row;
       flex-direction: row-reverse;
+      flex-flow: row;
     }
 
     &.away {
@@ -62,17 +60,18 @@
     }
 
     .logo {
+      width: 22px;
       height: 22px;
-      width: auto;
       margin: auto 12px;
+      object-fit: contain;
       vertical-align: middle;
     }
-    .team_name{
-      white-space: nowrap;
-      word-wrap: break-word;
-      text-overflow: ellipsis;
+    .team_name {
       max-width: 90px;
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
       @media screen and (max-width: @screen-sm) {
         max-width: 50px;
       }

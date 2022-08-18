@@ -16,9 +16,10 @@ export async function getHotCompetition() {
   return normalizeResponse<hotCompetitionList>(result);
 }
 
+export type tabs = [];
 export async function getMatchesTabs() {
   const result = await request('/api/v1/matches/tabs');
-  return normalizeResponse<any>(result);
+  return normalizeResponse<tabs>(result);
 }
 
 export async function getCalendar(data: any) {
@@ -158,8 +159,9 @@ export type V3MatchListParams = {
 export type V3MatchList = {
   matches: matchType[];
   timestamp: number;
+  competition_ids?: number[];
 };
-export async function MatchListV3(params: V3MatchListParams) {
+export async function MatchListV3(params: any) {
   const data: any = params;
   const result = await request('/api/v3/matches', {
     method: 'POST',

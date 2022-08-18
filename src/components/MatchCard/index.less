@@ -15,6 +15,7 @@
     .logo {
       width: 32px;
       height: 32px;
+      object-fit: contain;
       vertical-align: top;
     }
 
@@ -52,6 +53,7 @@
       .logo {
         width: 24px;
         height: 24px;
+        object-fit: contain;
       }
 
       .name {
@@ -107,14 +109,14 @@
       }
 
       .competitionName {
-        font-family: 'PingFang SC Normal';
+        overflow: hidden;
         font-size: 14px;
+        font-family: 'PingFang SC Normal';
         line-height: 22px;
         white-space: nowrap;
         text-align: center;
         text-overflow: ellipsis;
         word-break: break-all;
-        overflow: hidden;
       }
 
       .competitionName:hover {
@@ -178,7 +180,6 @@
       font-family: 'Barlow SemiBold';
 
       &.gray {
-
         .trd,
         .scd {
           .draw {

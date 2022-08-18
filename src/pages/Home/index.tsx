@@ -45,10 +45,11 @@ export const statesPrams = {
 };
 
 function MatchList(props: ComponentProps<typeof MatchListB> & { abTestVersion: 'A' | 'B' | '' }) {
-  if (!props.abTestVersion) {
-    return null;
-  }
-  return props.abTestVersion === 'A' ? <MatchListA {...props} /> : <MatchListB {...props} />;
+  // if (!props.abTestVersion) {
+  //   return null;
+  // }
+  // props.abTestVersion === 'A' ? <MatchListA {...props} /> : 
+  return <MatchListB {...props} />;
 }
 
 type HomeProps = {
@@ -68,7 +69,9 @@ const Home: React.FC<HomeProps> = (props) => {
   liveMatchIdRef.current = liveMatchId;
   const [isBanner, setIsBanner] = useState<boolean>(false);
   const [oddsVisible, setOddsVisible] = useState(false);
-  const [tabType, setTabType] = useState('main');
+  const [tabType, setTabType] = useState('1');
+  const [tabKey, setTabKey] = useState('tab_type');
+  
   const containerRef = React.createRef<HTMLDivElement>();
   const [liveMatch, setLiveMatch] = useState<MatchDetails | undefined>();
 
@@ -207,8 +210,9 @@ const Home: React.FC<HomeProps> = (props) => {
 
   const lang = toShortLangCode(locale.getLocale());
 
-  const handleTabTypeChange = (type: string) => {
+  const handleTabTypeChange = (type: any, key: string) => {
     setTabType(type);
+    setTabKey(key);
   };
   return (
     <div ref={containerRef} className={styles.main}>
@@ -217,22 +221,23 @@ const Home: React.FC<HomeProps> = (props) => {
           <Banner setIsBanner={setIsBanner} />
         </Col>
       </Row>
-      {abTestVersion === 'A' && (
-        <VersionATop
-          liveMatch={liveMatch}
-          majorMatchData={majorMatchData}
-          setMajorMatchData={setMajorMatchData}
-          tipsData={tipsData}
-          handleChangeLiveMatch={handleChangeLiveMatch}
-          highlightData={highlightData}
-          hotNewsData={hotNewsData}
-          newsData={newsData}
-          oddsVisible={oddsVisible}
-          showTips={props.showTips}
-        />
-      )}
+      {/* {abTestVersion === 'A' && (
+        
+      )} */}
+      <VersionATop
+        liveMatch={liveMatch}
+        majorMatchData={majorMatchData}
+        setMajorMatchData={setMajorMatchData}
+        tipsData={tipsData}
+        handleChangeLiveMatch={handleChangeLiveMatch}
+        highlightData={highlightData}
+        hotNewsData={hotNewsData}
+        newsData={newsData}
+        oddsVisible={oddsVisible}
+        showTips={props.showTips}
+      />
 
-      {abTestVersion === 'B' && <VersionBTop majorMatchData={majorMatchData} />}
+      {/* {abTestVersion === 'B' && <VersionBTop majorMatchData={majorMatchData} />} */}
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.matchTitleContainer}>
@@ -240,10 +245,10 @@ const Home: React.FC<HomeProps> = (props) => {
               <FormattedMessage id="key_match" />
             </div>
             <div className={styles.moreCol}>
-              {abTestVersion === 'B' ? <div className={styles.line} /> : null}
+              <div className={styles.line} />
               <Link
                 className={styles.more}
-                to={`/${lang}/${tabType === 'live' ? 'live' : `match?type=${tabType}`}`}
+                to={`/${lang}/${tabType === '1' ? 'live' : `match?type=${tabType}&key=tab_type`}`}
               >
                 <FormattedMessage id="key_more" />
                 <div className={styles.arrow} />

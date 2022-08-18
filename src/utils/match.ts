@@ -138,3 +138,22 @@ export const getAtLeastThreeDayMatch = async (params: {
 
   return data;
 };
+
+
+// 获取tab列表
+export const getMatchesTabs = async () => {
+  const res = await matchService.getMatchesTabs();
+  return res.data;
+};
+
+// 获取比赛列表
+export const getMatchListV3 = async (params: {
+  page: number;
+  size: number;
+  zone: number;
+  tab_type: number;
+  competition_ids?: number[];
+}) => {
+  const res = await matchService.MatchListV3(params);
+  return res.data;
+};

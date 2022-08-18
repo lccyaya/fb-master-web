@@ -13,6 +13,7 @@ import { getPageFromPath } from '@/utils/page-info';
 import { REPORT_ACTION } from '@/constants';
 import { getDownloadLinkByChannel } from '@/services/app';
 import pageConfig from '@/utils/pageConfig';
+import Iconfont from '@/components/IconFont';
 
 type IProps = {
   title: string;
@@ -55,7 +56,8 @@ const Channel: React.FC<IProps> = (props) => {
         <span className={classnames(children ? '' : styles.bottom)} onClick={handleClick}>
           {
             <span>
-              <FormattedMessage id="key_watch_live_in_app" />
+              <Iconfont size={18} type="icon-shipin"/>
+              <span className={styles.text}><FormattedMessage id="key_watch_live_in_app" /></span>
             </span>
           }
         </span>

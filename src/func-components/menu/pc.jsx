@@ -3,20 +3,15 @@ import { Menu } from 'antd';
 import styles from './pc.module.less';
 
 const menu = ({ 
-  menus = [], onChange = () => {} 
+  menus = [], onChange = () => {}, activeKey
 }) => {
-  const [active, setActive] = useState('0');
-  const onClick = (e) => {
-    setActive(e.key);
-    onChange(e);
+  const onClick = (key) => {
+    onChange(key);
   }
   return <div className={styles.menu}>
-    <Menu selectedKeys={active}>
+    <Menu selectedKeys={activeKey + ''}>
       {menus.map((item, key) => <>
-        <Menu.Item onClick={onClick} key={key}>{item.label}</Menu.Item>
-        {/* {item.children ? <Menu.SubMenu title="子菜单">
-          {item.children.map((val, index) => <Menu.Item key={index}>{val.label}</Menu.Item>)}
-        </Menu.SubMenu> : null} */}
+        <Menu.Item onClick={() => onClick(key)} key={item.param_value}>{item.label}</Menu.Item>
       </>)}
     </Menu>
   </div>

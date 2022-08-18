@@ -28,6 +28,8 @@ import {
 import { getDownloadLinkByChannel } from '@/services/app';
 import { report } from '@/services/ad';
 
+let m = null;
+
 // const isiphone = /iphone/i.test(navigator.userAgent);
 
 // function setHeaderVisible(visible: boolean) {
@@ -198,6 +200,11 @@ export default function Download() {
       window.open(GOOGLE_PLAY_LINK);
       return;
     }
+    var data = window?.OpenInstall?.parseUrlParams();
+    if (data?.channelCode) {
+      m?.wakeupOrInstall({ data: data, channelCode: data.channelCode });
+      return;
+    }
     const isIOS = /iphone/i.test(navigator.userAgent);
     if (isIOS) {
       window.open(APP_STORE_LINK);
@@ -224,6 +231,32 @@ export default function Download() {
       document.body.style.overflow = 'auto';
       window.removeEventListener('resize', handleLiveSlideMobileAppImgLoad);
     };
+  }, []);
+
+  useEffect(() => {
+    if (window.location.href.indexOf('channelCode') > 0) {
+      const s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = '//web.cdn.openinstall.io/openinstall.js';
+      s.addEventListener(
+        'load',
+        () => {
+          var data = window.OpenInstall.parseUrlParams();
+          new window.OpenInstall(
+            {
+              appKey: 'lo4wd3', //appkey参数配置,需要自行替换对应的appkey
+              onready: function () {
+                m = this;
+                m.schemeWakeup({ data: data, channelCode: data?.channelCode });
+              },
+            },
+            data,
+          );
+        },
+        false,
+      );
+      document.head.appendChild(s);
+    }
   }, []);
   // @ts-ignore
   const publicPath = isServer ? '/' : window.publicPath;

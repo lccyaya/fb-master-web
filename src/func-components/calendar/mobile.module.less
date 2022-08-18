@@ -15,6 +15,7 @@
     bottom: -200%;
     z-index: 600;
     width: 100vw;
+    height: 410px;
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
     background-color: #fff;
@@ -209,18 +210,23 @@
         padding: 10px;
         color: #979797;
         transform: scale(0.6);
+        &.disable_icon{
+            opacity: .3;
+            cursor: not-allowed;
+        }
     }
 }
 .tip{
     display: flex;
     position: relative;
     z-index: 3;
-    padding-bottom: 5px;
+    padding-bottom: 150px;
     background-color: #fff;
     font-size: 12px;
     align-items: center;
     justify-content: center;
     color: rgba(0, 0 ,0, .3);
+    line-height: 40px;
     .tip_icon{
         transform: scale(0.55);
         color: #FBBC04;

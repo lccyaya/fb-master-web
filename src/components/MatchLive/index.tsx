@@ -36,7 +36,6 @@ function MatchLive(props: {
   });
   const [match, setMatch] = useState<matchService.matchType | MatchDetails | null>(matchList[0]);
   useEffect(() => {
-    console.log('matchList', matchList);
     // @ts-ignore
     const newMatch = matchList.find((m) => m.match_id === match?.match_id) || matchList[0] || null;
     setMatch(newMatch ? { ...newMatch } : null);

@@ -37,31 +37,31 @@
       display: flex;
       align-items: center;
       padding: 5px 0;
-      border-radius: 8px 8px 0 0;
       background-color: #fafafa;
+      border-radius: 8px 8px 0 0;
       .tab {
-        cursor: pointer;
-        height: 38px;
-        width: 50%;
-        border-right: 1px solid #8F949A;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 50%;
+        height: 38px;
+
+        color: #8f949a;
+        border-right: 1px solid #8f949a;
+        cursor: pointer;
         &:last-child {
           border-right: none;
         }
         &.active {
-          color: #39906A;
+          color: #39906a;
         }
-
-        color: #8F949A;
         .icon {
           font-size: 20px;
         }
         .text {
           margin-left: 16px;
-          font-size: 16px;
           font-weight: 500;
+          font-size: 16px;
           line-height: 24px;
         }
       }
@@ -72,9 +72,9 @@
         position: absolute;
         top: 12px;
         left: 12px;
+        z-index: 1;
         display: flex;
         align-items: center;
-        z-index: 1;
         color: rgba(255, 255, 255, 0.7);
         .flagIcon {
           width: 16px;
@@ -89,24 +89,24 @@
             margin-top: 2px;
             .line {
               width: 2px;
-              border-radius: 1px;
+              height: 10px;
               margin-right: 2px;
               background-color: #fff;
-              height: 10px;
+              border-radius: 1px;
               &:last-child {
                 margin-right: 0;
               }
               &:nth-child(1) {
                 height: 4px;
-                animation: playing .6s infinite alternate ease;
+                animation: playing 0.6s infinite alternate ease;
               }
               &:nth-child(2) {
                 height: 10px;
-                animation: playing .6s .2s infinite alternate ease;
+                animation: playing 0.6s 0.2s infinite alternate ease;
               }
               &:nth-child(3) {
                 height: 8px;
-                animation: playing .6s .4s infinite alternate ease;
+                animation: playing 0.6s 0.4s infinite alternate ease;
               }
               @keyframes playing {
                 0% {
@@ -124,8 +124,8 @@
         }
         .flagText {
           margin-left: 4px;
-          font-size: 12px;
           font-weight: 600;
+          font-size: 12px;
           line-height: 14px;
         }
       }
@@ -192,30 +192,30 @@
           }
         }
       }
-     .tip {
-       height: 30px;
-       padding: 0 20px;
-       background: #FAFAFA;
-       border-radius: 8px;
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-       color: #6B6B6B;
-       font-size: 18px;
-       line-height: 24px;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       visibility: hidden;
-       opacity: 0;
-       transition: opacity 0.5s, visibility .3s 0s;
-       &.show {
-         visibility: visible;
-         opacity: 1;
-         transition: visibility 0s, opacity 0.5s;
-       }
-     }
+      .tip {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 20px;
+        color: #6b6b6b;
+        font-size: 18px;
+        line-height: 24px;
+        background: #fafafa;
+        border-radius: 8px;
+        transform: translate(-50%, -50%);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s, visibility 0.3s 0s;
+        &.show {
+          visibility: visible;
+          opacity: 1;
+          transition: visibility 0s, opacity 0.5s;
+        }
+      }
     }
     .matchInfo {
       overflow: hidden;
@@ -264,6 +264,7 @@
               width: 28px;
               height: 28px;
               margin-right: 15px;
+              object-fit: contain;
             }
             .name {
               padding-right: 10px;
@@ -383,7 +384,8 @@
           &.selected {
             color: #009564;
             .top {
-              .team .name,.progress {
+              .team .name,
+              .progress {
                 color: #009564;
               }
               .score {
@@ -430,6 +432,7 @@
               .logo {
                 width: 18px;
                 height: 18px;
+                object-fit: contain;
               }
             }
             .score {
@@ -529,24 +532,24 @@
     }
 
     .highlightTag {
-      height: 20px;
-      padding: 0 8px;
-      background: #F0F9F5;
-      border-radius: 11px;
-      border: 1px solid #39906A;
       position: absolute;
       top: 12px;
       left: 12px;
       display: flex;
       align-items: center;
+      height: 20px;
+      padding: 0 8px;
+      background: #f0f9f5;
+      border: 1px solid #39906a;
+      border-radius: 11px;
       .lines {
         display: flex;
         align-items: flex-end;
         margin-right: 4px;
         .line {
-          margin-left: 1px;
           width: 2px;
-          background: #39906A;
+          margin-left: 1px;
+          background: #39906a;
           border-radius: 1px;
           &:nth-child(1) {
             height: 5px;
@@ -561,13 +564,13 @@
         }
       }
       .text {
+        color: #27825a;
+        font-weight: 500;
         font-size: 12px;
         font-family: Barlow;
-        font-weight: 500;
-        color: #27825A;
         line-height: 16px;
-        transform: scale(.83);
-        transform-origin: 0 center
+        transform: scale(0.83);
+        transform-origin: 0 center;
       }
     }
 
@@ -575,16 +578,16 @@
       position: absolute;
       right: 20px;
       bottom: 20px;
-      height: 24px;
-      padding: 0 16px;
-      background-color: rgba(0, 0, 0, .49);
-      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 24px;
+      padding: 0 16px;
+      color: #fff;
       font-size: 14px;
       line-height: 20px;
-      color: #fff;
+      background-color: rgba(0, 0, 0, 0.49);
+      border-radius: 12px;
     }
   }
 }

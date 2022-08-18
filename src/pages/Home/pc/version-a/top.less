@@ -161,7 +161,7 @@
 
 .news {
   display: flex;
-  align-items: center;
+  // align-items: center;
   .latest {
     padding: 0 12px 12px 12px;
     background: #fff;
@@ -190,8 +190,10 @@
         }
         .title {
           position: relative;
+          width: 100%;
           padding: 10px 20px;
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(56, 56, 56, 0.96) 100%);
+          font-size: 18px;
 
           .titleWrapper {
             display: -webkit-box;
@@ -362,6 +364,7 @@
       a {
         width: 34px;
         height: 34px;
+        line-height: 1;
       }
       .img {
         width: 34px;
@@ -410,6 +413,7 @@
       .logo {
         width: 16px;
         height: 16px;
+        object-fit: contain;
       }
       .name {
         margin-top: 4px;

@@ -5,9 +5,13 @@
   margin-top: -48px;
 
   .tabsContainer {
+    display: flex;
     width: 100%;
-    padding: 0 80px 0 145px;
+    height: 47px;
+    padding: 0 80px 0 100px;
     border-bottom: 1px solid #eee;
+    flex-direction: row;
+    align-items: center;
     .tabs {
       font-weight: 200;
       font-size: 16px;
@@ -47,14 +51,16 @@
     }
 
     .filterIconContainer {
-      margin-top: 8px;
+      display: flex;
       margin-left: auto;
       border-left: none;
-      width: 28px;
       height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: row;
+      position: relative;
+      white-space: nowrap;
       .menuIcon {
         height: 100%;
         width: auto;
@@ -141,6 +147,8 @@
   .matchLIstContainer {
     justify-content: center;
     width: 100%;
+    padding-top: 10px;
+    flex-direction: column;
 
     .listContainer {
       width: 100%;
@@ -310,7 +318,7 @@
   background: url('../../assets/image/live_empty.svg') no-repeat 0 0;
   background-size: cover;
   position: relative;
-  margin: 0 auto 30px auto;
+  margin: 30px auto;
   @media screen and (max-width: @screen-xs) {
     width: 262px;
     height: 209px;

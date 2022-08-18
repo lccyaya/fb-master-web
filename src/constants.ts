@@ -9,6 +9,7 @@ export const NOTIFICATION_DIALOG_LAST_APPEARED_AT =
 export const STORAGE_INDEX_VALUE = 'STORAGE_INDEX_VALUE';
 
 export const SESS_STORAGE_SELECTED_LEAGUES = 'SESS_STORAGE_SELECTED_LEAGUES';
+export const SESS_STORAGE_LEAGUES_KEY = 'SESS_STORAGE_LEAGUES_KEY';
 
 export const SESS_STORAGE_REFRESH_FCM_TOKEN = 'SESS_STORAGE_REFRESH_FCM_TOKEN';
 
@@ -238,4 +239,40 @@ export enum REPORT_CATE {
   expert_ranking = "expert_ranking",
   scheme_match = "scheme_match",
   scheme_detail = "scheme_detail"
+}
+
+// 获取sessionStorage的数据
+export const getSessionStorage = (key: string, initVal: any) => {
+  try {
+    return JSON.parse(sessionStorage.getItem(key) || initVal);  
+  } catch (error) {
+    return initVal;
+  }
+}
+
+// 获取localStorage的数据
+export const getLocalStorage = (key: string, initVal: any, type:any) => {
+  try {
+    const val = localStorage.getItem(key);
+    if (type === 'Boolean') {
+      if (val === 'false') { return false; }
+      if (val === 'true') { return true; }
+      return initVal;
+    }
+    return JSON.parse(val || initVal);  
+  } catch (error) {
+    return initVal;
+  }
+}
+
+// 获取localStorage的数据
+export const getLocalStorageByBoolean = (key: string) => {
+  try {
+    const val = localStorage.getItem(key);
+    if (val == 'false') { return false; }
+    if (val == 'true') { return true; }
+    return true;
+  } catch (error) {
+    return true;
+  }
 }

@@ -86,6 +86,7 @@ const Details: React.FC<DetailProps> = (props) => {
     if (result.success) {
       const match = result.data;
       const status = getMatchStatus(match.status);
+      console.log(match, status, '&&&&')
       setHasScheme(match.has_scheme);
 
       if (match.has_scheme) {
@@ -93,9 +94,9 @@ const Details: React.FC<DetailProps> = (props) => {
         if (tab === 'scheme') {
           setDetailType('scheme');
         }
-      } else if (status === MatchStatus.Before) {
+      } else if (status === MatchStatus.Before || status === MatchStatus.TBD) {
         if (!tabClicked.current) {
-          setDetailType('index');
+          setDetailType('data');
         }
       } else if (status === MatchStatus.Going) {
         pull = true;

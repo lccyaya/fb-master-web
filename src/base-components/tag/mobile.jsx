@@ -3,7 +3,7 @@ import Iconfont from '@/base-components/iconfont';
 import styles from './mobile.module.less';
 import Bounce from '@/base-components/bounce';
 
-const PC = ({ icon, leftRender, color, text = 'Playback' }) => {
+const Mobile = ({ icon, leftRender, color, text = 'Playback', type = 'score' }) => {
   return (
     <div className={styles.tag}>
       {icon || leftRender ? (
@@ -12,17 +12,29 @@ const PC = ({ icon, leftRender, color, text = 'Playback' }) => {
             icon === 'icon-zhibo' ? (
               <Bounce />
             ) : (
-              <Iconfont type={icon} color={color} size={12}></Iconfont>
+              <Iconfont type={icon} color={color} size={10}></Iconfont>
             )
           ) : null}
           {leftRender ? leftRender : null}
         </div>
       ) : null}
       <div className={styles.tag_right} style={!icon ? { color } : {}}>
-        <div className={styles.tag_right_txt}>{text}</div>
+        <div
+          className={styles.tag_right_txt}
+          style={
+            type === 'score'
+              ? {
+                  textAlign: 'left',
+                  transformOrigin: 'left center',
+                }
+              : {}
+          }
+        >
+          {text}
+        </div>
       </div>
     </div>
   );
 };
 
-export default PC;
+export default Mobile;

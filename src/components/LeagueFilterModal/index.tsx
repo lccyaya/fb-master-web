@@ -279,7 +279,7 @@ const LeagueFilterModal: React.FC<LeagueFilterModalProps> = (props) => {
                     </Radio>
                   </div>
                   <div className={styles.selectedTip}>
-                    {selectedCompetitionIds.length} <FormattedMessage id="key_league_selected" />
+                    {selectedCompetitionIds.length} <FormattedMessage id="key_leagues_selected" />
                   </div>
                 </div>
               )}

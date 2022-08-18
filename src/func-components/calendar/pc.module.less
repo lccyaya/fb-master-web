@@ -8,6 +8,11 @@
     height: 100%;
     z-index: 0;
 }
+.box{
+    position: relative;
+    z-index: 1;
+    cursor: default;
+}
 .calender{
     z-index: 20;
     width: 375px;
@@ -200,6 +205,10 @@
         padding: 10px;
         color: #979797;
         transform: scale(0.6);
+        &.disable_icon{
+            opacity: .3;
+            cursor: not-allowed;
+        }
     }
 }
 .tip{

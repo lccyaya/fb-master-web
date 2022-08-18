@@ -97,7 +97,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return item.key !== '/:locale/tips';
       })
       .map((item) => {
-        // debugger
         const localItem = {
           ...item,
           // children: item.children ? menuDataRender(item.children) : undefined,

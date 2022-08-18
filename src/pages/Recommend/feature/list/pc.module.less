@@ -25,11 +25,11 @@
       .matchItem {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin-top: 4px;
         padding: 13px 30px 13px 16px;
         background: @gray-bg;
         border-radius: 4px;
-        justify-content: space-between;
 
         .time {
           color: @font-color-3;
@@ -80,27 +80,26 @@
           }
 
           .logo {
-            width: auto;
+            width: 22px;
             height: 22px;
             margin: auto 12px;
+            object-fit: contain;
             vertical-align: baseline;
           }
         }
         .scheme_num {
-          background: #D61E25;
-          border-radius: 4px;
-          font-size: 14px;
-          font-weight: 500;
-          color: #FFF;
           padding: 2px 15px;
+          color: #fff;
+          font-weight: 500;
+          font-size: 14px;
+          background: #d61e25;
+          border-radius: 4px;
         }
       }
 
       .matchItem:hover {
         background: rgba(57, 144, 106, 0.08);
       }
-      
     }
   }
 }
-

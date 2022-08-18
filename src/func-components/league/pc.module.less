@@ -1,25 +1,26 @@
+.modal_wrap {
+  :global {
+    .ant-modal-content {
+      border-radius: 16px;
+    }
+    .ant-modal-body {
+      padding: 0 !important;
+      border-radius: 16px;
+    }
+  }
+}
 .league{
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
     z-index: 20;
     width: 100%; 
     height: 100%;
-    background: rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    visibility: hidden;
     transition: all .3s;
-    &.show{
-        opacity: 1;
-        visibility: visible;
-    }
     :global{
-        .ant-tabs-tab + .ant-tabs-tab{
-            margin-left: 120px;
-        }
+      .ant-tabs-tab + .ant-tabs-tab{
+          margin-left: 120px;
+      }
     }
 }
 .content{
@@ -112,7 +113,7 @@
       align-items: center;
       justify-content: center;
       height: 32px;
-      &:before,&:after{
+      &::before,&::after{
         height: 1px;
         background-color: #999;
         width: 48px;
@@ -132,7 +133,14 @@
 .floorContent {
   display: flex;
   flex-wrap: wrap;
+  // &.has_keyword{
+  //   padding-top: 20px;
+  // }
 }
+.has_keyword{
+  margin-bottom: 30px;
+}
+
 .logoCon {
     width: 25%;
     text-align: center;

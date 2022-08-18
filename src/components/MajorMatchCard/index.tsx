@@ -1,6 +1,6 @@
 import type { CSSProperties, MutableRefObject } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, connect, FormattedMessage } from 'umi';
+import { Link, connect, FormattedMessage, useIntl } from 'umi';
 import moment from 'moment';
 import classnames from 'classnames';
 import { Row, Col, message, Rate } from 'antd';
@@ -15,7 +15,7 @@ import emptyLogo from '../../assets/emptyLogo.png';
 // import PopupLogin from '@/components/PopupLogin';
 import type { ConnectState } from '@/models/connect';
 import { genIcon } from '@/components/MatchCardScore';
-
+import { handleReport } from '@/utils/report';
 import LoginModal from '../MatchCard/Login';
 
 import { getScore, getMatchStatus, MatchStatus } from '@/utils/match';
@@ -34,7 +34,7 @@ import type { TeamHistoryVSItemType } from '@/services/match';
 import { fetchRankingList } from '@/services/match';
 import { createPortal } from 'react-dom';
 import lightTipImg from '@/assets/icon/light.png';
-import { toShortLangCode } from '@/utils/utils';
+import { toShortLangCode, formatDateMMDD } from '@/utils/utils';
 
 // https://www.showdoc.com.cn/fbmaster?page_id=6787664606626111
 export type maojorMatchProps = {
@@ -212,6 +212,7 @@ function TipsPanel(props: {
 }
 
 const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
+  const intl = useIntl();
   const { data, currentUser, reportCate, reportTag, hideOdds, style, tips } = props;
   const vote = data.vote || { home_team_vote: 0, draw_vote: 0, away_team_vote: 0 };
   const home = vote.home_team_vote || 0;
@@ -243,7 +244,7 @@ const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
     if (data.subscribed) {
       const result = await homeService.cancelSubscribe(data.match_id);
       if (result.success) {
-        message.success(<FormattedMessage id="key_unsubscribed" />);
+        message.success(intl.formatMessage({ id: 'key_unsubscribed' }));
       }
       props.setParams(data.match_id, false);
     } else {
@@ -255,8 +256,9 @@ const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
         });
       }
       const result = await homeService.setSubscribe(data.match_id);
+      handleReport({ action: 'subscribe', tag: data.status });
       if (result.success) {
-        message.success(<FormattedMessage id="key_subscribed" />);
+        message.success(intl.formatMessage({ id: 'key_subscribed' }));
       }
       props.setParams(data.match_id, true);
     }
@@ -271,16 +273,18 @@ const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
   const onSubscribeHandle = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    if (getMatchStatus(data.status) === MatchStatus.Before) {
-      // 登录后
-      if (currentUser) {
-        handleSubscribe();
-      } else {
-        setLoginVisible(true);
-      }
-    } else {
-      handleLiveMatch();
-    }
+    handleSubscribe();
+    // handleLiveMatch();
+    // if (getMatchStatus(data.status) === MatchStatus.Before) {
+    //   // 登录后
+    //   if (currentUser) {
+    //     handleSubscribe();
+    //   } else {
+    //     setLoginVisible(true);
+    //   }
+    // } else {
+    //   handleLiveMatch();
+    // }
   };
 
   const onLoginHandler = () => {
@@ -453,11 +457,12 @@ const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
           <Col className={styles.dateContainer} span={8}>
             {isShowScore ? (
               <div className={styles.dateText}>
-                {moment(new Date(data.match_time * 1000)).format('DD MMM HH:mm')}
+                {formatDateMMDD(data.match_time, ' HH:mm')}
               </div>
             ) : (
               <div className={styles.dateText}>
-                {moment(new Date(data.match_time * 1000)).format('DD MMM')}
+                {formatDateMMDD(data.match_time)}
+                {/* {moment(new Date(data.match_time * 1000)).format('DD MMM')} */}
               </div>
             )}
             {isShowScore ? (

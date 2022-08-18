@@ -133,7 +133,7 @@ export default {
  "key_following": "关注中",
  "key_forgot_password": "忘记密码?",
  "key_founded_in": "成立于:",
- "key_fri": "周五",
+ "key_fri": "星期五",
  "key_full_time": "已结束",
  "key_get_into_account_app": "请先输入你的账号",
  "key_get_into_account_web": "请先输入你的账号",

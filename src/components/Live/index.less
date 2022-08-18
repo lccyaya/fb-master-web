@@ -29,37 +29,37 @@
     .videoHead {
       width: 100%;
       height: 92px;
-      background: #FAFAFA;
+      background: #fafafa;
 
       .competitionCon {
         height: 44px;
         padding: 12px;
 
         .competition {
-          font-family: 'PingFang SC Normal';
-          font-size: 12px;
-          line-height: 20px;
           color: #999;
+          font-size: 12px;
+          font-family: 'PingFang SC Normal';
+          line-height: 20px;
         }
       }
 
       .infoCon {
+        height: 32px;
         margin-bottom: 16px;
         line-height: 32px;
-        height: 32px;
 
         .homeTeam {
-          font-family: 'PingFang SC Normal';
-          font-size: 12px;
-          line-height: 32px;
-          text-align: right;
+          padding-left: 12px;
+          overflow: hidden;
           color: #333;
+          font-size: 12px;
+          font-family: 'PingFang SC Normal';
+          line-height: 32px;
           white-space: nowrap;
+          text-align: right;
           text-align: center;
           text-overflow: ellipsis;
           word-break: break-all;
-          overflow: hidden;
-          padding-left: 12px;
         }
 
         // .homeTeam:hover {
@@ -79,28 +79,29 @@
           .logo {
             width: 28px;
             height: 28px;
+            object-fit: contain;
           }
         }
 
         .time {
-          font-family: 'PingFang SC Normal';
+          color: #999;
           font-size: 12px;
+          font-family: 'PingFang SC Normal';
           line-height: 16px;
           text-align: center;
-          color: #999;
         }
 
         .awayTeam {
-          font-family: 'PingFang SC Normal';
-          font-size: 12px;
-          line-height: 32px;
+          padding-right: 12px;
+          overflow: hidden;
           color: #333;
+          font-size: 12px;
+          font-family: 'PingFang SC Normal';
+          line-height: 32px;
           white-space: nowrap;
           text-align: center;
           text-overflow: ellipsis;
           word-break: break-all;
-          overflow: hidden;
-          padding-right: 12px;
         }
 
         // .awayTeam:hover {
@@ -119,17 +120,17 @@
     }
 
     .iframeContainer {
+      position: relative;
       width: 100%;
       height: 0%;
       padding-bottom: 50%;
-      position: relative;
 
       .iframe {
         position: absolute;
-        left: 0;
         top: 0;
         right: 0;
         bottom: 0;
+        left: 0;
       }
     }
   }

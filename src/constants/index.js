@@ -85,7 +85,7 @@ export const COUPON_STATUS = ((ENUM) => {
 })({});
 
 export const COMPETITION_STATUS = ((ENUM) => {
-  ENUM[(ENUM.MAIN = 'main')] = 'MAIN';
-  ENUM[(ENUM.ALL = 'all')] = 'ALL';
+  ENUM[(ENUM.MAIN = 'main')] = 'main';
+  ENUM[(ENUM.ALL = 'all')] = 'all';
   return ENUM;
 })({});

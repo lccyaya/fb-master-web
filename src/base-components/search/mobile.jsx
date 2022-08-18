@@ -6,7 +6,8 @@ import IconFont from '@/components/IconFont';
 import cls from 'classnames';
 
 let antiShakeTime = null;
-const Search = ({ width = '100%', className, value, onChange = () => {}, onEnter = () => {} }) => {
+const Search = ({ width = '100%', className, placeholder, value, onChange = () => {}, onEnter = () => {}, onFocus = () => {} }) => {
+  const intl = useIntl();
   const handleChange = (v) => {
     const value = v.target.value;
     onChange(value)
@@ -18,9 +19,12 @@ const Search = ({ width = '100%', className, value, onChange = () => {}, onEnter
   }
   return <div style={{ width }} className={cls(styles.search, className)}>
     <Input
-      placeholder={useIntl().formatMessage({ id: 'key_search_for_leagues' })}
+      placeholder={placeholder || intl.formatMessage({ id: 'key_search_the_team' })}
       className={cls(styles.input)}
-      value={value}
+      value={value} autoFocus
+      onFocus={() => {
+        onFocus();
+      }}
       onChange={handleChange}
     />
     <IconFont type='icon-sousuo' className={styles.SearchOutlined} size={20}/>

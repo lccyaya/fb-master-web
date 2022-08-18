@@ -23,7 +23,7 @@
     }
     :global{
         .ant-tabs-tab{
-            margin: 0 20px;
+            margin: 0 20px !important;
             padding: 12px 0 !important;
             &:first-child{
                 // margin-left: 16px;
@@ -36,7 +36,7 @@
     z-index: 3;
     width: 100%;
     border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
+    border-top-right-radius: 16px;
     box-sizing: border-box;
     background-color: #fff;
     .close{
@@ -81,6 +81,10 @@
 .competition_list{
     overflow-y: auto;
     height: 350px;
+    max-height: 45vh;
+    &.without_menu{
+      height: 396px;
+    }
     .list{
         display: flex;
         width: 100%;
@@ -111,32 +115,36 @@
     }
 }
 .floor {
-    padding-bottom: 14px;
-    .title {
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 32px;
-      &:before,&:after{
-        height: 1px;
-        background-color: #999;
-        width: 48px;
-        content: '';
-      }
-      span {
-        display: inline-block;
-        font-size: 24px;
-        font-weight: bold;
-        font-style: italic;
-        margin: 0 16px;
-        color: rgba(0,0,0,.85)
-      }
+  width: 100%;
+  padding-bottom: 14px;
+  .title {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    &:before,&:after{
+      height: 1px;
+      background-color: #999;
+      width: 48px;
+      content: '';
     }
-    .floorContent {
-      display: flex;
-      flex-wrap: wrap;
+    span {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: bold;
+      font-style: italic;
+      margin: 0 16px;
+      color: rgba(0,0,0,.85)
     }
+  }
+}
+.floorContent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.has_keyword{
+  margin-bottom: 20px;
 }
 .logoCon {
     width: 25%;

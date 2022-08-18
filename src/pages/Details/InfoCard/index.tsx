@@ -2,8 +2,8 @@ import styles from './index.less';
 import type * as matchService from '@/services/match';
 import moment from 'moment';
 import emptyLogo from '@/assets/emptyLogo.png';
-import { getMatchStatus, getMatchStatusDes, MatchStatus } from '@/utils/match';
-import { useRef, useState } from 'react';
+import { getMatchStatus, MatchStatus } from '@/utils/match';
+import { useRef, useState, useEffect } from 'react';
 import { Link, useIntl } from 'umi';
 import * as homeService from '@/services/home';
 import { message } from 'antd';
@@ -15,6 +15,7 @@ import { toShortLangCode } from '@/utils/utils';
 import { locale } from '@/app';
 import { FormattedMessage } from '@@/plugin-locale/localeExports';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
+import Iconfont from '@/base-components/iconfont';
 
 export default (props: {
   match?: matchService.MatchDetails;
@@ -27,6 +28,9 @@ export default (props: {
   const { match, reportCate, reportAction } = props;
   const [isSubscribed, setIsSubscribed] = useState<boolean>(Boolean(match?.is_subscribed));
   const [notificationVisible, setNotificationVisible] = useState(false);
+  useEffect(() => {
+    setIsSubscribed(match?.is_subscribed);
+  }, [match?.is_subscribed]);
   if (!match) return null;
   const handleSubscribe = async () => {
     if (isSubscribed) {
@@ -57,7 +61,7 @@ export default (props: {
   const status = getMatchStatus(match.status);
   const showScore = status !== MatchStatus.Before && status !== MatchStatus.TBD;
   const final = match.final_scores;
-  const time = moment(new Date(match.match_time * 1000)).format('MM-DD HH:mm');
+  const time = moment(new Date(match.match_time * 1000)).format('DD/MM HH:mm');
   const { round } = match;
   let nameSuffix = '';
 
@@ -83,16 +87,17 @@ export default (props: {
       <div className={styles.wrapper}>
         <div className={styles.top}>
           <div className={styles.time}>{time}</div>
-          <div className={styles.reminder}>
-            <div
-              className={`${styles.imgWrapper} ${isSubscribed ? styles.sub : styles.unsub}`}
-              onClick={() => {
-                handleSubscribe();
-              }}
-            >
-              <div className={styles.subscribed} />
-              <div className={styles.unsubscribed} />
-            </div>
+          <div
+            className={styles.reminder}
+            onClick={() => {
+              handleSubscribe();
+            }}
+          >
+            {isSubscribed ? (
+              <Iconfont type="icon-dingyue-xuanzhong" size={26} color="#3B9270" />
+            ) : (
+              <Iconfont type="icon-dingyue-weixuanzhong" size={26} color="#959394" />
+            )}
             {/* {status === MatchStatus.Before && (
             <PopupLogin
               onLogin={handleSubscribe}
@@ -144,8 +149,8 @@ export default (props: {
           {final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : ''}
           {!final.has_ot && !final.has_penalty ? (
             <>
-              {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
-              {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
+              {status === MatchStatus.Complete && 'FT'}
+              {status === MatchStatus.TBD && 'TBD'}
               {(status === MatchStatus.Before || status === MatchStatus.Going) && (
                 <div className={styles.progress}>
                   {status === MatchStatus.Before
@@ -162,14 +167,26 @@ export default (props: {
         <div className={styles.name}>{match.competition_name}</div>
         <div className={styles.time}>{time}</div>
         <div className={styles.progress}>
-          {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
-          {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
+          {status === MatchStatus.Complete && 'FT'}
+          {status === MatchStatus.TBD && 'TBD'}
           {(status === MatchStatus.Before || status === MatchStatus.Going) && (
             <>
               {status === MatchStatus.Before
                 ? intl.formatMessage({ id: 'key_to_play' })
                 : match.minutes}
             </>
+          )}
+        </div>
+        <div
+          className={styles.reminder}
+          onClick={() => {
+            handleSubscribe();
+          }}
+        >
+          {isSubscribed ? (
+            <Iconfont type="icon-dingyue-xuanzhong" size={20} color="#fff" />
+          ) : (
+            <Iconfont type="icon-dingyue-weixuanzhong" size={20} color="#fff" />
           )}
         </div>
         <div className={styles.teams}>

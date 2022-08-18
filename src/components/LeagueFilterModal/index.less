@@ -6,15 +6,15 @@
       padding: 0;
     }
     .ant-modal-close-x {
-      font-size: 24px;
-      width: 48px;
-      height: 49px;
       position: absolute;
       top: 18px;
       right: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 48px;
+      height: 49px;
+      font-size: 24px;
     }
   }
 
@@ -22,24 +22,24 @@
     padding: 24px 32px;
 
     .title {
-      font-family: 'PingFang SC Bold';
-      font-size: 24px;
-      line-height: 32px;
-      color: @primary-color;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
       position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+      color: @primary-color;
+      font-size: 24px;
+      font-family: 'PingFang SC Bold';
+      line-height: 32px;
+      text-align: center;
 
       .skip {
-        font-family: PingFang SC Bold;
-        font-size: 16px;
-        line-height: 22px;
-        color: #333;
-        cursor: pointer;
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
+        color: #333;
+        font-size: 16px;
+        font-family: PingFang SC Bold;
+        line-height: 22px;
+        cursor: pointer;
       }
 
       .skip:hover {
@@ -48,9 +48,9 @@
     }
 
     .SearchOutlined {
-      font-size: 16px;
-      color: #ccc;
       width: 32px;
+      color: #ccc;
+      font-size: 16px;
       cursor: pointer;
     }
 
@@ -60,20 +60,20 @@
 
     .search {
       height: 40px;
-      line-height: 40px;
       font-size: 14px;
+      line-height: 40px;
     }
 
     :global(.ant-input-affix-wrapper) {
+      background: #fafafa;
       border: none;
-      background: #FAFAFA;
       border-radius: 8px !important;
     }
 
     :global(.ant-input) {
-      line-height: 24px;
       font-size: 14px;
-      background: #FAFAFA;
+      line-height: 24px;
+      background: #fafafa;
     }
 
     :global(.ant-input-group-addon) {
@@ -103,13 +103,13 @@
     }
 
     .content {
+      display: flex;
       height: 350px;
       margin-top: 16px;
-      display: flex;
 
       .category {
         width: 160px;
-        background: #FAFAFA;
+        background: #fafafa;
       }
       .categoryContent {
         flex: auto;
@@ -119,21 +119,21 @@
         .floor {
           padding-bottom: 14px;
           .floorTitle {
-            margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 32px;
+            margin-bottom: 16px;
             .floorTitleLine {
+              width: 48px;
               height: 1px;
               background-color: #999;
-              width: 48px;
             }
             .floorTitleText {
-              font-size: 24px;
-              font-weight: bold;
-              font-style: italic;
               margin: 0 16px;
+              font-weight: bold;
+              font-size: 24px;
+              font-style: italic;
             }
           }
           .floorContent {
@@ -143,10 +143,10 @@
         }
 
         .logoCon {
-          width: 25%;
-          text-align: center;
-          margin-bottom: 12px;
           position: relative;
+          width: 25%;
+          margin-bottom: 12px;
+          text-align: center;
           cursor: pointer;
 
           @media (max-width: @screen-xs) {
@@ -154,9 +154,10 @@
           }
 
           .logo {
+            position: relative;
             width: 48px;
             height: 48px;
-            position: relative;
+            object-fit: contain;
           }
 
           .check {
@@ -166,15 +167,15 @@
           }
 
           .name {
-            font-family: PingFang SC Normal;
-            font-size: 12px;
-            line-height: 28px;
+            padding: 0 4px;
+            overflow: hidden;
             color: #333;
+            font-size: 12px;
+            font-family: PingFang SC Normal;
+            line-height: 28px;
             white-space: nowrap;
             text-overflow: ellipsis;
             word-break: break-all;
-            overflow: hidden;
-            padding: 0 4px;
 
             @media (max-width: @screen-xs) {
               margin-top: 6px;
@@ -209,9 +210,9 @@
         .card {
           width: 100%;
           height: 100%;
-          background: #FAFAFA;
-          border-radius: 8px;
           text-align: center;
+          background: #fafafa;
+          border-radius: 8px;
 
           .plus {
             color: @primary-color;
@@ -220,31 +221,32 @@
           }
 
           .followme {
-            font-family: 'PingFang SC Medium';
-            font-size: 12px;
-            line-height: 20px;
             color: #333;
+            font-size: 12px;
+            font-family: 'PingFang SC Medium';
+            line-height: 20px;
           }
 
           .logo {
             width: 48px;
             height: 48px;
             margin-top: 20px;
+            object-fit: contain;
           }
 
           .intro {
             text-align: left;
 
             .text {
-              font-family: 'PingFang SC Medium';
-              font-size: 12px;
-              line-height: 20px;
-              color: #333;
               margin-top: 20px;
+              overflow: hidden;
+              color: #333;
+              font-size: 12px;
+              font-family: 'PingFang SC Medium';
+              line-height: 20px;
               white-space: nowrap;
               text-overflow: ellipsis;
               word-break: break-all;
-              overflow: hidden;
             }
 
             .text:hover {
@@ -257,12 +259,12 @@
             }
 
             .button {
-              font-family: 'PingFang SC Medium';
-              font-size: 12px;
-              border-radius: 8px;
               height: 24px;
-              line-height: 20px;
               margin-top: 4px;
+              font-size: 12px;
+              font-family: 'PingFang SC Medium';
+              line-height: 20px;
+              border-radius: 8px;
             }
           }
         }
@@ -276,7 +278,6 @@
         }
       }
 
-
       @media (max-width: @screen-xs) {
         .cardContainer {
           width: 100%;
@@ -285,11 +286,11 @@
     }
 
     .footer {
-      margin-top: 36px;
       display: flex;
       align-items: center;
-      text-align: right;
       justify-content: space-between;
+      margin-top: 36px;
+      text-align: right;
 
       .title {
         font-size: 20px;
@@ -297,22 +298,22 @@
 
       .top {
         display: flex;
+        flex: auto;
         align-items: center;
         justify-content: space-between;
         margin-left: 196px;
-        flex: auto;
 
         .selectedTip {
+          margin-right: 4px;
+          margin-left: auto;
           color: #666;
           font-size: 14px;
-          margin-left: auto;
-          margin-right: 4px;
         }
       }
 
       .button {
-        height: 46px;
         width: 125px;
+        height: 46px;
         font-size: 16px;
         font-family: 'PingFang SC Bold';
         border-radius: 8px;
@@ -336,8 +337,8 @@
         padding-bottom: 4px;
         .top {
           width: 100%;
-          margin-left: 0;
           margin-bottom: 8px;
+          margin-left: 0;
         }
       }
     }
@@ -345,7 +346,6 @@
 
   @media (max-width: @screen-xs) {
     :global {
-
       .ant-modal-close-x {
         top: 0;
         right: 0;

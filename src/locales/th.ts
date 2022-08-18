@@ -227,7 +227,7 @@ export default {
  "key_miss": "ไม่ได้รับ",
  "key_missed": "ไม่มีเป้าหมาย",
  "key_modify_information": "แก้ไขข้อมูล",
- "key_mon": "ในวันจันทร์",
+ "key_mon": "วันจันทร์",
  "key_month1": "มกราคม",
  "key_month10": "ตุลาคม",
  "key_month11": "พฤศจิกายน",

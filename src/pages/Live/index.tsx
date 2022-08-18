@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import classnames from 'classnames';
-import { Spin, Row, Button } from 'antd';
-import { SwapOutlined } from '@ant-design/icons';
+import { Spin, Row } from 'antd';
 import { connect, FormattedMessage, Link } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import styles from './index.less';
 import * as matchService from '@/services/matchPage';
+import { Switch, IconButton } from '@/base-components/pc';
 import type { matchType as matchTypeObject } from '@/services/matchPage';
-// import MatchCard from '../../components/MatchCard';
-import { MatchCard } from '@/func-components/pc';
-import { MatchCard as MatchCardMobile } from '@/func-components/mobile';
-import MatchCardHome from '@/components/MatchCardHome';
-import MatchCardScore from '@/components/MatchCardScore';
+import { MatchCard, League } from '@/func-components/pc';
+import {
+  MatchCard as MatchCardMobile,
+  League as LeagueMobile,
+  BottomIcon,
+} from '@/func-components/mobile';
 import { getDateData } from '../../components/MatchList';
 import LoginModal from '@/components/MatchCard/Login';
 import type { UserInfoType } from '@/services/user';
@@ -23,6 +24,9 @@ import CallAppModal from '@/components/OpenApp/CallAppModal';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import { locale } from '@/app';
 import findIndex from 'lodash/findIndex';
+import { useLocalStorageState } from 'ahooks';
+import { STORAGE_INDEX_VALUE, SESS_STORAGE_SELECTED_LEAGUES, getSessionStorage } from '@/constants';
+import { handleReport } from '@/utils/report';
 
 export type sameDayMatch = {
   date: number;
@@ -39,8 +43,6 @@ function sortMatchList(list: matchService.matchType[]) {
   });
 }
 
-const livePageSize = 50;
-
 type IProps = {
   currentUser?: UserInfoType | null;
   isPhone?: boolean;
@@ -48,6 +50,64 @@ type IProps = {
   hideLoading?: boolean;
 };
 
+// 指数联赛的选择
+const SelectFunc = (props: any) => {
+  const [isReady, setReady] = useState(false);
+  const { setLeagueShow, competition_ids, intl, isPhone, indexVal, setIndexVal } = props;
+  // const [subindexVal, subsetIndexVal] = useLocalStorageState(STORAGE_INDEX_VALUE, { defaultValue: false });
+  // 底部点击
+  const onBottomClick = () => {
+    setIndexVal(!indexVal);
+  };
+  const icons = indexVal
+    ? {
+        type: 'icon-tubiao_zhishu',
+        color: '#ffffff',
+        bg: '#39906A linear-gradient(145deg, #50E4A4 0%, #049A59 100%)',
+      }
+    : { type: 'icon-tubiao_zhishu', color: '#999' };
+  useEffect(() => {
+    setReady(true);
+  }, []);
+  if (!isReady) {
+    return null;
+  }
+  return (
+    <>
+      {isPhone ? (
+        <>
+          <IconButton
+            onClick={() => setLeagueShow(true)}
+            active={competition_ids?.length > 0 ? true : false}
+            icon="icon-bisai"
+            title={intl.formatMessage({ id: 'key_league', defaultMessage: 'key_league' })}
+          />
+          <BottomIcon onClick={onBottomClick} className={styles.bottom_icon} icons={[icons]} />
+        </>
+      ) : (
+        <>
+          <IconButton
+            onClick={() => setLeagueShow(true)}
+            active={competition_ids?.length > 0 ? true : false}
+            icon="icon-bisai"
+            title={intl.formatMessage({ id: 'key_league', defaultMessage: 'key_league' })}
+          />
+          <Switch
+            title={intl.formatMessage({ id: 'key_index' })}
+            value={indexVal}
+            onChange={(e: any) => {
+              handleReport({ action: e ? 'open_index' : 'close_index' });
+              setIndexVal(e);
+              subsetIndexVal(e);
+            }}
+          />
+        </>
+      )}
+    </>
+  );
+};
+
+// live 无数据
 function LiveEmpty() {
   return (
     <div className={styles.liveEmpty}>
@@ -58,43 +118,27 @@ function LiveEmpty() {
   );
 }
 
-const Matches = React.memo(
-  (props: {
-    matches: matchService.matchType[];
-    switchType: string;
-    setParams: (id: number, bool: boolean) => void;
-  }) => {
-    const { matches, switchType, setParams } = props;
-    const isPhone = checkIsPhone();
-    return (
-      <Row className={classnames(styles.listContainer, styles.liveListContainer)}>
+const Matches = (props: {
+  matches: matchService.matchType[];
+  indexVal: boolean;
+  setParams: (id: number, bool: boolean) => void;
+}) => {
+  const { matches, indexVal, setParams } = props;
+  const isPhone = checkIsPhone();
+  return (
+    <Row className={classnames(styles.listContainer, styles.liveListContainer)}>
+      <div className={styles.card_box}>
         {matches.map((d: matchTypeObject) => {
-          return isPhone ? 
-          <MatchCardMobile data={d} key={d.match_id} type={switchType === 'Score' ? 'score' : 'index'} /> 
-          : 
-          <MatchCard data={d} key={d.match_id} type={switchType === 'Score' ? 'score' : 'index'} />
-          // return switchType === 'Score' ? (
-          //   <MatchCardScore
-          //     reportCate={REPORT_CATE.live}
-          //     data={d}
-          //     key={d.match_id}
-          //     from="match"
-          //     setParams={setParams}
-          //   />
-          // ) : (
-          //   <MatchCardHome
-          //     reportCate={REPORT_CATE.live}
-          //     data={d}
-          //     key={d.match_id}
-          //     from="match"
-          //     setParams={setParams}
-          //   />
-          // );
+          return isPhone ? (
+            <MatchCardMobile data={d} key={d.match_id} type={indexVal ? 'index' : 'score'} />
+          ) : (
+            <MatchCard data={d} key={d.match_id} type={indexVal ? 'index' : 'score'} />
+          );
         })}
-      </Row>
-    );
-  },
-);
+      </div>
+    </Row>
+  );
+};
 
 function UpcomingTip() {
   return (
@@ -107,16 +151,22 @@ function UpcomingTip() {
   );
 }
 
-const Live: React.FC<IProps> = (props) => {
-  const { ssrLiveList, hideLoading } = props;
-  const [liveList, setLiveList] = useState<ReturnType<typeof handleLiveList>>(
-    ssrLiveList ? handleLiveList(ssrLiveList) : [],
-  );
+const Live: React.FC<IProps> = React.memo((props) => {
+  const [indexVal, setIndexVal] = useLocalStorageState(STORAGE_INDEX_VALUE, {
+    defaultValue: false,
+  });
+  const { hideLoading } = props;
+  const [liveList, setLiveList] = useState<ReturnType<typeof handleLiveList>>([]);
   const [matchList, setMatchList] = useState<matchType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [loginVisible, setLoginVisible] = useState<boolean>(false);
   const [livePage, setLivePage] = useState<number>(1);
-  const [switchType, setSwitchType] = useState<string>('Score');
+  const [leagueShow, setLeagueShow] = useState(false); // league 是否显示
+  const [competition_ids, setCompetitionIds] = useState(
+    getSessionStorage(SESS_STORAGE_SELECTED_LEAGUES, '[]'),
+  );
+  // const [switchType, setSwitchType] = useState<string>('Score');
+
   const [canPlayLiveMatches, setCanPlayLiveMatches] = useState<matchType[]>([]);
 
   const liveTimer = useRef<number>();
@@ -124,15 +174,17 @@ const Live: React.FC<IProps> = (props) => {
 
   const intl = useIntl();
 
-  const getLiveList = async (p: number, bool?: boolean) => {
+  const getLiveList = async (p: number, competition_ids: any) => {
     const currentTime = new Date().getTime();
-    const result = await matchService.MatchListV3({
+    const params = {
       tab_type: 1,
       zone: 8,
       timestamp: Math.floor(currentTime / 1000),
       page: p,
-      size: 20
-    });
+      size: 20,
+      competition_ids,
+    };
+    const result = await matchService.MatchListV3(params);
     if (result.success) {
       const cantPlay: matchType[] = [];
       const canPlay: matchType[] = [];
@@ -153,10 +205,10 @@ const Live: React.FC<IProps> = (props) => {
       const upcomingIndex = findIndex(source, (m) => m.match_time > now);
       let final = handleLiveList({ matches: source.slice(0, upcomingIndex) });
       setCanPlayLiveMatches(canPlay.sort((a, b) => a.match_time - b.match_time));
-      if (bool) {
-        final = liveList.concat(final);
-        setLivePage(p);
-      }
+      // if (bool) {
+      //   final = liveList.concat(final);
+      //   setLivePage(p);
+      // }
       if (upcomingIndex === -1) {
         setMatchList([]);
       } else {
@@ -167,11 +219,6 @@ const Live: React.FC<IProps> = (props) => {
     } else {
       setLoading(false);
     }
-  };
-
-  const handleSwitch = () => {
-    const currentSwitch = switchType === 'Score' ? 'Index' : 'Score';
-    setSwitchType(currentSwitch);
   };
 
   const handleUpcomingMatchSetParams = useCallback(
@@ -221,10 +268,21 @@ const Live: React.FC<IProps> = (props) => {
     [liveList],
   );
 
+  // 联赛确认点击
+  const onLeagueSubmit = (e: any) => {
+    console.log('联赛结果', e);
+    setCompetitionIds(e);
+    getLiveList(1, e);
+    clearInterval(liveTimer.current);
+    liveTimer.current = window.setInterval(() => getLiveList(1, e), 10000);
+    // onParamsChange({ competition_ids: e });
+  };
+
   useEffect(() => {
     setLoading(!hideLoading);
-    getLiveList(livePage);
-    liveTimer.current = window.setInterval(() => getLiveList(1), 10000);
+    getLiveList(livePage, competition_ids);
+    liveTimer.current = window.setInterval(() => getLiveList(1, competition_ids), 10000);
+
     return () => {
       clearInterval(liveTimer.current);
     };
@@ -232,86 +290,97 @@ const Live: React.FC<IProps> = (props) => {
 
   const showLiveVideo = !isPhone && canPlayLiveMatches.length > 0;
   const lang = toShortLangCode(locale.getLocale());
-
-  console.log(liveList, '**', matchList, '&&&&')
+  console.log(indexVal, 'indexVal');
   return (
-    <Spin spinning={loading}>
-      {/* {checkIsPhone() && <CallAppModal title={intl.formatMessage({ id: 'key_watch_in_app' })} />} */}
-      <LoginModal
-        visible={loginVisible}
-        onLogin={() => {
-          setLoginVisible(false);
-        }}
-        onCancel={() => {
-          setLoginVisible(false);
-        }}
-      />
-      <div className={classnames(styles.main, canPlayLiveMatches.length === 1 ? styles.min : null)}>
-        {/* <Row className={styles.switchRow}>
-          <Button
-            className={styles.switchButton}
-            icon={<SwapOutlined />}
-            type="text"
-            size="large"
-            onClick={handleSwitch}
+    <>
+      <div>
+        <Spin spinning={loading}>
+          {/* {isPhone ? <CallAppModal title={intl.formatMessage({ id: 'key_watch_in_app' })} /> : null} */}
+          <LoginModal
+            visible={loginVisible}
+            onLogin={() => {
+              setLoginVisible(false);
+            }}
+            onCancel={() => {
+              setLoginVisible(false);
+            }}
+          />
+          <div
+            className={classnames(styles.main, canPlayLiveMatches.length === 1 ? styles.min : null)}
           >
-            <FormattedMessage id={switchType === 'Score' ? 'key_index' : 'key_score'} />
-          </Button>
-        </Row> */}
-        <Row className={classnames(isPhone ? styles.phone : '')}>
-          {showLiveVideo && (
-            <MatchLive
-              reportCate={REPORT_CATE.live}
-              matchList={canPlayLiveMatches}
-              indexView={switchType === 'Index'}
-            />
-          )}
-          <div className={styles.scrollContainer}>
-            {liveList && liveList.length > 0
-              ? liveList.map((ele) => {
-                  const key = ele.date;
-                  return (
-                    <Matches
-                      matches={ele.matches}
-                      key={key}
-                      switchType={switchType}
-                      setParams={handleSetParams}
-                    />
-                  );
-                })
-              : null}
-            {!loading && canPlayLiveMatches.length + liveList.length === 0 && <LiveEmpty />}
-            {!loading && matchList.length > 0 ? <UpcomingTip /> : null}
-            <Matches
-              matches={matchList}
-              switchType={switchType}
-              setParams={handleUpcomingMatchSetParams}
-            />
-            {!loading && (
-              <Link to={`/${lang}/match?type=all`} className={styles.upcomingMore}>
-                <FormattedMessage id="key_more" />
-              </Link>
-            )}
+            <Row className={styles.switchRow}>
+              <SelectFunc
+                setLeagueShow={(e) => {
+                  setLeagueShow(e);
+                  handleReport({ action: 'league_filter' });
+                }}
+                competition_ids={competition_ids}
+                intl={intl}
+                isPhone={isPhone}
+                indexVal={indexVal}
+                setIndexVal={(e) => {
+                  setIndexVal(e);
+                  handleReport({ action: e ? 'open_index' : 'close_index' });
+                }}
+              />
+            </Row>
+            <Row className={classnames(isPhone ? styles.phone : '')}>
+              {showLiveVideo && (
+                <MatchLive
+                  reportCate={REPORT_CATE.live}
+                  matchList={canPlayLiveMatches}
+                  indexView={indexVal}
+                />
+              )}
+              <div className={styles.scrollContainer}>
+                {liveList && liveList.length > 0
+                  ? liveList.map((ele) => {
+                      const key = ele.date;
+                      return (
+                        <Matches
+                          matches={ele.matches}
+                          key={key}
+                          indexVal={indexVal}
+                          setParams={handleSetParams}
+                        />
+                      );
+                    })
+                  : null}
+                {/* <LiveEmpty /> */}
+                {!loading && canPlayLiveMatches.length + liveList.length === 0 && <LiveEmpty />}
+                {!loading && matchList.length > 0 ? <UpcomingTip /> : null}
+                <Matches
+                  matches={matchList}
+                  indexVal={indexVal}
+                  setParams={handleUpcomingMatchSetParams}
+                />
+                {!loading && (
+                  <Link to={`/${lang}/match?type=all`} className={styles.upcomingMore}>
+                    <FormattedMessage id="key_more" />
+                  </Link>
+                )}
+              </div>
+            </Row>
           </div>
-        </Row>
+        </Spin>
       </div>
-    </Spin>
+      {/* 联赛选择 */}
+      {isPhone ? (
+        <LeagueMobile
+          visible={leagueShow}
+          onSubmit={onLeagueSubmit}
+          onClose={() => setLeagueShow(false)}
+        />
+      ) : (
+        <League
+          visible={leagueShow}
+          onSubmit={onLeagueSubmit}
+          onClose={() => setLeagueShow(false)}
+        />
+      )}
+    </>
   );
-};
-
-// @ts-ignore
-// Live.getInitialProps = async () => {
-//   const currentTime = new Date().getTime();
-//   const liveResult = await matchService.fetchLiveMatchList({
-//     timestamp: Math.floor(currentTime / 1000),
-//     page: 1,
-//     size: livePageSize,
-//   });
-//   return {
-//     ssrLiveList: liveResult.success ? liveResult.data : undefined,
-//     hideLoading: true,
-//   };
-// };
+});
 
 export default connect(({ user, divice }: ConnectState) => ({
   currentUser: user.currentUser,

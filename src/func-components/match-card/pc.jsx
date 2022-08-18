@@ -13,6 +13,7 @@ import { locale } from '@/app';
 import { normalizeFloat } from '@/utils/tools';
 import EmptyLogo from '@/assets/emptyLogo.png';
 import cls from 'classnames';
+import { handleReport } from '@/utils/report';
 
 import styles from './pc.module.less';
 // type 支持 score【比分模式】和 index[指数模式]
@@ -27,19 +28,19 @@ const PC = ({ data, type = 'score', className = '' }) => {
   let status = getMatchStatus(data.status);
   let matchStatusText = {
     text: '',
-    color: '#333',
+    color: '#999',
   };
   if (status === MatchStatus.Complete) {
     matchStatusText.text = 'FT';
-    matchStatusText.color = '#333';
+    matchStatusText.color = '#191919';
   } else if (status === MatchStatus.TBD) {
     matchStatusText.text = 'TBD';
-    matchStatusText.color = '#333';
+    matchStatusText.color = '#999';
   } else if ([MatchStatus.Before].includes(status)) {
     matchStatusText.text = intl.formatMessage({ id: 'key_to_play' });
-    matchStatusText.color = '#333';
+    matchStatusText.color = '#999';
   } else if (status === MatchStatus.Going) {
-    matchStatusText.text = data.minutes + '‘';
+    matchStatusText.text = data.minutes;
     matchStatusText.color = '#39906A';
   }
   const { asia, bs, eu } = data.odds;
@@ -60,18 +61,24 @@ const PC = ({ data, type = 'score', className = '' }) => {
   const final = data.final_scores;
 
   const handleSubscribe = async (data) => {
+    setSubscribed(!subscribed);
     if (subscribed) {
       const result = await homeService.cancelSubscribe(data.match_id);
       if (result.success) {
         message.success(intl.formatMessage({ id: 'key_unsubscribed' }));
         setSubscribed(false);
-        setMatchInfo(matchInfo);
+      } else {
+        setSubscribed(true);
       }
     } else {
       const result = await homeService.setSubscribe(data.match_id);
+
       if (result.success) {
+        handleReport({ action: 'subscribe', tag: data.status + '' });
         setSubscribed(true);
         message.success(intl.formatMessage({ id: 'key_subscribed' }));
+      } else {
+        setSubscribed(false);
       }
     }
   };
@@ -81,6 +88,7 @@ const PC = ({ data, type = 'score', className = '' }) => {
         className={cls(styles.match_card_box, className)}
         onClick={() => {
           const lang = toShortLangCode(locale.getLocale());
+          handleReport({ action: 'match_enter', tag: data.status + '' });
           history.push(`/${lang}/details/${data.match_id}`);
         }}
       >
@@ -198,9 +206,9 @@ const PC = ({ data, type = 'score', className = '' }) => {
           />
         </div>
         <div className={styles.bottom}>
-          {final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : ''}
+          {final.has_ot ? `AET: ${final.ot_home || 0}-${final.ot_away || 0}` : ''}
           {final.has_ot && final.has_penalty ? '　' : ''}
-          {final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : ''}
+          {final.has_penalty ? `PEN: ${final.penalty_home || 0}-${final.penalty_away || 0}` : ''}
         </div>
         <Notification
           visible={notificationVisible}
@@ -215,6 +223,7 @@ const PC = ({ data, type = 'score', className = '' }) => {
         className={cls(styles.match_index_box, className)}
         onClick={() => {
           const lang = toShortLangCode(locale.getLocale());
+          handleReport({ action: 'match_enter', tag: data.status });
           history.push(`/${lang}/details/${data.match_id}`);
         }}
       >
@@ -314,7 +323,9 @@ const PC = ({ data, type = 'score', className = '' }) => {
               </div>
               <div className={styles.match_index_team_score}>
                 <Text
-                  text={`${homeScore}`}
+                  text={
+                    [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${homeScore}` : ''
+                  }
                   fontSize={24}
                   color={matchStatusText.color}
                   width={'auto'}
@@ -331,7 +342,9 @@ const PC = ({ data, type = 'score', className = '' }) => {
               </div>
               <div className={styles.match_index_team_score}>
                 <Text
-                  text={`${awayScore}`}
+                  text={
+                    [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${awayScore}` : ''
+                  }
                   fontSize={24}
                   color={matchStatusText.color}
                   width={'auto'}

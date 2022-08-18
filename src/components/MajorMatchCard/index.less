@@ -1,11 +1,11 @@
 @import '../../assets/theme.less';
 
 .barContainer {
-  height: 12px;
-  margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 12px;
+  margin-top: 12px;
   .bar {
     position: relative;
     width: 100%;
@@ -72,16 +72,17 @@
   }
 
   .homePercent {
+    margin-right: 10px;
     color: @home-color;
     font-weight: bold;
     font-size: 10px;
     font-family: Barlow;
     font-style: normal;
     line-height: 12px;
-    margin-right: 10px;
   }
 
   .opponentPercent {
+    margin-left: 10px;
     color: @away-color;
     font-weight: bold;
     font-size: 10px;
@@ -89,7 +90,6 @@
     font-style: normal;
     line-height: 12px;
     text-align: right;
-    margin-left: 10px;
   }
 
   @media (max-width: @screen-xs) {
@@ -106,41 +106,42 @@
 .tipsCard {
   position: absolute;
   top: 85px;
+  //width: 121%;
+  z-index: 2;
   //left: 50%;
   //transform: translateX(-50%);
   padding: 0 12px;
-  //width: 121%;
-  z-index: 2;
   background-color: #fff;
-  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.21);
   border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.21);
   .header {
     display: flex;
-    background-color: #fff;
-    padding: 12px 0 8px 0;
     align-items: center;
-    border-bottom: 1px solid rgba(141, 141, 141, .25);
+    padding: 12px 0 8px 0;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(141, 141, 141, 0.25);
     .logo {
       width: 22px;
       height: 22px;
+      object-fit: contain;
     }
     .name {
-      font-size: 12px;
-      color: #333;
-      line-height: 16px;
-      margin-left: 5px;
       max-width: 52px;
+      margin-left: 5px;
       overflow: hidden;
+      color: #333;
+      font-size: 12px;
+      line-height: 16px;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
     .value {
-      font-size: 12px;
-      font-weight: 500;
-      color: #D80000;
-      line-height: 15px;
       margin-left: 10px;
+      color: #d80000;
+      font-weight: 500;
+      font-size: 12px;
       font-style: italic;
+      line-height: 15px;
     }
     .confidence {
       margin-left: auto;
@@ -153,10 +154,10 @@
   .body {
     padding-bottom: 12px;
     .barChartTitle {
-      font-size: 12px;
-      color: #666;
-      line-height: 17px;
       margin-top: 8px;
+      color: #666;
+      font-size: 12px;
+      line-height: 17px;
       text-align: center;
     }
     .barChartInfo {
@@ -164,18 +165,18 @@
       align-items: center;
       justify-content: space-between;
       .info {
-        font-size: 12px;
         font-weight: 500;
+        font-size: 12px;
         line-height: 16px;
         &.home .num {
-          color: #39906A;
+          color: #39906a;
         }
         &.away .num {
-          color: #F00;
+          color: #f00;
         }
         span {
-          color: #6B6B6B;
           margin-left: 4px;
+          color: #6b6b6b;
         }
       }
     }
@@ -183,6 +184,7 @@
 }
 
 .card {
+  position: relative;
   display: inline-block;
   width: 32%;
   height: 210px;
@@ -190,7 +192,6 @@
   background: #fafafa;
   border-radius: 16px;
   cursor: pointer;
-  position: relative;
 
   .cardContainer {
     width: 100%;
@@ -275,8 +276,8 @@
       }
 
       .logoBox {
-        text-align: center;
         position: relative;
+        text-align: center;
 
         .lightTip {
           position: absolute;
@@ -295,9 +296,11 @@
           width: 32px;
           height: 32px;
           margin: 8px 0;
+          object-fit: contain;
         }
 
         .logoText {
+          overflow: hidden;
           color: #333;
           font-size: 12px;
           font-family: 'PingFang SC Normal';
@@ -306,7 +309,6 @@
           text-align: center;
           text-overflow: ellipsis;
           word-break: break-all;
-          overflow: hidden;
         }
 
         .logoText:hover {
@@ -323,8 +325,8 @@
     }
 
     .videoContainer {
-      height: 14px;
       justify-content: center;
+      height: 14px;
 
       .videoIcon {
         width: 12px;
@@ -334,26 +336,24 @@
 
       .videoText {
         padding-left: 4px;
-        line-height: 16px;
-        font-family: 'PingFang SC normal';
+        color: #ea8384;
         font-size: 12px;
-        color: #EA8384;
+        font-family: 'PingFang SC normal';
+        line-height: 16px;
       }
 
       .playback {
-        color: #A30B0B;
+        color: #a30b0b;
       }
 
       .hasVideo {
-        color: #D80000;
+        color: #d80000;
       }
 
       .noVideo {
-        color: #EA8384;
+        color: #ea8384;
       }
     }
-
-
 
     .cardContainer {
       margin: 12px -2px 0 -2px;
@@ -387,12 +387,12 @@
         }
 
         .voted {
-          background: #D3E5DD;
+          background: #d3e5dd;
           cursor: no-drop;
         }
 
         .notvoted {
-          background: #F3F3F3;
+          background: #f3f3f3;
           cursor: no-drop;
         }
 
