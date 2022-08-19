@@ -201,12 +201,12 @@ export default function MajorMatch() {
                   <div className={styles.time}>
                     {status === MatchStatus.Going ? match.minutes : formatTime(match.match_time)}
                   </div>
-                  {match.has_live && Boolean(match.normal_live_link || match.high_live_link) && (
+                  {/* {match.has_live && Boolean(match.normal_live_link || match.high_live_link) && (
                     <div className={styles.videoTip}>
                       <div className={styles.icon} />
                       <div className={styles.text}>Live video</div>
                     </div>
-                  )}
+                  )} */}
                 </div>
                 <div className={styles.bottom}>
                   <div className={styles.side}>

@@ -4,7 +4,7 @@ import moment from 'moment';
 import Iconfont from '@/base-components/iconfont';
 import { useIntl, history } from 'umi';
 import { message } from 'antd';
-import { getMatchStatus, MatchStatus, getScore } from '@/utils/match';
+import { getMatchStatus, MatchStatus, getScore, getMatchStatusDes } from '@/utils/match';
 import Notification from '@/components/Notification';
 import * as homeService from '@/services/home';
 import { toShortLangCode } from '@/utils/utils';
@@ -29,7 +29,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
     !children &&
     !home_incidents?.length &&
     !away_incidents?.length &&
-    matchStatusText.text !== 'FT'
+    matchStatusText.text !== '完场'
   ) {
     return null;
   }
@@ -51,7 +51,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
         </div>
       ) : null}
       <div className={styles.score_map_tags}>
-        {matchStatusText.text === 'FT' && !children ? (
+        {matchStatusText.text === '完场' && !children ? (
           <div className={styles.match_card_ft_tag}>
             <FontSize10 text={matchStatusText.text} position="center" />
           </div>
@@ -88,17 +88,19 @@ const Mobile = ({ data, type = 'score' }) => {
   }, [data]);
 
   let status = getMatchStatus(data.status);
+  let statusDes = getMatchStatusDes(data.status);
   let matchStatusText = {
     text: '',
     color: '#999',
     headerColor: '#999',
   };
   if (status === MatchStatus.Complete) {
-    matchStatusText.text = 'FT';
+    // matchStatusText.text = 'FT';
+    matchStatusText.text = statusDes;
     matchStatusText.color = '#191919';
     matchStatusText.headerColor = '#191919';
   } else if (status === MatchStatus.TBD) {
-    matchStatusText.text = 'TBD';
+    matchStatusText.text = statusDes;
     matchStatusText.color = '#999';
     matchStatusText.headerColor = '#999';
   } else if ([MatchStatus.Before].includes(status)) {
@@ -173,7 +175,7 @@ const Mobile = ({ data, type = 'score' }) => {
               color={'#999999'}
             />
           </div>
-          {matchStatusText.text !== 'FT' ? (
+          {data.status !== 8 ? (
             <div className={styles.match_card_header_status}>
               <Text
                 fontSize={12}
