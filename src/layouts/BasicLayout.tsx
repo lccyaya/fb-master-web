@@ -89,7 +89,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   /** Use Authorized check all menu item */
 
   const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
+    console.log('menuDataRender menuList', menuList);
     const result = menuList
+      .filter((item) => {
+        return item.locale === 'key_home_tab' || item.locale === 'key_profile_center'
+      })
       .filter((item) => {
         if (showTips) {
           return true;
@@ -103,6 +107,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         };
         return Authorized.check(item.authority, localItem, null) as MenuDataItem;
       });
+    console.log('menuDataRender result', result);
+    
     return result;
   };
 
@@ -162,7 +168,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   }, [pathname]);
 
   const onPageChangeHandle = (e: any) => {
-    console.log('页面发送变化');
+    console.log('页面发送变化', e);
     const { pathname: _pn } = e;
     setPathname(_pn);
   };
@@ -323,13 +329,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             }}
           >
             <Authorized authority={authorized!.authority} noMatch={noMatch}>
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId="328500312724-429l1mffavbja8qcnlq5n2dhn4rm1gqr.apps.googleusercontent.com"
                 buttonText="Login"
                 render={() => <span />}
                 cookiePolicy={'single_host_origin'}
-              />
-              <FacebookLogin appId="498368014598571" autoLoad={false} render={() => <span />} />
+              /> */}
+              {/* <FacebookLogin appId="498368014598571" autoLoad={false} render={() => <span />} /> */}
 
               {checkCurrentIsPhone ? (
                 <MobileLayout onPageChange={onPageChangeHandle} {...props}>

@@ -40,7 +40,7 @@ export type GlobalHeaderRightProps = {
 //   pre: '#87d068',
 // };
 
-const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
+const GlobalHeaderRight: React.FC<GlobalHeaderRightProps> = (props) => {
   const abVersion = useSelector<ConnectState, ConnectState['abtest']['version']>(
     (state) => state.abtest.version,
   );
@@ -104,7 +104,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
       ) : (
         <Space className={styles.loginArea}>
           <Button type="text" className={styles.login} onClick={handleLoginClick}>
-            <FormattedMessage id="key_log_in" />
+            {isPhone ? <FormattedMessage id="key_log_in" /> : "专家登录"}
           </Button>
 
           {/* {!isPhone ? (

@@ -94,6 +94,13 @@
                   component: './DownloadNew',
                 },
                 {
+                  path: '/:locale/profile/center',
+                  name: 'ProfileCenter',
+                  cate: 'profile_center',
+                  locale: 'key_profile_center',
+                  component: './ProfileCenter',
+                },
+                {
                   path: '/:locale/terms',
                   component: './Terms',
                 },

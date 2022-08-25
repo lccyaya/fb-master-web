@@ -48,7 +48,7 @@ function MatchList(props: ComponentProps<typeof MatchListB> & { abTestVersion: '
   // if (!props.abTestVersion) {
   //   return null;
   // }
-  // props.abTestVersion === 'A' ? <MatchListA {...props} /> : 
+  // props.abTestVersion === 'A' ? <MatchListA {...props} /> :
   return <MatchListB {...props} />;
 }
 
@@ -71,7 +71,7 @@ const Home: React.FC<HomeProps> = (props) => {
   const [oddsVisible, setOddsVisible] = useState(false);
   const [tabType, setTabType] = useState('1');
   const [tabKey, setTabKey] = useState('tab_type');
-  
+
   const containerRef = React.createRef<HTMLDivElement>();
   const [liveMatch, setLiveMatch] = useState<MatchDetails | undefined>();
 
@@ -284,7 +284,17 @@ const Home: React.FC<HomeProps> = (props) => {
   );
 };
 
-const Comp = checkIsPhone() ? MobileHome : Home;
+const NewHome: React.FC<HomeProps> = (props) => {
+  return (
+    <>
+      <div>
+        <h1>首页</h1>
+      </div>
+    </>
+  );
+};
+
+const Comp = checkIsPhone() ? MobileHome : NewHome;
 
 export default connect(({ divice, tips }: ConnectState) => ({
   isPhone: divice.isPhone,

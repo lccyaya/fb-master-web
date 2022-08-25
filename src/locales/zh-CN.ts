@@ -450,5 +450,6 @@ export default {
  "key_wonderful_game": "我发现一场精彩的比赛!",
  "key_yellow_card": "黄牌",
  "key_yes": "好的",
- "key_yesterday": "昨天"
+ "key_yesterday": "昨天",
+ "key_profile_center": "创作中心",
 }
