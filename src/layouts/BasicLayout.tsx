@@ -89,7 +89,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   /** Use Authorized check all menu item */
 
   const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
-    console.log('menuDataRender menuList', menuList);
     const result = menuList
       .filter((item) => {
         return item.locale === 'key_home_tab' || item.locale === 'key_profile_center'
@@ -107,7 +106,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         };
         return Authorized.check(item.authority, localItem, null) as MenuDataItem;
       });
-    console.log('menuDataRender result', result);
     
     return result;
   };

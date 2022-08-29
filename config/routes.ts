@@ -16,7 +16,7 @@
             },
             {
               path: '/',
-              component: '../layouts/BasicLayout',
+              component: '../layouts/NewBasicLayout',
               routes: [
                 {
                   path: '/',
@@ -98,7 +98,13 @@
                   name: 'ProfileCenter',
                   cate: 'profile_center',
                   locale: 'key_profile_center',
-                  component: './ProfileCenter',
+                  component: '@/layouts/ProfileLayout',
+                  routes:[
+                    {
+                      path: '/:locale/profile/center',
+                      component: '@/pages/ProfileCenter/list',
+                    }
+                  ],
                 },
                 {
                   path: '/:locale/terms',

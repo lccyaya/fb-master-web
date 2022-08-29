@@ -56,10 +56,10 @@ const SecurityLayout = (props) => {
   }, []);
   return (
     <ConfigProvider direction="ltr" locale={langMap[locale.getLocale()]}>
-      <div>
+      <div className='h-full'>
         <TitleAndKeyWords pathname={props.location.pathname} />
         {/* {isReady ? <>{children}</> : <div style={{ display: 'none' }}></div>} */}
-        <div style={!isReady ? { display: 'none' } : {}}>{children}</div>
+        <div className='h-full' style={!isReady ? { display: 'none' } : {}}>{children}</div>
       </div>
     </ConfigProvider>
   );

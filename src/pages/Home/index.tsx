@@ -23,6 +23,7 @@ import { getMatchStatus, MatchStatus } from '@/utils/match';
 import { fetchLatestHighlight } from '@/services/highlight';
 import VersionATop from '@/pages/Home/pc/version-a/top';
 import VersionBTop from '@/pages/Home/pc/version-b/top';
+import NewHome from "./pc";
 
 import styles from './index.less';
 
@@ -284,15 +285,7 @@ const Home: React.FC<HomeProps> = (props) => {
   );
 };
 
-const NewHome: React.FC<HomeProps> = (props) => {
-  return (
-    <>
-      <div>
-        <h1>首页</h1>
-      </div>
-    </>
-  );
-};
+
 
 const Comp = checkIsPhone() ? MobileHome : NewHome;
 

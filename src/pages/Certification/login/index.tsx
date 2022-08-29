@@ -373,14 +373,14 @@ const Login: React.FC<LoginProps> = (props) => {
           });
         }}
       >
-        <TabPane
+        {/* <TabPane
           tab={intl.formatMessage({
             id: 'key_email_tab',
           })}
           key="email"
         >
           {EmailForm}
-        </TabPane>
+        </TabPane> */}
         <TabPane
           tab={intl.formatMessage({
             id: 'key_phone_tab',

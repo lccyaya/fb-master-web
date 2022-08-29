@@ -49,7 +49,7 @@ const AvatarDropdown = (props) => {
       });
     }
     if (key === 'logout') {
-      if (history.location.pathname.includes(`/${lang}/account/`)) {
+      if (history.location.pathname.includes(`/${lang}/account/`) || history.location.pathname.includes(`/${lang}/profile/`)) {
         history.push(`/${lang}/home`);
       } else {
         location.reload();
@@ -57,11 +57,15 @@ const AvatarDropdown = (props) => {
       logout();
       return;
     }
+    if (key === 'profile_center') {
+      history.push(`/${lang}/profile/center`);
+      return;
+    }
     history.push(`/${lang}/account/${key}`);
     setVisible(false);
   };
 
-  const menuList = isForChina()
+  const menuList = isPhone
     ? [
         {
           key: 'profile',
@@ -98,16 +102,8 @@ const AvatarDropdown = (props) => {
       ]
     : [
         {
-          key: 'profile',
-          title: <FormattedMessage id="key_profile" />,
-        },
-        {
-          key: 'myteam',
-          title: <FormattedMessage id="key_my_teams" />,
-        },
-        {
-          key: 'setting',
-          title: <FormattedMessage id="key_setting" />,
+          key: 'profile_center',
+          title: <FormattedMessage id="key_profile_center" />,
         },
         {
           key: 'logout',

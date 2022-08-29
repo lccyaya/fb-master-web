@@ -7,9 +7,9 @@ import ChinaLogoMin from '@/assets/logo/logo_min_34.png';
 import { isForChina } from '@/utils/utils';
 import Ico from '/public/favicon.ico';
 import ChinaIco from '/public/favicon_34.ico';
+import Logo34SportWhite from '@/assets/logo/logo_34sport_white.png';
 
-export default isForChina()
-  ? {
+export default {
       logo: ChinaLogo,
       min_logo: ChinaLogoMin,
       logo_dark: ChinaLogoDark,
@@ -18,14 +18,5 @@ export default isForChina()
       desc: '34 体育',
       ico: ChinaIco,
       download_text: '34 体育',
+      logo_34sport_white: Logo34SportWhite,
     }
-  : {
-      logo: Logo,
-      logo_dark: LogoDark,
-      min_logo: LogoMin,
-      title: '007 体育',
-      keywords: '007 体育',
-      desc: '007 体育',
-      ico: Ico,
-      download_text: '007sport',
-    };
