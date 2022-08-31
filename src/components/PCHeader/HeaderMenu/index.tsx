@@ -41,15 +41,12 @@ const HeaderMenu: React.FC = (props: Props) => {
   }
 
   useEffect(() => {
-    const _page = items.find(item => item.regex.test(path))
-    setSelectedKey(_page?.key || '');
-  }, [path]);
-
-  useEffect(() => {
     let menus = user?.expert?.status == ExpertStatus.Accept ? items2 : items1;
     setItems(menus);
-    console.log('user', user)
-  }, [user]);
+
+    const _page = items.find(item => item.regex.test(path))
+    setSelectedKey(_page?.key || '');
+  }, [user, path]);
 
   return (
     <div className={styles.container}>

@@ -60,7 +60,7 @@ const SchemeCreateStep2 = (props: Props) => {
     const params = {
       ...state,
       ...values,
-      expert_id: user?.Expert.id,
+      expert_id: user?.expert?.id,
       published_at: Math.round(Date.now()/1000),
     };
 

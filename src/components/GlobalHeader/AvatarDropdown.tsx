@@ -1,6 +1,6 @@
 import { Avatar, Menu } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { FormattedMessage } from 'umi';
+import { FormattedMessage, useSelector } from 'umi';
 import { history, connect } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import defaultAvatar from '@/assets/icon/avatar.svg';
@@ -13,12 +13,17 @@ import { locale } from '@/app';
 import { sliceStr, isForChina } from '@/utils/utils';
 import EventEmitter from '@/utils/event';
 import cls from 'classnames';
+import { UserInfoType } from '@/services/user';
+import { ExpertStatus } from '@/utils/scheme';
 
 const AvatarDropdown = (props) => {
   const { currentUser } = props;
   const [visible, setVisible] = useState(false);
   const [selectedKey, setSelectedKey] = useState('');
   const isPhone = checkIsPhone();
+  const user = useSelector<ConnectState, UserInfoType | null | undefined>(
+    (s) => s.user.currentUser,
+  );
 
   const logout = () => {
     EventEmitter.emit('login-status-change');
@@ -129,6 +134,10 @@ const AvatarDropdown = (props) => {
       }
     }
   }, [history.location]);
+
+  const avatar = user?.expert?.status == ExpertStatus.Accept ? user.expert.avatar : user?.avatar;
+  const nickname = user?.expert?.status == ExpertStatus.Accept ? user.expert.nickname : user?.nickname;
+
   return (
     currentUser &&
     currentUser.nickname && (
@@ -152,10 +161,10 @@ const AvatarDropdown = (props) => {
           <Avatar
             size="small"
             className={styles.avatar}
-            src={currentUser.avatar || defaultAvatar}
+            src={avatar || defaultAvatar}
             alt="avatar"
           />
-          <span className={`${styles.name} anticon`}>{sliceStr(currentUser.nickname, 6)}</span>
+          <span className={`${styles.name} anticon`}>{sliceStr(nickname || '', 6)}</span>
         </span>
       </HeaderDropdown>
     )
