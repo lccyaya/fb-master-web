@@ -11,9 +11,9 @@ export function isTest() {
 }
 
 export function getAPIHost() {
-  return '//10.149.59.220:8080';
+  // return '//10.149.59.220:8080';
   // return '//10.149.62.80:8080';
-  // return '//api.34.com';
+  return '//api.34.com';
 }
 
 export function getFeedbackAPIHost() {

@@ -63,7 +63,7 @@ const NewHome: React.FC<HomeProps> = (props) => {
               </div>
             </div>
             <div className={styles.copyright_box}>
-              <span className={styles.copyright_title}>Copyright © 2022-2022 www.34.com 版权所有 京ICP备11041704号-31 京ICP证070359号 隐私声明 资质证照</span>
+              {/* <span className={styles.copyright_title}>Copyright © 2022-2022 www.34.com 版权所有 京ICP备11041704号-31 京ICP证070359号 隐私声明 资质证照</span> */}
             </div>
           </div>
         </div>

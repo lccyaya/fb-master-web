@@ -1,7 +1,7 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { LockOutlined, MailFilled } from '@ant-design/icons';
-import { Space, message, Tabs } from 'antd';
+import { Space, message, Tabs, Modal } from 'antd';
 import React, { useState } from 'react';
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import type { Dispatch } from 'umi';
@@ -20,8 +20,9 @@ import LineIcon from '@/assets/icon/line.png';
 import FacebookIcon from '@/assets/icon/fecebook.png';
 import GoogleIcon from '@/assets/icon/google.png';
 import { PHONE_RULE } from '@/constants/rules';
-import { isForChina } from '@/utils/utils';
+import { checkIsPhone, isForChina } from '@/utils/utils';
 import { handleReport } from '@/utils/report';
+import { ExpertStatus } from '@/utils/scheme';
 
 const { TabPane } = Tabs;
 export type LoginProps = {
@@ -51,13 +52,22 @@ const Login: React.FC<LoginProps> = (props) => {
     const userInfo = await userService.queryCurrent();
     setSummitLoading(false);
     if (userInfo.success) {
+      const { dispatch } = props;
+      if(!checkIsPhone() && userInfo.data?.expert?.status != ExpertStatus.Accept) {
+        if (dispatch) {
+          dispatch({
+            type: 'user/logout',
+          });
+        }
+        Modal.error({content:'您还不是专家，请前往34体育APP申请专家'})
+        return
+      }
       message.success(
         `${intl.formatMessage({
           id: 'key_welcome_back_web',
         })} ${userInfo.data.nickname}`,
       );
       //
-      const { dispatch } = props;
       if (dispatch) {
         dispatch({
           type: 'user/saveCurrentUser',
@@ -155,7 +165,7 @@ const Login: React.FC<LoginProps> = (props) => {
 
     if (result.success) {
       await getUserInfo();
-      location.reload();
+      // location.reload();
     } else {
       message.error(result.message);
       onError && onError();

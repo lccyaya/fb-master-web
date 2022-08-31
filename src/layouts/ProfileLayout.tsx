@@ -1,4 +1,5 @@
 import { Layout, Menu, MenuProps } from 'antd';
+import { useHistory } from 'umi';
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -20,13 +21,18 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [getItem('创作中心', '1')];
+const items: MenuItem[] = [getItem('创作中心', '/zh/profile/center')];
 
 const ProfileLayout: React.FC = (props) => {
 
   const {
     children,
   } = props;
+  const history = useHistory()
+
+  const selectMenu = (item: any) => {
+    history.push(item.key)
+  }
 
   return (
     <>
@@ -34,9 +40,10 @@ const ProfileLayout: React.FC = (props) => {
         <Sider>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={['/zh/profile/center']}
             style={{ height: '100%', borderRight: 0 }}
             items={items}
+            onClick={selectMenu}
           />
         </Sider>
         <Content>{children}</Content>

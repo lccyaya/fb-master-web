@@ -12,6 +12,7 @@ import { ColumnsType } from 'antd/lib/table';
 import { useHistory, useSelector } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
+import { ExpertStatus } from '@/utils/scheme';
 
 interface PageParam {
   current: number;
@@ -177,7 +178,7 @@ const SchemeList: React.FC = (props) => {
   ];
 
   const getTableData = async ({ current, pageSize }: PageParam, formData: Object) => {
-    if (user?.Expert == null) {
+    if (user?.expert == null) {
       return {
         total: 0,
         list: [],
@@ -186,7 +187,7 @@ const SchemeList: React.FC = (props) => {
     const params = {
       page: current,
       size: pageSize,
-      expert_id: user?.Expert.id,
+      expert_id: user?.expert.id,
       ...formData,
     };
 
@@ -214,6 +215,10 @@ const SchemeList: React.FC = (props) => {
   }, [user]);
 
   const toCreate = () => {
+    if (user?.expert?.status != ExpertStatus.Accept) {
+      message.error('您还未通过专家审核，暂不能创建攻略');
+      return;
+    }
     history.push('/zh/profile/center/create');
   };
 

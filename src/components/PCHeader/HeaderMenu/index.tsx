@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useHistory, useLocation, useSelector } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
+import { ExpertStatus } from '@/utils/scheme';
 
 type Props = {};
 
@@ -20,21 +21,20 @@ const HeaderMenu: React.FC = (props: Props) => {
     (s) => s.user.currentUser,
   );
 
-  let items: FBMenuItem[] = [
+  let items1: FBMenuItem[] = [
     { key: '1', title: '首页', path: '/zh/home', regex: /\/home\/*/, },
   ];
 
-  if (user?.expert?.status == '0') {
-    items = [
-      { key: '1', title: '首页', path: '/zh/home', regex: /\/home\/*/, },
-      { key: '2', title: '创作中心', path: '/zh/profile/center', regex: /\/profile\/*/, },
-    ];
-  }
+  let items2: FBMenuItem[] = [
+    { key: '1', title: '首页', path: '/zh/home', regex: /\/home\/*/, },
+    { key: '2', title: '创作中心', path: '/zh/profile/center', regex: /\/profile\/*/, },
+  ];
 
   const history = useHistory()
   const location = useLocation()
   const path = location.pathname
   const [selectedKey, setSelectedKey] = useState('');
+  const [items, setItems] = useState<FBMenuItem[]>(items1);
 
   const onClick = (item: FBMenuItem) => {
     history.push(item.path)
@@ -44,6 +44,12 @@ const HeaderMenu: React.FC = (props: Props) => {
     const _page = items.find(item => item.regex.test(path))
     setSelectedKey(_page?.key || '');
   }, [path]);
+
+  useEffect(() => {
+    let menus = user?.expert?.status == ExpertStatus.Accept ? items2 : items1;
+    setItems(menus);
+    console.log('user', user)
+  }, [user]);
 
   return (
     <div className={styles.container}>
