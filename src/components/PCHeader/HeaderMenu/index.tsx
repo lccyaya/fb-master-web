@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 import classNames from 'classnames';
-import { useHistory, useLocation } from 'umi';
+import { useHistory, useLocation, useSelector } from 'umi';
+import { ConnectState } from '@/models/connect';
+import { UserInfoType } from '@/services/user';
 
 type Props = {};
 
@@ -13,10 +15,21 @@ type FBMenuItem = {
 }
 
 const HeaderMenu: React.FC = (props: Props) => {
-  const items: FBMenuItem[] = [
+
+  const user = useSelector<ConnectState, UserInfoType | null | undefined>(
+    (s) => s.user.currentUser,
+  );
+
+  let items: FBMenuItem[] = [
     { key: '1', title: '首页', path: '/zh/home', regex: /\/home\/*/, },
-    { key: '2', title: '创作中心', path: '/zh/profile/center', regex: /\/profile\/*/, },
   ];
+
+  if (user?.expert?.status == '0') {
+    items = [
+      { key: '1', title: '首页', path: '/zh/home', regex: /\/home\/*/, },
+      { key: '2', title: '创作中心', path: '/zh/profile/center', regex: /\/profile\/*/, },
+    ];
+  }
 
   const history = useHistory()
   const location = useLocation()

@@ -59,13 +59,17 @@ const Profile: React.FC<IProfile> = (props) => {
 
   const uploadAvatar = async () => {
     if (!file) return '';
-    const ext = file.type.replace(/image\//i, '').toLowerCase();
-    const key = `avatar/${randomHex(32)}.${ext}`;
-    const { success, data } = await sign(key);
-    if (!success || !data.presign_url) return '';
+    // const ext = file.type.replace(/image\//i, '').toLowerCase();
+    // const key = `avatar/${randomHex(32)}.${ext}`;
+    // const { success, data } = await sign(key);
+    // if (!success || !data.presign_url) return '';
     try {
-      await request.put(data.presign_url, { body: file });
-      return data.cdn_upload;
+      const result = await request.post('http://10.149.59.220:8080/api/v1/pre-sign-oss-url', {
+        body: file,
+        requestType: 'form',
+      });
+      console.log(result);
+      return result.cdn_upload;
     } catch (e) {
       console.error('error in uploadAvatar:', e);
     }

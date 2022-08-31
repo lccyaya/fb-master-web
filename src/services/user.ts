@@ -13,9 +13,20 @@ export type UserInfoType = {
   google: SocialItem;
   line: SocialItem;
   facebook: SocialItem;
+  expert: {
+    id: string;
+    avatar: string;
+    nickname: string;
+    status: string;
+  };
 }
 
 export async function queryCurrent() {
-  const result = await request('/api/user-info');
+  const result = await request('/api/v5/user-infos');
   return normalizeResponse<UserInfoType>(result);
+}
+
+export async function uploadPic(key: string) {
+  const result = await request('/api/v1/pre-sign-url', { params: { key } });
+  return normalizeResponse<string>(result);
 }

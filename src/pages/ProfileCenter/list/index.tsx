@@ -9,7 +9,9 @@ import * as dayjs from 'dayjs';
 import { CheckOutlined } from '@ant-design/icons';
 import { SCHEME_STATE } from '@/constants/index';
 import { ColumnsType } from 'antd/lib/table';
-
+import { useHistory, useSelector } from 'umi';
+import { ConnectState } from '@/models/connect';
+import { UserInfoType } from '@/services/user';
 
 interface PageParam {
   current: number;
@@ -18,6 +20,10 @@ interface PageParam {
 
 const SchemeList: React.FC = (props) => {
   const [form] = Form.useForm();
+  const history = useHistory();
+  const user = useSelector<ConnectState, UserInfoType | null | undefined>(
+    (s) => s.user.currentUser,
+  );
 
   const columns: ColumnsType<{}> = [
     {
@@ -124,11 +130,7 @@ const SchemeList: React.FC = (props) => {
       render: (record: any) => {
         return (
           <Space>
-            <a onClick={() => {}}>
-              {record.state === 3 || record.state === 4
-                ? '查看'
-                : '编辑'}
-            </a>
+            <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a>
             {/* <a onClick={() => {}}>查看</a> */}
             {record.state === 1 ? (
               <a
@@ -175,9 +177,16 @@ const SchemeList: React.FC = (props) => {
   ];
 
   const getTableData = async ({ current, pageSize }: PageParam, formData: Object) => {
+    if (user?.Expert == null) {
+      return {
+        total: 0,
+        list: [],
+      };
+    }
     const params = {
       page: current,
       size: pageSize,
+      expert_id: user?.Expert.id,
       ...formData,
     };
 
@@ -186,7 +195,7 @@ const SchemeList: React.FC = (props) => {
       return {
         total: 0,
         list: [],
-      }
+      };
     }
     return {
       total: result.data.total,
@@ -202,7 +211,11 @@ const SchemeList: React.FC = (props) => {
 
   useEffect(() => {
     search.reset();
-  }, []);
+  }, [user]);
+
+  const toCreate = () => {
+    history.push('/zh/profile/center/create');
+  };
 
   return (
     <PageContainer>
@@ -210,7 +223,7 @@ const SchemeList: React.FC = (props) => {
         <FormSearch
           form={form}
           submit={search?.submit}
-          add={() => {}}
+          add={toCreate}
           // reset={search?.reset}
           reset={null}
           refresh={refresh}

@@ -103,7 +103,15 @@
                     {
                       path: '/:locale/profile/center',
                       component: '@/pages/ProfileCenter/list',
-                    }
+                    },
+                    {
+                      path: '/:locale/profile/center/create',
+                      component: '@/pages/ProfileCenter/create',
+                    },
+                    {
+                      path: '/:locale/profile/center/create/step2',
+                      component: '@/pages/ProfileCenter/create/step2',
+                    },
                   ],
                 },
                 {
