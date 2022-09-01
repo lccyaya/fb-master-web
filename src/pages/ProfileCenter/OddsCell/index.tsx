@@ -1,16 +1,20 @@
-
-import React from 'react'
+import React from 'react';
 
 type Props = {
-  oddsInfo: any,
-  selectOdds: Function,
-}
+  oddsInfos: Array<any>;
+  selectOdds: Function;
+};
 
 const OddsCell: React.FC<Props> = (props) => {
-  const {oddsInfo, selectOdds} = props;
+  const { oddsInfos, selectOdds } = props;
+  console.log('oddsInfos',oddsInfos)
   return (
-    <div>{oddsInfo.scheme_title}</div>
-  )
-}
+    <div>
+      {oddsInfos.map((info) => {
+        <div>{info.scheme_title}2</div>;
+      })}
+    </div>
+  );
+};
 
-export default OddsCell
+export default OddsCell;

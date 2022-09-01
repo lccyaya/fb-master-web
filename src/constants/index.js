@@ -16,11 +16,13 @@ export const PLAY_TYPE = ((ENUM) => {
 
 // 0 待上线、1 在售、2 停售、3 命中、4 未中
 export const SCHEME_STATE = ((ENUM) => {
-  ENUM[(ENUM.WAIT = 0)] = '带上线';
+  ENUM[(ENUM.WAIT = 0)] = '待上线';
   ENUM[(ENUM.SALE = 1)] = '在售';
   ENUM[(ENUM.STOP_SALE = 2)] = '停售';
   ENUM[(ENUM.HIT = 3)] = '命中';
   ENUM[(ENUM.MISS = 4)] = '未中';
+  ENUM[(ENUM.MISS = 5)] = '待审核';
+  ENUM[(ENUM.MISS = 6)] = '审核失败';
   return ENUM;
 })({});
 

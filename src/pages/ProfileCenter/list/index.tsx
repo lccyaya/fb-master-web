@@ -131,9 +131,9 @@ const SchemeList: React.FC = (props) => {
       render: (record: any) => {
         return (
           <Space>
-            <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a>
-            {/* <a onClick={() => {}}>查看</a> */}
-            {record.state === 1 ? (
+            {/* <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a> */}
+            <a onClick={() => {}}>查看</a>
+            {/* {record.state === 1 ? (
               <a
                 onClick={() => {
                   Modal.confirm({
@@ -170,7 +170,7 @@ const SchemeList: React.FC = (props) => {
               >
                 删除
               </a>
-            ) : null}
+            ) : null} */}
           </Space>
         );
       },
@@ -234,7 +234,13 @@ const SchemeList: React.FC = (props) => {
           refresh={refresh}
           nodes={[]}
         />
-        <Table bordered columns={columns} {...tableProps} scroll={{ x: 'max-content' }} />
+        <Table
+          bordered
+          columns={columns}
+          {...tableProps}
+          scroll={{ x: 'max-content' }}
+          rowKey={(record:any) => record.id}
+        />
       </Card>
     </PageContainer>
   );

@@ -9,6 +9,32 @@ import { useHistory, useLocation, useParams, useSelector } from 'umi';
 import Editor from 'wangeditor';
 import { OddInfo } from './index';
 
+//转意符换成普通字符
+const convertIdeogramToNormalCharacter = (val: string) => {
+  const arrEntities = { lt: '<', gt: '>', nbsp: ' ', amp: '&', quot: '"' };
+  return val.replace(/&(lt|gt|nbsp|amp|quot);/gi, function (all, t) {
+    return arrEntities[t];
+  });
+};
+
+// 获取富文本的纯文字内容
+const getPlainText = (richCont: string | null) => {
+  const str = richCont;
+  let value = richCont;
+  if (richCont) {
+    // 方法一：
+    value = value.replace(/\s*/g, ''); //去掉空格
+    value = value.replace(/<[^>]+>/g, ''); //去掉所有的html标记
+    value = value.replace(/↵/g, ''); //去掉所有的↵符号
+    value = value.replace(/[\r\n]/g, ''); //去掉回车换行
+    value = value.replace(/&nbsp;/g, ''); //去掉空格
+    value = convertIdeogramToNormalCharacter(value);
+    return value;
+  } else {
+    return null;
+  }
+};
+
 type Props = {};
 type ParamsInfo = OddInfo & { type_id: number; gold_coin: number };
 
@@ -62,6 +88,7 @@ const SchemeCreateStep2 = (props: Props) => {
       ...values,
       expert_id: user?.expert?.id,
       published_at: Math.round(Date.now()/1000),
+      detail_count: values.detail ? getPlainText(values.detail)?.length : 0,
     };
 
     const result = await getMatchOdds({ match_id: state.match_id, type_id: state.type_id });
