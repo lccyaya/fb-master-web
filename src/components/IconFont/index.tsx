@@ -23,7 +23,8 @@ const IconFontComponent: React.FC<IconFontProps> = (props) => {
       onClick={onClick}
       style={{
         color,
-        fontSize: checkIsPhone() ? size / 3.75 + 'vw' : size + 'px',
+        // fontSize: checkIsPhone() ? size / 3.75 + 'vw' : size + 'px',
+        fontSize: size + 'px',
       }}
     />
   );

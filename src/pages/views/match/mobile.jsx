@@ -341,7 +341,7 @@ const Mobile = () => {
     </div>
   );
   return (
-    <>
+    <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
       {menuList?.length ? (
         <Menu
           menus={menuList}
@@ -418,7 +418,7 @@ const Mobile = () => {
           // icons={[indexData, { type: 'icon-sousuo', color: '#39906A' }]}
           icons={[{ type: 'icon-sousuo', color: '#39906A' }]}
         />
-        {showTopIcon ? (
+        {/* {showTopIcon ? (
           <FixedBtns
             showTopIcon={showTopIcon}
             onTopClick={(e) => {
@@ -429,11 +429,11 @@ const Mobile = () => {
               e.preventDefault();
             }}
           />
-        ) : null}
+        ) : null} */}
       </div>
       {/* 联赛选择 */}
       <League visible={leagueShow} onSubmit={onLeagueSubmit} onClose={() => setLeagueShow(false)} />
-    </>
+    </div>
   );
 };
 

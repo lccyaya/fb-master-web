@@ -62,9 +62,9 @@ const SchemeList: React.FC = (props) => {
           <div>
             <div>{record?.play_odds?.scheme_title}</div>
             <Space size={40}>
-              {record?.play_odds?.odds?.map((item: any) => {
+              {record?.play_odds?.odds?.map((item: any, index: number) => {
                 return (
-                  <div>
+                  <div key={index}>
                     <div>{item.title}</div>
                     <div>{item.odd}</div>
                     <div style={{ width: 20, height: 20 }}>
@@ -132,7 +132,9 @@ const SchemeList: React.FC = (props) => {
         return (
           <Space>
             {/* <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a> */}
-            <a onClick={() => {}}>查看</a>
+            <a onClick={() => {
+              history.push('/zh/profile/center/create/detail', record)
+            }}>查看</a>
             {/* {record.state === 1 ? (
               <a
                 onClick={() => {

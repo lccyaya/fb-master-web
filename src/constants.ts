@@ -235,6 +235,8 @@ export enum REPORT_CATE {
   highlight = 'video',
   teamdetails = 'teamdetails',
   expert = 'expert',
+  mine = 'mine',
+  recommend = 'recommend',
   expert_detail = "expert_detail",
   expert_ranking = "expert_ranking",
   scheme_match = "scheme_match",

@@ -1,4 +1,4 @@
-import styles from './hot-schemes.less';
+import styles from './index.less';
 import { useHistory, FormattedMessage } from 'umi';
 import Hot from '@/pages/Expert/components/hot/mobile';
 

@@ -18,7 +18,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     {
       key: 'home',
       pathRegex: pageRegex.get('home'),
-      path: '/home',
+      path: '/zh/home',
       locale: 'key_home_tab',
       icon: (active: boolean) => (
         <IconFont type={active ? 'icon-shouye-dianji' : 'icon-shouye'} size={22} />
@@ -36,19 +36,28 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     //   path: '/highlight',
     //   locale: 'key_highlight',
     // },
+    // {
+    //   key: 'live',
+    //   pathRegex: pageRegex.get('live'),
+    //   path: '/live',
+    //   locale: 'key_spot',
+    //   icon: (active: boolean) => (
+    //     <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
+    //   ),
+    // },
     {
-      key: 'live',
-      pathRegex: pageRegex.get('live'),
-      path: '/live',
-      locale: 'key_spot',
+      key: 'expert',
+      pathRegex: pageRegex.get('expert'),
+      path: '/zh/expert',
+      locale: 'key_expert',
       icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
+        <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />
       ),
     },
     {
       key: 'match',
       pathRegex: pageRegex.get('match'),
-      path: '/match',
+      path: '/zh/match',
       locale: 'key_match',
       icon: (active: boolean) => (
         <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
@@ -67,10 +76,10 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     //   locale: 'key_tips',
     // },
     {
-      key: 'expert',
-      pathRegex: pageRegex.get('expert'),
-      path: '/expert',
-      locale: 'key_expert',
+      key: 'mine',
+      pathRegex: pageRegex.get('mine'),
+      path: '/zh/mine',
+      locale: 'key_me',
       icon: (active: boolean) => (
         <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />
       ),
@@ -121,15 +130,16 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
         });
       }
       history.push({
-        pathname: `/${lang}${cur.path}`,
+        pathname: `${cur.path}`,
       });
     }
   };
 
   useEffect(() => {
     const nav = navs.find((n) => {
-      return n.pathRegex!.test(location.pathname);
+      return n.path == location.pathname;
     });
+    console.log(location.pathname)
     setCurKey(nav?.key ?? '');
   }, [location.pathname]);
   if (Boolean(curKey)) {

@@ -1,5 +1,5 @@
 import { BellFilled, BellOutlined, RightOutlined } from '@ant-design/icons';
-import { formatMessage, FormattedMessage, Link, useHistory, useSelector } from 'umi';
+import { FormattedMessage, Link, useHistory, useIntl, useSelector } from 'umi';
 import styles from './major-match.less';
 import React, { useEffect, useRef, useState } from 'react';
 import type { majorMatchType } from '@/services/home';
@@ -27,7 +27,7 @@ const resetDateToDayStart = (date: Date) => {
 
 const today = resetDateToDayStart(new Date());
 
-export const formatTime = (time: number) => {
+export const formatTime = (time: number, formatMessage: Function) => {
   const mills = time * 1000;
   const hm = moment(mills).format('HH:mm');
   const t = resetDateToDayStart(new Date(time * 1000));
@@ -61,6 +61,9 @@ export default function MajorMatch() {
   const [loading, setLoading] = useState(false);
   const curMatch = useRef<matchType | null>(null);
   const curIndex = useRef(0);
+
+  const intl = useIntl();
+  const formatMessage = intl.formatMessage;
 
   const getData = async () => {
     const res = await getMajorData();
@@ -199,7 +202,7 @@ export default function MajorMatch() {
                   className={`${styles.top} ${status === MatchStatus.Before ? styles.future : ''}`}
                 >
                   <div className={styles.time}>
-                    {status === MatchStatus.Going ? match.minutes : formatTime(match.match_time)}
+                    {status === MatchStatus.Going ? match.minutes : formatTime(match.match_time, formatMessage)}
                   </div>
                   {/* {match.has_live && Boolean(match.normal_live_link || match.high_live_link) && (
                     <div className={styles.videoTip}>

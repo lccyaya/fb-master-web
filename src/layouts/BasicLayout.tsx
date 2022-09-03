@@ -253,15 +253,16 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       ) : (
         <>
           {/* {checkCurrentIsPhone && <OpenApp />} */}
-          <ProLayout
+          {/* <ProLayout
             logo={() => (
+              !checkCurrentIsPhone ?
               <img
                 src={pageConfig.logo}
                 onClick={() => {
                   const lang = toShortLangCode(locale.getLocale(location.pathname));
                   history.push(`/${lang}/home`);
                 }}
-              />
+              /> : null
             )}
             className={classnames(styles.layout, checkCurrentIsPhone && styles.mobileLayout)}
             formatMessage={formatMessage}
@@ -317,7 +318,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             menuDataRender={menuDataRender}
             onPageChange={onPageChangeHandle}
             menuProps={{ className: styles.menu, selectable: false }}
-            rightContentRender={() => <RightContent />}
+            rightContentRender={() => !checkCurrentIsPhone ? <RightContent /> : null}
             fixedHeader={!checkCurrentIsPhone}
             // contentStyle={props.isPhone ? { minWidth: 0, maxHeight: 1024, margin: '0 auto' } : { minWidth: 1200, margin: 0, background: '#fff' }}
             contentStyle={{
@@ -325,7 +326,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
               maxWidth: 1200,
               margin: checkCurrentIsPhone ? 0 : '0 auto',
             }}
-          >
+          > */}
             <Authorized authority={authorized!.authority} noMatch={noMatch}>
               {/* <GoogleLogin
                 clientId="328500312724-429l1mffavbja8qcnlq5n2dhn4rm1gqr.apps.googleusercontent.com"
@@ -344,7 +345,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
               )}
             </Authorized>
             {/* <ADPopup pathname={pathname} /> */}
-            {checkCurrentIsPhone ? <FixedBtnsMobile /> : null}
+            {/* {checkCurrentIsPhone ? <FixedBtnsMobile /> : null} */}
             {!checkCurrentIsPhone ? <FixedBtns /> : null}
             <LoginModal
               visible={loginVisible}
@@ -356,7 +357,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
                 setLoginVisible(false);
               }}
             />
-          </ProLayout>
+          {/* </ProLayout> */}
         </>
       )}
     </>

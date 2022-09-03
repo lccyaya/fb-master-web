@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel } from 'antd';
-import { connect } from 'umi';
+import { connect, useHistory } from 'umi';
 import classnames from 'classnames';
 import type { ConnectState } from '@/models/connect';
 import styles from './index.less';
@@ -8,6 +8,7 @@ import type { bannerType } from '@/services/ad';
 import { getBanner, report } from '@/services/ad';
 import { BANNER_POSITION_MOBILE, BANNER_POSITION_PC, REPORT_ACTION } from '@/constants';
 import { getReportCate, checkIsPhone } from '@/utils/utils';
+import UrlParse from 'url-parse';
 
 export type CarouselProps = {
   isPhone: boolean;
@@ -35,6 +36,7 @@ export function getPosition() {
 
 const BannerWidget: React.FC<CarouselProps> = (props) => {
   const [banners, setBanners] = useState<bannerType[]>([]);
+  const history = useHistory();
 
   const init = async () => {
     console.log('开始调用Banner 接口');
@@ -55,6 +57,39 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
   useEffect(() => {
     props.setIsBanner?.(!!banners.length);
   }, [banners]);
+
+  const handleUrl = (urlStr: string) => {
+    const url = new UrlParse(urlStr, true);
+    console.log('handleUrl', url);
+    if (url.protocol === 'sport34:') {
+      switch (url.pathname) {
+        case '/match':
+          const matchid = url.query.id;
+          history.push(`/zh/details/${matchid}`);
+          break;
+        case '/expert':
+          const expertid = url.query.id;
+          history.push(`/zh/expert-detail?id=${expertid}`);
+          break;
+        case '/scheme':
+          const schemeid = url.query.id;
+          history.push(`/zh/scheme?id=${schemeid}`);
+          break;
+        case '/news':
+          const newsid = url.query.id;
+          history.push(`/zh/news?id=${newsid}`);
+          break;
+        case '/h5':
+          const h5url = url.query.url;
+          window.open(h5url, '_blank');
+          break;
+        default:
+          break;
+      }
+    } else {
+      window.open(urlStr, '_blank');
+    }
+  };
 
   return banners && banners.length > 0 ? (
     <div className={classnames(styles.bannerContainer, props.className)}>
@@ -81,7 +116,7 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
               className={styles.img}
               src={item.img}
               onClick={() => {
-                window.open(item.landing_page, '_blank');
+                handleUrl(item.landing_page);
                 reportBanner(REPORT_ACTION.banner_click, item.id);
               }}
             />

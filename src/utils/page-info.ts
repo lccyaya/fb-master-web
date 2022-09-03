@@ -89,6 +89,12 @@ export const pages = createPageInfoArray(
     isNav: true,
   },
   {
+    key: 'mine',
+    regex: /\/mine\/*/,
+    cate: REPORT_CATE.mine,
+    isNav: true,
+  },
+  {
     key: 'news_detail',
     regex: /\/newsdetail\/*/,
     cate: REPORT_CATE.news_detail,
