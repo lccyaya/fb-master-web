@@ -109,8 +109,8 @@ const Mobile = ({ data, type = 'score' }) => {
     matchStatusText.headerColor = '#999';
   } else if (status === MatchStatus.Going) {
     matchStatusText.text = data.minutes;
-    matchStatusText.color = '#39906A';
-    matchStatusText.headerColor = '#39906A';
+    matchStatusText.color = '#FA5900';
+    matchStatusText.headerColor = '#FA5900';
   }
   const { asia, bs, eu } = data.odds;
   const isShowVS = status === MatchStatus.Before || status === MatchStatus.TBD;
@@ -205,7 +205,7 @@ const Mobile = ({ data, type = 'score' }) => {
               }}
             >
               <Iconfont
-                color={subscribed ? '#39906A' : '#999999'}
+                color={subscribed ? '#FA5900' : '#999999'}
                 size={16}
                 type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
               />
@@ -396,7 +396,7 @@ const Mobile = ({ data, type = 'score' }) => {
               }}
             >
               <Iconfont
-                color={subscribed ? '#39906A' : '#999999'}
+                color={subscribed ? '#FA5900' : '#999999'}
                 size={16}
                 type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
               />
@@ -447,12 +447,12 @@ const Mobile = ({ data, type = 'score' }) => {
           <div className={styles.match_index_body_right}>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#39906A' }}>
+                <div style={{ color: '#FA5900' }}>
                   {eu ? `H ${normalizeFloat(eu.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#39906A' }}>
+                <div style={{ color: '#FA5900' }}>
                   {asia ? (
                     `H ${normalizeFloat(asia.home)}`
                   ) : (

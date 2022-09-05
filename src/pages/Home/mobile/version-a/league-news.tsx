@@ -21,7 +21,7 @@ const fiveLeagueConf = {
   // SPA La Liga
   120: {
     bg: 'linear-gradient(180deg, #72BB9B 0%, rgba(114, 187, 155, 0.05) 100%)',
-    playgroundBgColor: '#39906A',
+    playgroundBgColor: '#FA5900',
     logo: league_SPA_La_Liga_logo,
   },
   // ITA Serie A

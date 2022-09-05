@@ -78,7 +78,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
               <div className={styles.score}>
                 {matchInfo.home}:{matchInfo.away}
               </div>
-              <div className={styles.status} style={{ color: '#39906A' }}>
+              <div className={styles.status} style={{ color: '#FA5900' }}>
                 进行中
               </div>
             </>

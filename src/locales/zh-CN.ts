@@ -263,7 +263,7 @@ export default {
  "key_numbercount": "条",
  "key_ok": "好的",
  "key_open": "打开",
- "key_open_app": "在 007 Sport应用中打开",
+ "key_open_app": "在 34体育应用中打开",
  "key_open_immediately": "立刻打开",
  "key_open_push_browser": "为了让您实时了解您关注的球队的比赛赛况，您可以前往浏览器设置中开启 007 Sports 的通知权限后再回来刷新。",
  "key_or_log_in_with": "其他登录方式",

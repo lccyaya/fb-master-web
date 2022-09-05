@@ -167,7 +167,7 @@ function NewsComment(props: {
       author={data.user_name || ''}
       avatar={data.user_pic || defaultAvatar}
       content={level && level > 1 ? <>
-      {replyTo} <span style={{color: '#39906A'}}>{data.reply_to_user_name}: </span>{data.words}
+      {replyTo} <span style={{color: '#FA5900'}}>{data.reply_to_user_name}: </span>{data.words}
       </> : data.words}
       datetime={<span>{num || ''} <FormattedMessage id={localeStr} /></span>}
     >

@@ -28,7 +28,7 @@ const SimpleTabs: React.FC<IProps> = ({
   onChange = () => {},
   type,
   sticky = false,
-  top = 49,
+  top = 0,
   className = '',
   theme = 'light',
 }) => {

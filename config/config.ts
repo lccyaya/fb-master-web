@@ -121,7 +121,9 @@ export default defineConfig({
         /major-match.less/,
         /match.less/,
         /header.less/,
-        /top.less/
+        /top.less/,
+        /mobile.module.less/,
+        /mobile.less/,
       ], // 设置忽略转换的文件夹目录
     }),
   ],

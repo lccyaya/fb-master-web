@@ -21,6 +21,7 @@ export default function MobileHome() {
       <div className={styles.wrapper}>
         {/* {content} */}
         <SimpleTabs
+          sticky
           activeKey={tabkey}
           theme="dark"
           className={styles.base_tab}

@@ -63,7 +63,7 @@ const SelectFunc = (props: any) => {
     ? {
         type: 'icon-tubiao_zhishu',
         color: '#ffffff',
-        bg: '#39906A linear-gradient(145deg, #50E4A4 0%, #049A59 100%)',
+        bg: '#FA5900',
       }
     : { type: 'icon-tubiao_zhishu', color: '#999' };
   useEffect(() => {

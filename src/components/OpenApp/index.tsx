@@ -54,11 +54,11 @@ const OpenApp: React.FC<IProps> = () => {
           <div className={styles.desc}>{intl.formatMessage({ id: 'key_open_app' })}</div>
         </div>
       </div>
-      <div onClick={handleOpenClick} className={styles.right}>
+      {/* <div onClick={handleOpenClick} className={styles.right}>
         <Button size="small" type="primary" className={styles.open}>
           {intl.formatMessage({ id: 'key_open' })}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

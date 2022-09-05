@@ -217,7 +217,7 @@ const Mobile = () => {
         setIndexData({
           ...indexData,
           color: '#ffffff',
-          bg: '#39906A linear-gradient(145deg, #50E4A4 0%, #049A59 100%)',
+          bg: '#FA5900',
         });
         setIndexVal(true);
       }
@@ -244,7 +244,7 @@ const Mobile = () => {
         setIndexData({
           ...indexData,
           color: '#ffffff',
-          bg: '#39906A linear-gradient(145deg, #50E4A4 0%, #049A59 100%)',
+          bg: '#FA5900',
         });
       }
     } else {
@@ -331,7 +331,7 @@ const Mobile = () => {
             handleReport({ action: 'league_filter' });
           }}
           className={cls(styles.icon, styles.menu_icon)}
-          color={params?.competition_ids.length ? '#39906A' : ''}
+          color={params?.competition_ids.length ? '#FA5900' : ''}
           type="icon-shaixuan-xuanzhong2"
           size={18}
         />
@@ -415,8 +415,8 @@ const Mobile = () => {
         />
         <BottomIcon
           onClick={onBottomClick}
-          // icons={[indexData, { type: 'icon-sousuo', color: '#39906A' }]}
-          icons={[{ type: 'icon-sousuo', color: '#39906A' }]}
+          icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}
+          // icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}
         />
         {/* {showTopIcon ? (
           <FixedBtns

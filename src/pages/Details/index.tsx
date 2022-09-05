@@ -263,7 +263,7 @@ const Details: React.FC<DetailProps> = (props) => {
                       checked={detailType === 'scheme'}
                       key="scheme"
                     >
-                      方案
+                      攻略
                     </CheckableTag>
                   ) : null}
                   <CheckableTag
@@ -272,7 +272,8 @@ const Details: React.FC<DetailProps> = (props) => {
                     checked={detailType === 'data'}
                     key="data"
                   >
-                    <FormattedMessage id="key_data" />
+                    {/* <FormattedMessage id="key_data" /> */}
+                    分析
                   </CheckableTag>
                   <CheckableTag
                     className={styles.tabButton}
@@ -288,7 +289,8 @@ const Details: React.FC<DetailProps> = (props) => {
                     key="index"
                     checked={detailType === 'index'}
                   >
-                    <FormattedMessage id="key_index" />
+                    {/* <FormattedMessage id="key_index" /> */}
+                    数据
                   </CheckableTag>
                 </Row>
                 {matchId && (

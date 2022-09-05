@@ -57,7 +57,7 @@ const PieChartVertical: React.FC<PieChartVerticalProps> = (props) => {
 
   return (
     <div className={styles.pieContainer} style={props.style}>
-      {pieBox('H', 'home', data.home_team_vote, data.total, '#39906A', data.home_odds)}
+      {pieBox('H', 'home', data.home_team_vote, data.total, '#FA5900', data.home_odds)}
       {pieBox('D', 'draw', data.draw_vote, data.total, '#6B6B6B', data.draw_odds)}
       {pieBox('A', 'away', data.away_team_vote, data.total, '#D80000', data.away_odds)}
     </div>

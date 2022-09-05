@@ -68,7 +68,7 @@ const Timeline: React.FC<TimelineProps> = (props) => {
             </div>
           })}
           <Progress
-            strokeColor="#39906A"
+            strokeColor="#FA5900"
             className={styles.progress}
             percent={time < 270 ? time / 0.9 : 0}
             showInfo={false}
