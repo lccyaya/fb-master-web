@@ -35,7 +35,7 @@ const UserInfo: React.FC<IProps> = (props) => {
         <Avatar src={avatar ?? avatarImg} size={66} />
         <div className={styles.login_txt_box} onClick={onClick}>
           <span className={styles.login_title}>{nickname ?? '登录/注册'}</span>
-          <span className={styles.login_des}>{user ? '个人信息' : '登录可享更多精彩内容'}</span>
+          <span className={styles.login_des}>{user ? '这个人很懒，还未添加个人信息' : '登录可享更多精彩内容'}</span>
         </div>
       </div>
       <Certification

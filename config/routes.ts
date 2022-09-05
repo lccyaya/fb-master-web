@@ -131,6 +131,14 @@
               component: './Terms',
             },
             {
+              path: '/:locale/myorders',
+              component: './Myorder',
+            },
+            {
+              path: '/:locale/settings',
+              component: './Setting',
+            },
+            {
               path: '/:locale/account/:type',
               component: './Account',
             },

@@ -13,6 +13,9 @@ export type UserInfoType = {
   google: SocialItem;
   line: SocialItem;
   facebook: SocialItem;
+  coin: number;
+  coupon: number;
+  favorite: number;
   expert: {
     id: string;
     avatar: string;
