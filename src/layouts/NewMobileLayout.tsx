@@ -48,7 +48,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
     {
       key: 'expert',
       pathRegex: pageRegex.get('expert'),
-      path: '/zh/expert',
+      path: '/zh/expert/rank',
       locale: 'key_expert',
       icon: (active: boolean) => (
         <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />

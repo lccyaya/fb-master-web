@@ -6,7 +6,7 @@ import cls from 'classnames';
 import Tags from '@/components/Tags/mobile';
 import SkilledCompetitions from '@/components/expert/skilled-competitions/mobile';
 import { expertDetail } from '@/services/expert';
-import { history } from 'umi';
+import { history, useHistory, useLocation } from 'umi';
 import React, { useState, useEffect } from 'react';
 import Achievements from '@/components/achievements/mobile';
 import Chart from '@/components/Chart/mobile';
@@ -14,11 +14,16 @@ import Avatar from '@/components/avatar';
 import { Spin } from 'antd';
 import Empty from '@/components/Empty';
 import EventEmitter from '@/utils/event';
+import { NavBar } from 'antd-mobile';
 
-export default function ExpertDetail() {
-  const { query } = history.location;
+const ExpertDetail: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
+  const history = useHistory();
+  const location = useLocation();
+  const { query } = location;
+  console.log(location)
+  
   const fetchData = async (hasLoading = true) => {
     hasLoading && setLoading(true);
     const resp = await expertDetail({
@@ -40,8 +45,14 @@ export default function ExpertDetail() {
     };
   }, []);
   const { expert = {}, recent_record = [], record = {} } = data;
+
+  const back = () => {
+    history.goBack();
+  }
+
   return (
     <div className={styles.main}>
+      <NavBar onBack={back}>专家详情</NavBar>
       <Spin spinning={loading}>
         <>
           <div className={styles.header}>
@@ -125,3 +136,5 @@ export default function ExpertDetail() {
     </div>
   );
 }
+
+export default ExpertDetail

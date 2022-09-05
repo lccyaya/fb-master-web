@@ -255,14 +255,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           {/* {checkCurrentIsPhone && <OpenApp />} */}
           {/* <ProLayout
             logo={() => (
-              !checkCurrentIsPhone ?
               <img
                 src={pageConfig.logo}
                 onClick={() => {
                   const lang = toShortLangCode(locale.getLocale(location.pathname));
                   history.push(`/${lang}/home`);
                 }}
-              /> : null
+              />
             )}
             className={classnames(styles.layout, checkCurrentIsPhone && styles.mobileLayout)}
             formatMessage={formatMessage}
@@ -318,7 +317,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             menuDataRender={menuDataRender}
             onPageChange={onPageChangeHandle}
             menuProps={{ className: styles.menu, selectable: false }}
-            rightContentRender={() => !checkCurrentIsPhone ? <RightContent /> : null}
+            rightContentRender={() => <RightContent /> }
             fixedHeader={!checkCurrentIsPhone}
             // contentStyle={props.isPhone ? { minWidth: 0, maxHeight: 1024, margin: '0 auto' } : { minWidth: 1200, margin: 0, background: '#fff' }}
             contentStyle={{

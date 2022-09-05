@@ -101,8 +101,8 @@ const Desc: React.FC<{ type: IType; account?: string; channel?: string }> = (pro
 };
 
 const Footer: React.FC<{ type: IType; onChange: (type: IType) => void }> = (props) => {
-  // if (props.type === 'login' || props.type === 'retrieve') {
-  if (props.type === 'retrieve') {
+  if (props.type === 'login' || props.type === 'retrieve') {
+  // if (props.type === 'retrieve') {
     return (
       <>
         <span>

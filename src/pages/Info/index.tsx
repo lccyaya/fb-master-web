@@ -23,7 +23,6 @@ import { checkIsPhone } from '@/utils/utils';
 type TabType = 'tables' | 'fixtures';
 
 type IProps = {
-  isPhone?: boolean;
   ssrLeagues?: competitionService.CompetitionsCategoryItemType[];
   ssrDefaultOpenKeys?: string[];
   ssrDefaultSelectedKeys?: string[];
@@ -61,12 +60,12 @@ const Info: React.FC<IProps> = (props) => {
   const [seasonList, setSeasonList] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  const fetchSeasonData = async (competitionId) => {
+  const fetchSeasonData = async (competitionId: any) => {
     const result = await matchService.getSeasonList(competitionId);
     if (result.success) {
       const seasonList = result.data;
       setSeasonList(seasonList);
-      const curSeacon = seasonList.find((item) => item.is_current);
+      const curSeacon = seasonList.find((item: any) => item.is_current);
       if (curSeacon) {
         const { year, ID } = curSeacon;
         setCurSeason(year && year.replace('-', '/'));
@@ -86,7 +85,7 @@ const Info: React.FC<IProps> = (props) => {
 
         const urlString = window.location.toString();
         const split = urlString.split('?');
-        let competitionId = '';
+        let competitionId = 0;
         if (split[1]) {
           const search = parseUrl(`?${split[1]}`).query;
           const hotTag = categories.find((ele) => ele.name === 'Hot' || ele.name === '热门');
@@ -183,6 +182,59 @@ const Info: React.FC<IProps> = (props) => {
     </Menu>
   );
 
+  const content = (
+    <>
+      <div className={styles.header}>
+        <div>
+          <CheckableTag
+            className={styles.tabButton}
+            onClick={() => handleTab2Change('tables')}
+            key="tables"
+            checked={detailType === 'tables'}
+          >
+            <FormattedMessage id="key_tables" />
+          </CheckableTag>
+          <CheckableTag
+            className={styles.tabButton}
+            onClick={() => handleTab2Change('fixtures')}
+            checked={detailType === 'fixtures'}
+            key="fixtures"
+          >
+            <FormattedMessage id="key_fixtures" />
+          </CheckableTag>
+        </div>
+        <Dropdown
+          visible={visible}
+          onVisibleChange={setVisible}
+          overlay={seasonMenu}
+          trigger={['click']}
+        >
+          <div className={styles.season_name}>
+            <div>
+              <FormattedMessage id="key_season" /> <span>{curSeason}</span>
+            </div>
+            <span className={styles.icon_wrap}>
+              <IconFont type="icon-zhankai" color="#fff" />
+            </span>
+          </div>
+        </Dropdown>
+      </div>
+      <Divider style={{ margin: '10px 0px' }} />
+      <div>
+        {detailType === 'tables' && (
+          <Ranking
+            competitionId={selectedCompetitionId!}
+            hideLoading={!clientTouched && hideLoading}
+            seasonId={curSeasonId}
+          />
+        )}
+        {detailType === 'fixtures' && (
+          <Feature seasonId={curSeasonId} competitionId={selectedCompetitionId!} />
+        )}
+      </div>
+    </>
+  );
+
   return (
     <Spin className={styles.spin} spinning={loading || !selectedCompetitionId}>
       <div className={styles.main}>
@@ -196,56 +248,13 @@ const Info: React.FC<IProps> = (props) => {
               </div>
             )}
             <div className={styles.right}>
-              <ScrollView autoHide>
-                <div className={styles.header}>
-                  <div>
-                    <CheckableTag
-                      className={styles.tabButton}
-                      onClick={() => handleTab2Change('tables')}
-                      key="tables"
-                      checked={detailType === 'tables'}
-                    >
-                      <FormattedMessage id="key_tables" />
-                    </CheckableTag>
-                    <CheckableTag
-                      className={styles.tabButton}
-                      onClick={() => handleTab2Change('fixtures')}
-                      checked={detailType === 'fixtures'}
-                      key="fixtures"
-                    >
-                      <FormattedMessage id="key_fixtures" />
-                    </CheckableTag>
-                  </div>
-                  <Dropdown
-                    visible={visible}
-                    onVisibleChange={setVisible}
-                    overlay={seasonMenu}
-                    trigger={['click']}
-                  >
-                    <div className={styles.season_name}>
-                      <div>
-                        <FormattedMessage id="key_season" /> <span>{curSeason}</span>
-                      </div>
-                      <span className={styles.icon_wrap}>
-                        <IconFont type="icon-zhankai" color="#fff" />
-                      </span>
-                    </div>
-                  </Dropdown>
+              {checkIsPhone() ? (
+                <div style={{ height: '100%', overflowX: 'hidden', overflowY: 'scroll' }}>
+                  {content}
                 </div>
-                <Divider />
-                <div>
-                  {detailType === 'tables' && (
-                    <Ranking
-                      competitionId={selectedCompetitionId!}
-                      hideLoading={!clientTouched && hideLoading}
-                      seasonId={curSeasonId}
-                    />
-                  )}
-                  {detailType === 'fixtures' && (
-                    <Feature seasonId={curSeasonId} competitionId={selectedCompetitionId!} />
-                  )}
-                </div>
-              </ScrollView>
+              ) : (
+                <ScrollView autoHide>{content}</ScrollView>
+              )}
             </div>
           </>
         )}
@@ -298,7 +307,7 @@ const Info: React.FC<IProps> = (props) => {
 //   };
 // };
 
-// export default Info;
-export default connect(({ divice }: ConnectState) => ({
-  isPhone: divice.isPhone,
-}))(Info);
+export default Info;
+// export default connect(({ divice }: ConnectState) => ({
+//   isPhone: divice.isPhone,
+// }))(Info);

@@ -85,7 +85,7 @@ const SchemeCreate = (props: Props) => {
             selected={
               record.odd.odd_scheme_id == selectOdd?.odd_scheme_id && odd.tag == selectOdd?.tag
             }
-            disabled={odd.odd<1.5}
+            disabled={odd.odd<1.4 && record.typeId === 1}
           >{`${odd.title} ${odd.odd}`}</OddButton>
         );
       },
@@ -93,7 +93,7 @@ const SchemeCreate = (props: Props) => {
         const odd = record.odd.odds[0];
         return {
           onClick: () => {
-            if (odd.odd < 1.5) {
+            if (odd.odd < 1.4 && record.typeId === 1) {
               return;
             }
             setSelectOdd({
@@ -123,7 +123,7 @@ const SchemeCreate = (props: Props) => {
             selected={
               record.odd.odd_scheme_id == selectOdd?.odd_scheme_id && odd.tag == selectOdd?.tag
             }
-            disabled={odd.odd<1.5}
+            disabled={odd.odd<1.4 && record.typeId === 1}
           >{`${odd.title} ${odd.odd}`}</OddButton>
         );
       },
@@ -134,7 +134,7 @@ const SchemeCreate = (props: Props) => {
         const odd = record.odd.odds[1];
         return {
           onClick: () => {
-            if (odd.odd < 1.5) {
+            if (odd.odd < 1.4 && record.typeId === 1) {
               return;
             }
             setSelectOdd({
@@ -164,7 +164,7 @@ const SchemeCreate = (props: Props) => {
             selected={
               record.odd.odd_scheme_id == selectOdd?.odd_scheme_id && odd.tag == selectOdd?.tag
             }
-            disabled={odd.odd<1.5}
+            disabled={odd.odd<1.4 && record.typeId === 1}
           >{`${odd.title} ${odd.odd}`}</OddButton>
         );
       },
@@ -175,7 +175,7 @@ const SchemeCreate = (props: Props) => {
         }
         return {
           onClick: () => {
-            if (odd.odd < 1.5) {
+            if (odd.odd < 1.4 && record.typeId === 1) {
               return;
             }
             setSelectOdd({

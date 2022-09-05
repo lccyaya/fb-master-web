@@ -9,10 +9,13 @@ import { message } from 'antd';
 import { MATCH_STATUS, SCHEME_STATE, STOP_MATCH_STATUS } from '@/constants/index';
 import { handleReport } from '@/utils/report';
 import Pay from './components/pay/mobile';
+import { NavBar } from 'antd-mobile';
+import { useHistory } from 'umi';
 const SchemePage = ({ id, matchId }) => {
   const [detail, setDetail] = useState(null);
   const [matchInfo, setMatchInfo] = useState(null);
   const [reportEventTag, setReportEventTag] = useState('');
+  const history = useHistory();
 
   const getMatchScoreFetch = () => {
     getMatchScore({
@@ -80,34 +83,42 @@ const SchemePage = ({ id, matchId }) => {
   if (!detail) {
     return null;
   }
+
+  const back = () => {
+    history.goBack();
+  };
+
   return (
-    <div className={styles.scheme_page}>
-      {/* 专家区块 */}
-      <ExpertDesc
-        describe={detail.describe}
-        expert={detail.expert}
-        published_at={detail.published_at}
-        id={id}
-        collected={detail.collected}
-      />
-      {/* 方案 */}
-      <SchemeBlock detail={detail} matchInfo={matchInfo} />
-      {/* 分析 */}
-      {!detail.detail && !detail.gold_coin ? null : (
-        <Analysis detail={detail} matchInfo={matchInfo || {}} isStop={isStop} />
-      )}
-      {/* 免责申明 */}
-      <Tip />
-      {!detail.detail && detail.state === SCHEME_STATE.SALE && detail.gold_coin > 0 && !isStop ? (
-        <Pay
-          detail={detail}
+    <div>
+      <NavBar onBack={back}>攻略详情</NavBar>
+      <div className={styles.scheme_page}>
+        {/* 专家区块 */}
+        <ExpertDesc
+          describe={detail.describe}
+          expert={detail.expert}
+          published_at={detail.published_at}
           id={id}
-          onSuccess={() => {
-            init();
-          }}
-          eventTag={reportEventTag}
+          collected={detail.collected}
         />
-      ) : null}
+        {/* 方案 */}
+        <SchemeBlock detail={detail} matchInfo={matchInfo} />
+        {/* 分析 */}
+        {!detail.detail && !detail.gold_coin ? null : (
+          <Analysis detail={detail} matchInfo={matchInfo || {}} isStop={isStop} />
+        )}
+        {/* 免责申明 */}
+        <Tip />
+        {!detail.detail && detail.state === SCHEME_STATE.SALE && detail.gold_coin > 0 && !isStop ? (
+          <Pay
+            detail={detail}
+            id={id}
+            onSuccess={() => {
+              init();
+            }}
+            eventTag={reportEventTag}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };

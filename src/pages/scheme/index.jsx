@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Page from '@/components/page';
 import PC from './pc';
-import Mobile from './mobile';
+import Mobile from './mobile.tsx';
 import { useLocation } from 'umi';
 
 // import Mobile from './pc';

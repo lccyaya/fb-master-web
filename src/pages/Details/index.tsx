@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import type { Dispatch } from 'umi';
+import { Dispatch, useHistory } from 'umi';
 import { useLocation } from 'umi';
 import { connect, FormattedMessage, useIntl } from 'umi';
 import type { ConnectState } from '@/models/connect';
@@ -37,6 +37,7 @@ import Progress from '@/pages/Details/Progress';
 import DetailNews from '@/pages/Details/News';
 import { locale } from '@/app';
 import { handleReport } from '@/utils/report';
+import { NavBar } from 'antd-mobile';
 
 type TabType = 'index' | 'lineUp' | 'data' | 'overview' | 'info' | 'scheme';
 
@@ -58,6 +59,7 @@ function pauseVideo() {
 
 const Details: React.FC<DetailProps> = (props) => {
   const location = useLocation();
+  const history = useHistory();
   const lang = toShortLangCode(locale.getLocale());
   const isPhone = checkIsPhone();
   const timer = useRef<number>();
@@ -86,7 +88,7 @@ const Details: React.FC<DetailProps> = (props) => {
     if (result.success) {
       const match = result.data;
       const status = getMatchStatus(match.status);
-      console.log(match, status, '&&&&')
+      console.log(match, status, '&&&&');
       setHasScheme(match.has_scheme);
 
       if (match.has_scheme) {
@@ -206,12 +208,14 @@ const Details: React.FC<DetailProps> = (props) => {
     Boolean(data?.normal_live_link || data?.high_live_link);
   const hasHighlight = Boolean(data?.has_highlight && data?.highlights.length);
   const hasPlayback = Boolean(data?.playback_link);
+  const back = () => {
+    history.goBack();
+  }
+
   return (
     <Spin spinning={loading}>
+      {checkIsPhone() && <NavBar onBack={back}>比赛详情</NavBar>}
       <div className={styles.main}>
-        {/* {checkIsPhone() && (
-          <CallAppModal title={useIntl().formatMessage({ id: 'key_watch_in_app' })} />
-        )} */}
         <InfoCard
           match={data}
           reportCate={REPORT_CATE.match_detail}
