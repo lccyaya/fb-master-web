@@ -21,4 +21,5 @@ export enum ExpertStatus {
   'None' = '0',
   'Accept' = '1',
   'Invalid' = '2',
+  'Applying' = '3',
 }

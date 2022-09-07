@@ -7,12 +7,16 @@ import { Button } from 'antd';
 import EventEmitter from '@/utils/event';
 
 type Props = {};
+interface Item {
+  title: string,
+  path: string,
+}
 
 const Setting: React.FC<Props> = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const settingItems = [
+  const settingItems: Item[] = [
     {
       title: '个人设置',
       path: '/zh/personal/setting',
@@ -25,10 +29,10 @@ const Setting: React.FC<Props> = (props) => {
       title: '用户协议',
       path: '/zh/terms',
     },
-    {
-      title: '关于我们',
-      path: '/zh/about',
-    },
+    // {
+    //   title: '关于我们',
+    //   path: '/zh/about',
+    // },
   ];
 
   const back = () => {
@@ -52,7 +56,11 @@ const Setting: React.FC<Props> = (props) => {
     //   location.reload();
     // }
     logout();
-  }
+  };
+
+  const clickItem = (item: Item) => {
+    history.push(item.path)
+  };
 
   return (
     <div className={styles.container}>
@@ -61,7 +69,13 @@ const Setting: React.FC<Props> = (props) => {
       </NavBar>
       <div className={styles.items_container}>
         {settingItems.map((settingItem) => (
-          <div className={styles.item_box} key={settingItem.path}>
+          <div
+            className={styles.item_box}
+            key={settingItem.path}
+            onClick={() => {
+              clickItem(settingItem);
+            }}
+          >
             <div className={styles.item_title}>{settingItem.title}</div>
             <IconFont
               className={styles.arrow_icon}

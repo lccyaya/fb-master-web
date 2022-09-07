@@ -54,7 +54,7 @@ export type LoginProps = {
 
 const Title: React.FC<{ type: IType; channel?: string }> = (props) => {
   if (props.type === 'login') {
-    return <img className={styles.logo} src={pageConfig.logo} />;
+    return <div><img className={styles.logo} src={pageConfig.logo} /></div>;
   } else if (props.type === 'register') {
     return <FormattedMessage id="key_create_account_web" />;
   } else if (props.type === 'retrieve') {

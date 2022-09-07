@@ -127,6 +127,11 @@
               component: './Mine',
             },
             {
+              path: '/:locale/personal/setting',
+              name: 'PersonalSetting',
+              component: './Mine/PersonalSetting',
+            },
+            {
               path: '/:locale/terms',
               component: './Terms',
             },
@@ -180,6 +185,10 @@
               path: '/:locale/expert/recommend',
               component: './Recommend',
               cate: 'scheme_match',
+            },
+            {
+              path: '/:locale/expert/application',
+              component: './ExpertApplication',
             },
             {
               component: './404',

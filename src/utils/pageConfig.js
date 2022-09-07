@@ -1,8 +1,8 @@
 import Logo from '@/assets/logo/logo.png';
 import LogoDark from '@/assets/logo/logo_dark.png';
-import ChinaLogoDark from '@/assets/logo/logo_34_dark.png';
+import ChinaLogoDark from '@/assets/logo/logo_min_34.png';
 import LogoMin from '@/assets/logo/logo_min.png';
-import ChinaLogo from '@/assets/logo/logo_34.png';
+import ChinaLogo from '@/assets/logo/logo_min_34.png';
 import ChinaLogoMin from '@/assets/logo/logo_min_34.png';
 import { isForChina } from '@/utils/utils';
 import Ico from '/public/favicon.ico';

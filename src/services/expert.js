@@ -166,3 +166,12 @@ export const getDocPayStatus = async (params) => {
   const result = await request('/api/scheme/doc-status?' + qs.stringify(params));
   return normalizeResponse(result);
 };
+
+//专家申请
+export const applicationExpert = async (params) => {
+  const result = await request('/api/v5/expert/add', {
+    method: 'POST',
+    data: params,
+  });
+  return normalizeResponse(result);
+};

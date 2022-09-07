@@ -20,7 +20,7 @@ const Mine: React.FC<Props> = (props) => {
 
   const applicateExpert = () => {
     if (user) {
-      history.push('');
+      history.push('/zh/expert/application');
     }
   };
   useEffect(() => {}, []);

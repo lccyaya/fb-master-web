@@ -339,7 +339,7 @@ const Login: React.FC<LoginProps> = (props) => {
         />
       ) : null}
 
-      {/* <div className={styles.actions}>
+      <div className={styles.actions}>
         <div
           className={styles.switch}
           onClick={() => {
@@ -368,7 +368,7 @@ const Login: React.FC<LoginProps> = (props) => {
             <FormattedMessage id="key_forgot_password" />
           </a>
         ) : null}
-      </div> */}
+      </div>
     </ProForm>
   );
   return (

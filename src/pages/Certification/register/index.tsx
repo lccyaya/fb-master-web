@@ -26,7 +26,7 @@ const Login: React.FC<IProps> = (props) => {
   const { onSummit } = props;
   const intl = useIntl();
   const [summitLoading, setSummitLoading] = useState<boolean>(false);
-  const [channel, setChannel] = useState<string>('email');
+  const [channel, setChannel] = useState<string>('phone');
 
   const handleSubmit = async (values: RegisterCallbackParams) => {
     handleReport({
@@ -46,7 +46,7 @@ const Login: React.FC<IProps> = (props) => {
       password: md5(password),
     };
     // 检查参数
-    const checkParams = await certificationService.checkAccountIsRegistered(params);
+    const checkParams = await certificationService.checkAccountParams(params);
     if (checkParams.success) {
       if (checkParams.data?.is_registered) {
         message.error(
@@ -306,14 +306,14 @@ const Login: React.FC<IProps> = (props) => {
           });
         }}
       >
-        <TabPane
+        {/* <TabPane
           tab={intl.formatMessage({
             id: 'key_email_tab',
           })}
           key="email"
         >
           {EmailForm}
-        </TabPane>
+        </TabPane> */}
         <TabPane
           tab={intl.formatMessage({
             id: 'key_phone_tab',

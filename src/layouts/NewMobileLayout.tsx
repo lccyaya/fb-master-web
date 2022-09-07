@@ -21,7 +21,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       path: '/zh/home',
       locale: 'key_home_tab',
       icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-shouye-dianji' : 'icon-shouye'} size={22} />
+        <IconFont type={active ? 'icon-dianji-shouye' : 'icon-shouye1'} size={22} />
       ),
     },
     // {
@@ -51,7 +51,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       path: '/zh/expert/rank',
       locale: 'key_expert',
       icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />
+        <IconFont type={active ? 'icon-dianji-zhuanjia' : 'icon-zhuanjia1'} size={22} />
       ),
     },
     {
@@ -60,7 +60,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       path: '/zh/match',
       locale: 'key_match',
       icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-saizhi-dianji' : 'icon-saizhi'} size={22} />
+        <IconFont type={active ? 'icon-a-dianjibisai' : 'icon-bisai1'} size={22} />
       ),
     },
     // {
@@ -81,7 +81,7 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
       path: '/zh/mine',
       locale: 'key_me',
       icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-zhuanjia-dianji' : 'icon-zhuanjia'} size={22} />
+        <IconFont type={active ? 'icon-dianji-wode' : 'icon-wode'} size={22} />
       ),
     },
     // {
