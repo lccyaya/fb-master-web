@@ -16,6 +16,7 @@ export type UserInfoType = {
   coin: number;
   coupon: number;
   favorite: number;
+  phone: string;
   expert: {
     id: string;
     avatar: string;

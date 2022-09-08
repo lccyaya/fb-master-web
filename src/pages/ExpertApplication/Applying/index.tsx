@@ -40,9 +40,9 @@ const Applying: React.FC<Props> = (props) => {
   }, [picLoading, submitLoading]);
 
   const beforeUpload = (file: RcFile) => {
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 5;
     if (!isLt2M) {
-      message.error('图片大小不可以超过2MB!');
+      message.error('图片大小不可以超过5MB!');
     }
     return isLt2M;
   };
@@ -156,7 +156,7 @@ const Applying: React.FC<Props> = (props) => {
               style={{ width: '100px' }}
               placeholder="请输入"
               bordered={false}
-              maxLength={6}
+              maxLength={12}
             />
           </Form.Item>
         </FormField>

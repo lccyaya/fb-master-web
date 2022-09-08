@@ -6,6 +6,7 @@ import Ad from '../components/ad';
 import HotNews from '@/pages/Home/mobile/version-a/hot-news';
 import LeagueNews from '@/pages/Home/mobile/version-a/league-news';
 import HotSchemes from './hot-schemes/index';
+import HotExpert from './HotExpert';
 
 export default function MobileHomeA() {
   return (
@@ -15,7 +16,7 @@ export default function MobileHomeA() {
       <MajorMatch />
       {/* <DownloadTip /> */}
       {/* <Highlight /> */}
-      
+      <HotExpert />
       {/* <HotNews /> */}
       {/* <LeagueNews /> */}
       <HotSchemes />

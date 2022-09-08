@@ -132,8 +132,17 @@
               component: './Mine/PersonalSetting',
             },
             {
+              path: '/:locale/security/setting',
+              name: 'SecuritySetting',
+              component: './Mine/SecuritySetting',
+            },
+            {
               path: '/:locale/terms',
               component: './Terms',
+            },
+            {
+              path: '/:locale/privacy',
+              component: './Privacy',
             },
             {
               path: '/:locale/myorders',

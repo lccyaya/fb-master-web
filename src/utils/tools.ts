@@ -1,13 +1,10 @@
 export type Result<T> = {
-  success: true;
-  code: number;
-  data: T;
+  success: boolean;
+  code?: number;
+  data?: T;
   response: any; // 原始数据
-} | {
-  success: false;
-  err: Error;
-  message: string;
-  data?: any;
+  err?: Error;
+  message?: string;
 }
 
 /**
@@ -20,9 +17,10 @@ export function normalizeResponse<T = any>(
   if (!res) {
     return {
       success: false,
-      data: null,
+      data: undefined,
       message: '',
       err: new Error(''),
+      response: res
     };
   }
   const { data } = res;
@@ -34,7 +32,7 @@ export function normalizeResponse<T = any>(
     return {
       success: true,
       data,
-      response: res.data,
+      response: res,
       code: res.code,
     };
   } else {
@@ -42,6 +40,7 @@ export function normalizeResponse<T = any>(
       success: false,
       err: new Error(''),
       message: res.message!,
+      response: res,
     };
   }
   

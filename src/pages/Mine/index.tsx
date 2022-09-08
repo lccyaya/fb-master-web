@@ -34,6 +34,15 @@ const Mine: React.FC<Props> = (props) => {
   const openSetting = () => {
     history.push('/zh/settings');
   };
+  const openCoupon = () => {
+    history.push('/zh/account/coupon');
+  };
+  const openRecharge = () => {
+    history.push('/zh/account/recharge');
+  };
+  const openFollow = () => {
+    history.push('/zh/account/follow');
+  };
 
   return (
     <div className={styles.container}>
@@ -47,14 +56,14 @@ const Mine: React.FC<Props> = (props) => {
           <span className={styles.value_text}>0</span>
           <span className={styles.des_text}>订阅</span>
         </div>
-        <div className={styles.followitem_box}>
+        <div className={styles.followitem_box} onClick={openFollow}>
           <span className={styles.value_text}>{user?.favorite ?? 0}</span>
           <span className={styles.des_text}>收藏</span>
         </div>
       </div>
       <div className={styles.beaninfo_box}>
         <div className={styles.beaninfo_card}>
-          <div className={styles.beanitem_box}>
+          <div className={styles.beanitem_box} onClick={openRecharge}>
             <span className={styles.des_text}>金豆</span>
             <span className={styles.value_text}>{user?.coin ?? 0}</span>
             <div className={styles.button}>充值</div>
@@ -64,7 +73,7 @@ const Mine: React.FC<Props> = (props) => {
             <span className={styles.value_text}>0</span>
             <div className={styles.button}>赚积分</div>
           </div> */}
-          <div className={styles.beanitem_box}>
+          <div className={styles.beanitem_box} onClick={openCoupon}>
             <span className={styles.des_text}>卡券</span>
             <span className={styles.value_text}>{user?.coupon ?? 0}</span>
             <div className={styles.button}>领取</div>

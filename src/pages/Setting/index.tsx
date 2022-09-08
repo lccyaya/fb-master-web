@@ -21,13 +21,17 @@ const Setting: React.FC<Props> = (props) => {
       title: '个人设置',
       path: '/zh/personal/setting',
     },
-    {
-      title: '安全设置',
-      path: '/zh/security/setting',
-    },
+    // {
+    //   title: '安全设置',
+    //   path: '/zh/security/setting',
+    // },
     {
       title: '用户协议',
       path: '/zh/terms',
+    },
+    {
+      title: '隐私协议',
+      path: '/zh/privacy',
     },
     // {
     //   title: '关于我们',

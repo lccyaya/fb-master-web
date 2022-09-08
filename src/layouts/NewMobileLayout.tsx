@@ -12,8 +12,12 @@ import IconFont from '@/components/IconFont';
 
 const { TabPane } = Tabs;
 
-export default function MobileLayout(props: { children?: ReactNode; showTips: boolean }) {
-  const { showTips } = props;
+interface IProps {
+  showTips: boolean;
+}
+
+const MobileLayout: React.FC<IProps> = (props) => {
+  const { showTips, children } = props;
   const allNavs = [
     {
       key: 'home',
@@ -137,30 +141,40 @@ export default function MobileLayout(props: { children?: ReactNode; showTips: bo
 
   useEffect(() => {
     const nav = navs.find((n) => {
-      return n.path == location.pathname;
+      const regex = new RegExp(`^${n.path}/?$`);
+      return regex.test(location.pathname);
     });
-    console.log(location.pathname)
+    console.log(location.pathname);
     setCurKey(nav?.key ?? '');
   }, [location.pathname]);
-  if (Boolean(curKey)) {
-    return (
-      <div className={styles.navTabWrapperBox}>
-        <div className={styles.navTabWrapperChildren}>{props.children}</div>
-        <div className={styles.navTabWrapper}>
-        {/* <Tabs activeKey={curKey} className={styles.navTab} onTabClick={handleTabClick}>
-            {navs.map((n) => (
-              <TabPane tab={formatMsg({ id: n.locale })} key={n.key} />
-            ))}
-          </Tabs> */}
-          <TabBar activeKey={curKey} onChange={handleTabClick}>
-            {navs.map((item) => (
-              <TabBar.Item key={item.key} title={formatMsg({ id: item.locale })} icon={item.icon} />
-            ))}
-          </TabBar>
+
+  return (
+    <>
+      {curKey ? (
+        <div className={styles.navTabWrapperBox}>
+          <div className={styles.navTabWrapperChildren}>{props.children}</div>
+          <div className={styles.navTabWrapper}>
+            {/* <Tabs activeKey={curKey} className={styles.navTab} onTabClick={handleTabClick}>
+      {navs.map((n) => (
+        <TabPane tab={formatMsg({ id: n.locale })} key={n.key} />
+      ))}
+    </Tabs> */}
+            <TabBar activeKey={curKey} onChange={handleTabClick}>
+              {navs.map((item) => (
+                <TabBar.Item
+                  key={item.key}
+                  title={formatMsg({ id: item.locale })}
+                  icon={item.icon}
+                />
+              ))}
+            </TabBar>
+          </div>
         </div>
-      </div>
-    );
-  } else {
-    return props.children;
-  }
-}
+      ) : (
+         children 
+      )}
+    </>
+  );
+};
+
+export default MobileLayout;
