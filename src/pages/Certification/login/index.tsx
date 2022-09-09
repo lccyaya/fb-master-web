@@ -72,7 +72,7 @@ const Login: React.FC<LoginProps> = (props) => {
         dispatch({
           type: 'user/saveCurrentUser',
           payload: {
-            data: userInfo.response,
+            data: userInfo.data,
           },
         });
       }

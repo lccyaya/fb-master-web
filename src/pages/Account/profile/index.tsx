@@ -48,7 +48,7 @@ const Profile: React.FC<IProfile> = (props) => {
         dispatch({
           type: 'user/saveCurrentUser',
           payload: {
-            data: userInfo.response,
+            data: userInfo.data,
           },
         });
       }

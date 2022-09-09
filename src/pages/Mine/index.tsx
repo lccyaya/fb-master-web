@@ -63,21 +63,25 @@ const Mine: React.FC<Props> = (props) => {
       </div>
       <div className={styles.beaninfo_box}>
         <div className={styles.beaninfo_card}>
-          <div className={styles.beanitem_box} onClick={openRecharge}>
-            <span className={styles.des_text}>金豆</span>
-            <span className={styles.value_text}>{user?.coin ?? 0}</span>
-            <div className={styles.button}>充值</div>
-          </div>
+          <PopupLogin onLogin={openRecharge}>
+            <div className={styles.beanitem_box}>
+              <span className={styles.des_text}>金豆</span>
+              <span className={styles.value_text}>{user?.coin ?? 0}</span>
+              <div className={styles.button}>充值</div>
+            </div>
+          </PopupLogin>
           {/* <div className={styles.beanitem_box}>
             <span className={styles.des_text}>积分</span>
             <span className={styles.value_text}>0</span>
             <div className={styles.button}>赚积分</div>
           </div> */}
-          <div className={styles.beanitem_box} onClick={openCoupon}>
-            <span className={styles.des_text}>卡券</span>
-            <span className={styles.value_text}>{user?.coupon ?? 0}</span>
-            <div className={styles.button}>领取</div>
-          </div>
+          <PopupLogin onLogin={openCoupon}>
+            <div className={styles.beanitem_box}>
+              <span className={styles.des_text}>卡券</span>
+              <span className={styles.value_text}>{user?.coupon ?? 0}</span>
+              <div className={styles.button}>领取</div>
+            </div>
+          </PopupLogin>
         </div>
         <div className={styles.beanfoot_bg}></div>
       </div>

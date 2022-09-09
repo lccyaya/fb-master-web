@@ -21,7 +21,7 @@ const UserInfo: React.FC<IProps> = (props) => {
   const [loginVisible, setLoginVisible] = useState<boolean>(false);
 
   const avatar = user?.expert?.status == ExpertStatus.Accept ? user?.expert?.avatar : user?.avatar;
-  const nickname = user?.expert.status == ExpertStatus.Accept ? user?.expert?.nickname : user?.nickname;
+  const nickname = user?.expert?.status == ExpertStatus.Accept ? user?.expert?.nickname : user?.nickname;
 
   const onClick = () => {
     if (!user) {

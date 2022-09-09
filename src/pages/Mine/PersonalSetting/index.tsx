@@ -24,8 +24,8 @@ const PersonalSetting: React.FC<Props> = (props) => {
   const [form] = Form.useForm();
   const avatar = user?.expert?.status == ExpertStatus.Accept ? user?.expert?.avatar : user?.avatar;
   const nickname =
-    user?.expert.status == ExpertStatus.Accept ? user?.expert?.nickname : user?.nickname;
-  const status = user?.expert.status ?? ExpertStatus.None;
+    user?.expert?.status == ExpertStatus.Accept ? user?.expert?.nickname : user?.nickname;
+  const status = user?.expert?.status ?? ExpertStatus.None;
 
   const settingItems = [
     {

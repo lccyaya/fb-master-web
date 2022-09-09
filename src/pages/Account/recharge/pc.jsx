@@ -44,7 +44,7 @@ const Recharge = ({ coin }) => {
         dispatch({
           type: 'user/saveCurrentUser',
           payload: {
-            data: userInfo.response,
+            data: userInfo.data,
           },
         });
       }

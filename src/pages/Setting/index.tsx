@@ -44,22 +44,22 @@ const Setting: React.FC<Props> = (props) => {
   };
 
   const logout = () => {
-    EventEmitter.emit('login-status-change');
     if (dispatch) {
       dispatch({
         type: 'user/logout',
       });
     }
+    EventEmitter.emit('login-status-change');
   };
 
   const confirmLogout = () => {
+    logout();
     history.push(`/zh/home`);
     // if (history.location.pathname.includes(`/zh/account/`) || history.location.pathname.includes(`/zh/profile/`)) {
     //   history.push(`/zh/home`);
     // } else {
     //   location.reload();
     // }
-    logout();
   };
 
   const clickItem = (item: Item) => {
