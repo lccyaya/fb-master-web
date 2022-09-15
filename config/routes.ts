@@ -99,7 +99,7 @@
               name: 'ProfileCenter',
               cate: 'profile_center',
               locale: 'key_profile_center',
-              component: '@/layouts/ProfileLayout',
+              component: '@/layouts/ProfileLayout/index',
               routes: [
                 {
                   path: '/:locale/profile/center',
@@ -111,7 +111,7 @@
                 },
                 {
                   path: '/:locale/profile/center/create/step2',
-                  component: '@/pages/ProfileCenter/create/step2',
+                  component: '@/pages/ProfileCenter/Step2',
                 },
                 {
                   path: '/:locale/profile/center/create/detail',

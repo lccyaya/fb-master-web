@@ -47,6 +47,9 @@ import LoginModal from '@/components/MatchCard/Login';
 
 import EventEmitter from '@/utils/event';
 import pageConfig from '@/utils/pageConfig';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
 const noMatch = (
   <Result
     status={403}
@@ -128,6 +131,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   useEffect(() => {
     const lang = getLangFromPath();
+    dayjs.locale(lang);
     if (getLangFromPath() === 'ar') {
       moment.locale('en');
     } else {

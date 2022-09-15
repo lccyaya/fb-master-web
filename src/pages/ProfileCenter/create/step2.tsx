@@ -149,7 +149,7 @@ const SchemeCreateStep2 = (props: Props) => {
           onFinish={confirmScheme}
         >
           <Form.Item label="攻略标题" name="describe" rules={[{ required: true }]}>
-            <Input placeholder="请输入标题，22字以内" maxLength={22} />
+            <Input placeholder="请输入标题，44字以内" maxLength={44} />
           </Form.Item>
           <Form.Item label="攻略描述" name="intro">
             <Input.TextArea

@@ -43,6 +43,9 @@ const Mine: React.FC<Props> = (props) => {
   const openFollow = () => {
     history.push('/zh/account/follow');
   };
+  const openSchemeCenter = () => {
+    history.push('/zh/profile/center');
+  };
 
   return (
     <div className={styles.container}>
@@ -123,10 +126,16 @@ const Mine: React.FC<Props> = (props) => {
               <span className={styles.action_title}>申请专家</span>
             </div>
           </PopupLogin>
-          {/* <div className={styles.action_item}>
-            <img className={styles.action_icon} src={require('@/assets/mine/chuangzaozhongxin.png')} alt="" />
-            <span className={styles.action_title}>创造中心</span>
-          </div> */}
+          <PopupLogin onLogin={openSchemeCenter}>
+            <div className={styles.action_item}>
+              <img
+                className={styles.action_icon}
+                src={require('@/assets/mine/chuangzaozhongxin.png')}
+                alt=""
+              />
+              <span className={styles.action_title}>创作中心</span>
+            </div>
+          </PopupLogin>
           <PopupLogin onLogin={openSetting}>
             <div className={styles.action_item}>
               <img

@@ -243,17 +243,18 @@ const League = React.memo(({ visible, onClose = () => {}, onSubmit = () => {} })
   }
   const handleFinishClick = () => {
     const len = getMainReq.data.length;
-    if (selectedIds.length === len && ( tab === COMPETITION_STATUS.MAIN) || isJustInitData(getMainReq.data, selectedIds )) {
-      // 选中的是默认的数据 所以不要高亮
-      setSelectedIds(getMainIds(getMainReq.data));
-      setDefaultSelect([]);
-      onSubmit([]);
-      setTab(COMPETITION_STATUS.MAIN);
-    } else {
+    // if (selectedIds.length === len && ( tab === COMPETITION_STATUS.MAIN) || isJustInitData(getMainReq.data, selectedIds )) {
+    //   // 选中的是默认的数据 所以不要高亮
+    //   console.log('空参数', selectedIds.length, len,)
+    //   setSelectedIds(getMainIds(getMainReq.data));
+    //   setDefaultSelect([]);
+    //   onSubmit([]);
+    //   setTab(COMPETITION_STATUS.MAIN);
+    // } else {
       setSelectedIds(selectedIds);
       onSubmit(selectedIds);
       setDefaultSelect([...selectedIds]);
-    }
+    // }
     setDefaultTab(tab);
     onClose();
   };

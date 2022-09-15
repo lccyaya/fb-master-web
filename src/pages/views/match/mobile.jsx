@@ -88,6 +88,7 @@ const Mobile = () => {
 
   // 联赛确认点击
   const onLeagueSubmit = (e) => {
+    console.log(e)
     onParamsChange({ competition_ids: e });
   };
 

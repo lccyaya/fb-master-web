@@ -21,8 +21,8 @@ export const SCHEME_STATE = ((ENUM) => {
   ENUM[(ENUM.STOP_SALE = 2)] = '停售';
   ENUM[(ENUM.HIT = 3)] = '命中';
   ENUM[(ENUM.MISS = 4)] = '未中';
-  ENUM[(ENUM.MISS = 5)] = '待审核';
-  ENUM[(ENUM.MISS = 6)] = '审核失败';
+  ENUM[(ENUM.VERIFYING = 5)] = '待审核';
+  ENUM[(ENUM.INVALID = 6)] = '审核失败';
   return ENUM;
 })({});
 
