@@ -1,6 +1,7 @@
 import IconFont from '@/components/IconFont';
-import { getExpertRanking } from '@/services/expert';
+import { getExpertRanking, getHotExpert } from '@/services/expert';
 import { message } from 'antd';
+import { Grid } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'umi';
 import HotExpertItem from './HotExpertItem';
@@ -13,7 +14,7 @@ const HotExpert: React.FC<Props> = (props) => {
   const history = useHistory();
 
   const getList = async () => {
-    const res = await getExpertRanking({
+    const res = await getHotExpert({
       tab: 0,
       page: 1,
       size: 5,
@@ -49,9 +50,13 @@ const HotExpert: React.FC<Props> = (props) => {
         </div>
       </div>
       <div className={styles.body}>
-        {list.map((listItem) => (
-          <HotExpertItem expert={listItem} />
-        ))}
+        <Grid columns={5}>
+          {list.map((listItem, index) => (
+            <Grid.Item key={index}>
+              <HotExpertItem expert={listItem} />
+            </Grid.Item>
+          ))}
+        </Grid>
       </div>
     </div>
   );

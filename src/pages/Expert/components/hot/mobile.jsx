@@ -1,18 +1,23 @@
 import SchemeList from '@/components/SchemeList/mobile';
-import { getSchemeList } from '@/services/expert';
+import { getV5SchemeList, getFreeSchemeList } from '@/services/expert';
 import React, { useState, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInfiniteScroll } from 'ahooks';
+import { InfiniteScroll } from 'antd-mobile';
 import { Spin } from 'antd';
 import styles from './mobile.module.less';
+import SchemeItem from './SchemeItem';
 
-export default function Hot({ play }) {
-  const getList = async (page, size) => {
-    const res = await getSchemeList({
+export default function Hot({ info }) {
+  const getList = async (page, size, play, tab) => {
+    let reqFunction = getV5SchemeList;
+    if (tab == 2) {
+      reqFunction = getFreeSchemeList;
+    }
+    const res = await reqFunction({
       page,
       size,
       play,
-      tab: 0,
+      tab,
     });
     if (res.success) {
       return {
@@ -25,14 +30,14 @@ export default function Hot({ play }) {
 
   const {
     data = {},
-    loadMore,
+    loadMoreAsync,
     noMore,
     reload,
     loading,
   } = useInfiniteScroll(
     (d) => {
       const { page = 1 } = d || {};
-      return getList(page, 10);
+      return getList(page, 10, info.play, info.tab);
     },
     {
       isNoMore: (data) => {
@@ -46,23 +51,23 @@ export default function Hot({ play }) {
   );
   useEffect(() => {
     reload();
-  }, [play]);
+  }, [info]);
 
   return (
     <Spin spinning={loading}>
-      <InfiniteScroll
-        dataLength={data?.list?.length || 0}
-        next={loadMore}
-        hasMore={!noMore}
-        endMessage={null}
-        loader={null}
-      >
         <div className={styles.content}>
-          {!loading ? (
-            <SchemeList boundaryGap list={data?.list || []} eventTag="scheme_list" />
-          ) : null}
+          {data?.list?.map((item, index) => (
+            <div className={styles.scheme_box} key={index}>
+              <SchemeItem scheme={item} />
+            </div>
+          ))}
+          <InfiniteScroll
+              loadMore={async (isRetry) => {
+                await loadMoreAsync();
+              }}
+              hasMore={!noMore}
+            />
         </div>
-      </InfiniteScroll>
     </Spin>
   );
 }

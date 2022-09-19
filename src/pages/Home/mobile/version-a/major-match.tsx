@@ -153,7 +153,7 @@ export default function MajorMatch() {
           <div className={styles.title}>
             <FormattedMessage id="key_major_match" />
           </div>
-          <div className={styles.line} />
+          {/* <div className={styles.line} /> */}
           <div className={styles.subTitle}>
             {data.length} <FormattedMessage id="key_matches" />
           </div>

@@ -287,6 +287,8 @@ const SchemeCreate = (props: Props) => {
           <Form.Item label="定价" style={{ flex: 1 }} name="gold_coin" rules={[{ required: true }]}>
             <Select placeholder="请选择查看攻略定价">
               <Select.Option value={0}>免费</Select.Option>
+              <Select.Option value={8}>8金豆</Select.Option>
+              <Select.Option value={18}>18金豆</Select.Option>
               <Select.Option value={28}>28金豆</Select.Option>
               <Select.Option value={38}>38金豆</Select.Option>
               <Select.Option value={58}>58金豆</Select.Option>

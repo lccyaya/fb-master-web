@@ -31,13 +31,13 @@ export default function MobileHome() {
               title: '首页',
               node: <VersionA />,
             },
-            {
-              key: 'library',
-              title: '资料库',
-              node: (
-                <Info id="info"/>
-              ),
-            },
+            // {
+            //   key: 'library',
+            //   title: '资料库',
+            //   node: (
+            //     <Info id="info"/>
+            //   ),
+            // },
           ]}
           onChange={setTabkey}
         />

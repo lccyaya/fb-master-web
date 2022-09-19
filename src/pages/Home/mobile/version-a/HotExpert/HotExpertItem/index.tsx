@@ -2,6 +2,8 @@ import { Avatar } from 'antd';
 import React from 'react';
 import { useHistory } from 'umi';
 import styles from './index.less';
+import lodash from 'lodash';
+import FBExpertTag, { FBTagType } from '@/components/FBExpertTag';
 
 type Props = {
   expert: any;
@@ -17,10 +19,11 @@ const HotExpertItem: React.FC<Props> = (props) => {
     <div className={styles.container} onClick={toExpert}>
       <Avatar src={expert.avatar} size={45} />
       <span className={styles.nickname}>{expert.nickname}</span>
-      <div className={styles.score_box}>
-        <div className={styles.hit}>{expert.max_hit}</div>
-        <div className={styles.score}>连红</div>
-      </div>
+      {lodash.isEmpty(expert.continuous_tag) ? (
+        <FBExpertTag type={FBTagType.HitRate} tag={expert.hit_tag} />
+      ) : (
+        <FBExpertTag type={FBTagType.Continue} tag={expert.continuous_tag} />
+      )}
     </div>
   );
 };

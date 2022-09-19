@@ -56,7 +56,7 @@ const NewHome: React.FC<HomeProps> = (props) => {
               <div className={styles.about_left_box}>
                 <span className={styles.box_title}>关于我们</span>
                 <div>
-                  <span className={styles.box_des}>客服微信：123456</span>
+                  <span className={styles.box_des}>客服微信：ty34sports</span>
                   <WeiboOutlined style={{marginLeft: 30, color: '#C5C5C5'}}/>
                   <WechatOutlined style={{marginLeft: 18, color: '#C5C5C5'}}/>
                 </div>

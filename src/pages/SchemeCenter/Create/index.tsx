@@ -35,6 +35,8 @@ const SchemeCreate: React.FC<Props> = (props) => {
 
   const actions: Action[] = [
     { text: '免费', key: 0 },
+    { text: '8金豆', key: 8 },
+    { text: '18金豆', key: 18 },
     { text: '28金豆', key: 28 },
     { text: '38金豆', key: 38 },
     { text: '58金豆', key: 58 },
@@ -60,14 +62,15 @@ const SchemeCreate: React.FC<Props> = (props) => {
 
   const {
     data = {},
-    loadMore,
+    loadMoreAsync,
     noMore,
     reload,
     loading,
+    loadingMore,
   } = useInfiniteScroll(
-    (d) => {
+    async (d) => {
       const page = d?.page ?? 1;
-      return getList(page, 50, lotteryType);
+      return await getList(page, 50, lotteryType);
     },
     {
       isNoMore: (data) => {
@@ -195,8 +198,7 @@ const SchemeCreate: React.FC<Props> = (props) => {
             {newList?.map((item: any, index: number) => (
               <div key={item.time}>
                 <div className={styles.time_box}>
-                  {item.time}
-                  {item.list.length}
+                  {`${item.time} ${item.list.length}场比赛`}
                 </div>
                 {item.list?.map((match: any, matchindex: number) => (
                   <div key={match.match.match_id} className={styles.match_cell}>
@@ -212,7 +214,7 @@ const SchemeCreate: React.FC<Props> = (props) => {
             ))}
             <InfiniteScroll
               loadMore={async (isRetry: boolean) => {
-                await loadMore();
+                await loadMoreAsync();
               }}
               hasMore={!noMore}
             />

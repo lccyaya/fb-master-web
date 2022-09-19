@@ -126,16 +126,18 @@ const Mine: React.FC<Props> = (props) => {
               <span className={styles.action_title}>申请专家</span>
             </div>
           </PopupLogin>
-          <PopupLogin onLogin={openSchemeCenter}>
-            <div className={styles.action_item}>
-              <img
-                className={styles.action_icon}
-                src={require('@/assets/mine/chuangzaozhongxin.png')}
-                alt=""
-              />
-              <span className={styles.action_title}>创作中心</span>
-            </div>
-          </PopupLogin>
+          {user?.expert?.status == ExpertStatus.Accept ? (
+            <PopupLogin onLogin={openSchemeCenter}>
+              <div className={styles.action_item}>
+                <img
+                  className={styles.action_icon}
+                  src={require('@/assets/mine/chuangzaozhongxin.png')}
+                  alt=""
+                />
+                <span className={styles.action_title}>创作中心</span>
+              </div>
+            </PopupLogin>
+          ) : null}
           <PopupLogin onLogin={openSetting}>
             <div className={styles.action_item}>
               <img

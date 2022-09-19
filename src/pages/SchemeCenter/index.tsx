@@ -103,6 +103,10 @@ const SchemeCenter: React.FC<Props> = (props) => {
     history.push('/zh/profile/center/create');
   };
 
+  const toDetail = (record: any) => {
+    history.push('/zh/profile/center/create/detail', record);
+  };
+
   return (
     <div className={styles.container}>
       <NavBar className={styles.navbar} onBack={back}>
@@ -218,7 +222,7 @@ const SchemeCenter: React.FC<Props> = (props) => {
                               {item.doc_num + '/' + item.visit_num}
                             </div>
                           </Grid.Item>
-                          <Grid.Item className={styles.flex_center}>
+                          <Grid.Item className={styles.flex_center} onClick={() => toDetail(item)}>
                             <div className={styles.info_text}>
                               <IconFont type="icon-chakan" color="#45494C" size={12} />
                             </div>

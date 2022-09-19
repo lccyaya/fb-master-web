@@ -19,9 +19,26 @@ export const getExpertRanking = async (params) => {
   return normalizeResponse(result);
 };
 
+// 获取专家榜单
+export const getHotExpert = async (params) => {
+  const result = await request('/api/v5/expert/hot-list', { params: params });
+  return normalizeResponse(result);
+};
+
 // 获取方案列表
 export const getSchemeList = async (params) => {
   const result = await request('/api/expert/scheme-list?' + qs.stringify(params));
+  return normalizeResponse(result);
+};
+// 获取方案列表
+export const getV5SchemeList = async (params) => {
+  const result = await request('/api/v5/expert/scheme-list', { params });
+  return normalizeResponse(result);
+};
+
+// 获取免费方案列表
+export const getFreeSchemeList = async (params) => {
+  const result = await request('/api/v5/expert/free-list', { params });
   return normalizeResponse(result);
 };
 
