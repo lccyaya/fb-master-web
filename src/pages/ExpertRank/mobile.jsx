@@ -20,11 +20,11 @@ const ExpertRank = ({ currentUser = {} }) => {
   const navs = [
     {
       key: RANKING_TYPE.GLZ,
-      title: '高连中',
+      title: '高连红',
     },
     {
       key: RANKING_TYPE.GMZ,
-      title: '高命中',
+      title: '近期命中',
     },
     {
       key: RANKING_TYPE.WATCH,

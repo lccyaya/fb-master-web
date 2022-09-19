@@ -17,8 +17,8 @@ export default function ExpertList({ type, list = [], onSuccess = () => {} }) {
         </div>
       ) : (
         list.map((item, index) => {
-          const { hit_rate, max_hit } = item;
-          const num = type === 'gmz' ? hit_rate : max_hit;
+          const { ten_hit, max_hit } = item;
+          const num = type === 'gmz' ? ten_hit : max_hit;
           return type === 'watch' ? (
             <div
               className={cls(styles.item, styles.watch_item)}
@@ -63,9 +63,19 @@ export default function ExpertList({ type, list = [], onSuccess = () => {} }) {
                 </div>
                 {type === 'glz' ? null : (
                   <div className={styles.info}>
-                    场次 {item.win_num + item.lose_num} 胜负{' '}
-                    <span className={styles.win_num}>{item.win_num}</span>/{item.lose_num}
+                    擅长{' '}
+                    {item.skilled_competitions?.length > 0 ? (
+                      item.skilled_competitions.map((competition, i) => (
+                        <span className={styles.competition}>{competition}</span>
+                      ))
+                    ) : (
+                      <span className={styles.competition}>无</span>
+                    )}
                   </div>
+                  // <div className={styles.info}>
+                  //   场次 {item.win_num + item.lose_num} 胜负{' '}
+                  //   <span className={styles.win_num}>{item.win_num}</span>/{item.lose_num}
+                  // </div>
                 )}
               </div>
               <div className={styles.win_rate}>
