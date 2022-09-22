@@ -256,7 +256,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         </div>
       ) : (
         <>
-          {checkCurrentIsPhone && <OpenApp />}
+          {/* {checkCurrentIsPhone && <OpenApp />} */}
           {/* <ProLayout
             logo={() => (
               <img

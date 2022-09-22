@@ -1,7 +1,7 @@
 import ExpertList from '@/components/ExpertList/mobile';
 import React, { useState, useEffect } from 'react';
 import { getExpertRanking } from '@/services/expert';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { InfiniteScroll } from 'antd-mobile';
 import { useInfiniteScroll } from 'ahooks';
 import { Spin } from 'antd';
 import styles from './mobile.module.less';
@@ -24,7 +24,7 @@ export default function Glz() {
 
   const {
     data = {},
-    loadMore,
+    loadMoreAsync,
     noMore,
     reload,
     loading,
@@ -49,15 +49,13 @@ export default function Glz() {
   return (
     <Spin spinning={loading}>
       <div className={styles.wrap}>
-        <InfiniteScroll
-          dataLength={data?.list?.length || 0}
-          next={loadMore}
-          hasMore={!noMore}
-          endMessage={null}
-          loader={null}
-        >
           <ExpertList list={data?.list || []} type="gmz" />
-        </InfiniteScroll>
+          <InfiniteScroll
+          loadMore={async (isRetry) => {
+            await loadMoreAsync();
+          }}
+          hasMore={!noMore}
+        />
       </div>
     </Spin>
   );

@@ -210,11 +210,15 @@ const Details: React.FC<DetailProps> = (props) => {
   const hasPlayback = Boolean(data?.playback_link);
   const back = () => {
     history.goBack();
-  }
+  };
 
   return (
     <Spin spinning={loading}>
-      {checkIsPhone() && <NavBar onBack={back}>比赛详情</NavBar>}
+      {checkIsPhone() && (
+        <NavBar className={styles.navbar} onBack={back}>
+          比赛详情
+        </NavBar>
+      )}
       <div className={styles.main}>
         <InfoCard
           match={data}

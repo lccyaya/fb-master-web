@@ -1,11 +1,36 @@
 import ExpertList from '@/components/ExpertList/mobile';
 import React, { useState, useEffect } from 'react';
 import { followedList } from '@/services/expert';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInfiniteScroll } from 'ahooks';
+import { InfiniteScroll } from 'antd-mobile';
 import { Spin } from 'antd';
+import styles from './mobile.module.less';
+import HotExpertItem from '@/pages/Home/mobile/version-a/HotExpert/HotExpertItem';
+import { getExpertRanking, getHotExpert } from '@/services/expert';
+import { message } from 'antd';
+import { Grid } from 'antd-mobile';
 
 export default function Glz() {
+  const [list, setList] = useState([]);
+
+  const getHotList = async () => {
+    const res = await getHotExpert({
+      tab: 0,
+      page: 1,
+      size: 5,
+    });
+    if (res.err) {
+      message.error(res.message);
+    }
+    if (res.success) {
+      setList(res.data.list);
+    }
+  };
+
+  useEffect(() => {
+    getHotList();
+  }, []);
+
   const getList = async (page, size) => {
     const res = await followedList({
       page,
@@ -22,7 +47,7 @@ export default function Glz() {
 
   const {
     data = {},
-    loadMore,
+    loadMoreAsync,
     noMore,
     reload,
     loading,
@@ -46,15 +71,34 @@ export default function Glz() {
   }, []);
   return (
     <Spin spinning={loading}>
-      <InfiniteScroll
-        dataLength={data?.list?.length || 0}
-        next={loadMore}
-        hasMore={!noMore}
-        endMessage={null}
-        loader={null}
-      >
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <div className={styles.left}>专家热门</div>
+        </div>
+        <div className={styles.body}>
+          <Grid columns={5}>
+            {list.map((listItem, index) => (
+              <Grid.Item key={index}>
+                <HotExpertItem expert={listItem} />
+              </Grid.Item>
+            ))}
+          </Grid>
+        </div>
+      </div>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <div className={styles.left}>我的关注</div>
+        </div>
+      </div>
+      <div className={styles.experts_box}>
         <ExpertList list={data?.list || []} type="watch" />
-      </InfiniteScroll>
+        <InfiniteScroll
+          loadMore={async (isRetry) => {
+            await loadMoreAsync();
+          }}
+          hasMore={!noMore}
+        />
+      </div>
     </Spin>
   );
 }
