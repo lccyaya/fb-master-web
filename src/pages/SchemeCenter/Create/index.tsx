@@ -95,7 +95,7 @@ const SchemeCreate: React.FC<Props> = (props) => {
     list?.map((item: any) => {
       item.time = dayjs(item.match.match_time * 1000).format('YY-MM-DD ddd');
     });
-    const newList = handlerList(list?.sort((a, b) => b.match.match_time - a.match.match_time));
+    const newList = handlerList(list?.sort((a, b) => a.match.match_time - b.match.match_time));
     // const newList = handlerList(list);
     return newList;
   }, [data]);
@@ -201,7 +201,7 @@ const SchemeCreate: React.FC<Props> = (props) => {
                   {`${item.time} ${item.list.length}场比赛`}
                 </div>
                 {item.list?.map((match: any, matchindex: number) => (
-                  <div key={match.match.match_id} className={styles.match_cell}>
+                  <div key={`${match.match.match_id}${matchindex}`} className={styles.match_cell}>
                     <MatchCell
                       match={match}
                       typeId={lotteryType}
