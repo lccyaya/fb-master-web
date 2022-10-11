@@ -50,15 +50,6 @@ const MobileLayout: React.FC<IProps> = (props) => {
     //   ),
     // },
     {
-      key: 'expert',
-      pathRegex: pageRegex.get('expert'),
-      path: '/zh/expert/rank',
-      locale: 'key_expert',
-      icon: (active: boolean) => (
-        <IconFont type={active ? 'icon-dianji-zhuanjia' : 'icon-zhuanjia1'} size={22} />
-      ),
-    },
-    {
       key: 'match',
       pathRegex: pageRegex.get('match'),
       path: '/zh/match',
@@ -67,6 +58,16 @@ const MobileLayout: React.FC<IProps> = (props) => {
         <IconFont type={active ? 'icon-a-dianjibisai' : 'icon-bisai1'} size={22} />
       ),
     },
+    {
+      key: 'expert',
+      pathRegex: pageRegex.get('expert'),
+      path: '/zh/expert/rank',
+      locale: 'key_expert',
+      icon: (active: boolean) => (
+        <IconFont type={active ? 'icon-dianji-zhuanjia' : 'icon-zhuanjia1'} size={22} />
+      ),
+    },
+
     // {
     //   key: 'views_match',
     //   pathRegex: pageRegex.get('views_match'),
@@ -171,7 +172,7 @@ const MobileLayout: React.FC<IProps> = (props) => {
           </div>
         </div>
       ) : (
-         children 
+        children
       )}
     </>
   );

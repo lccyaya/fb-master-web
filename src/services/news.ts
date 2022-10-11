@@ -120,7 +120,7 @@ export async function visitNews(id: number) {
 }
 
 export async function getNews(id: number) {
-  const result = await request('/api/news/detail', { params: { id } });
+  const result = await request('/detail', { params: { id } });
   return normalizeResponse<News>(result);
 }
 
