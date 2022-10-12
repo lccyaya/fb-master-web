@@ -109,6 +109,8 @@ export async function fetchHotNewsList() {
 }
 
 export async function visitNews(id: number) {
+
+
   const result = await request('/api/news/visit', {
     method: 'PUT',
     headers: {

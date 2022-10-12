@@ -2,9 +2,10 @@ import React from 'react'
 import { useHistory } from 'umi';
 import styles from './index.less';
 import { formatNumber } from "@/utils/peoplenum"
-import { rangeDateNum } from "@/utils/rangeDateNum"
+import { formatTime } from '@/utils/utils';
+import Empty from '@/components/Empty';
 
-import moment from 'moment';
+// import moment from 'moment';
 
 
 interface informationList {
@@ -46,19 +47,16 @@ const FBInformationList: React.FC<Informationlist> = (props: Informationlist) =>
               <img style={{ width: 15, height: 15, marginRight: 7 }} src={informationList?.avatar} alt="" />
               <span style={{ marginRight: 12 }}> {informationList?.nickname}</span>
               <span>{formatNumber(informationList?.visit)}人阅</span></div>
-            <div>{
+            <div>
+              {/* {formatTime(informationList?.source_published_at)} */}
 
-              rangeDateNum(moment(informationList?.source_published_at).format('YYYY-MM-DD'))
-
-              // ((new Date().getTime() - new Date(moment(informationList?.source_published_at).format('YYYY-MM-DD')).getTime()) / (1000 * 3600 * 24)).toFixed(0)
-
-            }
+              {informationList?.published_at ? `${formatTime(informationList?.published_at)}发布` : ''}
 
             </div>
           </div>
         </div>
         <div className={styles.rightImg}>
-          <img style={{ width: "100%", height: "100%" }} src={informationList?.cover_img_url} />
+          <img style={{ width: "100%", height: "100%", borderRadius: 4 }} src={informationList?.cover_img_url} />
         </div>
       </div>
     </div>

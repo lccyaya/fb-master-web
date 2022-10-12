@@ -7,7 +7,7 @@ import styles from './index.less';
 import type { bannerType } from '@/services/ad';
 import { report } from '@/services/ad';
 
-import { getBanner } from '@/services/Information';
+import { getBanner } from '@/services/information';
 import { BANNER_POSITION_MOBILE, BANNER_POSITION_PC, REPORT_ACTION } from '@/constants';
 import { getReportCate, checkIsPhone } from '@/utils/utils';
 import UrlParse from 'url-parse';
@@ -47,6 +47,9 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
     console.log(result, "999999999");
 
     if (result.success && result.data.banners.length > 0) {
+
+      console.log(result.data.banners);
+
       setBanners(result.data.banners);
     }
   };

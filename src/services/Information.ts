@@ -9,14 +9,34 @@ import { normalizeResponse } from '@/utils/tools';
 //   return normalizeResponse<majorMatch>(result);
 // }
 
-export type listData = {
+export type newsbanner = {
+  id: number;
+  img: string;
+  landing_page: string;
+
 
 }
-export type information = {
-  list: listData[];
+export type InformationBanner = {
+  list: newsbanner[];
 }
+
+export type InformationDetailData = {
+  title: string;
+  avatar: string;
+  nickname: string;
+  published_at: string;
+  content: string | any
+}
+
 export async function getBanner() {
-  const result = await request('/api/banners?position=news');
-  return normalizeResponse<information>(result);
+  const result = await request('/api/banners?position=news1');
+  return normalizeResponse<InformationBanner>(result);
 }
+
+
+export async function informationDetail(id: number) {
+  const result = await request(`/api/news/detail?id=${id}`);
+  return normalizeResponse<InformationDetailData>(result);
+}
+
 

@@ -1,4 +1,54 @@
 .main {
     padding: 12px;
 
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .avatarimg {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+
+    }
+
+    .nomore {
+        height: 50px;
+        width: 100%;
+        font-size: 1px;
+        line-height: 50px;
+        text-align: center;
+        color: #848494;
+        margin-top: 10px;
+    }
+
+    .timeColor {
+        font-size: 14px;
+        color: #848494;
+    }
+
+    .content {
+        margin-top: 18px;
+        color: #000;
+        font-size: 16px;
+        line-height: 24px;
+
+        :global {
+            .article-top-img {
+                margin-bottom: 16px;
+
+                img {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+        }
+
+        img {
+            max-width: 100%;
+            margin: 12px 0;
+        }
+    }
 }

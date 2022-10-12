@@ -1,45 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, } from 'react'
 import Banner from "@/components/FBInformationBanner"
 import FBTitle from "@/components/FBTitle"
 import FBInformationList from "@/components/FBInformationList"
-import FBInformationImg from "@/components/FBInformationImg"
-import ShowMoreImg from "./ShowMoreImg"
-import ShowOnlyImg from "./ShowOnlyImg"
+// import FBInformationImg from "@/components/FBInformationImg"
+// import ShowMoreImg from "./ShowMoreImg"
+// import ShowOnlyImg from "./ShowOnlyImg"
 import { InfiniteScroll } from 'antd-mobile';
-
+import { Spin } from 'antd';
 import { fetchHotNewsList, fetchNewsList } from '@/services/news';
+import type { News } from '@/services/news';
 import { useInfiniteScroll } from 'ahooks';
-
-// import { formatNumber } from "@/utils/peoplenum"
-
 import styles from "./index.less"
+
 type Props = {}
-// type Getlist = {
-//     list: any,
-//     total:number,
-//     page: number,
-// }
 
 const Information = (props: Props) => {
     const [informationlist, setInformationlist] = useState([])
 
-    const [fetchNewsListState, setFetchNewsList] = useState([])
-
-    const getFetchNewsList = async (page, size) => {
+    const getFetchNewsList = async (page: number, size: number): Promise<any> => {
         let data: any = {
             page,
             size,
         }
         const result: any = await fetchNewsList(data);
-        console.log(result, "00000011111111");
         if (result.success == true) {
-            setFetchNewsList(result.data.news)
+
+            return {
+                list: result.data.news,
+                total: result.data.total,
+                page: page + 1,
+            };
         }
 
     }
     const GetFetchHot = async () => {
         const result: any = await fetchHotNewsList();
-        console.log(result, "000000");
         if (result.success == true) {
             setInformationlist(result.data)
         }
@@ -47,56 +42,59 @@ const Information = (props: Props) => {
     }
     useEffect(() => {
         GetFetchHot()
-        getFetchNewsList(1, 10)
+        reload()
     }, []);
-    // const { data, loading, loadMore, noMore, loadMoreAsync, } = useInfiniteScroll(
-    //     (data) => {
-    //         getFetchNewsList(1, 10)
-    //         console.log(data);
+    const { data = () => { }, loading, loadMoreAsync, reload, noMore } = useInfiniteScroll(
+        (d) => {
 
-    //     },
-    //     {
+            const { page = 1 } = d || {};
+            return getFetchNewsList(page, 10);
+        },
+        {
+            // target: ref,
+            isNoMore: (data) => {
+                if (!data?.list?.length) {
+                    return true;
+                }
+                return data?.list?.length >= data?.total;
 
-    //         isNoMore: (d) => d?.ID === undefined,
-    //     },
-    // );
-
-
+            },
+            manual: true,
+        }
+    );
 
     return (
-        <div className={styles.main}>
-            {/* 轮播图 */}
-            <Banner className={styles.information_banner} />
+        <div>
+            <div className={styles.main} >
+                {/* 轮播图 */}
+                <Banner className={styles.information_banner} />
+                <FBTitle title="热门资讯" />
+                {/* 列表 */}
+                <div className={styles.conent} >
+                    {informationlist.map((item: any, index) => {
+                        return <FBInformationList showLine={index !== informationlist.length - 1} informationList={item} key={item.ID} id={item.ID} />
+                    })}
 
-
-            <FBTitle title="热门资讯" />
-            {/* 列表 */}
-            <div className={styles.conent} >
-                {informationlist.map((item: any, index) => {
-                    return <FBInformationList showLine={index !== informationlist.length - 1} informationList={item} key={item.ID} id={item.ID} />
-                })}
-                {/* <FBInformationImg title="wenben" content={<div><ShowMoreImg /></div>} />
-                <FBInformationImg title="wenben" showLine={false} content={<div><ShowOnlyImg /></div>} /> */}
-            </div>
-            <FBTitle title="最新资讯" />
-            {/* 列表 */}
-            <div className={styles.conent} >
-                {fetchNewsListState?.map((item: any, index) => {
-                    return <FBInformationList showLine={index !== fetchNewsListState.length - 1} informationList={item} key={item.ID} id={item.ID} />
-                })}
-
-            </div>
-            {/* <InfiniteScroll
-                loadMore={async () => {
-                    await loadMoreAsync();
-                }}
-                hasMore={!noMore}
-            /> */}
-            <div className={styles.nomore}>
-                没有更多了
+                </div>
+                <FBTitle title="最新资讯" />
+                {/* 列表 */}
+                <div className={styles.conent} >
+                    <Spin spinning={loading}>
+                        <div className={styles.content}>
+                            {data?.list?.map((item: any, index: number) => {
+                                return <FBInformationList showLine={index !== data.length - 1} informationList={item} key={item.ID} id={item.ID} />
+                            })}
+                            <InfiniteScroll
+                                loadMore={async (isRetry) => {
+                                    await loadMoreAsync();
+                                }}
+                                hasMore={!noMore}
+                            />
+                        </div>
+                    </Spin>
+                </div>
             </div>
         </div>
-
     )
 }
 export default Information
