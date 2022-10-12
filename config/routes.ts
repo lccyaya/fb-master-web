@@ -200,6 +200,10 @@
               component: './ExpertApplication',
             },
             {
+              path: '/:locale/informationdetail/:id',
+              component: '@/pages/Information/InformationDetails',
+            },
+            {
               component: './404',
             },
           ],
