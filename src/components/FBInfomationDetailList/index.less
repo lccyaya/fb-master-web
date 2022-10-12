@@ -1,0 +1,42 @@
+  .flexCenter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .flexBetween {
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+  }
+
+  .main {
+      font-size: 16px;
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 7px;
+
+
+      .avatar:extend(.flexBetween) {
+
+          height: 40px;
+          line-height: 20px;
+
+
+          .avatarflex:extend(.flexBetween) {
+
+              .avatarimg {
+                  width: 40px;
+                  height: 40px;
+                  background-color: pink;
+                  margin-right: 12px;
+              }
+          }
+      }
+
+      .love {
+          display: flex;
+          align-items: center;
+          justify-content: right;
+      }
+  }
