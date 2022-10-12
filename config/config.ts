@@ -12,7 +12,7 @@ const testPublicPath = '//dev.football-master.net/';
 
 
 export default defineConfig({
-  publicPath: '//www.34sport.com.cn/',
+  publicPath: '//www.34sport.cn/',
   hash: true,
   exportStatic: {
     extraRoutePaths: async () => {
