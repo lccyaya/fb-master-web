@@ -145,6 +145,10 @@
               component: './Privacy',
             },
             {
+              path: '/:locale/about',
+              component: './About',
+            },
+            {
               path: '/:locale/myorders',
               component: './Myorder',
             },

@@ -33,10 +33,10 @@ const Setting: React.FC<Props> = (props) => {
       title: '隐私协议',
       path: '/zh/privacy',
     },
-    // {
-    //   title: '关于我们',
-    //   path: '/zh/about',
-    // },
+    {
+      title: '关于我们',
+      path: '/zh/about',
+    },
   ];
 
   const back = () => {
