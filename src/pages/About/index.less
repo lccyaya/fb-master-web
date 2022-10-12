@@ -1,0 +1,28 @@
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main {
+    background-color: #F7FAFB;
+    height: 100%;
+
+    .aboutlogo:extend(.flex) {
+        width: 100%;
+        height: 220px;
+
+        background-color: #fff;
+
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .customesrvice:extend(.flex) {
+        height: 200px;
+    }
+}

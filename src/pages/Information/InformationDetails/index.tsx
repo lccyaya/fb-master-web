@@ -27,8 +27,6 @@ const Informationdetails = (props: any) => {
     await visitNews(Number(id));
 
   };
-
-
   const getInformationDetail = async () => {
     let res = await informationDetail(id)
     if (res.success) {
