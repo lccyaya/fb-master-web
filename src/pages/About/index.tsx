@@ -23,7 +23,7 @@ const About = (props: Props) => {
                 <Button style={{ width: 300, marginBottom: 10 }} color='primary'>微信客服</Button>
                 长按可复制，向34客服说句话吧
 
-                <div>客服时间: 工作日 10:00 - 19</div>
+                <div>客服时间: 工作日 10:00 - 19:00</div>
             </div>
         </div>
     )

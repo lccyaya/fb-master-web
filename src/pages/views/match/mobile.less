@@ -4,16 +4,20 @@
   flex: 1;
   // height: 400px;
   background-color: #fafafa;
+
   // 44 是搜索功能的高度
   &.has_search {
     height: calc(100vh - 92px - 44px - 44px);
   }
+
   &.is_loading {
     height: calc(100vh - 92px);
   }
+
   :global {
     .ant-spin-nested-loading {
       height: 100%;
+
       // height: calc(100vh - 44px);
       // min-height: 50vh;
       .ant-spin-container {
@@ -22,43 +26,60 @@
     }
   }
 }
+
+
 .menu {
   position: relative;
   z-index: 15;
-  height: 44px;
+  background-color: rgba(255, 255, 255, 1);
+  // background-image: url(../.././../assets/match/match_tabbg.png);
+  // background-position: 100% 100%;
+  // background-repeat: no-repeat;
+
   // padding-right: 70px;
   :global {
     .ant-tabs-tab {
       font-size: 16px !important;
     }
+
+    .ant-tabs-nav {
+      background-color: rgba(255, 255, 255, 0);
+    }
   }
 }
+
+
+
 .menu_right {
-  position: relative;
-  z-index: 5;
+  // position: relative;
+  // z-index: 5;
+
+  width: 90px;
   display: flex;
   align-items: center;
+  justify-content: center;
   // background-color: #fff;
   // background: linear-gradient(to right,  rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 20%, #fff);
-  justify-content: center;
-  height: 42px;
-  padding-right: 8px;
+  // justify-content: center;
+  // height: 42px;
+  // padding-right: 8px;
+
   &::before {
     position: absolute;
     top: 0px;
-    left: -30px;
+    // left: -30px;
     width: 30px;
     height: 42px;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.3) 20%,
-      #fff
-    );
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 20%,
+        #fff);
     content: '';
   }
+
   .menu_icon {
     position: relative;
+
     &::after {
       position: absolute;
       top: 50%;
@@ -69,16 +90,18 @@
       background: #ebebeb;
       content: '';
     }
+
     &:last-child::after {
       display: none;
     }
   }
 
   .icon {
-    padding: 0 8px;
+    // padding: 0 8px;
     color: #999;
     background-color: #fff;
   }
+
   .img {
     height: 16px;
     padding: 0 8px;
@@ -89,13 +112,20 @@
 
 .scroll_view {
   height: 100%;
-  > div {
+
+  .list {
+    width: 95%;
+    margin: 0 10px;
+  }
+
+  >div {
     &:first-child {
       height: 100%;
       overflow-x: hidden !important;
     }
   }
 }
+
 .search {
   display: flex;
   flex-direction: row;
@@ -106,6 +136,7 @@
   padding: 0 16px;
   background-color: #fff;
   border-bottom: 1px solid #dedede;
+
   .text {
     padding-left: 16px;
     color: #999;

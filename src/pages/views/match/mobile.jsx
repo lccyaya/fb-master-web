@@ -17,6 +17,7 @@ import { useUpdateMatch } from '@/hooks/update-match';
 import cls from 'classnames';
 import { handleReport } from '@/utils/report';
 import { getCalendarTitle, handlerData, initParams, initPageData } from './tools'; // 比赛页面的公用方法
+// import {FBTabs} from "@/components/fbt"
 
 const Mobile = () => {
   const intl = useIntl();
@@ -36,6 +37,7 @@ const Mobile = () => {
   const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
   const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
   const [calenderVal, setCalendarVal] = useState(''); // 日历的值
+  const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-DD-MM ddd')}`); // 日历组件显示内容
 
   // 获取列表的参数 和 page 的参数
   const [params, setParams] = useState({
@@ -74,6 +76,9 @@ const Mobile = () => {
     onParamsChange(obj);
     setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化
 
+// setCalendarValtime(moment(new Date()).format('YYYY-DD-MM ddd'))
+    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-DD-MM ddd')}`)
+    // 啊啊啊
     // 埋点
     if(item.param_value === 2) {
       handleReport({ action: 'schedule_tab' });
@@ -94,9 +99,14 @@ const Mobile = () => {
 
   // 日历变化
   const calendarChange = (v) => {
+
+     console.log(v,"999999eeeeee")
     const date = v.format('YYYY-MM-DD');
     setApiTimestamp('');
     onParamsChange({ timestamp: moment(date) / 1000 });
+setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
+ console.log(date,"999999")
+    
     setCalenderShow(false);
   };
 
@@ -118,6 +128,9 @@ const Mobile = () => {
     const values = current.getValues();
     const status = getScrollDirection(values);
     getCalendarTitle(current, setCalendarValue, renderData); // 获取当前的日历日期
+ 
+    setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-DD-MM ddd'))
+    
     setShowTopIcon(values.scrollTop > 100 ? true : false);
 
     if (values.scrollTop > 100) {
@@ -311,26 +324,108 @@ const Mobile = () => {
   })();
 
   // 菜单右侧的小菜单
-  const MenuTools = (
-    <div className={styles.menu_right}>
+  // const MenuTools = (
+  //   <div className={styles.menu_right}>
+  
+  //     {/* icon-shaixuan-xuanzhong2 */}
+  //     {menuActive.has_competition ? (
+  //       <IconFont
+  //         onClick={() => {
+  //           setLeagueShow(true);
+  //           handleReport({ action: 'league_filter' });
+  //         }}
+  //         className={cls(styles.icon, styles.menu_icon)}
+  //         color={params?.competition_ids.length ? '#FA5900' : ''}
+  //         type="icon-shaixuan-xuanzhong2"
+  //         size={18}
+  //       />
+  //     ) : // <img onClick={() => setLeagueShow(true)} src={filterIcon} className={cls(styles.img, styles.menu_icon)} />
+  //     // active={params?.competition_ids.length}
+  //     null}
+  //   </div>
+  // );
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%',}}>
+      
+     <div className={styles.tabbg}>   {menuList?.length ? (
+        <Menu
+          menus={menuList}
+          className={styles.menu}
+          // operations={MenuTools}
+          onChange={onMenusChange}
+        ></Menu>
+      ) : null}
+   
+    
+      
+        <BottomIcon
+          onClick={onBottomClick}
+          icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}
+          // icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}
+          />
+          </div>
+ 
       {menuActive.has_calendar ? (
-        <IconFont
-          onClick={() => {
+        <div>
+            <div style={{height:10,background:"#F7FAFB"}}></div>
+         <div 
+        style={{ height: 35, background: "#F7FAFB", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{
+            width: "70%", background: "#fff", marginLeft: 12, borderRadius: 4,
+            display: "flex",
+            alignItems: "center", 
+            justifyContent: "center",
+           
+            height:35,
+            padding: "0 12px",
+            
+          }}
+           onClick={() => {
             setCalenderShow(true);
             handleReport({ action: 'calendar' });
-          }}
-          className={cls(styles.icon, styles.menu_icon)}
-          type="icon-rili"
-          size={18}
-        />
-      ) : null}
+            }}>
+        
+                 <div style={{fontSize:15,width:"7%",color:"#848494"}}>
+            &lt;
+              </div>
+            <div style={{width:"93%",  display: "flex",
+            alignItems: "center", 
+            justifyContent: "center", marginRight: 12,}}>
+         
+               <IconFont
+         
+                className={cls(styles.icon, styles.menu_icon)}
+                color="#848494"
+                type="icon-rili"
+                 size={20}
+              />
+             
+              <span style={{
+                color: "#848494", fontSize: 14,
+                marginLeft:5,
+              }}>  {calenderValtime}
+              </span>
+                  
+          </div>
+          </div>
+          
+          <div style={{
+            flex:1, background: "#fff", margin:"0 12px", borderRadius: 4,
+            display: "flex",
+            alignItems: "center", 
+            justifyContent: "center",
+           fontSize:14,
+            height:35,
+          }}   onClick={() => {
+            setLeagueShow(true);
+            handleReport({ action: 'league_filter' });
+          }}>
+            <div className={styles.menu_right}>
+  
       {/* icon-shaixuan-xuanzhong2 */}
       {menuActive.has_competition ? (
         <IconFont
-          onClick={() => {
-            setLeagueShow(true);
-            handleReport({ action: 'league_filter' });
-          }}
+        
           className={cls(styles.icon, styles.menu_icon)}
           color={params?.competition_ids.length ? '#FA5900' : ''}
           type="icon-shaixuan-xuanzhong2"
@@ -338,19 +433,18 @@ const Mobile = () => {
         />
       ) : // <img onClick={() => setLeagueShow(true)} src={filterIcon} className={cls(styles.img, styles.menu_icon)} />
       // active={params?.competition_ids.length}
-      null}
+                null}
+              <div style={{margin:"0  0 0 10px",color:"#848494"}}>   筛选</div>
+              
+
     </div>
-  );
-  return (
-    <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-      {menuList?.length ? (
-        <Menu
-          menus={menuList}
-          className={styles.menu}
-          operations={MenuTools}
-          onChange={onMenusChange}
-        ></Menu>
-      ) : null}
+         
+ 
+          </div>
+</div></div>
+         
+          ) : null}
+
       <div
         className={cls(
           styles.container,
@@ -382,15 +476,16 @@ const Mobile = () => {
           </div>
         ) : null}
         {/* 主内容 */}
-
+   <div style={{height:10,background:"#F7FAFB"}}></div>
         <Spin spinning={spinning}>
           <ScrollView className={styles.scroll_view} onScroll={handleUpdate} ref={scrollRef}>
             <Spining show={pageInfo.isLoading === 'pre'} />
 
             {/* 列表渲染 */}
             {renderList.map((dataKey, key) => (
-              <div key={key}>
-                <TimeTitle title={dataKey} sticky key={key} className="time_title"/>
+              <div className={styles.list} key={key}>
+                <TimeTitle title={dataKey} sticky key={key} className="time_title" />
+                
                 {renderData[dataKey].map((item, key) => (
                   <MatchCard data={item} key={key} type={indexVal ? 'index' : 'score'} />
                 ))}
@@ -405,7 +500,8 @@ const Mobile = () => {
             {isEmpty ? <Empty /> : null}
           </ScrollView>
         </Spin>
-
+   
+     
         <Calendar
           value={calendarValue} setValue={setCalendarValue}
           params={params}
@@ -414,11 +510,7 @@ const Mobile = () => {
           onChange={calendarChange}
           className={styles.calender}
         />
-        <BottomIcon
-          onClick={onBottomClick}
-          icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}
-          // icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}
-        />
+      
         {/* {showTopIcon ? (
           <FixedBtns
             showTopIcon={showTopIcon}

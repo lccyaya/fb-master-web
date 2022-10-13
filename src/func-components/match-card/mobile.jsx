@@ -193,6 +193,57 @@ const Mobile = ({ data, type = 'score' }) => {
               width="auto"
               color={'#999999'}
             />
+
+            <div>
+                {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
+            <>
+              {hasPlayBack ? (
+                <Tag
+                  // icon="icon-shipin"
+                  color="#E9616B"
+                  text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
+                />
+              ) : null}
+              {hasHighlight ? (
+                <Tag
+                  // icon="icon-jijin1"
+                  color="#40A04E"
+                  text={intl.formatMessage({
+                    id: 'key_highlight',
+                    defaultMessage: 'key_highlight',
+                  })}
+                />
+              ) : null}
+              {hasScheme ? (
+                <Tag
+                  // icon="icon-fangan"
+                  color="#FA5900"
+                  text={
+                    intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
+                    data?.schemes
+                  }
+                />
+              ) : null}
+              {hasLive ? (
+                <Tag
+                  // icon="icon-shipin"
+                  color="#E9616B"
+                  text={intl.formatMessage({
+                    id: 'key_live_video',
+                    defaultMessage: 'key_live_video',
+                  })}
+                />
+              ) : null}
+              {hasDoingLive ? (
+                <Tag
+                  // icon="icon-zhibo"
+                  color="#DA000B"
+                  text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
+                />
+              ) : null}
+            </>
+          ) : null}
+            </div>
             <div
               className={styles.macth_subscribe}
               onClick={(e) => {
@@ -228,7 +279,7 @@ const Mobile = ({ data, type = 'score' }) => {
               <Text
                 text={'VS'}
                 fontSize={20}
-                color={MatchStatus.TBD === status ? '#999999' : '#333'}
+                color={MatchStatus.TBD === status ? '#FA5900' : '#FA5900'}
                 width={'auto'}
               />
             ) : null}
@@ -236,7 +287,7 @@ const Mobile = ({ data, type = 'score' }) => {
               <Text
                 text={`${homeScore} - ${awayScore}`}
                 fontSize={20}
-                color={matchStatusText.color}
+                color="#FA5900"
                 width={'auto'}
               />
             ) : null}
@@ -251,59 +302,13 @@ const Mobile = ({ data, type = 'score' }) => {
             ) : null}
           </div>
         </div>
+        {/* 攻略 */}
         <SocreMaps
           home_incidents={data.home_incidents}
           away_incidents={data.away_incidents}
           matchStatusText={matchStatusText}
         >
-          {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
-            <>
-              {hasPlayBack ? (
-                <Tag
-                  icon="icon-shipin"
-                  color="#E9616B"
-                  text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
-                />
-              ) : null}
-              {hasHighlight ? (
-                <Tag
-                  icon="icon-jijin1"
-                  color="#40A04E"
-                  text={intl.formatMessage({
-                    id: 'key_highlight',
-                    defaultMessage: 'key_highlight',
-                  })}
-                />
-              ) : null}
-              {hasScheme ? (
-                <Tag
-                  icon="icon-fangan"
-                  color="#D28602"
-                  text={
-                    intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
-                    data?.schemes
-                  }
-                />
-              ) : null}
-              {hasLive ? (
-                <Tag
-                  icon="icon-shipin"
-                  color="#E9616B"
-                  text={intl.formatMessage({
-                    id: 'key_live_video',
-                    defaultMessage: 'key_live_video',
-                  })}
-                />
-              ) : null}
-              {hasDoingLive ? (
-                <Tag
-                  icon="icon-zhibo"
-                  color="#DA000B"
-                  text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
-                />
-              ) : null}
-            </>
-          ) : null}
+        
         </SocreMaps>
       </div>
     );
@@ -337,6 +342,7 @@ const Mobile = ({ data, type = 'score' }) => {
             />
           </div>
           <div className={styles.match_index_header_right}>
+            
             <div className={styles.match_index_header_tags}>
               {hasPlayBack ? (
                 <Tag
@@ -358,7 +364,7 @@ const Mobile = ({ data, type = 'score' }) => {
               {hasScheme ? (
                 <Tag
                   type="index"
-                  color="#D28602"
+                  color="#FA5900"
                   text={
                     intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
                     data?.schemes
@@ -419,7 +425,7 @@ const Mobile = ({ data, type = 'score' }) => {
                     [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${homeScore}` : ''
                   }
                   fontSize={20}
-                  color={matchStatusText.color}
+                  color="#FA5900"
                   width={'auto'}
                 />
               </div>
@@ -438,7 +444,7 @@ const Mobile = ({ data, type = 'score' }) => {
                     [MatchStatus.Going, MatchStatus.Complete].includes(status) ? `${awayScore}` : ''
                   }
                   fontSize={20}
-                  color={matchStatusText.color}
+                  color="#FA5900"
                   width={'auto'}
                 />
               </div>
@@ -447,33 +453,33 @@ const Mobile = ({ data, type = 'score' }) => {
           <div className={styles.match_index_body_right}>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#FA5900' }}>
-                  {eu ? `H ${normalizeFloat(eu.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
+                <div style={{ color: '#FA5900',width:40 ,textAlign:"left"}}>
+                  {eu ? `主 ${normalizeFloat(eu.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
               <div className={styles.match_index_col}>
                 <div style={{ color: '#FA5900' }}>
                   {asia ? (
-                    `H ${normalizeFloat(asia.home)}`
+                    `主 ${normalizeFloat(asia.home)}`
                   ) : (
                     <div style={{ color: '#c9c6c9' }}>-</div>
                   )}
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#686568' }}>
-                  {bs ? `H ${normalizeFloat(bs.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
+                <div style={{ color: '#848494' }}>
+                  {bs ? `主 ${normalizeFloat(bs.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
             </div>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#686568' }}>
-                  {eu ? `D ${normalizeFloat(eu.draw)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
+                <div style={{ color: '#848494',width:40 ,textAlign:"left" }}>
+                  {eu ? `平 ${normalizeFloat(eu.draw)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#C9C6C9' }}>
+                <div style={{ color: '#AFAFC0' }}>
                   {asia?.draw ? (
                     asia.draw > 0 ? (
                       `+ ${normalizeFloat(asia.draw)}`
@@ -486,28 +492,28 @@ const Mobile = ({ data, type = 'score' }) => {
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#C9C6C9' }}>
+                <div style={{ color: '#AFAFC0' }}>
                   {bs ? normalizeFloat(bs.draw) : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
             </div>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#C60108' }}>
-                  {eu ? `A ${normalizeFloat(eu.away)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
+                <div style={{ color: '#39906A',width:40 ,textAlign:"left" }}>
+                  {eu ? `客 ${normalizeFloat(eu.away)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#C60108' }}>
+                <div style={{ color: '#39906A' }}>
                   {asia ? (
-                    `A ${normalizeFloat(asia.away)}`
+                    `客 ${normalizeFloat(asia.away)}`
                   ) : (
                     <div style={{ color: '#c9c6c9' }}>-</div>
                   )}
                 </div>
               </div>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#686568' }}>
+                <div style={{ color: '#848494' }}>
                   {bs ? `L ${normalizeFloat(bs.away)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>

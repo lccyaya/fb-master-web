@@ -16,7 +16,7 @@ const menu = ({
      {/* onTabClick={onClick} */}
     <Tabs 
         activeKey={active} className={styles.navTab} onChange={onClick}
-        style={{ position: 'sticky', top: '92px' }} tabBarExtraContent={operations}
+        style={{ position: 'sticky', top: '92px'}} tabBarExtraContent={operations}
     >
         {menus.map((item, key) => (
             <Tabs.TabPane tab={item.label} key={key} />
