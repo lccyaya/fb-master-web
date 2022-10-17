@@ -80,6 +80,7 @@ export default function Glz() {
             {list.map((listItem, index) => (
               <Grid.Item key={index}>
                 <HotExpertItem expert={listItem} />
+
               </Grid.Item>
             ))}
           </Grid>
@@ -92,6 +93,7 @@ export default function Glz() {
       </div>
       <div className={styles.experts_box}>
         <ExpertList list={data?.list || []} type="watch" />
+
         <InfiniteScroll
           loadMore={async (isRetry) => {
             await loadMoreAsync();

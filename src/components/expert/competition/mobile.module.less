@@ -1,14 +1,17 @@
 .table_wrap {
-  padding: 16px;
+  padding: 0 16px;
+
   .competition_name {
     display: flex;
     align-items: center;
+
     img {
       width: 20px;
       height: 20px;
       margin-right: 6px;
       display: block;
     }
+
     span {
       width: 100px;
       white-space: nowrap;
@@ -16,6 +19,7 @@
       text-overflow: ellipsis;
     }
   }
+
   :global {
     .ant-table-thead {
       background: #FAFAFA !important;
@@ -23,16 +27,20 @@
       color: #333 !important;
       font-weight: 500;
       font-size: 12px;
+
       th {
         padding: 7px 8px !important;
+
         &:first-child {
           text-align: left !important;
         }
+
         &::before {
           display: none;
         }
       }
     }
+
     .ant-table-cell {
       background: #FAFAFA !important;
       border-radius: 2px;

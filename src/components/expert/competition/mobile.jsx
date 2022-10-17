@@ -7,8 +7,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInfiniteScroll } from 'ahooks';
 import { Spin } from 'antd';
 import EmptyLogo from '@/assets/emptyLogo.png';
+import { useHistory} from 'umi';
+import { NavBar } from 'antd-mobile';
 
 export default function Competition({ expertId }) {
+   const history = useHistory();
+   const back = () => {
+    history.goBack();
+  }
   const columns = [
     {
       title: '联赛',
@@ -87,6 +93,8 @@ export default function Competition({ expertId }) {
 
   return (
     <div className={styles.table_wrap}>
+   <NavBar onBack={back}>擅长联赛</NavBar>
+
       <Spin spinning={loading}>
         <InfiniteScroll
           dataLength={data?.list?.length || 0}

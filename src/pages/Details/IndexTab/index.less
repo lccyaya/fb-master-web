@@ -1,24 +1,41 @@
 .smallView {
   :global {
-    .ant-tabs-top > .ant-tabs-nav::before {
+    .ant-tabs-top>.ant-tabs-nav::before {
       border: none;
     }
+
+
     .ant-tabs-tab {
       margin-left: 12px;
       padding: 0 12px;
-      color: #666;
+
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 26px;
       line-height: 26px;
-      background: #F5F5F5;
+      // background: #F5F5F5;
       border-radius: 13px;
       font-size: 14px;
+      background-color: #fff;
     }
+
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: #fff !important;
+    }
+
     .ant-tabs-tab-active {
       background: #FA5900;
+
+
       .ant-tabs-tab-btn {
-        color: #fff;
+        // color: #fff;
+        // height: 30px;
+
       }
     }
+
     .ant-tabs-ink-bar {
       display: none;
     }
@@ -29,11 +46,13 @@
   display: flex;
   align-items: center;
   margin-right: 12px;
+
   .text {
     font-size: 14px;
     color: #666;
     line-height: 20px;
   }
+
   .arrow {
     background: url('../../../assets/icon/arrow_right.png') no-repeat 0 0;
     background-size: cover;

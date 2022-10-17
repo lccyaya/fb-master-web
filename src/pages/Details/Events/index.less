@@ -5,16 +5,20 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
   margin-bottom: 16px;
+
   &.mobile {
     box-shadow: none;
     background-color: transparent;
     padding-top: 4px;
+
     .header {
       padding: 12px 0;
+
       .name {
         font-size: 18px;
       }
     }
+
     .body {
       max-height: initial;
       overflow: hidden;
@@ -23,72 +27,93 @@
       display: flex;
       flex-direction: column-reverse;
       padding-top: 30px;
+
       .event {
         margin-bottom: 0;
         margin-top: 30px;
+
         &:last-child {
           margin-top: 0;
         }
       }
+
       .normalEvent {
         .info {
           width: 100%;
           flex-direction: row-reverse;
+
           .icon {
             margin-right: 6px;
             margin-left: 0;
           }
+
           .infoWrapper {
-            .title, .subTitle {
+
+            .title,
+            .subTitle {
               text-align: left;
             }
           }
+
           &.reverse {
             flex-direction: row;
+
             .infoWrapper {
-              .title, .subTitle {
+
+              .title,
+              .subTitle {
                 text-align: right;
               }
             }
+
             .icon {
               margin-right: 0;
               margin-left: 6px;
             }
+
             .innerTime {
               margin-right: 0;
               margin-left: 10px;
               text-align: right;
             }
           }
+
           &.placeholder {
             display: none;
           }
+
           .innerTime {
             display: block;
           }
         }
+
         .time {
           display: none;
         }
       }
     }
   }
+
   &.smallView {
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow: hidden;
+
     .header {
       padding: 4px 12px;
+
       .more {
         display: flex;
         align-items: center;
         margin-right: 12px;
+
         .text {
           font-size: 14px;
           color: #666;
           line-height: 20px;
         }
+
         .arrow {
           background: url('../../../assets/icon/arrow_right.png') no-repeat 0 0;
           background-size: cover;
@@ -98,56 +123,68 @@
         }
       }
     }
+
     .body {
       max-height: 100%;
       overflow-y: scroll;
       background-color: transparent;
       flex-direction: column;
       padding-top: 0;
+
       .timeEvent {
         margin-top: 20px;
+
         .info {
           flex-shrink: 0;
+
           .icon {
             flex-shrink: 0;
           }
         }
       }
+
       .event:first-child {
         margin-top: 0 !important;
       }
+
       .event:last-child {
         margin-top: 20px;
       }
     }
+
     :global {
       .ant-spin-nested-loading {
         flex: auto;
         overflow: hidden;
       }
+
       .ant-spin-container {
         overflow: hidden;
         height: 100%;
       }
     }
   }
+
   .header {
     padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .name {
       color: #46494C;
       font-size: 24px;
       line-height: 32px;
       font-weight: bold;
-      font-family: Barlow;
-      font-style: italic;
+      // font-family: Barlow;
+      // font-style: italic;
     }
+
     .iconWrapper {
       width: 22px;
       height: 22px;
       position: relative;
+
       .icon {
         width: 100%;
         height: 100%;
@@ -155,6 +192,7 @@
         background-size: cover;
         cursor: help;
       }
+
       .iconExplain {
         position: absolute;
         right: 0;
@@ -165,6 +203,7 @@
         border-radius: 8px;
         border: 1px solid #ddd;
         z-index: 1;
+
         .item {
           &:first-child {
             margin-top: 0;
@@ -173,11 +212,13 @@
           margin-top: 11px;
           display: flex;
           align-items: center;
+
           .eventIcon {
             width: 20px;
             height: 20px;
             margin-right: 6px;
           }
+
           .eventName {
             font-size: 15px;
             color: #6B6B6B;
@@ -188,10 +229,12 @@
       }
     }
   }
+
   .body {
     padding: 0 18px 30px 18px;
     max-height: 600px;
     overflow-y: scroll;
+
     .empty {
       font-size: 24px;
       height: 70px;
@@ -200,46 +243,60 @@
       justify-content: center;
       color: #6b6b6b;
     }
+
     .event {
       margin-bottom: 30px;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
+
     .timeEvent {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 14px;
+
       .line {
         width: 34%;
         height: 1px;
         background-color: #f0f1f2;
       }
+
       .info {
         display: flex;
         align-items: center;
+
         .icon {
           background-size: cover !important;
+
           &.start {
             background: url('../../../assets/image/match_event_start.png') no-repeat 0 0;
             width: 20px;
             height: 20px;
           }
+
           &.ht {
             background: url('../../../assets/image/match_event_ht.png') no-repeat 0 0;
           }
+
           &.ft {
             background: url('../../../assets/image/match_event_ft.png') no-repeat 0 0;
           }
+
           &.aet {
             background: url('../../../assets/image/match_event_aet.png') no-repeat 0 0;
           }
-          &.ht, &.ft, &.aet {
+
+          &.ht,
+          &.ft,
+          &.aet {
             width: 41px;
             height: 40px;
           }
         }
+
         .text {
           margin-left: 9px;
           font-size: 18px;
@@ -250,37 +307,47 @@
         }
       }
     }
+
     .normalEvent {
       display: flex;
       align-items: center;
+
       .info {
         width: 43.3%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
+
         &.reverse {
           flex-direction: row-reverse;
+
           .infoWrapper {
             text-align: left;
+
             .subTitle {
               text-align: left;
             }
           }
+
           .icon {
             margin-right: 6px;
             margin-left: 0;
           }
         }
+
         .infoWrapper {
           text-align: right;
+
           .title {
             color: #46494C;
             font-size: 15px;
             line-height: 18px;
+
             .color {
               color: #FA5900;
             }
           }
+
           .subTitle {
             margin-top: 1px;
             color: #B4B4B4;
@@ -289,12 +356,14 @@
             text-align: right;
           }
         }
+
         .icon {
           margin-left: 6px;
           width: 18px;
           height: 18px;
           flex-shrink: 0;
         }
+
         .innerTime {
           display: none;
           margin-right: 10px;
@@ -306,6 +375,7 @@
           text-align: left;
         }
       }
+
       .time {
         margin: 0 5px;
         height: 24px;

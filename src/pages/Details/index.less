@@ -7,8 +7,14 @@
   background-color: #fff;
 }
 
+
 .main {
+  height: 100%;
+
   //margin-top: 16px;
+  background-color: #F7FAFB;
+  position: relative;
+
   .banner {
     margin: 0 0 16px 0;
   }
@@ -16,20 +22,29 @@
   .container {
     justify-content: space-between;
     width: calc(100% + 16px);
+    background-color: #F7FAFB;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    top: 166px;
+
     @media (max-width: @screen-sm) {
       width: 100%;
-      margin-top: 16px !important;
+      background-color: #F7FAFB;
     }
+
     .left {
       padding-bottom: 20px;
+
       .videoContainer {
         margin-bottom: 26px;
       }
+
       .tabWrapper {
         padding-top: 16px;
-        background: #fff;
+        background-color: #F7FAFB;
         border-radius: 16px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+
         @media screen and (max-width: @screen-sm) {
           width: calc(100% + 16px);
           margin-left: -8px;
@@ -37,19 +52,24 @@
           box-shadow: none;
         }
       }
+
       .header {
         height: 48px;
         padding: 0 20px;
         //margin-top: 16px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
 
         @media screen and (max-width: @screen-sm) {
           display: flex;
           flex-wrap: nowrap;
           justify-content: space-between;
           height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           padding: 0 12px;
           overflow-x: scroll;
+
           &::-webkit-scrollbar {
             display: none;
           }
@@ -60,15 +80,16 @@
           height: 28px;
           margin-right: 20px;
           padding: 0 20px;
-          color: #666;
+          font-size: 16px;
+          color: #848494;
           font-weight: bold;
-          font-size: 12px;
           font-family: PingFang SC;
           font-style: normal;
           line-height: 28px;
           text-align: center;
-          background-color: #f4f4f4;
+          background-color: #fff;
           border-radius: 100px;
+
           @media screen and (max-width: @screen-sm) {
             margin-right: 10px;
             padding: 0 6px;
@@ -76,28 +97,35 @@
           }
         }
 
-        :global(.ant-tag-checkable-checked) {
-          background-color: #FA5900 !important;
-        }
+        // :global(.ant-tag-checkable-checked) {
+        //   background-color: #F7FAFB !important;
+        // }
 
         :global(.ant-tag-checkable-checked) {
-          color: #fff;
+          color: #FA5900;
+
         }
+
+
       }
+
       .tabPanel {
         padding: 0 9px;
+
         .mobileVideoWrapper,
         .schemeWrapper {
           width: calc(100% + 18px);
           margin-bottom: 8px;
           margin-left: -9px;
         }
+
         .mobileStatTitle {
-          margin-bottom: 12px;
-          color: #46494c;
+          margin-top: 12px;
+          color: #45494C;
           font-size: 18px;
-          font-family: Barlow;
-          font-style: italic;
+          font-weight: bold;
+          // font-family: Barlow;
+          // font-style: italic;
           line-height: 22px;
         }
       }

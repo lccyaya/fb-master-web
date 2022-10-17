@@ -2,18 +2,22 @@
   position: relative;
   width: 100%;
   height: 128px;
-  background-color: #fff;
-  border-bottom: 8px solid #f3f3f3;
+  // background-color: #fff;
+  // border-bottom: 8px solid #f3f3f3;
+
   .title_box {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
+    margin-left: 12px;
     margin-top: 16px;
     margin-bottom: 16px;
   }
+
   .title_logo {
     width: 28px;
     height: 28px;
   }
+
   .title_text {
     height: 22px;
     margin-top: 6px;
@@ -23,55 +27,72 @@
     font-size: 16px;
     line-height: 22px;
   }
+
   .expert_box {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    height: 52px;
-    padding-right: 16px;
-    padding-left: 16px;
+    align-items: center;
+    // justify-content: space-between;
+    // padding: 0 12px;
+    height: 68px;
+    // background: url(../../../assets/gonglue/gonglue.png);
+    // padding-right: 16px;
+    // padding-left: 16px;
     overflow: hidden;
   }
+
+  // .expert_item {
+  //   display: flex;
+  //   box-sizing: border-box;
+  //   width: 50%;
+  //   height: 52px;
+  //   margin-left: 12px;
+  //   padding: 8px 6px;
+  //   background: linear-gradient(147deg, #FFE4DF 0%, #FFA897 100%);
+  //   border-radius: 6px;
+  // }
+
   .expert_item {
+    width: 50%;
+    height: 100%;
     display: flex;
-    box-sizing: border-box;
-    width: 166px;
-    height: 52px;
-    margin-left: 11px;
-    padding: 8px 6px;
-    background: linear-gradient(147deg, #FFE4DF 0%, #FFA897 100%);
-    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    // background: linear-gradient(147deg, #FFF3E1 0%, #FBC579 100%);
+    background-image: url(../../../assets/gonglue/gonglue.png);
+    background-position: center
   }
 
-  .expert_item:first-child {
-    margin-left: 0;
-    background: linear-gradient(147deg, #FFF3E1 0%, #FBC579 100%);
-  }
   .expert_item_avatar {
     width: 36px;
     height: 36px;
     margin-right: 6px;
     border-radius: 50%;
   }
+
   .expert_item_right {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
+
   .expert_item_right_top {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   .expert_name {
     width: 110px;
     height: 20px;
     overflow: hidden;
-    color: #191919;
+    color: #000028;
     font-size: 14px;
     line-height: 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
   .expert_schemes {
     height: 16px;
     padding-right: 5px;
@@ -84,15 +105,17 @@
     background: #fdebeb;
     border-radius: 4px;
   }
+
   .expert_score {
-    color: #191919;
+    color: #848494;
     font-size: 12px;
     line-height: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .win_num {
-      color: #D61E25;
+      // color: #D61E25;
     }
   }
 }

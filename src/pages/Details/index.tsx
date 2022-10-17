@@ -213,178 +213,186 @@ const Details: React.FC<DetailProps> = (props) => {
   };
 
   return (
-    <Spin spinning={loading}>
-      {checkIsPhone() && (
-        <NavBar className={styles.navbar} onBack={back}>
-          比赛详情
-        </NavBar>
-      )}
-      <div className={styles.main}>
-        <InfoCard
-          match={data}
-          reportCate={REPORT_CATE.match_detail}
-          reportAction={REPORT_ACTION.match_detail_remind}
-        />
-        {data ? (
-          <Row className={styles.container} gutter={16} style={checkIsPhone() ? { margin: 0 } : {}}>
-            <Col className={styles.left} xs={24} sm={24} md={24} lg={15} xl={15}>
-              {(hasLive || hasHighlight || hasPlayback) && !checkIsPhone() && (
-                <Row className={styles.videoContainer}>
-                  <MatchLive
-                    isHighlight={!hasLive && (hasHighlight || hasPlayback)}
-                    matchList={[data]}
-                    hideVideoTeamInfo
-                    hideVideoTitle
-                    onlyOne
-                    reportCate={REPORT_CATE.match_detail}
-                  />
-                </Row>
-              )}
-              <div className={styles.tabWrapper}>
-                <Row className={styles.header}>
-                  {newsTabVisible && (
-                    <CheckableTag
-                      className={styles.tabButton}
-                      onClick={() => handleDetailTypeClick('info')}
-                      checked={detailType === 'info'}
-                      key="info"
-                    >
-                      {lang === 'en' ? 'Info' : <FormattedMessage id="key_news" />}
-                    </CheckableTag>
-                  )}
-                  <CheckableTag
-                    className={styles.tabButton}
-                    onClick={() => handleDetailTypeClick('overview')}
-                    checked={detailType === 'overview'}
-                    key="overview"
-                  >
-                    <FormattedMessage id="key_overview" />
-                  </CheckableTag>
-                  {hasScheme ? (
-                    <CheckableTag
-                      className={styles.tabButton}
-                      onClick={() => handleDetailTypeClick('scheme')}
-                      checked={detailType === 'scheme'}
-                      key="scheme"
-                    >
-                      攻略
-                    </CheckableTag>
-                  ) : null}
-                  <CheckableTag
-                    className={styles.tabButton}
-                    onClick={() => handleDetailTypeClick('data')}
-                    checked={detailType === 'data'}
-                    key="data"
-                  >
-                    {/* <FormattedMessage id="key_data" /> */}
-                    分析
-                  </CheckableTag>
-                  <CheckableTag
-                    className={styles.tabButton}
-                    onClick={() => handleDetailTypeClick('lineUp')}
-                    checked={detailType === 'lineUp'}
-                    key="lineUp"
-                  >
-                    <FormattedMessage id="key_line_up" />
-                  </CheckableTag>
-                  <CheckableTag
-                    className={styles.tabButton}
-                    onClick={() => handleDetailTypeClick('index')}
-                    key="index"
-                    checked={detailType === 'index'}
-                  >
-                    {/* <FormattedMessage id="key_index" /> */}
-                    数据
-                  </CheckableTag>
-                </Row>
-                {matchId && (
-                  <div className={styles.tabPanel}>
-                    <div style={{ display: detailType === 'info' ? 'block' : 'none' }}>
-                      {isPhone && status === MatchStatus.Complete && hasHighlight && (
-                        <div className={styles.mobileVideoWrapper} ref={videoWrapperRef}>
-                          <MatchLive
-                            isHighlight
-                            matchList={[data]}
-                            hideVideoTeamInfo
-                            hideVideoTitle
-                            onlyOne
-                            reportCate={REPORT_CATE.match_detail}
-                            hideHighlightTab
-                            showHighlightTag
-                          />
-                        </div>
-                      )}
-                      <DetailNews
-                        showEmpty={false}
-                        matchId={Number(matchId)}
-                        onRecordTotalLoaded={handleNewsTotalLoaded}
-                      />
-                    </div>
-                    {detailType === 'overview' && (
-                      <>
-                        <Progress match={data} />
-                        {isPhone &&
-                          ([MatchStatus.Going, MatchStatus.Complete] as any[]).includes(status) && (
-                            <Events matchId={matchId} />
-                          )}
-                      </>
-                    )}
-                    {detailType === 'index' && <IndexTab match={data} matchId={matchId as any} />}
-                    {detailType === 'lineUp' && (
-                      <LineUp matchId={matchId as any} status={data.status} />
-                    )}
-                    {detailType === 'data' && (
-                      <>
-                        {isPhone ? (
-                          <>
-                            {Vote}
-                            <div className={styles.mobileStatTitle}>
-                              <FormattedMessage id="key_past_games" />
-                            </div>
-                          </>
-                        ) : null}
-                        <Stats match={data} matchId={matchId as any} />
-                      </>
-                    )}
-                    {detailType === 'scheme' ? (
-                      <div className={styles.schemeWrapper}>
-                        <Scheme matchId={matchId} />
-                      </div>
-                    ) : null}
-                  </div>
-                )}
-              </div>
-            </Col>
-            <Col className={styles.right} xs={24} sm={24} md={24} lg={9} xl={9}>
-              {!isPhone &&
-                ([MatchStatus.Going, MatchStatus.Complete] as any[]).includes(status) && (
-                  <Events matchId={matchId} />
-                )}
-              <Banner className={styles.banner} />
-              {!isPhone ? Vote : null}
-              {matchUtils.getMatchStatus(data.status) !== matchUtils.MatchStatus.Before &&
-                tipsData &&
-                tipsData.length > 0 &&
-                showTips && (
-                  <>
-                    <div className={styles.tips}>
-                      <FormattedMessage id="key_tips" />
-                    </div>
-                    <Tips data={tipsData} />
-                  </>
-                )}
-            </Col>
-          </Row>
-        ) : (
-          <MEmpty />
+    <div style={{ height: "100%", background: "#F7FAFB" }}>
+      <Spin spinning={loading}>
+        {checkIsPhone() && (
+          <NavBar className={styles.navbar} onBack={back}>
+            {/* 比赛详情 */}
+          </NavBar>
         )}
-      </div>
-      <Notification
-        visible={notificationVisible}
-        onCancel={() => setNotificationVisible(false)}
-        onOk={() => setNotificationVisible(false)}
-      />
-    </Spin>
+        <div className={styles.main}>
+          <InfoCard
+            match={data}
+            reportCate={REPORT_CATE.match_detail}
+            reportAction={REPORT_ACTION.match_detail_remind}
+          />
+          {data ? (
+            <Row className={styles.container} gutter={16} style={checkIsPhone() ? { margin: 0 } : {}}>
+              <Col className={styles.left} xs={24} sm={24} md={24} lg={15} xl={15}>
+                {(hasLive || hasHighlight || hasPlayback) && !checkIsPhone() && (
+                  <Row className={styles.videoContainer}>
+                    <MatchLive
+                      isHighlight={!hasLive && (hasHighlight || hasPlayback)}
+                      matchList={[data]}
+                      hideVideoTeamInfo
+                      hideVideoTitle
+                      onlyOne
+                      reportCate={REPORT_CATE.match_detail}
+                    />
+                  </Row>
+                )}
+                <div className={styles.tabWrapper}>
+                  <Row className={styles.header}>
+                    {newsTabVisible && (
+                      <CheckableTag
+                        className={styles.tabButton}
+                        onClick={() => handleDetailTypeClick('info')}
+                        checked={detailType === 'info'}
+                        key="info"
+                      >
+                        {lang === 'en' ? 'Info' : <FormattedMessage id="key_news" />}
+                      </CheckableTag>
+                    )}
+                    <CheckableTag
+                      className={styles.tabButton}
+                      onClick={() => handleDetailTypeClick('overview')}
+                      checked={detailType === 'overview'}
+                      key="overview"
+                    >
+                      <FormattedMessage id="key_overview" />
+                    </CheckableTag>
+                    {hasScheme ? (
+                      <CheckableTag
+                        className={styles.tabButton}
+                        onClick={() => handleDetailTypeClick('scheme')}
+                        checked={detailType === 'scheme'}
+                        key="scheme"
+                      >
+                        攻略
+                      </CheckableTag>
+
+                    ) : null}
+                    <CheckableTag
+                      className={styles.tabButton}
+                      onClick={() => handleDetailTypeClick('data')}
+                      checked={detailType === 'data'}
+                      key="data"
+                    >
+                      {/* <FormattedMessage id="key_data" /> */}
+                      分析
+                    </CheckableTag>
+                    <CheckableTag
+                      className={styles.tabButton}
+                      onClick={() => handleDetailTypeClick('lineUp')}
+                      checked={detailType === 'lineUp'}
+                      key="lineUp"
+                    >
+                      <FormattedMessage id="key_line_up" />
+                    </CheckableTag>
+                    <CheckableTag
+                      className={styles.tabButton}
+                      onClick={() => handleDetailTypeClick('index')}
+                      key="index"
+                      checked={detailType === 'index'}
+                    >
+                      {/* <FormattedMessage id="key_index" /> */}
+                      数据
+                    </CheckableTag>
+                  </Row>
+                  {matchId && (
+                    <div className={styles.tabPanel}>
+                      <div style={{ display: detailType === 'info' ? 'block' : 'none' }}>
+                        {isPhone && status === MatchStatus.Complete && hasHighlight && (
+                          <div className={styles.mobileVideoWrapper} ref={videoWrapperRef}>
+                            <MatchLive
+                              isHighlight
+                              matchList={[data]}
+                              hideVideoTeamInfo
+                              hideVideoTitle
+                              onlyOne
+                              reportCate={REPORT_CATE.match_detail}
+                              hideHighlightTab
+                              showHighlightTag
+                            />
+                          </div>
+                        )}
+                        <DetailNews
+                          showEmpty={false}
+                          matchId={Number(matchId)}
+                          onRecordTotalLoaded={handleNewsTotalLoaded}
+                        />
+                      </div>
+                      {detailType === 'overview' && (
+                        <>
+                          <Progress match={data} />
+                          {isPhone &&
+                            ([MatchStatus.Going, MatchStatus.Complete] as any[]).includes(status) && (
+                              <Events matchId={matchId} />
+                            )}
+                        </>
+                      )}
+                      {detailType === 'index' && <IndexTab match={data} matchId={matchId as any} />}
+                      {detailType === 'lineUp' && (
+                        <LineUp matchId={matchId as any} status={data.status} />
+                      )}
+                      {detailType === 'data' && (
+                        <>
+                          {isPhone ? (
+                            <>
+                              {Vote}
+                              <div className={styles.mobileStatTitle}>
+                                <FormattedMessage id="key_past_games" />
+                              </div>
+                            </>
+                          ) : null}
+                          <div style={{
+                            background: "#fff", padding: 10, borderRadius: 8, marginTop: 12
+                          }}>
+                            <Stats match={data} matchId={matchId as any} />
+                          </div>
+                        </>
+                      )}
+                      {detailType === 'scheme' ? (
+                        <div className={styles.schemeWrapper}>
+                          <Scheme matchId={matchId} />
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+                </div>
+              </Col>
+              <Col className={styles.right} xs={24} sm={24} md={24} lg={9} xl={9}>
+                {!isPhone &&
+                  ([MatchStatus.Going, MatchStatus.Complete] as any[]).includes(status) && (
+                    <Events matchId={matchId} />
+                  )}
+                <Banner className={styles.banner} />
+                {!isPhone ? Vote : null}
+                {matchUtils.getMatchStatus(data.status) !== matchUtils.MatchStatus.Before &&
+                  tipsData &&
+                  tipsData.length > 0 &&
+                  showTips && (
+                    <>
+                      <div className={styles.tips}>
+                        <FormattedMessage id="key_tips" />
+                      </div>
+                      <Tips data={tipsData} />
+                    </>
+                  )}
+              </Col>
+            </Row>
+          ) : (
+            <MEmpty />
+          )}
+        </div>
+        <Notification
+          visible={notificationVisible}
+          onCancel={() => setNotificationVisible(false)}
+          onOk={() => setNotificationVisible(false)}
+        />
+
+      </Spin>
+    </div>
   );
 };
 // export default Details;

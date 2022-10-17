@@ -7,6 +7,7 @@ import { history } from 'umi';
 import cls from 'classnames';
 import { handleReport } from '@/utils/report';
 import Avatar from '@/components/avatar';
+// import {FBBlockHeader} from "@/components/FBBlockHeader"
 
 const RecommendExpert = ({ matchId }) => {
   const [list, setList] = useState([]);
@@ -28,6 +29,8 @@ const RecommendExpert = ({ matchId }) => {
           src={require('@/assets/recommend_expert_logo.png')}
           alt=""
         />
+
+       {/* < FBBlockHeader title="联赛推荐专家"/> */}
         <div className={styles.title_text}>联赛推荐专家</div>
       </div>
       <div className={styles.expert_box}>

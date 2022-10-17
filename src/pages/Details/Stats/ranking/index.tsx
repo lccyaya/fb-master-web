@@ -39,25 +39,29 @@ const Ranking: React.FC<IProps> = (props) => {
       }
     },
     {
-      title: "P",
+      // title: "P",
+      title: "赛",
       dataIndex: 'played',
       key: 'played',
       width: size === 'small' ? '10px' : '5%',
     },
     {
-      title: "W",
+      // title: "W",
+      title: "胜",
       dataIndex: 'won',
       key: 'won',
       width: size === 'small' ? '10px' : '5%',
     },
     {
-      title: "D",
+      // title: "D",
+      title: "平",
       dataIndex: 'drawn',
       key: 'drawn',
       width: size === 'small' ? '10px' : '5%',
     },
     {
-      title: "L",
+      // title: "L",
+      title: "负",
       dataIndex: 'lost',
       key: 'lost',
       width: size === 'small' ? '10px' : '5%',
@@ -67,7 +71,8 @@ const Ranking: React.FC<IProps> = (props) => {
 
   columns = columns.concat([
     {
-      title: "P/A",
+      // title: "P/A",
+      title: "进/失",
       dataIndex: 'pa',
       key: 'pa',
       width: size === 'small' ? '10px' : '5%',
@@ -82,7 +87,8 @@ const Ranking: React.FC<IProps> = (props) => {
       }
     },
     {
-      title: <FormattedMessage id="key_pts" />,
+      // title: <FormattedMessage id="key_pts" />,
+      title: "积分",
       dataIndex: 'pts',
       key: 'pts',
       width: size === 'small' ? '10px' : '5%',
@@ -91,6 +97,7 @@ const Ranking: React.FC<IProps> = (props) => {
 
   return (
     <div className={classnames(styles.stats, size === 'small' ? styles.small : '')}>
+
       <Table
         rowClassName={(record) => {
           return (match && (record.team_name === match.home_team_name || record.team_name === match.away_team_name)) ? styles.current : ''

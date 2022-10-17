@@ -3,7 +3,11 @@ import Empty from '@/components/Empty';
 import { Button, Spin } from 'antd';
 import HitImage from '@/assets/hit.png';
 import MissImage from '@/assets/miss.png';
-import Tags from '@/components/Tags/pc';
+// import Tags from '@/components/Tags/pc';
+import FBExpertTag, { FBTagType } from '@/components/FBExpertTag';
+
+import {Tag } from 'antd';
+
 import { toShortLangCode, formatMatchTime } from '@/utils/utils';
 import { locale } from '@/app';
 import { history } from 'umi';
@@ -47,6 +51,7 @@ export default function SchemeList({
                 {showExpert ? (
                   <div className={styles.header}>
                     <div className={styles.avatar}>
+
                       <Avatar
                         onClick={(e) => {
                           e.stopPropagation();
@@ -75,10 +80,25 @@ export default function SchemeList({
                           {item.nickname}
                         </div>
                         {showTags ? (
-                          <Tags
-                            list={[item.continuous_tag, item.hit_tag]}
-                            className={styles.tags}
-                          />
+                       
+                          //    <Tags
+                          //   list={[item.continuous_tag, item.hit_tag]}
+                          //   className={styles.tags}
+                          // />
+                        
+                          <div style={{ display: "flex" }}>
+                              {item.hit_tag?   <div >
+                              {/* {item.hit_tag} */}
+                                 <FBExpertTag type={0} tag={item.hit_tag} />
+                            </div> : ""}
+                       { item.continuous_tag? <div   style={{marginLeft:5}} >
+                            {/* { item.continuous_tag} */}
+                            <FBExpertTag tag={item.continuous_tag.split("连")[0]} />
+                            </div> : ""}
+                            
+               
+                      </div>
+                         
                         ) : null}
                       </div>
                     </div>

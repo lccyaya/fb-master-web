@@ -7,25 +7,31 @@
   background-size: 100% 100%;
   padding: 32px 0 184px 0;
   display: flex;
+  background-color: #F7FAFB;
   justify-content: center;
   //margin-left: ~'min(calc((100% - 100vw) / 2), 0px)';
   margin-bottom: -168px;
+
   .mobileWrapper {
     display: none;
+
     .reminder {
       top: 20px;
     }
   }
+
   .reminder {
     position: absolute;
     right: 8px;
     top: 0;
     cursor: pointer;
+
     img {
       width: 26px;
       height: 26px;
     }
   }
+
   .wrapper {
     width: 100%;
     max-width: 1200px;
@@ -36,6 +42,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+
     .top {
       text-align: center;
       position: relative;
@@ -43,6 +50,7 @@
       line-height: 26px;
       color: #46494C;
       font-weight: 500;
+
       .time {
         position: absolute;
         font-size: 22px;
@@ -52,25 +60,30 @@
         font-family: Barlow;
         font-style: italic;
       }
-      
+
     }
+
     .mid {
       margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
+
       .team {
         display: flex;
         align-items: center;
         justify-content: flex-end;
         overflow: hidden;
         width: 31%;
+
         &.reverse {
           flex-direction: row-reverse;
+
           .name {
             margin: 0 0 0 16px;
           }
         }
+
         .name {
           font-size: 20px;
           color: #46494C;
@@ -80,11 +93,13 @@
           text-overflow: ellipsis;
           white-space: nowrap;
         }
+
         .logo {
           width: 56px;
           height: 56px;
         }
       }
+
       .scores {
         width: 21.75%;
         margin: 0 7.16%;
@@ -99,6 +114,7 @@
         justify-content: space-between;
       }
     }
+
     .bottom {
       margin-top: auto;
       display: flex;
@@ -106,6 +122,7 @@
       color: #46494C;
       font-size: 18px;
       font-weight: bold;
+
       .progress {
         min-width: 82px;
         height: 32px;
@@ -128,9 +145,11 @@
     padding: 13px 14px 9px 14px;
     background: url('~@/assets/match/match_bg.png') no-repeat center;
     background-size: cover;
+
     .wrapper {
       display: none;
     }
+
     .mobileWrapper {
       display: block;
       color: #fff;
@@ -138,39 +157,47 @@
       width: 100%;
       position: relative;
 
-      .name, .time {
+      .name,
+      .time {
         font-size: 14px;
         line-height: 18px;
       }
+
       .time {
         margin-top: 2px;
       }
+
       .progress {
         margin-top: 17px;
-        display: inline-flex;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 0 12px;
         height: 18px;
-        background: rgba(255, 255, 255, .2);
+        background: rgba(1, 1, 77, .1);
         border-radius: 9px;
         font-size: 12px;
         line-height: 14px;
       }
+
       .teams {
         margin-top: 8px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         position: relative;
+
         .team {
           width: 31%;
           font-size: 0;
+
           .logo {
             width: 60px;
             height: 60px;
             margin: 0 auto;
           }
+
           .name {
             font-size: 16px;
             line-height: 20px;
@@ -186,23 +213,29 @@
             text-overflow: ellipsis;
           }
         }
+
         .score {
           display: flex;
           align-items: center;
-          margin-bottom: 16px;
+          // margin-bottom: 16px;
           font-weight: 600;
+          margin-top: -18px;
+
           &.top {
             margin-bottom: 46px;
           }
+
           .num {
             font-size: 28px;
             line-height: 40px;
           }
+
           .colon {
             font-size: 20px;
             margin: 0 10px;
           }
         }
+
         .otPen {
           position: absolute;
           bottom: 32px;
@@ -212,9 +245,11 @@
           font-size: 12px;
         }
       }
+
       .livePlayback {
         margin-top: -20px;
         line-height: 1;
+
         .livePlaybackWrapper {
           margin: 0 auto;
           display: inline-flex;
@@ -225,6 +260,7 @@
           align-items: center;
           justify-content: center;
         }
+
         .icon {
           width: 18px;
           height: 18px;
@@ -232,6 +268,7 @@
           background-size: cover;
           margin-right: 5px;
         }
+
         .text {
           font-size: 12px;
           color: #F9F9F9;

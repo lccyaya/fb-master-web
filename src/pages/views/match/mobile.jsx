@@ -37,7 +37,7 @@ const Mobile = () => {
   const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
   const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
   const [calenderVal, setCalendarVal] = useState(''); // 日历的值
-  const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-DD-MM ddd')}`); // 日历组件显示内容
+  const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`); // 日历组件显示内容
 
   // 获取列表的参数 和 page 的参数
   const [params, setParams] = useState({
@@ -76,8 +76,7 @@ const Mobile = () => {
     onParamsChange(obj);
     setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化
 
-// setCalendarValtime(moment(new Date()).format('YYYY-DD-MM ddd'))
-    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-DD-MM ddd')}`)
+    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`)
     // 啊啊啊
     // 埋点
     if(item.param_value === 2) {
@@ -104,7 +103,7 @@ const Mobile = () => {
     const date = v.format('YYYY-MM-DD');
     setApiTimestamp('');
     onParamsChange({ timestamp: moment(date) / 1000 });
-setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
+setCalendarValtime(moment(new Date(+v)).format('YYYY-MM-DD ddd'))
  console.log(date,"999999")
     
     setCalenderShow(false);
@@ -129,7 +128,7 @@ setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
     const status = getScrollDirection(values);
     getCalendarTitle(current, setCalendarValue, renderData); // 获取当前的日历日期
  
-    setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-DD-MM ddd'))
+    setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-MM-DD ddd'))
     
     setShowTopIcon(values.scrollTop > 100 ? true : false);
 
@@ -345,7 +344,7 @@ setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
   //   </div>
   // );
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%',}}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%'}}>
       
      <div className={styles.tabbg}>   {menuList?.length ? (
         <Menu
@@ -385,8 +384,15 @@ setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
             handleReport({ action: 'calendar' });
             }}>
         
-                 <div style={{fontSize:15,width:"7%",color:"#848494"}}>
-            &lt;
+              <div style={{ fontSize: 15, width: "7%", color: "#848494" }}>
+                   <IconFont
+         
+                className={cls(styles.icon, styles.menu_icon)}
+                color="#848494"
+                type="icon-gengduo"
+                 size={16}
+              />
+          
               </div>
             <div style={{width:"93%",  display: "flex",
             alignItems: "center", 
@@ -396,10 +402,9 @@ setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
          
                 className={cls(styles.icon, styles.menu_icon)}
                 color="#848494"
-                type="icon-rili"
-                 size={20}
+                type="icon-a-bianzu2"
+                 size={18}
               />
-             
               <span style={{
                 color: "#848494", fontSize: 14,
                 marginLeft:5,
@@ -428,7 +433,7 @@ setCalendarValtime(moment(new Date(+v)).format('YYYY-DD-MM ddd'))
         
           className={cls(styles.icon, styles.menu_icon)}
           color={params?.competition_ids.length ? '#FA5900' : ''}
-          type="icon-shaixuan-xuanzhong2"
+          type="icon-shaixuan"
           size={18}
         />
       ) : // <img onClick={() => setLeagueShow(true)} src={filterIcon} className={cls(styles.img, styles.menu_icon)} />

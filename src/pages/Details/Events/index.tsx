@@ -244,10 +244,10 @@ export default (props: { matchId: string; smallView?: boolean }) => {
   const lang = toShortLangCode(locale.getLocale());
   return (
     <div
-      className={`${styles.wrapper} ${isPhone ? styles.mobile : ''} ${
-        smallView ? styles.smallView : ''
-      }`}
+      className={`${styles.wrapper} ${isPhone ? styles.mobile : ''} ${smallView ? styles.smallView : ''
+        }`}
     >
+
       <div className={styles.header}>
         <div className={styles.name}>
           <FormattedMessage id="key_events" />

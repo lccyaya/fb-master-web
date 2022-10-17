@@ -57,22 +57,24 @@ const Stats: React.FC<IProps> = (props) => {
 
   return (
     <Spin spinning={loading}>
-      <div className={smallView ? styles.smallView : ''}>
+      <div className={smallView ? styles.smallView : styles.smallView}>
         <Tabs
           defaultActiveKey="4"
           onChange={handleTabChange}
+          tabBarStyle={{ color: "#848494" }}
+          centered
           tabBarExtraContent={
             smallView
               ? {
-                  right: (
-                    <Link className={styles.more} to={`/${lang}/details/${matchId}`}>
-                      <div className={styles.text}>
-                        <FormattedMessage id="key_more_details" />
-                      </div>
-                      <div className={styles.arrow} />
-                    </Link>
-                  ),
-                }
+                right: (
+                  <Link className={styles.more} to={`/${lang}/details/${matchId}`}>
+                    <div className={styles.text}>
+                      <FormattedMessage id="key_more_details" />
+                    </div>
+                    <div className={styles.arrow} />
+                  </Link>
+                ),
+              }
               : {}
           }
         >
