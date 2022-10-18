@@ -49,6 +49,7 @@ const ExpertDetail: React.FC = () => {
   const back = () => {
     history.goBack();
   }
+  console.log(record, "ooooooosssss");
 
   return (
     <div className={styles.main}>
@@ -106,19 +107,34 @@ const ExpertDetail: React.FC = () => {
                             <div className={styles.value}>{record.max_hit}</div>
                             <div className={styles.label}>最长连中</div>
                           </div>
-                          <div className={styles.item}>
+                          {/* <div className={styles.item}>
                             <div className={styles.value}>
                               {record.hit_rate}
                               <span>%</span>
                             </div>
                             <div className={styles.label}>命中率</div>
-                          </div>
+                          </div> */}
                         </div>
-                        {record.record_list?.length ? (
+                        {/* {record.record_list?.length ? (
                           <Chart record={record.record_list} className={styles.chart_wrap} />
-                        ) : null}
+                        ) : null} */}
                       </div>
-                      {recent_record.length ? <Achievements records={recent_record} /> : null}
+
+                      <div className={styles.itemlist_main}>
+
+                        <div className={styles.itemlist} style={{ width: "15%" }}>
+                          <div className={styles.itemlist_value}>
+                            {record.hit_rate}
+                            <span>%</span>
+                          </div>
+                          <div className={styles.itemlist_label}>命中率</div>
+                        </div>
+                        <div style={{ width: "85%" }}>
+                          {recent_record.length ? <Achievements records={recent_record} /> : null}
+
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 ) : null}

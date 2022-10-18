@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
 import classnames from 'classnames';
-import { FormattedMessage } from 'umi';
+import { FormattedMessage, useHistory } from 'umi';
 import type { ColumnProps } from 'antd/es/table';
 // import Mark from '@/components/Mark';
 import { normalizeFloat } from '@/utils/tools';
@@ -32,6 +32,7 @@ const Ranking: React.FC<IProps> = (props) => {
   const { data: dataSource, smallView } = props;
   const [historyVisible, setHistoryVisible] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<matchService.OddsCompanyType | null>(null);
+  const history = useHistory()
 
   const columns: ColumnProps<matchService.OddsCompanyType>[] = [
     {
@@ -161,8 +162,18 @@ const Ranking: React.FC<IProps> = (props) => {
         onRow={(record) => {
           return {
             onClick: (event) => {
-              setHistoryVisible(true);
-              setCurrentItem(record);
+              console.log(record.id);
+
+              // 跳转详情
+
+              history.push(`/zh/datadetails/${record.id}`, {
+                matchId: props.matchId,
+                data: dataSource,
+                match: props.match,
+                type: props.type
+              })
+              // setHistoryVisible(true);
+              // setCurrentItem(record);
               report({
                 cate: REPORT_CATE.match_detail,
                 action: REPORT_ACTION.match_detail_company_click,

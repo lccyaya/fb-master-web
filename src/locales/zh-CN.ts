@@ -268,7 +268,7 @@ export default {
     "key_open_push_browser": "为了让您实时了解您关注的球队的比赛赛况，您可以前往浏览器设置中开启 34 Sports 的通知权限后再回来刷新。",
     "key_or_log_in_with": "其他登录方式",
     "key_other": "其他",
-    "key_over_under": "大小球",
+    "key_over_under": "进球数",
     "key_overview": "赛况",
     "key_own_goal": "乌龙球",
     "key_page_not_exist": "抱歉，您访问的页面不存在。",

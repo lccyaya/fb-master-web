@@ -1,8 +1,8 @@
 import styles from './mobile.module.less';
 import Empty from '@/components/Empty';
 import { Button, Spin } from 'antd';
-import HitImage from '@/assets/hit.png';
-import MissImage from '@/assets/miss.png';
+import HitImage from '@/assets/red_img.png';
+import MissImage from '@/assets/black_img.png';
 // import Tags from '@/components/Tags/pc';
 import FBExpertTag, { FBTagType } from '@/components/FBExpertTag';
 
@@ -143,9 +143,12 @@ export default function SchemeList({
                             : ''}
                           {item.is_refund ? <span className={styles.is_refund}>已退款</span> : null}
                         </span>
+
+                           <div className={styles.typestate}>  {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}</div>
                         <span className={styles.type}>
-                          {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
-                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}
+                          {/* {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null} */}
                           <span className={styles.gold}>
                             {item.gold_coin === 0 ? '免费' : `${item.gold_coin} 金币`}
                           </span>
@@ -155,10 +158,12 @@ export default function SchemeList({
                       <>
                         <span className={styles.publish}>
                           {item.published_at ? `${formatTime(item.published_at)}发布` : ''}
-                        </span>
+                          </span>
+                          <div className={styles.typestate}>  {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}</div>
                         <span className={styles.type}>
-                          {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
-                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}
+                          {/* {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null} */}
                           {PLAY_STATUS[item.play]}｜
                           {item.state === SCHEME_STATE.STOP_SALE ? (
                             <span className={styles.stop_sale}>停售</span>
