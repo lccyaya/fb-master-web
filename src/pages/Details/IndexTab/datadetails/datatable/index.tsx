@@ -59,12 +59,15 @@ const Ranking: React.FC<IProps> = (props) => {
       key: 'home',
       align: "center",
       width: '23%',
-      render: (_, record) => {
+      render: (_, record, index) => {
         if (!hasInit(record)) return null;
         return (
-          <div className={classnames(styles.company, styles.home)}>
+          <div className={classnames(styles.company, styles.home)} >
             {/* <div className={styles.spot}>{record!.home}</div> */}
-            <div >{record!.home}</div>
+            <div
+              style={{ color: record!.home == dataSource[index + 1]?.home ? "" : record!.home > dataSource[index + 1]?.home ? "#FE2222" : "#39906A" }}
+            >{record!.home}</div>
+            {/* <div >{record!.home > dataSource[index].home ? "1" : 0}{index}</div> */}
           </div>
         );
       },
@@ -75,12 +78,14 @@ const Ranking: React.FC<IProps> = (props) => {
       key: 'draw',
       align: "center",
       width: '23%',
-      render: (_, record) => {
+      render: (_, record, index) => {
         if (!hasInit(record)) return '-';
         return (
           <div className={classnames(styles.company, styles.draw)}>
             {/* <div className={styles.spot}>{record!.draw}</div> */}
-            <div>{record!.draw}</div>
+            <div
+              style={{ color: record!.draw == dataSource[index + 1]?.draw ? "" : record!.draw > dataSource[index + 1]?.draw ? "#FE2222" : "#39906A" }}>{record!.draw}
+            </div>
           </div>
         );
       },
@@ -91,12 +96,13 @@ const Ranking: React.FC<IProps> = (props) => {
       key: 'away',
       align: "center",
       width: '23%',
-      render: (_, record) => {
+      render: (_, record, index) => {
         if (!hasInit(record)) return '-';
         return (
           <div className={classnames(styles.company, styles.away)}>
             {/* <div className={styles.spot}>{record!.away}</div> */}
-            <div >{record!.away}</div>
+            <div style={{ color: record!.away == dataSource[index + 1]?.away ? "" : record!.away > dataSource[index + 1]?.away ? "#FE2222" : "#39906A" }}
+            >{record!.away}</div>
           </div>
         );
       },
@@ -128,7 +134,7 @@ const Ranking: React.FC<IProps> = (props) => {
   ];
   return (
 
-    <div>
+    <div style={{ height: "100%" }}>
       <div style={{ fontSize: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
         <div className={styles.table_title} style={{ width: "25%" }}>
@@ -143,9 +149,13 @@ const Ranking: React.FC<IProps> = (props) => {
         <div className={styles.table_title} style={{ width: "35%", borderRadius: "0 8px 0 0" }}>    <FormattedMessage id="key_time" /></div>
       </div>
 
-      <ScrollView autoHeight
+      <ScrollView
+        autoHeight
+
         autoHeightMin={300}
-        autoHeightMax={640}>
+        autoHeightMax={675}
+
+      >
         <div className={styles.stats}>
 
 

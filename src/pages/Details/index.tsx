@@ -13,6 +13,7 @@ import { getMatchStatus, MatchStatus } from '@/utils/match';
 import Banner from '@/components/Banner';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
 import Scheme from './scheme/index';
+import { Tabs, Badge } from 'antd-mobile'
 
 import SupportYourTeam from '../../components/SupportYourTeam';
 import Tips from '../../components/Tips';
@@ -63,7 +64,7 @@ const Details: React.FC<DetailProps> = (props) => {
   const lang = toShortLangCode(locale.getLocale());
   const isPhone = checkIsPhone();
   const timer = useRef<number>();
-  const [detailType, setDetailType] = useState<TabType>('overview');
+  const [detailType, setDetailType] = useState<string>('overview');
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<matchService.MatchDetails>();
   const [tipsData, setTipsData] = useState<tipsType[]>([]);
@@ -175,7 +176,7 @@ const Details: React.FC<DetailProps> = (props) => {
     }
   };
 
-  const handleDetailTypeClick = (type: TabType) => {
+  const handleDetailTypeClick = (type: string) => {
     tabClicked.current = true;
     setDetailType(type);
     if (type === 'scheme') {
@@ -242,8 +243,40 @@ const Details: React.FC<DetailProps> = (props) => {
                   </Row>
                 )}
                 <div className={styles.tabWrapper}>
-                  <Row className={styles.header}>
-                    {newsTabVisible && (
+                  <div className={styles.tabstyle}>
+                    <Tabs activeLineMode="fixed" style={{ color: "#848494", "--fixed-active-line-width": "15px" }} defaultActiveKey={detailType} onChange={handleDetailTypeClick}>
+                      {newsTabVisible && (
+                        <Tabs.Tab title={lang === 'en' ? 'Info' : <FormattedMessage id="key_news" />}
+                          key='info'>
+                          {/* {lang === 'en' ? 'Info' : <FormattedMessage id="key_news" />} */}
+                        </Tabs.Tab>
+                      )}
+
+
+
+                      <Tabs.Tab title={<FormattedMessage id="key_overview" />} key='overview'>
+
+                      </Tabs.Tab>
+                      {hasScheme ? (
+                        <Tabs.Tab title='攻略' key='scheme'>
+
+                        </Tabs.Tab>
+
+                      ) : null}
+
+                      <Tabs.Tab title="分析" key='data'>
+
+                      </Tabs.Tab>
+                      <Tabs.Tab title={<FormattedMessage id="key_line_up" />} key='lineUp'>
+
+                      </Tabs.Tab>
+                      <Tabs.Tab title="数据" key='index'>
+
+                      </Tabs.Tab>
+                    </Tabs>
+
+
+                    {/* {newsTabVisible && (
                       <CheckableTag
                         className={styles.tabButton}
                         onClick={() => handleDetailTypeClick('info')}
@@ -278,7 +311,6 @@ const Details: React.FC<DetailProps> = (props) => {
                       checked={detailType === 'data'}
                       key="data"
                     >
-                      {/* <FormattedMessage id="key_data" /> */}
                       分析
                     </CheckableTag>
                     <CheckableTag
@@ -295,10 +327,11 @@ const Details: React.FC<DetailProps> = (props) => {
                       key="index"
                       checked={detailType === 'index'}
                     >
-                      {/* <FormattedMessage id="key_index" /> */}
                       数据
-                    </CheckableTag>
-                  </Row>
+                    </CheckableTag> */}
+
+
+                  </div>
                   {matchId && (
                     <div className={styles.tabPanel}>
                       <div style={{ display: detailType === 'info' ? 'block' : 'none' }}>

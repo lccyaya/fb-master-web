@@ -8,7 +8,7 @@ import SkilledCompetitions from '@/components/expert/skilled-competitions/mobile
 import { expertDetail } from '@/services/expert';
 import { history, useHistory, useLocation } from 'umi';
 import React, { useState, useEffect } from 'react';
-import Achievements from '@/components/achievements/mobile';
+import Achievements from '@/components/FBNewAchievements';
 import Chart from '@/components/Chart/mobile';
 import Avatar from '@/components/avatar';
 import { Spin } from 'antd';
@@ -22,7 +22,6 @@ const ExpertDetail: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const { query } = location;
-  console.log(location)
 
   const fetchData = async (hasLoading = true) => {
     hasLoading && setLoading(true);
@@ -126,6 +125,7 @@ const ExpertDetail: React.FC = () => {
                           <div className={styles.itemlist_value}>
                             {record.hit_rate}
                             <span>%</span>
+
                           </div>
                           <div className={styles.itemlist_label}>命中率</div>
                         </div>

@@ -1,4 +1,4 @@
-import IconFont from '@/components/IconFont';
+import Iconfont from '@/components/IconFont';
 import styles from './mobile.module.less';
 import cls from 'classnames';
 import React, { useState, useEffect } from 'react';
@@ -10,7 +10,7 @@ import CollectIcon from '@/assets/collected.png';
 import UnCollectIcon from '@/assets/uncollect.png';
 import { handleReport } from '@/utils/report';
 
-const Collect = ({ id, collected = false, onSuccess = () => {}, currentUser = {} }) => {
+const Collect = ({ id, collected = false, onSuccess = () => { }, currentUser = {} }) => {
   const [focus, setFocus] = useState(collected);
   const handleCollect = async (e) => {
     e.stopPropagation();
@@ -34,7 +34,10 @@ const Collect = ({ id, collected = false, onSuccess = () => {}, currentUser = {}
   }, [collected]);
   return (
     <div className={cls(styles.collect)} onClick={handleCollect}>
-      <img src={focus ? CollectIcon : UnCollectIcon} alt="" />
+
+      <Iconfont type="icon-shoucang" size={22} color={focus ? "#FA5900" : ""} />
+
+      {/* <img src={focus ? CollectIcon : UnCollectIcon} alt="" /> */}
     </div>
   );
 };

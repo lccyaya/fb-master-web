@@ -47,14 +47,14 @@ const Table = (props: Props) => {
     return (
         <div className={styles.main}>
 
-            <div style={{ display: "flex", background: "#fff" }}>
+            <div style={{ display: "flex", background: "#fff", height: "100%" }}>
                 <div className={styles.sideBar}>
                     <div className={styles.company_id} style={{ borderRadius: "8px 0 0 0" }}>  公司</div>
-                    <SideBar defaultActiveKey={props.id} onChange={(key) => {
+                    <SideBar style={{ "--background-color": "#F3F4F6", '--item-border-radius': '0px', }} defaultActiveKey={props.id} onChange={(key) => {
                         init(key)
                     }} >
                         {props.data.map(item => (
-                            <SideBar.Item key={item.id} title={item.name} >
+                            <SideBar.Item key={item.id} title={`${item.name[0]}*`} >
 
 
                             </SideBar.Item>

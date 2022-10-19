@@ -94,7 +94,12 @@ const SchemePage = ({ id, matchId }) => {
 
   return (
     <div className={styles.maintab}>
-      <NavBar onBack={back} right={<div style={{ width: 20, float: "right" }}><Collect id={id} collected={detail.collected} /></div>}>攻略详情
+      <NavBar onBack={back} right={<div style={{ width: 20, float: "right" }}>
+        <Collect id={id} collected={detail.collected} />
+      </div>
+      }
+
+      >攻略详情
 
       </NavBar>
       <div className={styles.scheme_page}>
@@ -122,7 +127,7 @@ const SchemePage = ({ id, matchId }) => {
             <Analysis detail={detail} matchInfo={matchInfo || {}} isStop={isStop} />
           )}
           {/* 免责申明 */}
-          <div style={{ background: "#D8D8D8", padding: 7, color: "#848494", borderRadius: 4 }}> <Tip /></div>
+          <div style={{ background: "#D8D8D8", padding: 7, borderRadius: 4 }}> <Tip /></div>
 
         </div>
         {!detail.detail && detail.state === SCHEME_STATE.SALE && detail.gold_coin > 0 && !isStop ? (

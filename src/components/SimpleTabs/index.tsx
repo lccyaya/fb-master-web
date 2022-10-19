@@ -25,7 +25,7 @@ interface IProps {
 const SimpleTabs: React.FC<IProps> = ({
   list,
   activeKey,
-  onChange = () => {},
+  onChange = () => { },
   type,
   sticky = false,
   top = 0,
@@ -33,16 +33,20 @@ const SimpleTabs: React.FC<IProps> = ({
   theme = 'light',
 }) => {
   const curKey = activeKey || lodash.head(list)?.key;
+
+  console.log(curKey, "oooooo");
+
   return (
     <div className={cls(styles.tabs, className, styles[theme])}>
       <div
         className={cls(styles.tabs_header, type === 'card' ? styles.tabs_header_card : null)}
-        style={sticky ? { position: 'sticky', top: top + 'px', background: '#fff' } : {}}
+        style={sticky ? { position: 'sticky', top: top + 1 + 'px', background: activeKey == "library" ? "#FA5900" : '#fff', } : {}}
       >
         <div className={styles.tab_list}>
           {list?.map((item) => {
             return (
               <div
+                style={{ color: activeKey == "library" ? "#fff" : '' }}
                 className={cls(
                   styles.item,
                   item.key === curKey ? styles.active : null,

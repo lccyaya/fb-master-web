@@ -17,7 +17,7 @@ import FBExpertTag, { FBTagType } from '@/components/FBExpertTag';
 const ExpertBlock = ({ expert, describe, published_at, id, collected }) => {
   return (
     <div className={styles.expert_block}>
-   <div className={styles.expertinfo} style={{marginBottom:15}}>    <div className={styles.expert}>
+      <div className={styles.expertinfo} style={{ marginBottom: 15 }}>    <div className={styles.expert}>
         <div className={styles.left_box}>
 
           <Avatar
@@ -52,33 +52,35 @@ const ExpertBlock = ({ expert, describe, published_at, id, collected }) => {
               {expert.nickname}
             </div>
             <div style={{ display: "flex" }}>
-            {expert.hit_tag?<div>  <FBExpertTag type={0} tag={expert.hit_tag} /></div>:""}
-            
+              {expert.hit_tag ? <div>  <FBExpertTag type={0} tag={expert.hit_tag} /></div> : ""}
+
               <div style={{ width: 5 }}></div>
-              {expert.continuous_tag?<div> <FBExpertTag  tag={expert.continuous_tag.split("连")[0]} /></div>:""}
-        </div>
-            
-          
+              {expert.continuous_tag ? <div> <FBExpertTag tag={expert.continuous_tag.split("连")[0]} /></div> : ""}
+            </div>
+
+
             {/* <Tags list={[expert.continuous_tag, expert.hit_tag]} className={styles.tags} /> */}
           </div>
         </div>
-        <div style={{margin:"10px 0"}}>
+        <div style={{ margin: "10px 0" }}>
           <Watch id={expert.id} followed={expert.followed} />
         </div>
       </div>
 
-      <Achievements records={expert.recent_record} />
-      <div className={styles.expert_desc}>{expert.introduce}</div>
-</div>
+        <Achievements records={expert.recent_record} />
+
+
+        <div className={styles.expert_desc}>{expert.introduce}</div>
+      </div>
       <div className={styles.expertinfoa}>
-           <div className={styles.desc}>
+        <div className={styles.desc}>
           <span>{describe}</span>
-          
-        {/* <Collect id={id} collected={collected} /> */}
-      </div>
-      <div className={styles.publish_at}>
-        {published_at ? `${formatTime(published_at)}发布` : ''}
-      </div>
+
+          {/* <Collect id={id} collected={collected} /> */}
+        </div>
+        <div className={styles.publish_at}>
+          {published_at ? `${formatTime(published_at)}发布` : ''}
+        </div>
       </div>
     </div>
   );
