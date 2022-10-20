@@ -3,7 +3,7 @@ import React from 'react';
 import { Empty } from 'antd';
 import { FormattedMessage } from 'umi';
 
-import empty from '@/assets/icon/empty.svg';
+import empty from '@/assets/empty.png';
 import styles from './index.less';
 
 interface IProps {

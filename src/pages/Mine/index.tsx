@@ -43,6 +43,12 @@ const Mine: React.FC<Props> = (props) => {
   const openFollow = () => {
     history.push('/zh/account/follow');
   };
+  const openExpertFocus = () => {
+    history.push('/zh/expert/rank');
+  };
+  const openSubMatch = () => {
+    history.push('/zh/match');
+  };
   const openSchemeCenter = () => {
     history.push('/zh/profile/center');
   };
@@ -51,12 +57,12 @@ const Mine: React.FC<Props> = (props) => {
     <div className={styles.container}>
       <UserInfo style={{ padding: '10px 10px', zIndex: '3' }} />
       <div className={styles.followinfo_box}>
-        <div className={styles.followitem_box}>
-          <span className={styles.value_text}>0</span>
+        <div className={styles.followitem_box} onClick={openExpertFocus}>
+          <span className={styles.value_text}>{user?.followExpertNum ?? 0}</span>
           <span className={styles.des_text}>关注</span>
         </div>
-        <div className={styles.followitem_box}>
-          <span className={styles.value_text}>0</span>
+        <div className={styles.followitem_box}  onClick={openSubMatch}>
+          <span className={styles.value_text}>{user?.subMatchNum ?? 0}</span>
           <span className={styles.des_text}>订阅</span>
         </div>
         <div className={styles.followitem_box} onClick={openFollow}>

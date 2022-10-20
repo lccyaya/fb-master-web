@@ -19,6 +19,7 @@
   padding: 0 !important;
   border-bottom: none !important;
   opacity: 0;
+
   @media screen and (max-width: @screen-sm) {
     top: -16px;
     left: 6px;
@@ -34,6 +35,7 @@
     display: inline-block;
     padding: 0 15px;
     color: @font-color-6;
+    // color: #45494C;
     font-weight: bold;
     font-size: 14px;
     font-family: 'PingFang SC';
@@ -56,44 +58,54 @@
 
 .company {
   :first-child {
-    border-bottom: 6px #fff solid;
+    // border-bottom: 6px #fff solid;
   }
 
   &.smallView {
+
     div,
     span {
       padding: 0 10px;
       color: #999;
+
     }
+
     div:first-child {
       border-bottom: 1px solid #d8d8d8;
     }
   }
 
+  .spot {
+    color: #FE2222;
+  }
+
   &.home,
   &.draw {
-    .spot {
-      color: #d80000;
-    }
+    // .spot {
+    //   color: #FE2222;
+    // }
+  }
+
+  .spotlow {
+    color: #39906A;
   }
 
   &.away {
     .spot {
-      color: #FA5900;
+      // color: #39906A;
     }
   }
 
   div,
   span {
     padding: 0 15px;
-
     color: @font-color-6;
     font-weight: bold;
     font-size: 14px;
     font-family: 'PingFang SC';
     line-height: 32px;
-    // text-align: center;
-    border-radius: 2px;
+    text-align: center;
+
 
     @media screen and (max-width: @screen-sm) {
       padding: 0 5px;
@@ -103,17 +115,38 @@
 }
 
 .stats {
+
+  // :global (.ant-table-thead>tr>th::before) {
+
+  // }
+
   :global(.ant-table-thead > tr > th) {
+
+
     padding: 3px 15px;
     text-align: center;
-    background: #fafafa;
-    border: 2px #fff solid;
+    color: #848494;
+    background: #FBFBFC;
+    border-bottom: 5px #fff solid;
+    border-right: 3px #fff solid;
+
 
     @media screen and (max-width: @screen-sm) {
       padding: 3px 5px;
       font-size: 12px;
     }
+
+    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+      height: 0;
+      width: 0;
+    }
+
   }
+
+  :global .ant-table-tbody>tr>td {
+    border-radius: 5px;
+  }
+
   &.smallView .title .name {
     width: 100%;
     padding: 0 10px;
@@ -121,29 +154,39 @@
     line-height: 24px;
     text-align: left;
   }
+
   &.smallView :global(.ant-table-thead > tr > th) {
     padding: 3px 10px;
     text-align: left;
     background: #fff;
     border: none;
-    .ant-table-thead > tr > th::before {
+
+
+    .ant-table-thead>tr>th::before {
       display: none !important;
     }
+
     &:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
       display: none !important;
     }
   }
 
   :global(.ant-table-tbody > tr > td) {
+    // .title___3sVd4 .name___2PSta {
+    //   color: red;
+    // }
+
     padding: 0;
     // padding: 3px 15px;
     color: @font-color-3;
+
+    // color: #45494C;
     font-weight: bold;
     font-size: 14px;
     font-family: 'PingFang SC';
     line-height: 22px;
     white-space: nowrap;
-    background: #fafafa;
+    background: #F3F4F6;
     border: 2px #fff solid;
 
     :hover {
@@ -154,12 +197,14 @@
       font-size: 12px;
     }
   }
+
   &.smallView :global(.ant-table-tbody > tr > td) {
-    color: #999;
+    color: #45494C;
     background-color: #fff;
     border: none;
-    border-bottom: 1px solid #d8d8d8;
+    // border-bottom: 1px solid #d8d8d8;
   }
+
   &.smallView :global(.ant-table-tbody > tr:last-child > td) {
     border: none;
   }

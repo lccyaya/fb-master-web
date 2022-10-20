@@ -166,6 +166,11 @@
               cate: 'match_detail',
             },
             {
+              path: '/:locale/datadetails/:matchId',
+              component: '../pages/Details/IndexTab/datadetails',
+              cate: 'match_datadetails',
+            },
+            {
               path: '/:locale/teamdetails/:teamId',
               component: '../pages/TeamDetails',
               cate: 'team_detail',
@@ -207,6 +212,10 @@
               path: '/:locale/informationdetail/:id',
               component: '@/pages/Information/InformationDetails',
             },
+            // {
+            //   path: '/:locale/worldcap',
+            //   component: '@/pages/WorldCup',
+            // },
             {
               component: './404',
             },

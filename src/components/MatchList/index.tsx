@@ -59,7 +59,7 @@ function Matches(props: {
   const { switchType, match, reportCate, setParams, handleChangeLiveMatch } = props;
   return (
     <>
-      <MatchCard data={match} key={match.match_id} type={switchType === 'Score' ? 'score' : 'index' } />
+      <MatchCard data={match} key={match.match_id} type={switchType === 'Score' ? 'score' : 'index'} />
       {/* {switchType === 'Score' ? (
         <MatchCardScore
           reportCate={reportCate}
@@ -203,7 +203,7 @@ const MatchList: React.FC<matchListProps> = (props) => {
     try {
       ids = JSON.parse(sessionStorage.getItem(SESS_STORAGE_SELECTED_LEAGUES) || '[]');
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
     setSelectedCompetitionIds(ids);
     return () => {
       clearInterval(liveTimer.current);
@@ -320,49 +320,49 @@ const MatchList: React.FC<matchListProps> = (props) => {
           )}
           {!showLiveVideo && matchList && matchList.length > 0
             ? matchList.map((ele: sameDayMatch, index: number) => {
-                const indexKey = `sameDayMatch${index}`;
-                return (
-                  <Row className={styles.listContainer} key={indexKey}>
-                    {competitionType !== 'live' && (
-                      <div className={styles.dateContainer}>
-                        <TimeTitle title={moment(new Date(+ele.date)).format('ddd, DD/MM YYYY')} key={indexKey} />
-                        {/* <span className={styles.dayOfWeek}>
+              const indexKey = `sameDayMatch${index}`;
+              return (
+                <Row className={styles.listContainer} key={indexKey}>
+                  {competitionType !== 'live' && (
+                    <div className={styles.dateContainer}>
+                      <TimeTitle title={moment(new Date(+ele.date)).format('ddd, DD/MM YYYY')} key={indexKey} />
+                      {/* <span className={styles.dayOfWeek}>
                           {moment(new Date(+ele.date)).format('ddd')},{' '}
                         </span>
                         <span className={styles.month}>
                           {moment(new Date(+ele.date)).format('DD/MM YYYY')}
                         </span> */}
-                      </div>
-                    )}
-                    {ele.matches.map((d: matchType, i) => {
-                      const key = `matcheList-${i}`;
-                      return (
-                        // <MatchCard key={key} data={d} type={switchType === 'Score' ? 'socre' : 'indedx'} />
-                        <Matches
-                          reportCate={reportCate}
-                          key={key}
-                          match={d}
-                          switchType={switchType}
-                          setParams={(id: number, bool: boolean) => {
-                            matchList.forEach((k) => {
-                              const { matches } = k;
-                              const sameMatch = matches.find((m: any) => m.match_id === id);
-                              if (sameMatch) {
-                                sameMatch.subscribed = bool;
-                                const cloned = JSON.parse(JSON.stringify(matchList));
-                                setMatchList(cloned);
-                              }
-                            });
-                          }}
-                          handleChangeLiveMatch={props.handleChangeLiveMatch}
-                        />
-                      );
-                    })}
-                  </Row>
-                );
-              })
+                    </div>
+                  )}
+                  {ele.matches.map((d: matchType, i) => {
+                    const key = `matcheList-${i}`;
+                    return (
+                      // <MatchCard key={key} data={d} type={switchType === 'Score' ? 'socre' : 'indedx'} />
+                      <Matches
+                        reportCate={reportCate}
+                        key={key}
+                        match={d}
+                        switchType={switchType}
+                        setParams={(id: number, bool: boolean) => {
+                          matchList.forEach((k) => {
+                            const { matches } = k;
+                            const sameMatch = matches.find((m: any) => m.match_id === id);
+                            if (sameMatch) {
+                              sameMatch.subscribed = bool;
+                              const cloned = JSON.parse(JSON.stringify(matchList));
+                              setMatchList(cloned);
+                            }
+                          });
+                        }}
+                        handleChangeLiveMatch={props.handleChangeLiveMatch}
+                      />
+                    );
+                  })}
+                </Row>
+              );
+            })
             : !showLiveVideo &&
-              !isMatchListLoading && <>{competitionType !== 'live' ? <MEmpty /> : <LiveEmpty />}</>}
+            !isMatchListLoading && <>{competitionType !== 'live' ? <MEmpty /> : <LiveEmpty />}</>}
         </Row>
         {competitionType === 'live' && !showLiveVideo && (
           <>

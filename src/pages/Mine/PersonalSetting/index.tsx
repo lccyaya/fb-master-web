@@ -143,7 +143,7 @@ const PersonalSetting: React.FC<Props> = (props) => {
                     onChange={onFileChange}
                     disabled={status == ExpertStatus.Accept}
                   >
-                    <Avatar src={avatarResource} size={40} />
+                    <Avatar style={{ marginTop: "-20px" }} src={avatarResource} size={40} />
                   </Upload>
                 ) : (
                   <div className={styles.nickname}>{nickname}</div>

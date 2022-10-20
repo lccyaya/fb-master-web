@@ -1,19 +1,40 @@
-.menu{
+.menu {
     position: relative;
     width: 100vw;
     height: 44px;
-    background-color: #fff;
-    :global{
-        .ant-tabs-tab-btn{
+    background-color: rgb(192, 22, 22);
+
+    :global {
+        .ant-tabs-tab-btn {
             margin: 0;
+
             // margin-right: 18px;
             // padding-right: 18px;
         }
-        .ant-tabs-tab{
+
+        .ant-tabs>.ant-tabs-nav .ant-tabs-nav-wrap,
+        .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap {
+            background: url(../../assets/match/match_tabbg.png);
+            color: #FFF0EA !important;
+        }
+
+        .menu___1NYUY .ant-tabs-tab-btn {
+            font-size: 14px !important;
+            // color: #2e5fa4 !important;
+
+        }
+
+        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+            font-size: 20px !important;
+            color: #fff;
+        }
+
+        .ant-tabs-tab {
             height: 44px;
             margin: 0 16px 0 0 !important;
             padding: 12px 0 !important;
-            &:first-child{
+
+            &:first-child {
                 margin-left: 16px !important;
             }
         }

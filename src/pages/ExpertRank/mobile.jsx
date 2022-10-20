@@ -70,6 +70,7 @@ const ExpertRank = ({ currentUser = {} }) => {
       <div className={classnames(styles.rank_bg, curKey === '1' ? styles.hidden : '')}>
         <img src={rankBg} alt="" />
       </div>
+
       <div className={styles.list_box}>
         <FBTabs
           items={items}
@@ -78,9 +79,11 @@ const ExpertRank = ({ currentUser = {} }) => {
           selectStyle={{ fontSize: '20px', color: curKey === '0' ? '#FFFFFF' : '#FA5900' }}
           normalStyle={{color: curKey === '0' ? '#EEEEFF' : '#848494'}}
         />
+
         <div style={{flex: 1}}>
           {curKey === '0' ? <RankList /> : null}
           {curKey === '1' ? <Watch /> : null}
+       
         </div>
       </div>
     </div>

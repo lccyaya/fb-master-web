@@ -1,0 +1,42 @@
+.main {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+
+    // :global(.adm-side-bar-item) {
+
+    //     background: #F3F4F6;
+
+    // }
+}
+
+.company_id {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    background-color: #F3F4F6;
+    text-align: center;
+    color: #848494;
+
+
+
+}
+
+.sideBar {
+    :global .adm-side-bar-item-active {
+        color: #45494C;
+        background-color: #FBFBFC;
+    }
+
+    :global .adm-side-bar-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+    }
+
+    :global .adm-side-bar-item-highlight {
+        width: 0;
+    }
+}

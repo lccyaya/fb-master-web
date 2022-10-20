@@ -31,10 +31,10 @@ const Ranking: React.FC<IProps> = (props) => {
       key: 'name',
       width: '10%',
       render: () => {
-        
+
         return (
           <div className={classnames(styles.title)}>
-            <Mark className={styles.mark} text={intl.formatMessage({id: 'key_hot'})} color="red" textColor="#fff" />
+            <Mark className={styles.mark} text={intl.formatMessage({ id: 'key_hot' })} color="red" textColor="#fff" />
             <span className={styles.name}>{props.name}</span>
           </div>
         );

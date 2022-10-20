@@ -166,17 +166,7 @@ export default (props: {
       <div className={styles.mobileWrapper}>
         <div className={styles.name}>{match.competition_name}</div>
         <div className={styles.time}>{time}</div>
-        <div className={styles.progress}>
-          {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
-          {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
-          {(status === MatchStatus.Before || status === MatchStatus.Going) && (
-            <>
-              {status === MatchStatus.Before
-                ? intl.formatMessage({ id: 'key_to_play' })
-                : match.minutes}
-            </>
-          )}
-        </div>
+
         <div
           className={styles.reminder}
           onClick={() => {
@@ -196,17 +186,37 @@ export default (props: {
               {match.home_team_name}
             </div>
           </Link>
-          <div className={`${styles.score} ${showOtOrPen ? styles.top : ''}`}>
-            {showScore ? (
-              <>
-                <div className={styles.num}>{final.home}</div>
-                <div className={styles.colon}>:</div>
-                <div className={styles.num}>{final.away}</div>
-              </>
-            ) : (
-              'VS'
-            )}
+
+          <div>
+
+            <div className={`${styles.score} ${showOtOrPen ? styles.top : ''}`}>
+              {showScore ? (
+                <>
+                  <div className={styles.num}>{final.home}</div>
+                  <div className={styles.colon}>:</div>
+                  <div className={styles.num}>{final.away}</div>
+                </>
+              ) : (
+                <div style={{
+                  margin: "0 20px 0 20px ", fontSize: "28px"
+                }}>VS</div>
+
+              )}
+            </div>
+
+            <div className={styles.progress}>
+              {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
+              {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
+              {(status === MatchStatus.Before || status === MatchStatus.Going) && (
+                <>
+                  {status === MatchStatus.Before
+                    ? intl.formatMessage({ id: 'key_to_play' })
+                    : match.minutes}
+                </>
+              )}
+            </div>
           </div>
+
           <Link className={styles.team} to={`../teamdetails/${match.away_team_id}`}>
             <img className={styles.logo} src={match.away_team_logo || emptyLogo} />
             <div className={styles.name} title={match.away_team_name}>

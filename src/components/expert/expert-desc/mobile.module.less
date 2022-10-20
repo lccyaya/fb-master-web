@@ -2,13 +2,30 @@
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 16px;
-  padding: 12px;
-  background-color: #fff;
-  border-radius: 8px;
+
+  // background-color: #fff;
+
+  .expertinfo {
+    min-height: 140px;
+    background-image: url(../../../assets/list-bg.png);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    padding: 0 12px 12px 12px;
+    // background-color: #fff;
+
+  }
+
+  .expertinfoa {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 12px;
+  }
 
   .desc {
     display: flex;
     justify-content: space-between;
+
     span {
       color: #333;
       font-size: 14px;
@@ -18,27 +35,34 @@
 
 
   }
+
   .publish_at {
-    margin-top: 6px;
-    margin-bottom: 11px;
+    margin-top: 10px;
+    // margin-bottom: 11px;
     color: #8b8b8b;
     font-size: 12px;
-    line-height: 17px;
+    // line-height: 17px;
+    text-align: right;
   }
+
   .line {
     width: 100%;
     height: 1px;
     background: rgba(216, 216, 216, 0.4);
   }
+
   .expert {
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
     margin-bottom: 8px;
+
     .left_box {
       display: flex;
       align-items: center;
+      margin: 10px 0;
     }
+
     .avatar {
       flex-shrink: 0;
       width: 46px;
@@ -47,6 +71,7 @@
       overflow: hidden;
       border-radius: 50%;
     }
+
     .mid {
       display: flex;
       flex: 1;
@@ -54,6 +79,7 @@
       justify-content: center;
       height: 46px;
     }
+
     .nickname {
       display: -webkit-box;
       overflow: hidden;
@@ -65,10 +91,12 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
     }
+
     .tags {
       margin-top: 4px;
       display: flex;
     }
+
     .tag {
       box-sizing: border-box;
       height: 18px;
@@ -83,6 +111,7 @@
       border: 1px solid rgba(244, 63, 61, 0.6);
       border-radius: 4px;
     }
+
     .star {
       display: flex;
       flex-shrink: 0;
@@ -98,6 +127,7 @@
       border-radius: 12px;
     }
   }
+
   .expert_desc {
     display: -webkit-box;
     overflow: hidden;

@@ -14,7 +14,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
   const { odds } = detail;
   const map = {
     [PLAY_STATUS.RQ]: [
-      { width: 43, label: '让球', key: 'goal', background: '#FBEABF' },
+      { width: 100, label: '让球', key: 'goal', background: '#F3F4F6' },
       { width: 100, label: '主胜', key: 'home' },
       { width: 100, label: '平局', key: 'draw' },
       { width: 100, label: '客胜', key: 'away' },
@@ -39,6 +39,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
   return (
     <div
       className={styles.scheme_block}
+      style={{position:"relative"}}
       onClick={() => {
         if (!detail?.match_id) {
           return;
@@ -48,22 +49,34 @@ const SchemeBlock = ({ detail, matchInfo }) => {
         history.push(`/${lang}/details/${detail.match_id}`);
       }}
     >
+          <div style={{fontSize:13,color:"#45494C",marginLeft:200,position:"absolute",right:0,top:3}} >
+                {moment(detail.match_time * 1000).format('MM/DD HH:mm')}
+        </div>
       <div className={styles.top}>
+       
         <div className={styles.pa1}>
           {PLAY_STATUS.SFGG === detail.play ? PLAY_STATUS[detail.play] : PLAY_TYPE[detail.type]}
         </div>
-        <div className={styles.pa2}>{detail.competition_name}</div>
+        <div className={styles.pa2}>{detail.competition_name} 
+         
+        </div>
+
+      
         {detail.state === SCHEME_STATE.HIT ? <img src={HitImage} className={styles.pa3} /> : null}
+
+          
         {detail.state === SCHEME_STATE.MISS ? <img src={MisImage} className={styles.pa3} /> : null}
         <div className={styles.team}>
+         
           <img src={detail.home_logo} className={styles.team_logo} />
           <div className={styles.team_name}>(主){detail.home_name}</div>
+          
         </div>
         <div className={styles.vs}>
           {matchInfo && matchInfo.status === MATCH_STATUS.WKS ? (
             <>
               <div className={styles.time}>
-                {moment(detail.match_time * 1000).format('MM/DD HH:mm')}
+                {/* {moment(detail.match_time * 1000).format('MM/DD HH:mm')} */}
               </div>
               <div className={styles.score}>VS</div>
             </>
@@ -73,7 +86,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
           matchInfo.status < MATCH_STATUS.WC ? (
             <>
               <div className={styles.time}>
-                {moment(detail.match_time * 1000).format('MM/DD HH:mm')}
+                {/* {moment(detail.match_time * 1000).format('MM/DD HH:mm')} */}
               </div>
               <div className={styles.score}>
                 {matchInfo.home}:{matchInfo.away}
@@ -86,7 +99,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
           {matchInfo && matchInfo.status === MATCH_STATUS.WC ? (
             <>
               <div className={styles.time}>
-                {moment(detail.match_time * 1000).format('MM/DD HH:mm')}
+                {/* {moment(detail.match_time * 1000).format('MM/DD HH:mm')} */}
               </div>
               <div className={styles.score}>
                 {matchInfo.home}:{matchInfo.away}
@@ -97,7 +110,7 @@ const SchemeBlock = ({ detail, matchInfo }) => {
           {matchInfo && matchInfo.status > MATCH_STATUS.WC ? (
             <>
               <div className={styles.time}>
-                {moment(detail.match_time * 1000).format('MM/DD HH:mm')}
+                {/* {moment(detail.match_time * 1000).format('MM/DD HH:mm')} */}
               </div>
               <div className={styles.score}>VS</div>
               <div className={styles.status}>{MATCH_STATUS[matchInfo.status]}</div>
@@ -121,9 +134,9 @@ const SchemeBlock = ({ detail, matchInfo }) => {
               style={{ flex: item.width, background: item.background }}
             >
               {detail.recommend === item.key ? <div className={styles.push}>推</div> : null}
-              {detail.result === item.key ? (
+              {/* {detail.result === item.key ? (
                 <img className={styles.hit} src={require('@/assets/hit_logo.png')} />
-              ) : null}
+              ) : null} */}
               <div className={styles.bottom_item_title}>{item.label}</div>
               <div className={styles.bottom_item_score}>{odds[item.key]}</div>
             </div>

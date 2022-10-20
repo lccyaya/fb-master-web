@@ -86,7 +86,7 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
   return (
     <div className={styles.supportContainer}>
       <Row className={styles.title}><FormattedMessage id="key_support_your_team" /></Row>
-      <Row className={styles.votes}>{`${total} ${useIntl().formatMessage({ id: 'key_votes' })}`}</Row>
+      <Row className={styles.votes}>投票人数：{`${total} ${useIntl().formatMessage({ id: 'key_votes' })}`}</Row>
       <div className={styles.info}>
         <PiechartVertical data={pieData} />
         <Row className={styles.voteContainer}>

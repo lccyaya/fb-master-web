@@ -124,6 +124,7 @@ const Info: React.FC<IProps> = (props) => {
 
   const menu = (
     <Menu
+      overflowedIndicator={<IconFont type="icon-zhankai2" color="#fff" />}
       className={styles.menu}
       defaultSelectedKeys={defaultSelectedKeys}
       defaultOpenKeys={checkIsPhone() ? undefined : defaultOpenKeys}
@@ -160,7 +161,7 @@ const Info: React.FC<IProps> = (props) => {
   );
 
   const seasonMenu = (
-    <Menu>
+    <Menu >
       <div className={styles.season_wrap}>
         {seasonList.map((item) => {
           const { year, ID } = item;
@@ -185,24 +186,6 @@ const Info: React.FC<IProps> = (props) => {
   const content = (
     <>
       <div className={styles.header}>
-        <div>
-          <CheckableTag
-            className={styles.tabButton}
-            onClick={() => handleTab2Change('tables')}
-            key="tables"
-            checked={detailType === 'tables'}
-          >
-            <FormattedMessage id="key_tables" />
-          </CheckableTag>
-          <CheckableTag
-            className={styles.tabButton}
-            onClick={() => handleTab2Change('fixtures')}
-            checked={detailType === 'fixtures'}
-            key="fixtures"
-          >
-            <FormattedMessage id="key_fixtures" />
-          </CheckableTag>
-        </div>
         <Dropdown
           visible={visible}
           onVisibleChange={setVisible}
@@ -214,12 +197,33 @@ const Info: React.FC<IProps> = (props) => {
               <FormattedMessage id="key_season" /> <span>{curSeason}</span>
             </div>
             <span className={styles.icon_wrap}>
-              <IconFont type="icon-zhankai" color="#fff" />
+              <IconFont type="icon-zhankai2" color="#fff" size={12} />
             </span>
           </div>
         </Dropdown>
+        <div >
+
+          <CheckableTag
+            className={styles.tabButton}
+            onClick={() => handleTab2Change('tables')}
+            key="tables"
+            checked={detailType === 'tables'}
+          >
+            <FormattedMessage id="key_tables" />
+
+          </CheckableTag>
+          <CheckableTag
+            className={styles.tabButton}
+            onClick={() => handleTab2Change('fixtures')}
+            checked={detailType === 'fixtures'}
+            key="fixtures"
+          >
+            <FormattedMessage id="key_fixtures" />
+          </CheckableTag>
+        </div>
+
       </div>
-      <Divider style={{ margin: '10px 0px' }} />
+      {/* <Divider style={{ margin: '10px 0px' }} /> */}
       <div>
         {detailType === 'tables' && (
           <Ranking
@@ -253,7 +257,9 @@ const Info: React.FC<IProps> = (props) => {
                   {content}
                 </div>
               ) : (
+
                 <ScrollView autoHide>{content}</ScrollView>
+
               )}
             </div>
           </>

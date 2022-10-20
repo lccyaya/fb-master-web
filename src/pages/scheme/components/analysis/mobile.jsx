@@ -11,7 +11,7 @@ const Analysis = ({ detail = {}, matchInfo = {}, isStop }) => {
   }
   return (
     <div className={styles.analysis}>
-      <div className={styles.analysis_title}>分析</div>
+      <div className={styles.analysis_title}>攻略</div>
       <div className={styles.analysis_content}>
         {detail.detail ? (
           <Detail detail={detail.detail} />

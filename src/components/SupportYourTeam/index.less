@@ -6,8 +6,10 @@
   margin: 0 0 16px 0;
   background: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
-  padding: 14px 0;
-  border-radius: 10px;
+  border-radius: 10px !important;
+  padding: 0 10px !important;
+  margin-top: 10px;
+
   @media (max-width: @screen-xs) {
     padding-top: 0;
     border-radius: 0;
@@ -16,13 +18,14 @@
   }
 
   .title {
-    color: #46494c;
+    color: #45494C;
     font-weight: bold;
     font-size: 24px;
-    font-family: Barlow;
-    font-style: italic;
+    // font-family: Barlow;
+    // font-style: italic;
     line-height: 32px;
     padding: 0 20px;
+
     @media (max-width: @screen-xs) {
       font-size: 18px;
       display: inline-block;
@@ -38,45 +41,51 @@
     font-family: Barlow;
     font-style: normal;
     line-height: 28px;
-    padding: 0 20px;
+    padding: 9px 20px;
+
     @media (max-width: @screen-xs) {
       display: inline-block;
       font-size: 12px;
       float: right;
       padding-right: 0;
       position: relative;
-      top: 14px;
+      // top: 14px;
     }
   }
 
   .info {
     width: 100%;
-    height: 182px;
-    margin-top: 16px;
+    height: 160px;
+    // margin-top: 16px;
+
     //background: #fafafa;
     //border-radius: 16px;
     @media (max-width: @screen-xs) {
-      margin-top: 12px;
-      background-color: #FAFAFA;
+      // margin-top: 12px;
+      // background-color: #FAFAFA;
       border-radius: 10px;
     }
 
     .voteContainer {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      margin: 0 16px;
+      // margin: 0 16px;
 
       .button {
-        min-width: 88px;
-        height: 40px;
+        width: 89px;
+        min-height: 15px;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 10px;
         font-family: Barlow;
-        font-style: normal;
-        background: #fafafa;
         border: none;
+        background-color: #F7FAFB;
+        font-style: normal;
+        word-wrap: break-word;
+
         @media (max-width: @screen-xs) {
-          background-color: #fff;
-          border-radius: 8px;
+          // background-color: #fff;
+          border-radius: 4px;
         }
       }
 
@@ -95,6 +104,7 @@
 
       .draw {
         color: @draw-color;
+
         &.selected {
           color: @draw-color !important;
           background: @draw-bg-color-selected !important;
