@@ -6,7 +6,7 @@ import MissImage from '@/assets/black_img.png';
 // import Tags from '@/components/Tags/pc';
 import FBExpertTag, { FBTagType } from '@/components/FBExpertTag';
 
-import {Tag } from 'antd';
+import { Tag } from 'antd';
 
 import { toShortLangCode, formatMatchTime } from '@/utils/utils';
 import { locale } from '@/app';
@@ -80,25 +80,25 @@ export default function SchemeList({
                           {item.nickname}
                         </div>
                         {showTags ? (
-                       
+
                           //    <Tags
                           //   list={[item.continuous_tag, item.hit_tag]}
                           //   className={styles.tags}
                           // />
-                        
+
                           <div style={{ display: "flex" }}>
-                              {item.hit_tag?   <div >
+                            {item.hit_tag ? <div >
                               {/* {item.hit_tag} */}
-                                 <FBExpertTag type={0} tag={item.hit_tag} />
+                              <FBExpertTag type={0} tag={item.hit_tag} />
                             </div> : ""}
-                       { item.continuous_tag? <div   style={{marginLeft:5}} >
-                            {/* { item.continuous_tag} */}
-                            <FBExpertTag tag={item.continuous_tag.split("连")[0]} />
+                            {item.continuous_tag ? <div style={{ marginLeft: 5 }} >
+                              {/* { item.continuous_tag} */}
+                              <FBExpertTag tag={item.continuous_tag.split("连")[0]} />
                             </div> : ""}
-                            
-               
-                      </div>
-                         
+
+
+                          </div>
+
                         ) : null}
                       </div>
                     </div>
@@ -144,7 +144,7 @@ export default function SchemeList({
                           {item.is_refund ? <span className={styles.is_refund}>已退款</span> : null}
                         </span>
 
-                           <div className={styles.typestate}>  {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                        <div className={styles.typestate}>  {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
                           {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}</div>
                         <span className={styles.type}>
                           {/* {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
@@ -158,9 +158,11 @@ export default function SchemeList({
                       <>
                         <span className={styles.publish}>
                           {item.published_at ? `${formatTime(item.published_at)}发布` : ''}
-                          </span>
-                          <div className={styles.typestate}>  {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
-                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}</div>
+                        </span>
+                        <div className={styles.typestate}>
+                          {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
+                          {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null}
+                        </div>
                         <span className={styles.type}>
                           {/* {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
                           {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null} */}

@@ -197,7 +197,7 @@ const Info: React.FC<IProps> = (props) => {
               <FormattedMessage id="key_season" /> <span>{curSeason}</span>
             </div>
             <span className={styles.icon_wrap}>
-              <IconFont type="icon-zhankai2" color="#fff" />
+              <IconFont type="icon-zhankai2" color="#fff" size={12} />
             </span>
           </div>
         </Dropdown>

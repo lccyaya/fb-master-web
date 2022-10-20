@@ -31,8 +31,8 @@ const Achievements = ({ records = [] }) => {
                     {newrecords.map((item, index) => {
                         return +item ? (
 
-                            <div style={{ margin: "9px 0 0 5px", fontSize: 16 }}>
-                                <div className={styles.red} key={index}>
+                            <div key={index} style={{ margin: "9px 0 0 5px", fontSize: 16 }}>
+                                <div className={styles.red} >
 
                                 </div>
                                 <div style={{ width: 18, height: 18, background: "#fff", }}>
@@ -41,7 +41,7 @@ const Achievements = ({ records = [] }) => {
                             </div>
                         ) : (
 
-                            <div style={{ margin: "15px 0 0 5px", fontSize: 16 }}>
+                            <div key={index} style={{ margin: "15px 0 0 5px", fontSize: 16 }}>
 
                                 <div style={{
                                     width: 18, height: 18, background: "#fff",

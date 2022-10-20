@@ -212,6 +212,10 @@
               path: '/:locale/informationdetail/:id',
               component: '@/pages/Information/InformationDetails',
             },
+            // {
+            //   path: '/:locale/worldcap',
+            //   component: '@/pages/WorldCup',
+            // },
             {
               component: './404',
             },

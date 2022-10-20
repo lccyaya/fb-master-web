@@ -221,7 +221,7 @@ const Details: React.FC<DetailProps> = (props) => {
             {/* 比赛详情 */}
           </NavBar>
         )}
-        <div className={styles.main}>
+        <div className={styles.main} >
           <InfoCard
             match={data}
             reportCate={REPORT_CATE.match_detail}
@@ -243,7 +243,7 @@ const Details: React.FC<DetailProps> = (props) => {
                   </Row>
                 )}
                 <div className={styles.tabWrapper}>
-                  <div className={styles.tabstyle}>
+                  <div className={styles.tabstyle} >
                     <Tabs activeLineMode="fixed" style={{ color: "#848494", "--fixed-active-line-width": "15px" }} defaultActiveKey={detailType} onChange={handleDetailTypeClick}>
                       {newsTabVisible && (
                         <Tabs.Tab title={lang === 'en' ? 'Info' : <FormattedMessage id="key_news" />}
