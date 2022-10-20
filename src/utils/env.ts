@@ -17,7 +17,7 @@ export function getAPIHost() {
 }
 
 export function getFeedbackAPIHost() {
-  return '//feedback.34.com';
+  return 'http//47.94.89.58:7007';
 }
 
 export function getLangAPIHost() {
