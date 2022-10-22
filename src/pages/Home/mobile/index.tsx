@@ -15,7 +15,7 @@ export default function MobileHome() {
     (state) => state.abtest.version,
   );
   const content = { A: <VersionA />, B: <VersionB />, '': null }[abVersion];
-  const [tabkey, setTabkey] = useState('home');
+  const [tabkey, setTabkey] = useState('information');
 
   return (
     <Spin spinning={!abVersion}>
@@ -28,23 +28,24 @@ export default function MobileHome() {
           className={styles.base_tab}
           list={[
             {
-              key: 'home',
-              title: '首页',
-              node: <VersionA />,
-            },
-              {
               key: 'information',
               title: '资讯',
-              node:   <Information />
-              
+              node: <Information />
+
             },
             {
-              key: 'library',
-              title: '资料库',
-              node: (
-                <Info id="info"/>
-              ),
+              key: 'home',
+              title: '头条',
+              node: <VersionA />,
             },
+
+            // {
+            //   key: 'library',
+            //   title: '资料库',
+            //   node: (
+            //     <Info id="info" />
+            //   ),
+            // },
           ]}
           onChange={setTabkey}
         />

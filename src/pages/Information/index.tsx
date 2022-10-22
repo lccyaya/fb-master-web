@@ -70,7 +70,7 @@ const Information = (props: Props) => {
             <div className={styles.main} >
                 {/* 轮播图 */}
                 <Banner className={styles.information_banner} />
-                <FBTitle title="热门资讯" />
+                {informationlist.length ? <FBTitle title="热门资讯" /> : ""}
                 {/* 列表 */}
                 <div className={styles.conent} >
                     {informationlist.map((item: any, index) => {
