@@ -66,6 +66,13 @@
               locale: 'key_match',
               component: './views/match',
             },
+            {
+              path: '/:locale/library',
+              name: 'Match',
+              cate: 'library',
+              locale: 'key_library',
+              component: '@/pages/Info',
+            },
             // {
             //   path: '/:locale/views/match',
             //   name: '比赛 (new)',

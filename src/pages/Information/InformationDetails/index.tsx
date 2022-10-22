@@ -64,7 +64,7 @@ const Informationdetails = (props: any) => {
         </div>
         <div className={styles.content} dangerouslySetInnerHTML={{ __html: detailData?.content }} />
         <div className={styles.nomore}>
-          没有更多了
+          <div className={styles.nomoreline}></div><div style={{ margin: "0 10px" }}>The End!</div><div className={styles.nomoreline}></div>
         </div>
       </div>
     </div >
