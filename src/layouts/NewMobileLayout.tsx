@@ -9,6 +9,7 @@ import { getPageFromPath, pageRegex } from '@/utils/page-info';
 import { report } from '@/services/ad';
 import { TabBar } from 'antd-mobile';
 import IconFont from '@/components/IconFont';
+import CapLogo from "@/assets/worldcap/cap_bottom_logo.png"
 
 const { TabPane } = Tabs;
 
@@ -25,7 +26,9 @@ const MobileLayout: React.FC<IProps> = (props) => {
       path: '/zh/home',
       locale: 'key_home_tab',
       icon: (active: boolean) => (
+
         <IconFont type={active ? 'icon-dianji-shouye' : 'icon-shouye1'} size={22} />
+
       ),
     },
     // {
@@ -56,6 +59,20 @@ const MobileLayout: React.FC<IProps> = (props) => {
       locale: 'key_match',
       icon: (active: boolean) => (
         <IconFont type={active ? 'icon-a-dianjibisai' : 'icon-bisai1'} size={22} />
+      ),
+    },
+
+    {
+      key: 'worldcap',
+      pathRegex: pageRegex.get('worldcap'),
+      path: '/zh/worldcap',
+      locale: 'key_worldcap',
+      icon: (active: boolean) => (
+        <div>
+          {!active ? <IconFont type={'icon-a-3123'} size={22} /> : <img style={{ width: 25, height: 25 }} src={CapLogo} alt=""></img>
+          }
+        </div>
+
       ),
     },
     {

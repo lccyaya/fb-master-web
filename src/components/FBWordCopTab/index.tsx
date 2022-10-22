@@ -3,24 +3,33 @@ import { CapsuleTabs } from 'antd-mobile'
 import styles from "./index.less"
 
 type titleprops = {
-    title: string,
+    title: any,
     key: string | number
 }
 
 type Props = {
-    title: titleprops[]
+    list: titleprops[],
+    defaultActiveKey: string,
+    onChange: Function
+    mini?: boolean
 }
 
 const FBWordCopTab = (props: Props) => {
-    const { title } = props
+    const { defaultActiveKey, list, mini, onChange = () => { } } = props
+    const onChangetab = (key: string) => {
+        onChange(key)
+    }
+    console.log(list, "00000");
     return (
-        <div className={styles.cap_main}>
-            <CapsuleTabs>
+        <div className={mini ? styles.cap_main_height : styles.cap_main}>
+            <div className={styles.cap_tab}>
+                <CapsuleTabs className={styles.cap_tab} defaultActiveKey={defaultActiveKey} onChange={onChangetab}>
 
-                {title.map((item) => {
-                    <CapsuleTabs.Tab title={item.title} key={item.key} />
-                })}
-            </CapsuleTabs>
+                    {list.map((item) => {
+                        return <CapsuleTabs.Tab title={item.title} key={item.key} />
+                    })}
+                </CapsuleTabs>
+            </div>
         </div>
     )
 }
