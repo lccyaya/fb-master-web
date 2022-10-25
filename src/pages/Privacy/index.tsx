@@ -34,22 +34,22 @@ const Account: React.FC<AccountType> = (props: AccountType) => {
 
   return (
     // <Container>
-      <div className={styles.container}>
-        <NavBar className={styles.navbar} onBack={back}>
-          隐私协议
-        </NavBar>
-        <ScrollView>
-          <Iframe
-            url={url}
-            // width="100%"
-            // height="100%"
-            id="myId"
-            className={styles.iframe}
-            // display="initial"
-            position="relative"
-          />
-        </ScrollView>
-      </div>
+    <div className={styles.container}>
+      <NavBar className={styles.navbar} onBack={back}>
+        隐私协议
+      </NavBar>
+      <ScrollView>
+        <Iframe
+          url={url}
+          // width="100%"
+          // height="100%"
+          id="myId"
+          className={styles.iframe}
+          // display="initial"
+          position="relative"
+        />
+      </ScrollView>
+    </div>
     // </Container>
   );
 };

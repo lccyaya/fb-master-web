@@ -4,7 +4,7 @@ export function formatNumber(num: number | string) {
 	if (newnum == 0) {
 		return newnum + '';
 	} else
-		if (newnum > 1 && newnum < 10000) {
+		if (newnum > 0 && newnum < 10000) {
 			return newnum + '';
 		} else {
 			return (newnum / 10000).toFixed(1) + '万';

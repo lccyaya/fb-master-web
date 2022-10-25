@@ -4,6 +4,9 @@ import Analysis from "./Analysis"
 import Scheme from "./Scheme"
 import Rankinglist from "./Rankinglist"
 import Focusing from "./Focusing"
+
+import Schedule from "./Schedule"
+
 import WorldcapImg from "@/assets/worldcap/cap_bg.png"
 
 import { FormattedMessage } from 'umi';
@@ -63,6 +66,7 @@ const WorldCup = (props: Props) => {
             {activeKey == "key_scheme" && <Scheme></Scheme>}
             {activeKey == "key_worldcap_rankinglist" && <Rankinglist></Rankinglist>}
 
+            {activeKey == "key_worldcap_schedule" && <Schedule></Schedule>}
 
         </div>
     )

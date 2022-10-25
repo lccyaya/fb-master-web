@@ -102,7 +102,7 @@ export default function MajorMatch(props: any) {
         ...data[curIndex.current].match,
         subscribed: nextValue,
       };
-      setData([...data]);
+      // setData([...data]);
     }
     setLoading(false);
   };

@@ -14,6 +14,8 @@ import { useHistory } from 'umi';
 import type { majorMatchType } from '@/services/home';
 import { AnalysisList } from '@/services/worldcap';
 
+
+
 type Props = {}
 const colors = ['#fff', '#fff', '#fff', '#fff']
 
@@ -21,7 +23,7 @@ const Focusing = (props: Props) => {
     const history = useHistory()
     const [bannerIndex, setBannerIndex] = useState(0)
     const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
-    // 滚动卡片
+    // 左右滚动卡片
     const getData = async () => {
         const res: any = await getMajorData();
         if (res.success) {
@@ -35,7 +37,7 @@ const Focusing = (props: Props) => {
             page,
             size,
             worldcup: true,
-            type: 2
+            // type: 2
         }
         const result: any = await AnalysisList(data);
         if (result.success == true) {
@@ -71,18 +73,18 @@ const Focusing = (props: Props) => {
             manual: true,
         }
     );
-    const verticalItems = colors.map((color, index) => (
-        <Swiper.Item key={index} >
-            <div className={styles.verticalContent} style={{ background: color, color: bannerIndex == index ? "#7E1132" : "rgba(126, 17, 50, 0.4)" }}>
-                {index + "c***e 荣登 世界杯颜值榜 颜王"}
-            </div>
-        </Swiper.Item>
-    ))
+    // const verticalItems = colors.map((color, index) => (
+    //     <Swiper.Item key={index} >
+    //         <div className={styles.verticalContent} style={{ background: color, color: bannerIndex == index ? "#7E1132" : "rgba(126, 17, 50, 0.4)" }}>
+    //             {index + "c***e 荣登 世界杯颜值榜 颜王"}
+    //         </div>
+    //     </Swiper.Item>
+    // ))
 
     return (
         <div className={styles.cap_list}>
             <FBMajorMatchItem data={dataCard} borderColor="#7E1132" />
-            <div className={styles.vertical}>
+            {/* <div className={styles.vertical}>
                 <IconFont type={'icon-tuiguang'} size={20} />
                 <div style={{ width: 10 }}></div>
 
@@ -100,7 +102,10 @@ const Focusing = (props: Props) => {
                     {verticalItems}
                 </Swiper>
 
-            </div>
+
+
+            </div> */}
+
             <div className={styles.conent} style={{ background: "#fff" }}>
                 <div className={styles.title}>
                     <img className={styles.title_logo} src={TitleLogo} alt="" />
@@ -117,7 +122,7 @@ const Focusing = (props: Props) => {
                                     borderBottom: "1px solid #EEEEEE",
 
                                 }}>
-                                    <FBInformationList onChange={() => {
+                                    <FBInformationList onClick={() => {
                                         history.push(`/zh/informationdetail/${item.ID}`)
                                     }} showLine={false} informationList={item} id={index} />
 

@@ -74,8 +74,9 @@ const Information = (props: Props) => {
                 {/* 列表 */}
                 <div className={styles.conent} >
                     {informationlist.map((item: any, index) => {
-                        return <FBInformationList onChange={() => {
+                        return <FBInformationList onClick={() => {
                             history.push(`/zh/informationdetail/${item.ID}`)
+
                         }} showLine={index !== informationlist.length - 1} informationList={item} key={item.ID} id={item.ID} />
                     })}
 
@@ -86,7 +87,7 @@ const Information = (props: Props) => {
                     <Spin spinning={loading}>
                         <div className={styles.content}>
                             {data?.list?.map((item: any, index: number) => {
-                                return <FBInformationList onChange={() => {
+                                return <FBInformationList onClick={() => {
                                     history.push(`/zh/informationdetail/${item.ID}`)
                                 }} showLine={index !== data.length - 1} informationList={item} key={item.ID} id={item.ID} />
                             })}

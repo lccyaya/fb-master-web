@@ -22,7 +22,7 @@ type Informationlist = {
   id: number
   showLine?: boolean
   informationList: informationList
-  onChange?: Function
+  onClick?: Function
 }
 
 const FBInformationList: React.FC<Informationlist> = (props: Informationlist) => {
@@ -30,13 +30,12 @@ const FBInformationList: React.FC<Informationlist> = (props: Informationlist) =>
 
 
   // const history = useHistory()
-  const { informationList, onChange = () => { } } = props
+  const { informationList, onClick = () => { } } = props
 
 
   // 跳转详情
   const getdetail = () => {
-    onChange()
-    // history.push(`/zh/informationdetail/${props.id}`)
+    onClick()
   }
   return (
     <div className={styles.main} onClick={getdetail}>

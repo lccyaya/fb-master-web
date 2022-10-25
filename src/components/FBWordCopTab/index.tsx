@@ -19,7 +19,7 @@ const FBWordCopTab = (props: Props) => {
     const onChangetab = (key: string) => {
         onChange(key)
     }
-    console.log(list, "00000");
+    // console.log(list, "00000");
     return (
         <div className={mini ? styles.cap_main_height : styles.cap_main}>
             <div className={styles.cap_tab}>

@@ -67,7 +67,7 @@ const Analysis = (props: Props) => {
                             borderBottom: "1px solid #EEEEEE",
 
                         }}>
-                            <FBInformationList onChange={() => {
+                            <FBInformationList onClick={() => {
                                 history.push(`/zh/informationdetail/${item.ID}`)
                             }} showLine={false} informationList={item} id={index} />
 
