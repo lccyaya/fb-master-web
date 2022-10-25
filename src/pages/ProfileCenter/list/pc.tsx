@@ -13,6 +13,7 @@ import { useHistory, useSelector } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
 import { ExpertStatus } from '@/utils/scheme';
+import FBExpertSettlement from './components/FBExpertSettlement';
 
 interface PageParam {
   current: number;
@@ -132,9 +133,13 @@ const SchemeList: React.FC = (props) => {
         return (
           <Space>
             {/* <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a> */}
-            <a onClick={() => {
-              history.push('/zh/profile/center/create/detail', record)
-            }}>查看</a>
+            <a
+              onClick={() => {
+                history.push('/zh/profile/center/create/detail', record);
+              }}
+            >
+              查看
+            </a>
             {/* {record.state === 1 ? (
               <a
                 onClick={() => {
@@ -227,6 +232,9 @@ const SchemeList: React.FC = (props) => {
   return (
     <PageContainer>
       <Card>
+        <FBExpertSettlement />
+      </Card>
+      <Card>
         <FormSearch
           form={form}
           submit={search?.submit}
@@ -241,7 +249,7 @@ const SchemeList: React.FC = (props) => {
           columns={columns}
           {...tableProps}
           scroll={{ x: 'max-content' }}
-          rowKey={(record:any) => record.id}
+          rowKey={(record: any) => record.id}
         />
       </Card>
     </PageContainer>
