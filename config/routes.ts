@@ -222,9 +222,14 @@
               cate: 'informationdetail',
             },
             {
-              path: '/:locale/worldcap',
+              path: '/:locale/worldcup',
               component: '../pages/WorldCup',
               cate: 'world_WorldCup',
+            },
+            {
+              path: '/:locale/worldcup_guess',
+              component: '../pages/WorldCupGuess',
+              cate: 'world_WorldCupGuess',
             },
             {
               path: '/:locale/rule',

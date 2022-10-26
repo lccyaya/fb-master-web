@@ -222,7 +222,7 @@ export enum REPORT_CATE {
   info = 'info',
   me = 'me',
   match = 'match',
-  worldcap = "worldcap",
+  worldcup = "worldcup",
   select_league = 'select_league',
   login = 'login',
   my_team = 'my_team',

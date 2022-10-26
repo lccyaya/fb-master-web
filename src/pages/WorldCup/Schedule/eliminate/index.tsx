@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from "./index.less"
-import Zanwei from "@/assets/worldcap/Zanwei.png"
+import Zanwei from "@/assets/worldcup/Zanwei.png"
+import type { eliminateList } from '@/services/worldcup';
+
+
 type Props = {
     eliminateList: any
 }
@@ -14,28 +17,26 @@ const Eliminate = (props: Props) => {
             <div>
                 <div className={styles.box_onetop}>
 
-                    {eliminateList.onelist[0].map((item, index) => {
-                        return <div key={index} className={styles.box_onetopflex}>
+                    {eliminateList?.onelist[0].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_onetopflex}>
                             <div className={styles.box_top}>
                                 <div className={styles.box_top_name}>
                                     {/* {item.away_name ? "A" : ""} */}
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
-                                    {/* <div> {item.home_name}</div> */}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name} > {item.home_name}</div>
+
 
                                 </div>
 
                                 <div>
-                                    {item.home_score}/{item.away_score}
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_top_name}>
-                                    {item.away__country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
-                                    {/* <div> {item.away_name}</div> */}
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
                             </div>
-                            <div className={styles.name} style={{ height: 50 }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                             <div style={{ display: "flex", width: "50%" }}>
                                 <div className={styles.box_top_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
 
@@ -48,38 +49,37 @@ const Eliminate = (props: Props) => {
                             </div>
 
 
-                            <div className={styles.box_top_shu} style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}></div>
+                            <div className={styles.box_top_shu}
+                                style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>
+
+                            </div>
                         </div>
                     })}
-
-
                 </div>
 
                 <div className={styles.box_onetop}>
-                    {eliminateList.onelist[1].map((item, index) => {
-                        return <div key={index} className={styles.box_twotopflex} >
+                    {eliminateList?.onelist[1].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_twotopflex} >
                             <div className={styles.box_top}>
                                 <div className={styles.box_toptwo_name}>
 
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
 
                                 </div>
 
-                                <div style={{ width: "35%", textAlign: "center" }}>
-                                    {item.home_score}/{item.away_score}
+                                <div style={{ width: "25%", textAlign: "center" }}>
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.away_country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
-
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
 
 
 
                             </div>
-                            <div className={styles.name}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                             <div style={{ display: "flex", width: "50%" }}>
                                 <div className={styles.box_top_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
 
@@ -98,34 +98,32 @@ const Eliminate = (props: Props) => {
                 </div>
                 <div className={styles.box_onetop}>
 
-                    {eliminateList.onelist[2].map((item, index) => {
-                        return <div className={styles.box_threetopflex} >
+                    {eliminateList?.onelist[2].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_threetopflex} >
                             <div className={styles.box_top}>
                                 <div className={styles.box_toptwo_name}>
 
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
 
                                 </div>
 
-                                <div style={{ width: "42%", textAlign: "center" }}>
-                                    {item.home_score}/{item.away_score}
+                                <div style={{ width: "37%", textAlign: "center" }}>
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.away_country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
-
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
 
                             </div>
-                            <div className={styles.name} style={{ width: "69%" }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                             <div style={{ display: "flex", width: "50%" }}>
-                                <div className={styles.box_top_line} style={{ height: 30, borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
+                                <div className={styles.box_top_line} style={{ height: 20, borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
 
 
                                 </div>
-                                <div className={styles.box_top_rightline} style={{ height: 30, borderColor: item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>
+                                <div className={styles.box_top_rightline} style={{ height: 20, borderColor: item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>
 
 
                                 </div>
@@ -135,29 +133,27 @@ const Eliminate = (props: Props) => {
                     })}
                 </div>
                 <div className={styles.box_onetop}>
-                    {eliminateList.onelist[3].map((item, index) => {
-                        return <div className={styles.box_threetopflex}  >
+                    {eliminateList?.onelist[3].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_threetopflex}  >
 
                             <div className={styles.box_top} >
                                 <div className={styles.box_toptwo_name}>
-                                    {item.home_country_logo ? <img style={{ width: 50, height: 50 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 50, height: 50 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 40, height: 40 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
 
 
                                 </div>
 
-                                <div style={{ width: 130, textAlign: "center" }}>
-                                    {item.home_score}-{item.away_score}
+                                <div style={{ width: 120, textAlign: "center" }}>
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.away_country_logo ? <img style={{ width: 50, height: 50 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 50, height: 50 }} src={Zanwei} alt="" />}
+                                    {item.away_country_logo ? <img style={{ width: 40, height: 40 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />}
 
-
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
                             </div>
-                            <div className={styles.name} style={{ width: "60%" }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                         </div>
 
                     })}
@@ -165,8 +161,8 @@ const Eliminate = (props: Props) => {
             </div>
             <div>
                 <div className={styles.box_onetop}>
-                    {eliminateList.twolist[eliminateList.twolist.length - 1].map((item) => {
-                        return <div className={styles.box_threetopflex} >
+                    {eliminateList?.twolist[eliminateList.twolist.length - 1].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_threetopflex} >
 
                             <div style={{
                                 width: "70%",
@@ -175,62 +171,64 @@ const Eliminate = (props: Props) => {
                             }}>
                                 <div className={styles.box_top} >
                                     <div className={styles.box_toptwo_name}>
-                                        {item.home_country_logo ? <img style={{ width: 50, height: 50 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 50, height: 50 }} src={Zanwei} alt="" />}
+                                        {item.home_country_logo ? <img style={{ width: 40, height: 40 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />}
+                                        <div className={styles.stem_name}> {item.home_name}</div>
                                     </div>
-                                    <div style={{ width: 130, textAlign: "center" }}>
-                                        {item.home_score}-{item.away_score}
+                                    <div style={{ width: 120, textAlign: "center" }}>
+                                        {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                     </div>
                                     <div className={styles.box_toptwo_name}>
-                                        {item.away_country_logo ? <img style={{ width: 50, height: 50 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 50, height: 50 }} src={Zanwei} alt="" />}
+                                        {item.away_country_logo ? <img style={{ width: 40, height: 40 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />}
+                                        <div className={styles.name} >
+
+                                            <div className={styles.stem_name}> {item.away_name}</div>
+                                        </div>
                                     </div>
+
                                 </div>
 
 
                             </div>
-                            <div className={styles.name} style={{ width: "60%" }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
 
                         </div>
 
                     })}
                 </div>
                 <div className={styles.box_onetop}>
-                    {eliminateList.twolist[eliminateList.twolist.length - 2].map((item) => {
-                        return <div className={styles.box_threetopflex} >
+                    {eliminateList?.twolist[eliminateList.twolist.length - 2].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_threetopflex} >
                             <div className={styles.box_top_shu} style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}></div>
 
                             <div style={{ display: "flex", width: "50%", }}>
-                                <div className={styles.box_bottom_line} style={{ height: 30, borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
+                                <div className={styles.box_bottom_line} style={{ height: 20, borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
                                 </div>
-                                <div className={styles.box_bottom_rightline} style={{ height: 30, borderColor: item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>
+                                <div className={styles.box_bottom_rightline} style={{ height: 20, borderColor: item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>
                                 </div>
                             </div>
                             <div className={styles.box_top}>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
+
                                 </div>
-                                <div style={{ width: "42%", textAlign: "center" }}>
-                                    {item.home_score}/{item.away_score}
+                                <div style={{ width: "37%", textAlign: "center" }}>
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_toptwo_name}>
 
-                                    {item.away_country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
 
-
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
                             </div>
-                            <div className={styles.name} style={{ width: "66%" }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                         </div>
                     })}
                 </div>
                 <div className={styles.box_onetop}>
-                    {eliminateList.twolist[1].map((item, index) => {
-                        return <div key={index} className={styles.box_twotopflex} >
+                    {eliminateList?.twolist[1].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_twotopflex} >
                             <div className={styles.box_top_shu} style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}></div>
                             <div style={{ display: "flex", width: "50%" }}>
                                 <div className={styles.box_bottom_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
@@ -240,26 +238,25 @@ const Eliminate = (props: Props) => {
                             </div>
                             <div className={styles.box_top}>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
 
                                 </div>
-                                <div style={{ width: "35%", textAlign: "center" }}>
-                                    {item.home_score}/{item.away_score}
+                                <div style={{ width: "25%", textAlign: "center" }}>
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_toptwo_name}>
-                                    {item.away_country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
                             </div>
-                            <div className={styles.name} >
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                         </div>
                     })}
                 </div>
                 <div className={styles.box_onetop}>
-                    {eliminateList.twolist[0].map((item, index) => {
-                        return <div key={index} className={styles.box_onetopflex}>
+                    {eliminateList?.twolist[0].map((item: eliminateList) => {
+                        return <div key={item.id} className={styles.box_onetopflex}>
                             <div className={styles.box_top_shu} style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}></div>
                             <div style={{ display: "flex", width: "50%" }}>
                                 <div className={styles.box_bottom_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
@@ -269,20 +266,20 @@ const Eliminate = (props: Props) => {
                             </div>
                             <div className={styles.box_top}>
                                 <div className={styles.box_top_name}>
-                                    {item.home_country_logo ? <img style={{ width: 30, height: 30 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.home_country_logo ? <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.home_name}</div>
+
                                 </div>
 
                                 <div>
-                                    {item.home_score}/{item.away_score}
+                                    {item.state_id > 2 ? <div>  {item.home_score}-{item.away_score}</div> : <div>VS</div>}
                                 </div>
                                 <div className={styles.box_top_name}>
-                                    {item.away_country_logo ? <img style={{ width: 30, height: 30 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 30, height: 30 }} src={Zanwei} alt="" />}
+                                    {item.away_country_logo ? <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" /> : <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />}
+                                    <div className={styles.stem_name}> {item.away_name}</div>
                                 </div>
                             </div>
-                            <div className={styles.name} style={{ height: 50 }}>
-                                <div className={styles.stem_name}> {item.home_name}</div>
-                                <div className={styles.stem_name}> {item.away_name}</div>
-                            </div>
+
                         </div>
                     })}
                 </div>

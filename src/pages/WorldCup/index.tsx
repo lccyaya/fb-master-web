@@ -7,7 +7,7 @@ import Focusing from "./Focusing"
 
 import Schedule from "./Schedule"
 
-import WorldcapImg from "@/assets/worldcap/cap_bg.png"
+import WorldcapImg from "@/assets/worldcup/cup_bg.png"
 
 import { FormattedMessage } from 'umi';
 
@@ -40,18 +40,16 @@ const WorldCup = (props: Props) => {
     },
     ]
     const onChangetab = (key: string) => {
-        console.log(key, "ppooiuytre");
         setActiveKey(key)
     }
 
     return (
         <div className={styles.cap_main}>
-            <div className={styles.cap_bg}>
+            <div className={styles.cup_bg}>
                 <img style={{ width: "100%", height: "200px" }} src={WorldcapImg} alt="" />
 
-                <div className={styles.cap_tabbg}>
+                <div className={styles.cup_tabbg}>
                     <FBWorldCapTab list={tab} defaultActiveKey={activeKey} onChange={onChangetab}></FBWorldCapTab>
-
                 </div>
 
 

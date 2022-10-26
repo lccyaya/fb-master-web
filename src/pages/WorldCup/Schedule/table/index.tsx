@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ScoresList } from "@/services/worldcap"
+import { ScoresList } from "@/services/worldcup"
 
 
 import styles from "./index.less"
@@ -33,7 +33,7 @@ const TablePage = (props: Props) => {
             title: `${grouplist[props.group]}组`,
             dataIndex: 'team_name',
             key: 'team_name',
-            width: 200,
+            // width: 150,
             // align: "center",
             render: (text, record, index) => <div>
                 <span >{record.position}</span>

@@ -1,29 +1,27 @@
 import React, { useEffect } from 'react'
 import FBInformationList from "@/components/FBInformationList"
 import styles from "./index.less"
-import { AnalysisList } from '@/services/worldcap';
+import { AnalysisList } from '@/services/worldcup';
 import { InfiniteScroll } from 'antd-mobile';
 import { Spin } from 'antd';
 import { useInfiniteScroll } from 'ahooks';
 import { useHistory } from 'umi';
 import Empty from '@/components/Empty';
-// import types { AnalysisListParams } from '@/services/worldcap';
-import type { AnalysisListParams } from '@/services/worldcap';
+import type { WordCapParams, Datares } from '@/services/worldcup';
 type Props = {}
 
 const Analysis = (props: Props) => {
 
     const history = useHistory()
     const getAnalysisList = async (page: number, size: number): Promise<any> => {
-        let data: AnalysisListParams = {
+        let data: WordCapParams = {
             page,
             size,
             worldcup: true,
             type: 2
         }
-        const result: any = await AnalysisList(data);
-        if (result.success == true) {
-
+        const result: Datares = await AnalysisList(data);
+        if (result.success) {
             return {
                 list: result.data.news,
                 total: result.data.total,

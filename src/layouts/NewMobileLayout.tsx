@@ -9,7 +9,7 @@ import { getPageFromPath, pageRegex } from '@/utils/page-info';
 import { report } from '@/services/ad';
 import { TabBar } from 'antd-mobile';
 import IconFont from '@/components/IconFont';
-import CapLogo from '@/assets/worldcap/cap_bottom_logo.png';
+import CapLogo from '@/assets/worldcup/cup_bottom_logo.png';
 
 const { TabPane } = Tabs;
 
@@ -61,12 +61,12 @@ const MobileLayout: React.FC<IProps> = (props) => {
     },
 
     {
-      key: 'worldcap',
+      key: 'worldcup',
       pathRegex: pageRegex.get('worldcap'),
-      path: '/zh/worldcap',
-      locale: 'key_worldcap',
+      path: '/zh/worldcup',
+      locale: 'key_worldcup',
       icon: (active: boolean) => (
-        <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'100%'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           {!active ? (
             <IconFont type={'icon-a-3123'} size={22} />
           ) : (
@@ -158,6 +158,15 @@ const MobileLayout: React.FC<IProps> = (props) => {
     }
   };
 
+  // useEffect(() => {
+  //   const nav = navs.find((n) => {
+  //     const regex = new RegExp(`^${n.path}/?$`);
+  //     return regex.test(location.pathname);
+  //   });
+  //   console.log(location.pathname);
+  //   setCurKey(nav?.key ?? '');
+  // }, [location.pathname]);
+
   useEffect(() => {
     const nav = navs.find((n) => {
       const regex = new RegExp(`^${n.path}/?$`);
@@ -165,7 +174,7 @@ const MobileLayout: React.FC<IProps> = (props) => {
     });
     console.log(location.pathname);
     setCurKey(nav?.key ?? '');
-  }, [location.pathname]);
+  }, []);
 
   return (
     <>

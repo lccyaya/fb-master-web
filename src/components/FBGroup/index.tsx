@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.less'
-import type { listprops, GroupListres } from '@/services/worldcap';
+import type { listprops, GroupListres } from '@/services/worldcup';
 import moment from 'moment';
 type Props = {
     groupList: GroupListres[]

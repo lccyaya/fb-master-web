@@ -215,7 +215,7 @@ export default {
     "key_major_match": "重要比赛",
     "key_major_matches": "重要比赛",
     "key_match": "比赛",
-    "key_worldcap": "世界杯",
+    "key_worldcup": "世界杯",
     "key_match_amount": "场比赛",
     "key_match_calendar": "比赛日历",
     "key_match_has_not_started": "比赛暂未开始",

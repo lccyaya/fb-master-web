@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react'
-import { HitSchemeList } from "@/services/worldcap"
+import { HitSchemeList } from "@/services/worldcup"
 import { InfiniteScroll } from 'antd-mobile';
 import { useInfiniteScroll } from 'ahooks';
 import FBHotSchemeItem from "@/components/FBHotSchemeItem"
+import type { WordCapParams } from '@/services/worldcup';
+
 import { Spin } from 'antd';
 type Props = {
     activeKey: string
+    ten_hit?: boolean
 }
 
-const FreeSchemeListpage = ({ activeKey }: Props) => {
+const FreeSchemeListpage = ({ activeKey, ten_hit }: Props) => {
     const getFreeSchemeList = async (page: number, size: number, play: number, tab: number, world_cup: number): Promise<any> => {
-        let data: any = {
+        let data: WordCapParams = {
             page,
             size,
             play,
             tab,
-            world_cup
+            // world_cup
         }
         const result: any = await HitSchemeList(data);
         if (result.success == true) {
@@ -66,7 +69,7 @@ const FreeSchemeListpage = ({ activeKey }: Props) => {
             <Spin spinning={loading}>
                 <div>
                     {data?.list?.map((item: any, index: number) => {
-                        return <div style={{ margin: "10px 0 0 0" }} key={index}> <FBHotSchemeItem color="#7E1132" scheme={item} /></div>
+                        return <div style={{ margin: "10px 0 0 0" }} key={index}> <FBHotSchemeItem ten_hit={ten_hit} color="#7E1132" scheme={item} /></div>
                     })}
                     <InfiniteScroll
                         loadMore={async (isRetry) => {

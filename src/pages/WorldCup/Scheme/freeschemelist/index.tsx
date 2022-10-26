@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
-import { FreeSchemeList } from "@/services/worldcap"
+import { FreeSchemeList } from "@/services/worldcup"
 import { InfiniteScroll } from 'antd-mobile';
 import { useInfiniteScroll } from 'ahooks';
 import FBHotSchemeItem from "@/components/FBHotSchemeItem"
+import type { WordCapParams } from '@/services/worldcup';
+
+
 import { Spin } from 'antd';
 type Props = {}
 
 const FreeSchemeListpage = (props: Props) => {
     const getFreeSchemeList = async (page: number, size: number, play: number, tab: number): Promise<any> => {
-        let data: any = {
+        let data: WordCapParams = {
             page,
             size,
             play,
@@ -28,7 +31,7 @@ const FreeSchemeListpage = (props: Props) => {
 
 
     const { data = () => { }, loading, loadMoreAsync, reload, noMore } = useInfiniteScroll(
-        (d) => {
+        (d): any => {
 
             const { page = 1 } = d || {};
             return getFreeSchemeList(page, 10, 0, 0);

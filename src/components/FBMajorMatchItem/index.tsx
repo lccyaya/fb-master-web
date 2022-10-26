@@ -207,7 +207,11 @@ export default function MajorMatch(props: any) {
                 >
                   <div className={styles.time}>
                     {status === MatchStatus.Going ? match.minutes : formatTime(match.match_time, formatMessage)}
+
+
                   </div>
+
+                  {d.scheme_num > 0 ? <div style={{ fontSize: 12, color: borderColor }}>攻略{d.scheme_num}</div> : null}
                   {/* {match.has_live && Boolean(match.normal_live_link || match.high_live_link) && (
                     <div className={styles.videoTip}>
                       <div className={styles.icon} />

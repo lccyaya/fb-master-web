@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import FBWorldCapTab from "@/components/FBWordCopTab"
 import styles from "./index.less"
 import { SideBar } from 'antd-mobile'
 import { Table, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useInfiniteScroll } from 'ahooks';
-import { InfiniteScroll } from 'antd-mobile';
-import { login } from '@/services/certification';
-import { PlayerGoalList } from "@/services/worldcap"
+
+import useWindowSize from '@/hooks/useWindowSize'
+import { PlayerGoalList } from "@/services/worldcup"
 type Props = {}
 interface DataType {
     key: string;
@@ -15,6 +14,7 @@ interface DataType {
     num: number;
     team: string;
     teamplay: string
+    team_logo: string
 }
 const team_columns: ColumnsType<DataType> = [
     {
@@ -42,37 +42,52 @@ const team_columns: ColumnsType<DataType> = [
 const teamplayer_columns: ColumnsType<DataType> = [
     {
         title: '排名',
-        dataIndex: 'ranking',
-        key: 'ranking',
+        dataIndex: 'position',
+        key: 'position',
         align: "center",
+        width: 50
         // render: text => <a>{text}</a>,
     },
     {
         title: '球员',
-        dataIndex: 'teamplay',
-        key: 'teamplay',
+        dataIndex: 'name',
+        key: 'name',
         // width: 100,
         align: "center",
+        render: (text, record, index) => <div className={styles.team_logo} >
+
+            <img style={{ width: 30, height: 30, marginRight: 5 }} src={record.team_logo} alt="" />
+
+            <div>
+                {text}
+            </div>
+        </div>,
     },
     {
         title: '球队',
-        dataIndex: 'team',
-        key: 'team',
+        dataIndex: 'team_name',
+        key: 'team_name',
         align: "center",
-        ellipsis: true
+        // ellipsis: true
     },
     {
         title: '总数',
-        dataIndex: 'num',
-        key: 'address',
+        dataIndex: 'goal',
+        key: 'goal',
         align: "center",
     },
 
 ];
 
 const Rankinglist = (props: Props) => {
+
     const [activeKey, setActiveKey] = useState("key_teamplayers")
     const [columns, setColumns] = useState(teamplayer_columns)
+
+    const [innerHeight, setInnerHeight] = useState<number>(0)
+    const [data, setData] = useState([])
+    const tabref = useRef<any>()
+    const { height } = useWindowSize()
     const tab = [
         //     {
         //     title: "球队",
@@ -94,73 +109,47 @@ const Rankinglist = (props: Props) => {
         }
     }
     // 上拉滚动
-    const getPlayerGoalList = async (page: number, size: number): Promise<any> => {
+    const getPlayerGoalList = async (): Promise<any> => {
         let data: any = {
-            season_id: "0085",
-            competition_id: 542
-
+            competition_id: 1,
+            season_id: 7555
         }
         const result: any = await PlayerGoalList(data);
-        if (result.success == true) {
 
-            return {
-                list: result.data.list,
-                total: result.data.total,
-                page: page + 1,
-            };
+        if (result.success == true) {
+            setData(result.data)
+
         }
 
     }
-    const { data = () => { }, loading, loadMoreAsync, reload, noMore } = useInfiniteScroll(
-        (d) => {
 
-            const { page = 1 } = d || {};
-            return getPlayerGoalList(page, 10);
-        },
-        {
-            // target: ref,
-            isNoMore: (data) => {
-                if (!data?.list?.length) {
-                    return true;
-                }
-                return data?.list?.length >= data?.total;
-
-            },
-            manual: true,
-        }
-    );
     useEffect(() => {
-        reload()
-    }, []);
+        getPlayerGoalList()
+        const height1 = height - tabref.current?.clientHeight - 325
+        setInnerHeight(height1)
+
+    }, [height]);
+
+
     return (
-        <div className={styles.cap_list}>
-            <div style={{ width: "70px", marginLeft: 12, marginBottom: 10 }}>
+        <div className={styles.cap_list} >
+            <div style={{ width: "70px", marginLeft: 12, marginBottom: 10 }} ref={tabref}>
                 <FBWorldCapTab mini={true} list={tab} defaultActiveKey={activeKey} onChange={onChangetab}></FBWorldCapTab>
 
             </div>
             <div className={styles.tab_team} >
-                <SideBar style={{ "--width": "70px", '--item-border-radius': '0px', "--background-color": "#FAFBFD", }}>
+                <SideBar style={{ "--width": "70px", "--height": `${innerHeight + 54}px`, '--item-border-radius': '0px', "--background-color": "#FAFBFD", }}>
 
                     <SideBar.Item key="goal" title="进球" />
 
                 </SideBar>
-
-                {/* <Spin spinning={loading}>
-                    <div className={styles.tab_teamtable} >
-                        <Table scroll={{ y: 500 }} pagination={false} columns={columns} dataSource={data} />
-                    </div>
-                    <InfiniteScroll
-                        loadMore={async (isRetry) => {
-                            await loadMoreAsync();
-                        }}
-                        hasMore={!noMore}
-                    />
-
-                </Spin> */}
-
-
+                <div className={styles.tab_teamtable} >
+                    <Table scroll={{ y: innerHeight }} rowKey="position" pagination={false} columns={columns} dataSource={data} />
+                    <div style={{ height: 55 }}></div>
+                </div>
 
             </div>
+
         </div >
     )
 }

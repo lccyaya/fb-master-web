@@ -3,25 +3,25 @@ import FBInformationList from "@/components/FBInformationList"
 import FBTitle from "@/components/FBTitle"
 import FBMajorMatchItem from "@/components/FBMajorMatchItem"
 import styles from "./index.less"
-import TitleLogo from "@/assets/worldcap/title_logo.png"
-import IconFont from '@/components/IconFont';
+import TitleLogo from "@/assets/worldcup/title_logo.png"
+// import IconFont from '@/components/IconFont';
 import { getMajorData } from '@/services/home';
-import { Swiper } from 'antd-mobile'
+// import { Swiper } from 'antd-mobile'
 import { Spin } from 'antd';
 import { useInfiniteScroll } from 'ahooks';
 import { InfiniteScroll } from 'antd-mobile';
 import { useHistory } from 'umi';
 import type { majorMatchType } from '@/services/home';
-import { AnalysisList } from '@/services/worldcap';
+import { AnalysisList } from '@/services/worldcup';
 
 
 
 type Props = {}
-const colors = ['#fff', '#fff', '#fff', '#fff']
+// const colors = ['#fff', '#fff', '#fff', '#fff']
 
 const Focusing = (props: Props) => {
     const history = useHistory()
-    const [bannerIndex, setBannerIndex] = useState(0)
+    // const [bannerIndex, setBannerIndex] = useState(0)
     const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
     // 左右滚动卡片
     const getData = async () => {
@@ -87,8 +87,6 @@ const Focusing = (props: Props) => {
             {/* <div className={styles.vertical}>
                 <IconFont type={'icon-tuiguang'} size={20} />
                 <div style={{ width: 10 }}></div>
-
-
                 <Swiper
                     onIndexChange={(index: number) => {
                         // console.log(index);
@@ -101,9 +99,6 @@ const Focusing = (props: Props) => {
                     style={{ '--height': '35px' }}>
                     {verticalItems}
                 </Swiper>
-
-
-
             </div> */}
 
             <div className={styles.conent} style={{ background: "#fff" }}>
@@ -139,9 +134,7 @@ const Focusing = (props: Props) => {
                 </div>
 
             </div>
-            {/* <div style={{ height: 40, fontSize: 14, textAlign: "center", color: "#848494" }}>
-                没有更多了
-            </div> */}
+
         </div>
     )
 }

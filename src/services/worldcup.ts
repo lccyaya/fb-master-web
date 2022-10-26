@@ -32,11 +32,14 @@ export type News = {
     comment_count: number;
 }
 
-export type AnalysisListParams = {
+export type WordCapParams = {
     page: number;
     size: number;
-    worldcup: boolean;
-    type: number
+    worldcup?: boolean;
+    type?: number;
+    play?: number;
+    tab?: number;
+    world_cup?: number
 }
 
 export type FreeSchemeListData = {
@@ -52,6 +55,22 @@ export type WorldCapSchemeListData = {
     // nickname: string;
     // published_at: string;
     // content: string | any
+}
+
+
+
+export type eliminateList = {
+    id: number
+    home_score: number
+    away_score: number
+    winner_team_id: number
+    home_country_logo: string
+    away_country_logo: string
+    state_id: number
+    home_name: number
+    away_name: number
+    away_team_id: number
+    home_team_id: number
 }
 export type listprops = {
     MatchId: number
@@ -112,20 +131,20 @@ export type Datares = {
 // }
 
 // 聚焦 分析
-export async function AnalysisList(params: AnalysisListParams) {
+export async function AnalysisList(params: WordCapParams) {
     const result = await request('/api/news', { params });
     return normalizeResponse<{ news: News[]; total: number; }>(result);
 }
 
 
 // 世界杯免费攻略
-export async function FreeSchemeList(params: AnalysisListParams) {
+export async function FreeSchemeList(params: WordCapParams) {
     const result = await request('/api/v5/expert/free-list', { params });
-    return normalizeResponse<FreeSchemeListData>(result);
+    return normalizeResponse<Datares>(result);
 }
 
 // 世界杯攻略
-export async function HitSchemeList(params: AnalysisListParams) {
+export async function HitSchemeList(params: WordCapParams) {
     const result = await request('/api/v5/expert/scheme-list', { params });
     return normalizeResponse<WorldCapSchemeListData>(result);
 }
@@ -141,7 +160,7 @@ export async function ScoresList(params: ScoresListParams) {
 }
 // 淘汰赛
 export async function BracketList(params: BracketListParams) {
-    const result = await request('/api/v5/matchbracket', { params });
+    const result = await request('/api/v5/match/bracket', { params });
     return normalizeResponse<Datares>(result);
 }
 // 排行榜进球
