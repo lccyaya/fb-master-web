@@ -80,7 +80,7 @@ const FBExpertSettlement: React.FC<Props> = (props) => {
             <div className={styles.icon_box}>
               <IconFont type="icon-mingzhongshuai" color='#FA5900' size={40}/>
             </div>
-            <div className={styles.value}>{detail?.record?.hit_rate}%</div>
+            <div className={styles.value}>{detail?.expert?.hit_rate}%</div>
             <div className={styles.note}>命中率</div>
           </div>
         </Col>

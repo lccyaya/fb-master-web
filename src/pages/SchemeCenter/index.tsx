@@ -131,7 +131,7 @@ const SchemeCenter: React.FC<Props> = (props) => {
                   <span className={styles.record_data_des}>已发布</span>
                 </div>
                 <div className={styles.record_data_item}>
-                  <span className={styles.record_data_title}>{detail?.record?.hit_rate}%</span>
+                  <span className={styles.record_data_title}>{detail?.expert?.hit_rate}%</span>
                   <span className={styles.record_data_des}>总命中率</span>
                 </div>
               </div>
@@ -237,7 +237,7 @@ const SchemeCenter: React.FC<Props> = (props) => {
                           </Grid.Item>
                           <Grid.Item className={styles.flex_center}>
                             <div className={styles.info_text}>
-                              {item.doc_num + '/' + item.visit_num}
+                              {item.paid_num + '/' + item.visit_num}
                             </div>
                           </Grid.Item>
                           <Grid.Item className={styles.flex_center} onClick={() => toDetail(item)}>

@@ -101,7 +101,7 @@ const SchemeList: React.FC = (props) => {
       title: '付费/查看(次)',
       width: 120,
       render: (record: any) => {
-        return record.doc_num + '/' + record.visit_num;
+        return record.paid_num + '/' + record.visit_num;
       },
     },
     {
