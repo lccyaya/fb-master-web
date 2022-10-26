@@ -66,6 +66,7 @@
               locale: 'key_match',
               component: './views/match',
             },
+
             // {
             //   path: '/:locale/views/match',
             //   name: '比赛 (new)',
@@ -209,13 +210,32 @@
               component: './ExpertApplication',
             },
             {
-              path: '/:locale/informationdetail/:id',
-              component: '@/pages/Information/InformationDetails',
+              path: '/:locale/library',
+              name: 'Library',
+              cate: 'library',
+              locale: 'key_library',
+              component: '@/pages/Info',
             },
-            // {
-            //   path: '/:locale/worldcap',
-            //   component: '@/pages/WorldCup',
-            // },
+            {
+              path: '/:locale/informationdetail/:id',
+              component: '../pages/Information/InformationDetails',
+              cate: 'informationdetail',
+            },
+            {
+              path: '/:locale/worldcup',
+              component: '../pages/WorldCup',
+              cate: 'world_WorldCup',
+            },
+            {
+              path: '/:locale/worldcup_guess',
+              component: '../pages/WorldCupGuess',
+              cate: 'world_WorldCupGuess',
+            },
+            {
+              path: '/:locale/rule',
+              component: '../pages/FBRule',
+              cate: 'rule',
+            },
             {
               component: './404',
             },

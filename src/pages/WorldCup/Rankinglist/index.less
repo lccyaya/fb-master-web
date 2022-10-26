@@ -1,0 +1,57 @@
+  .cap_list {
+    width: 100%;
+    position: absolute;
+    top: 190px;
+    background-color: #fff;
+    border-radius: 8px 8px 0 0;
+    padding-top: 10px;
+    height: 100%;
+
+    .team_logo {
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+    }
+
+    // padding: 12px;
+    .tab_team {
+      display: flex;
+      // height: 600px;
+      font-size: 16px;
+      color: #000028;
+
+      .tab_teamtable {
+        flex: 1;
+        padding-left: 8px;
+
+        :global .ant-table-thead>tr>th {
+          color: #000028 !important;
+          background-color: #FAFBFD;
+          border: none;
+          font-weight: 400;
+        }
+
+        :global .ant-table-cell::before {
+          width: 0 !important;
+        }
+      }
+
+    }
+
+    :global .adm-side-bar-item-active {
+      color: #7E1132 !important;
+      background-color: rgba(126, 17, 50, 0.2);
+
+    }
+
+    :global .adm-side-bar-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000028;
+    }
+
+    :global .adm-side-bar-item-highlight {
+      width: 0;
+    }
+  }

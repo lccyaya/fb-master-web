@@ -58,9 +58,6 @@ const Datadetails = (props: Props) => {
                         setType(key)
                     }}>
                         <CapsuleTabs.Tab title='胜平负' key='eu'>
-
-
-
                         </CapsuleTabs.Tab>
                         <CapsuleTabs.Tab title='让球数' key='asia'>
 

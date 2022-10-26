@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'umi';
+
 import styles from './index.less';
 import { formatNumber } from "@/utils/peoplenum"
 import { formatTime } from '@/utils/utils';
@@ -15,25 +15,27 @@ interface informationList {
   cover_img_url: string
   visit: string
   avatar: string
+
 }
 
 type Informationlist = {
   id: number
   showLine?: boolean
   informationList: informationList
+  onClick?: Function
 }
 
 const FBInformationList: React.FC<Informationlist> = (props: Informationlist) => {
 
 
 
-  const history = useHistory()
-  const { informationList } = props
+  // const history = useHistory()
+  const { informationList, onClick = () => { } } = props
 
 
   // 跳转详情
   const getdetail = () => {
-    history.push(`/zh/informationdetail/${props.id}`)
+    onClick()
   }
   return (
     <div className={styles.main} onClick={getdetail}>
@@ -44,8 +46,13 @@ const FBInformationList: React.FC<Informationlist> = (props: Informationlist) =>
 
 
             <div className={styles.avatar}>
-              <img style={{ width: 15, height: 15, marginRight: 7 }} src={informationList?.avatar} alt="" />
-              <span style={{ marginRight: 12 }}> {informationList?.nickname}</span>
+              {informationList?.avatar && <img style={{ width: 15, height: 15, marginRight: 7 }} src={informationList?.avatar} alt="" />
+              }
+
+              {informationList?.nickname && <span style={{ marginRight: 12 }}> {informationList?.nickname}</span>}
+
+
+
               <span>{formatNumber(informationList?.visit)}人阅</span></div>
             <div>
               {/* {formatTime(informationList?.source_published_at)} */}

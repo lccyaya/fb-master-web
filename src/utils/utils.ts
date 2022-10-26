@@ -43,7 +43,7 @@ export const getReportCate = () => {
   } else if (href.includes('match')) {
     return REPORT_CATE.match
   }
-  
+
   return REPORT_CATE.home;
 };
 
@@ -296,12 +296,12 @@ export const formatMatchTime = (time) => {
   if (isToday(time)) {
     return intl.formatMessage(
       { id: 'key_today' },
-    )+ ' ' + moment(time * 1000).format('HH:mm')
+    ) + ' ' + moment(time * 1000).format('HH:mm')
   }
   if (isTomorrow(time)) {
     return intl.formatMessage(
       { id: 'key_tomorrow' },
-    )+ ' ' + moment(time * 1000).format('HH:mm')
+    ) + ' ' + moment(time * 1000).format('HH:mm')
   }
   return moment(time * 1000).format('MM-DD HH:mm')
 };
@@ -343,7 +343,7 @@ export const formatTime = (time) => {
   }
 };
 
-export const formatGoldCoin = (val:any) => {
+export const formatGoldCoin = (val: any) => {
   if (isNaN(val)) {
     return val;
   }
@@ -354,7 +354,7 @@ export const formatGoldCoin = (val:any) => {
 };
 
 // 时间格式化
-export const formatDate = (date:any) => {
+export const formatDate = (date: any) => {
   if (getLocale() === 'zh-CN') {
     return moment(date * 1000).format('ddd,YYYY-MM-DD');
   }
@@ -362,7 +362,7 @@ export const formatDate = (date:any) => {
 };
 
 // 时间格式化 
-export const formatDateMMDD = (date:any, extra:string = '') => {
+export const formatDateMMDD = (date: any, extra: string = '') => {
   if (getLocale() === 'zh-CN') {
     return moment(date * 1000).format('MM-DD' + extra);
   }
@@ -370,7 +370,7 @@ export const formatDateMMDD = (date:any, extra:string = '') => {
 };
 
 // 时间格式化
-export const formatDateMMMYYYY = (date:any) => {
+export const formatDateMMMYYYY = (date: any) => {
   return moment(date * 1000).format('MMM YYYY');
 };
 
@@ -386,24 +386,24 @@ export const getScrollDirection = (values: any) => {
   return dir;
 }
 
-export const getTheSame = (Aarr:any, Barr:any) => {
+export const getTheSame = (Aarr: any, Barr: any) => {
   let result = new Array();
   let c = Barr.toString();
   for (let i = 0; i < Aarr.length; i++) {
-      if (c.indexOf(Aarr[i].toString()) > -1) { 
-          for (let j = 0; j < Barr.length; j++) { 
-              if (Aarr[i] == Barr[j]) { 
-                  result.push(Aarr[i]);
-                  break;
-              }
-          }
+    if (c.indexOf(Aarr[i].toString()) > -1) {
+      for (let j = 0; j < Barr.length; j++) {
+        if (Aarr[i] == Barr[j]) {
+          result.push(Aarr[i]);
+          break;
+        }
       }
+    }
   }
   return result;
 }
 
 // 是否在里面 兼容大小写
-export const includes = (val:string, keyword: string) => {
+export const includes = (val: string, keyword: string) => {
   try {
     val = val.toLocaleUpperCase();
     keyword = keyword.toLocaleUpperCase();

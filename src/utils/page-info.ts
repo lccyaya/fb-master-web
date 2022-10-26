@@ -33,6 +33,14 @@ export const pages = createPageInfoArray(
     isNav: true,
   },
   {
+    key: 'worldcap',
+    regex: /\/worldcap\/*/,
+    cate: REPORT_CATE.worldcap,
+    isNav: true,
+  },
+
+
+  {
     key: 'views_match',
     regex: /\/views\/match\/*/,
     cate: REPORT_CATE.match,

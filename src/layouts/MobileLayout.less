@@ -12,6 +12,7 @@
 //   background: #fff;
 // }
 
+
 :global(.ant-pro-page-container) {
   background: #fff;
 }
@@ -244,10 +245,11 @@
   text-align: center;
 }
 
-.navTabWrapperBox{
+.navTabWrapperBox {
   height: 100%;
   // background-color: red;
 }
+
 .navTabWrapper {
   position: fixed;
   // top: 48px;
@@ -255,13 +257,16 @@
   bottom: 0;
   z-index: 4;
   background: #fff;
+
   .navTab {
     color: #666;
     font-weight: 500;
+
     :global {
       .ant-tabs-nav {
         margin-bottom: 0 !important;
       }
+
       .ant-tabs-tab {
         &.ant-tabs-tab-active {
           .ant-tabs-tab-btn {
@@ -270,12 +275,15 @@
           }
         }
       }
+
       .ant-tabs-tab {
         height: 44px;
         line-height: 44px;
-        + .ant-tabs-tab {
+
+        +.ant-tabs-tab {
           margin-left: 12px !important;
         }
+
         &.ant-tabs-tab-active {
           .ant-tabs-tab-btn {
             font-weight: 500;
@@ -283,16 +291,23 @@
           }
         }
       }
+
       .ant-tabs-ink-bar {
         height: 2px !important;
       }
+
       .ant-tabs-nav-list {
         padding: 0 16px;
       }
     }
   }
 }
-.navTabWrapperChildren{
+
+.navTabWrapperChildren {
   height: calc(100% - 44px);
   // overflow: scroll;
+}
+
+.worldcup:global(.adm-tab-bar-item-active) {
+  color: #7E1132;
 }

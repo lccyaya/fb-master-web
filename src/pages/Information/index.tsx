@@ -8,13 +8,15 @@ import FBInformationList from "@/components/FBInformationList"
 import { InfiniteScroll } from 'antd-mobile';
 import { Spin } from 'antd';
 import { fetchHotNewsList, fetchNewsList } from '@/services/news';
-import type { News } from '@/services/news';
+// import type { News } from '@/services/news';
 import { useInfiniteScroll } from 'ahooks';
 import styles from "./index.less"
+import { useHistory } from 'umi';
 
 type Props = {}
 
 const Information = (props: Props) => {
+    const history = useHistory()
     const [informationlist, setInformationlist] = useState([])
 
     const getFetchNewsList = async (page: number, size: number): Promise<any> => {
@@ -68,11 +70,14 @@ const Information = (props: Props) => {
             <div className={styles.main} >
                 {/* 轮播图 */}
                 <Banner className={styles.information_banner} />
-                <FBTitle title="热门资讯" />
+                {informationlist.length ? <FBTitle title="热门资讯" /> : ""}
                 {/* 列表 */}
                 <div className={styles.conent} >
                     {informationlist.map((item: any, index) => {
-                        return <FBInformationList showLine={index !== informationlist.length - 1} informationList={item} key={item.ID} id={item.ID} />
+                        return <FBInformationList onClick={() => {
+                            history.push(`/zh/informationdetail/${item.ID}`)
+
+                        }} showLine={index !== informationlist.length - 1} informationList={item} key={item.ID} id={item.ID} />
                     })}
 
                 </div>
@@ -82,7 +87,9 @@ const Information = (props: Props) => {
                     <Spin spinning={loading}>
                         <div className={styles.content}>
                             {data?.list?.map((item: any, index: number) => {
-                                return <FBInformationList showLine={index !== data.length - 1} informationList={item} key={item.ID} id={item.ID} />
+                                return <FBInformationList onClick={() => {
+                                    history.push(`/zh/informationdetail/${item.ID}`)
+                                }} showLine={index !== data.length - 1} informationList={item} key={item.ID} id={item.ID} />
                             })}
                             <InfiniteScroll
                                 loadMore={async (isRetry) => {

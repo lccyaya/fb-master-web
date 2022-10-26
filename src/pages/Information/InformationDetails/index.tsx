@@ -9,16 +9,22 @@ import type { InformationDetailData } from '@/services/information';
 
 const Informationdetails = (props: any) => {
 
-  // const [content, setContent] = useState("")
+
   const [detailData, setDetailData] = useState<InformationDetailData>()
   const history = useHistory();
+
+
   const { id } = props.match.params;
 
   useEffect(() => {
 
-    console.log(props);
+    console.log(props, "Ssssssss");
     visit()
     getInformationDetail()
+    return () => {
+      console.log("销毁销毁");
+
+    }
   }, [])
 
   const visit = async () => {
@@ -64,7 +70,7 @@ const Informationdetails = (props: any) => {
         </div>
         <div className={styles.content} dangerouslySetInnerHTML={{ __html: detailData?.content }} />
         <div className={styles.nomore}>
-          没有更多了
+          <div className={styles.nomoreline}></div><div style={{ margin: "0 10px" }}>The End！</div><div className={styles.nomoreline}></div>
         </div>
       </div>
     </div >

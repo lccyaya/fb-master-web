@@ -75,7 +75,7 @@ export enum REPORT_ACTION {
   me_myorder = 'order',
   me_collect = 'collect',
   me_coupon = "coupon",
-  me_setting ='setting',
+  me_setting = 'setting',
   pop_display = 'pop_display',
   pop_click = 'pop_click',
   pop_close = 'pop_close',
@@ -222,6 +222,7 @@ export enum REPORT_CATE {
   info = 'info',
   me = 'me',
   match = 'match',
+  worldcup = "worldcup",
   select_league = 'select_league',
   login = 'login',
   my_team = 'my_team',
@@ -246,14 +247,14 @@ export enum REPORT_CATE {
 // 获取sessionStorage的数据
 export const getSessionStorage = (key: string, initVal: any) => {
   try {
-    return JSON.parse(sessionStorage.getItem(key) || initVal);  
+    return JSON.parse(sessionStorage.getItem(key) || initVal);
   } catch (error) {
     return initVal;
   }
 }
 
 // 获取localStorage的数据
-export const getLocalStorage = (key: string, initVal: any, type:any) => {
+export const getLocalStorage = (key: string, initVal: any, type: any) => {
   try {
     const val = localStorage.getItem(key);
     if (type === 'Boolean') {
@@ -261,7 +262,7 @@ export const getLocalStorage = (key: string, initVal: any, type:any) => {
       if (val === 'true') { return true; }
       return initVal;
     }
-    return JSON.parse(val || initVal);  
+    return JSON.parse(val || initVal);
   } catch (error) {
     return initVal;
   }

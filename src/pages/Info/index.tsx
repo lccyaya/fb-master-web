@@ -4,12 +4,13 @@ import type { RouteComponentProps } from 'dva/router';
 import classnames from 'classnames';
 import { parseUrl } from 'query-string';
 import ScrollView from 'react-custom-scrollbars';
-import { connect, FormattedMessage } from 'umi';
+import { connect, FormattedMessage, useHistory } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import * as competitionService from '@/services/competition';
 import Ranking from './ranking';
 import Feature from './feature';
 import moment from 'moment';
+import { NavBar } from 'antd-mobile'
 import IconFont from '@/components/IconFont';
 
 const { SubMenu } = Menu;
@@ -59,6 +60,7 @@ const Info: React.FC<IProps> = (props) => {
   const [curSeasonId, setCurSeasonId] = useState<string>('');
   const [seasonList, setSeasonList] = useState([]);
   const [visible, setVisible] = useState(false);
+  const history = useHistory()
 
   const fetchSeasonData = async (competitionId: any) => {
     const result = await matchService.getSeasonList(competitionId);
@@ -240,32 +242,40 @@ const Info: React.FC<IProps> = (props) => {
   );
 
   return (
-    <Spin className={styles.spin} spinning={loading || !selectedCompetitionId}>
-      <div className={styles.main}>
-        {!loading && selectedCompetitionId && (
-          <>
-            {checkIsPhone() ? (
-              menu
-            ) : (
-              <div className={classnames(styles.left)}>
-                <ScrollView autoHide>{menu}</ScrollView>
-              </div>
-            )}
-            <div className={styles.right}>
+
+    <div>
+
+      <NavBar style={{ color: "#fff", background: "#FA5900" }} onBack={() => {
+        history.goBack()
+      }}>资料库</NavBar>
+      <Spin className={styles.spin} spinning={loading || !selectedCompetitionId}>
+        <div className={styles.main}>
+          {!loading && selectedCompetitionId && (
+            <>
               {checkIsPhone() ? (
-                <div style={{ height: '100%', overflowX: 'hidden', overflowY: 'scroll' }}>
-                  {content}
-                </div>
+                menu
               ) : (
-
-                <ScrollView autoHide>{content}</ScrollView>
-
+                <div className={classnames(styles.left)}>
+                  <ScrollView autoHide>{menu}</ScrollView>
+                </div>
               )}
-            </div>
-          </>
-        )}
-      </div>
-    </Spin>
+              <div className={styles.right}>
+                {checkIsPhone() ? (
+                  <div style={{ height: '100%', overflowX: 'hidden', overflowY: 'scroll' }}>
+                    {content}
+                  </div>
+                ) : (
+
+                  <ScrollView autoHide>{content}</ScrollView>
+
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </Spin>
+    </div>
+
   );
 };
 
