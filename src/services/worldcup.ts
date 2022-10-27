@@ -71,6 +71,7 @@ export type eliminateList = {
     away_name: number
     away_team_id: number
     home_team_id: number
+    match_ids: any
 }
 export type listprops = {
     MatchId: number

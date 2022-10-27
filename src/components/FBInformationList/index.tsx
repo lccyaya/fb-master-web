@@ -46,7 +46,7 @@ const FBInformationList: React.FC<Informationlist> = (props: Informationlist) =>
 
 
             <div className={styles.avatar}>
-              {informationList?.avatar && <img style={{ width: 15, height: 15, marginRight: 7 }} src={informationList?.avatar} alt="" />
+              {informationList?.avatar && <img style={{ width: 12, height: 12, marginRight: 7 }} src={informationList?.avatar} alt="" />
               }
 
               {informationList?.nickname && <span style={{ marginRight: 12 }}> {informationList?.nickname}</span>}

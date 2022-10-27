@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import FBWorldCapTab from "@/components/FBWordCopTab"
 import styles from "./index.less"
 import { SideBar } from 'antd-mobile'
-import { Table, Spin } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import Empty from '@/components/Empty';
 
 import useWindowSize from '@/hooks/useWindowSize'
 import { PlayerGoalList } from "@/services/worldcup"
@@ -46,6 +47,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
         key: 'position',
         align: "center",
         width: 50
+
         // render: text => <a>{text}</a>,
     },
     {
@@ -56,7 +58,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
         align: "center",
         render: (text, record, index) => <div className={styles.team_logo} >
 
-            <img style={{ width: 30, height: 30, marginRight: 5 }} src={record.team_logo} alt="" />
+            <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.team_logo} alt="" />
 
             <div>
                 {text}
@@ -75,6 +77,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
         dataIndex: 'goal',
         key: 'goal',
         align: "center",
+        width: 50
     },
 
 ];
@@ -99,6 +102,12 @@ const Rankinglist = (props: Props) => {
         },
 
     ]
+    const customizeRenderEmpty = () => (
+        <div style={{ textAlign: 'center' }}>
+            <Empty style={{ fontSize: 20 }} />
+        </div>
+    );
+
     const onChangetab = (key: string) => {
         // console.log(key, "ppooiuytre");
         setActiveKey(key)
@@ -112,7 +121,7 @@ const Rankinglist = (props: Props) => {
     const getPlayerGoalList = async (): Promise<any> => {
         let data: any = {
             competition_id: 1,
-            season_id: 7555
+            season_id: 10810
         }
         const result: any = await PlayerGoalList(data);
 
@@ -144,7 +153,10 @@ const Rankinglist = (props: Props) => {
 
                 </SideBar>
                 <div className={styles.tab_teamtable} >
-                    <Table scroll={{ y: innerHeight }} rowKey="position" pagination={false} columns={columns} dataSource={data} />
+                    <ConfigProvider renderEmpty={customizeRenderEmpty}>
+                        <Table scroll={{ y: innerHeight }} rowKey="position" pagination={false} columns={columns} dataSource={data} />
+
+                    </ConfigProvider>
                     <div style={{ height: 55 }}></div>
                 </div>
 

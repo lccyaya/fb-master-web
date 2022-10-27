@@ -47,7 +47,7 @@ const Scheme = (props: Props) => {
     const getGroupList = async () => {
         let data = {
             competition_id: 1,
-            season_id: 7555
+            season_id: 10810
         }
         let res: Datares = await GroupList(data)
         if (res.success) {
@@ -58,7 +58,7 @@ const Scheme = (props: Props) => {
     const getScoresList = async () => {
         let data = {
             competition_id: 1,
-            season_id: 7555
+            season_id: 10810
         }
         let res: Datares = await ScoresList(data)
         if (res.success) {
@@ -72,7 +72,7 @@ const Scheme = (props: Props) => {
 
     const getBracketList = async () => {
         let data = {
-            season_id: 7555
+            season_id: 10810
         }
         let res: Datares = await BracketList(data)
         if (res.success) {

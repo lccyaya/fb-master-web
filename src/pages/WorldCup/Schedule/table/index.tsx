@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ScoresList } from "@/services/worldcup"
+
+import { useHistory } from 'umi'
+// import { ScoresList } from "@/services/worldcup"
 
 
 import styles from "./index.less"
@@ -20,6 +22,7 @@ interface DataType {
     goals: number
     diff: number
     lost: number
+    team_id: number
 }
 type Props = {
     group: string | number;
@@ -27,7 +30,7 @@ type Props = {
 }
 const grouplist = ["A", "B", "C", "D", "E", "F", "G", "H"]
 const TablePage = (props: Props) => {
-
+    const history = useHistory()
     const columns: ColumnsType<DataType> = [
         {
             title: `${grouplist[props.group]}组`,
@@ -79,7 +82,18 @@ const TablePage = (props: Props) => {
     ];
     return (
         <div className={styles.tab_teamtable}>
-            <Table pagination={false} columns={columns} dataSource={props.data} />
+            <Table pagination={false} columns={columns} dataSource={props.data}
+                onRow={record => {
+                    return {
+                        onClick: event => {
+                            console.log(record, "pppp");
+
+                            history.push(`/zh/teamdetails/${record.team_id}`)
+                        }, // 点击行
+
+                    };
+                }}
+            />
 
         </div >
     )

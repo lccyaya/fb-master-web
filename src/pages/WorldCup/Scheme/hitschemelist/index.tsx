@@ -25,7 +25,7 @@ const FreeSchemeListpage = ({ activeKey, ten_hit }: Props) => {
 
             return {
                 list: result.data.list,
-                total: result.data.total,
+                total: result.data.list.length >= 10,
                 page: page + 1,
             };
         }
@@ -53,7 +53,7 @@ const FreeSchemeListpage = ({ activeKey, ten_hit }: Props) => {
                 if (!data?.list?.length) {
                     return true;
                 }
-                return data?.list?.length >= data?.total;
+                return !data?.total;
 
             },
             manual: true,

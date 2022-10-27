@@ -2,11 +2,14 @@ import React from 'react'
 import styles from './index.less'
 import type { listprops, GroupListres } from '@/services/worldcup';
 import moment from 'moment';
+import { useHistory } from 'umi';
 type Props = {
     groupList: GroupListres[]
 }
 
 const FBGroup = (props: Props) => {
+    const history = useHistory();
+
     const { groupList } = props
     return (
         <div>
@@ -17,8 +20,10 @@ const FBGroup = (props: Props) => {
                     <div>
 
                         {item?.match.map((items: listprops) => {
-                            return <div className={styles.group_list} key={items.MatchId}>
-                                <div style={{ color: "#848494" }}>
+                            return <div className={styles.group_list} key={items.MatchId} onClick={() => {
+                                history.push(`/zh/details/${items.MatchId}`)
+                            }}>
+                                <div className={styles.time} >
                                     {moment(items.MatchTime * 1000).format('MM-DD HH:mm')}</div>
                                 <div className={styles.logo_name} style={{ justifyContent: "right" }}>
                                     {items.HomeTeam.name}</div>
