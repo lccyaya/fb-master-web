@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import FBInformationList from "@/components/FBInformationList"
 import FBTitle from "@/components/FBTitle"
 import FBMajorMatchItem from "@/components/FBMajorMatchItem"
+
+import FBGuessTab from "@/components/FBGuessTab"
 import styles from "./index.less"
 import TitleLogo from "@/assets/worldcup/title_logo.png"
 // import IconFont from '@/components/IconFont';
@@ -23,6 +25,7 @@ const Focusing = (props: Props) => {
     const history = useHistory()
     // const [bannerIndex, setBannerIndex] = useState(0)
     const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
+    const [ativeKey, setActiveKey] = useState("1")
     // 左右滚动卡片
     const getData = async () => {
         const res: any = await getMajorData();
@@ -51,6 +54,18 @@ const Focusing = (props: Props) => {
 
     }
 
+    const navlist = [
+        {
+            label: `竞猜榜`,
+            key: '1',
+        },
+        {
+            label: `回报榜`,
+            key: '2',
+        },
+
+    ]
+    const list = [1, 2, 3]
     useEffect(() => {
         getData();
         reload()
@@ -100,6 +115,18 @@ const Focusing = (props: Props) => {
                     {verticalItems}
                 </Swiper>
             </div> */}
+            <div style={{ padding: 12 }}>
+                <div className={styles.card_container}>
+                    <FBGuessTab item={navlist} list={list} ativeKey={ativeKey} onChange={(key: string) => {
+                        setActiveKey(key)
+                        console.log(key);
+
+                    }}></FBGuessTab>
+
+                </div>
+
+            </div>
+
 
             <div className={styles.conent} style={{ background: "#fff" }}>
                 <div className={styles.title}>
