@@ -66,7 +66,14 @@ const MobileLayout: React.FC<IProps> = (props) => {
       path: '/zh/worldcup',
       locale: 'key_worldcup',
       icon: (active: boolean) => (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
           {!active ? (
             <IconFont type={'icon-a-3123'} size={22} />
           ) : (
@@ -158,15 +165,6 @@ const MobileLayout: React.FC<IProps> = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   const nav = navs.find((n) => {
-  //     const regex = new RegExp(`^${n.path}/?$`);
-  //     return regex.test(location.pathname);
-  //   });
-  //   console.log(location.pathname);
-  //   setCurKey(nav?.key ?? '');
-  // }, [location.pathname]);
-
   useEffect(() => {
     const nav = navs.find((n) => {
       const regex = new RegExp(`^${n.path}/?$`);
@@ -174,19 +172,23 @@ const MobileLayout: React.FC<IProps> = (props) => {
     });
     console.log(location.pathname);
     setCurKey(nav?.key ?? '');
-  }, []);
+  }, [location.pathname]);
+
+  // useEffect(() => {
+  //   const nav = navs.find((n) => {
+  //     const regex = new RegExp(`^${n.path}/?$`);
+  //     return regex.test(location.pathname);
+  //   });
+  //   console.log(location.pathname);
+  //   setCurKey(nav?.key ?? '');
+  // }, []);
 
   return (
     <>
-      {curKey ? (
-        <div className={styles.navTabWrapperBox}>
-          <div className={styles.navTabWrapperChildren}>{props.children}</div>
+      <div className={styles.navTabWrapperBox}>
+        <div className={curKey ? styles.navTabWrapperChildren : null}>{props.children}</div>
+        {curKey ? (
           <div className={styles.navTabWrapper}>
-            {/* <Tabs activeKey={curKey} className={styles.navTab} onTabClick={handleTabClick}>
-      {navs.map((n) => (
-        <TabPane tab={formatMsg({ id: n.locale })} key={n.key} />
-      ))}
-    </Tabs> */}
             <TabBar activeKey={curKey} onChange={handleTabClick}>
               {navs.map((item) => (
                 <TabBar.Item
@@ -198,10 +200,8 @@ const MobileLayout: React.FC<IProps> = (props) => {
               ))}
             </TabBar>
           </div>
-        </div>
-      ) : (
-        children
-      )}
+        ) : null}
+      </div>
     </>
   );
 };
