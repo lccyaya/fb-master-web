@@ -30,6 +30,7 @@ type Props = {
 }
 const grouplist = ["A", "B", "C", "D", "E", "F", "G", "H"]
 const TablePage = (props: Props) => {
+
     const history = useHistory()
     const columns: ColumnsType<DataType> = [
         {
@@ -83,6 +84,7 @@ const TablePage = (props: Props) => {
     return (
         <div className={styles.tab_teamtable}>
             <Table pagination={false} columns={columns} dataSource={props.data}
+
                 onRow={record => {
                     return {
                         onClick: event => {

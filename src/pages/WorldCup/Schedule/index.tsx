@@ -131,6 +131,7 @@ const Scheme = (props: Props) => {
     }
     useEffect(() => {
         getGroupList()
+
     }, [])
     return (
         <div className={styles.cap_list} >

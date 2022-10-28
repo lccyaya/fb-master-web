@@ -52,7 +52,7 @@ const Eliminate = (props: Props) => {
                                 </div>
                             </div>
 
-                            <div style={{ display: "flex", width: "50%" }}>
+                            <div style={{ display: "flex", width: "65px" }}>
                                 <div className={styles.box_top_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
 
 
@@ -292,7 +292,7 @@ const Eliminate = (props: Props) => {
                             godetail(item.match_ids[0])
                         }}>
                             <div className={styles.box_top_shu} style={{ background: item.winner_team_id == item.home_team_id || item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}></div>
-                            <div style={{ display: "flex", width: "50%" }}>
+                            <div style={{ display: "flex", width: "65px" }}>
                                 <div className={styles.box_bottom_line} style={{ borderColor: item.winner_team_id == item.home_team_id ? "#7E1132" : "" }}>
                                 </div>
                                 <div className={styles.box_bottom_rightline} style={{ borderColor: item.winner_team_id == item.away_team_id ? "#7E1132" : "" }}>

@@ -5,17 +5,45 @@ import moment from 'moment';
 import { useHistory } from 'umi';
 type Props = {
     groupList: GroupListres[]
+    fref: any
 }
 
 const FBGroup = (props: Props) => {
     const history = useHistory();
 
     const { groupList } = props
+    // const scrollToAnchor = (anchorName) => {
+
+    //     if (anchorName) {
+
+    //         // 找到锚点
+
+    //         let anchorElement = document.getElementById(anchorName);
+
+    //         // 如果对应id的锚点存在，就跳转到锚点
+
+    //         if (anchorElement) {
+
+    //             anchorElement.scrollIntoView(false);
+    //             anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    //         }
+
+    //     }
+
+    // }
     return (
         <div>
             {groupList?.map((item: GroupListres, index) => {
-                return <div key={index}>
-                    <div className={styles.title}>  {item.groupName}组</div>
+                return <div key={index} id={`activity${item.groupName}`}>
+
+                    {/* <div style={{ fontSize: 14 }} onClick={() => {
+                        scrollToAnchor(`activity${item.groupName}`)
+                    }} >跳转{item.groupName}</div> */}
+                    <div className={styles.title}>
+
+                        {item.groupName}组
+
+                    </div>
 
                     <div>
 
