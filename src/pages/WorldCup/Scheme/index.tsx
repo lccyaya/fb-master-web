@@ -39,6 +39,7 @@ const Scheme = (props: Props) => {
 
 
             </div>
+
             {/* {data && data.list?.map((item, index) => {
                 return <div style={{ margin: "10px 0 0 0" }} key={index}> <FBHotSchemeItem color="#7E1132" scheme={item} /></div>
 

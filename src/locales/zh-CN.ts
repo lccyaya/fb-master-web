@@ -460,4 +460,6 @@ export default {
     "key_wordcap_hit": "命中",
     "key_wordcap_winhit": "连红",
     "key_wordcap_free": "免费",
+    "key_worldcap_guessvalue": "竞猜值",
+    "key_worldcap_return": "回报率"
 }
