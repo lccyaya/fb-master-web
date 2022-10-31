@@ -133,6 +133,11 @@
               component: './Mine/PersonalSetting',
             },
             {
+              path: '/:locale/certification',
+              name: 'Certification',
+              component: './Mine/Certification'
+            },
+            {
               path: '/:locale/security/setting',
               name: 'SecuritySetting',
               component: './Mine/SecuritySetting',

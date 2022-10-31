@@ -1,0 +1,97 @@
+.certification_page {
+  height: 100%;
+  background: #F7F7F7;
+  position: relative;
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    background-color: #fff;
+  }
+  .tips {
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #848494;
+    margin-left: 20px;
+  }
+  .itemHeader {
+    height: 8px;
+  }
+  :global {
+    .adm-input-element {
+      font-size: 12px;
+      // color: #848494;
+      text-align: right;
+    }
+    .adm-input-element::placeholder {
+      color: #848494;
+    }
+    .adm-list-item-content {
+      padding-right: 24px;
+    }
+    .adm-list-item {
+      padding-left: 24px;
+    }
+    .adm-form-item-label {
+      font-size: 15px;
+      color: #202032;
+    }
+    .adm-list-header {
+      padding: 4px 0;
+    }
+
+  }
+  .verifyCode {
+    :global {
+      .adm-input-element {
+        font-size: 14px;
+        text-align: left;
+      }
+      .adm-input-element::placeholder {
+        color: #848494;
+      }
+    }
+  }
+  .extraPart {
+    font-size: 14px;
+    color: #FA5900;
+  }
+  .desc {
+    padding: 10px 17px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #848494;
+  }
+  .btnWrapper {
+    position: absolute;
+    bottom: 19px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .submitBtn {
+      width: 320px;
+      height: 45px;
+      background: #FA5900;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .checkBox {
+      :global {
+        .adm-checkbox-icon {
+          height: 12px;
+          width: 12px;
+          border: 1px solid #FA5900;
+          border-radius: 2px;
+
+        }
+        .adm-checkbox-content {
+          font-size: 12px;
+          color: #848494;
+        }
+      }
+    }
+  }
+
+}

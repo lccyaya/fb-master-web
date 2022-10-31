@@ -21,6 +21,10 @@ const Setting: React.FC<Props> = (props) => {
       title: '个人设置',
       path: '/zh/personal/setting',
     },
+    {
+      title: '实名认证',
+      path: '/zh/certification'
+    },
     // {
     //   title: '安全设置',
     //   path: '/zh/security/setting',
