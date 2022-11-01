@@ -2,6 +2,118 @@
     width: 100%;
     position: absolute;
     top: 70px;
-    height: 100%;
-    background-color: #fff;
+    min-height: 85%;
+    background-color: #F7F7F7;
+
+    .tip {
+        background-color: #F2E7EA;
+        color: #7E1132;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .guesscenter_time {
+        font-size: 12px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        color: #000028;
+    }
+
+    .guesscenter_list {
+        padding: 0 12px;
+    }
+
+    .guesscenter_bottom_box {
+        width: 100%;
+        min-height: 57px;
+        background-color: #fff;
+        padding: 0 12px;
+        position: fixed;
+        bottom: 0;
+
+        .select_team {
+            font-size: 14px;
+            width: 100%;
+            color: #7E1132;
+            text-align: center;
+            min-height: 57px;
+            line-height: 57px;
+
+
+
+        }
+
+        .select_login_box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+
+            width: 100%;
+            color: #848494;
+            min-height: 57px;
+            line-height: 57px;
+
+            .login {
+                background-color: #7E1132;
+                color: #fff;
+                border-radius: 5px;
+                width: 100px;
+                height: 33px;
+                line-height: 33px;
+                text-align: center;
+            }
+        }
+    }
+
+
+
+}
+
+
+
+
+:global .adm-center-popup-wrap {
+    max-width: 80%;
+    min-width: 80%;
+
+    .modal_team {
+        :global .adm-modal-content {
+            :global .guess_contentbox {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+
+            }
+
+            :global .guess_play {
+
+
+                display: flex;
+                height: 30px;
+                margin: 10px 0;
+                align-items: center;
+                justify-content: space-between;
+                text-align: center;
+
+
+            }
+
+            :global .guess_playbg {
+
+
+                width: 200px;
+                background: #F7F7F7;
+                border-radius: 2px;
+                height: 25px;
+                margin-right: 10px;
+            }
+        }
+
+    }
 }

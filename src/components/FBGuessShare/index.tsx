@@ -14,7 +14,7 @@ const FBGuessShare = (props: Props) => {
         <div className={styles.share_main} style={{
             backgroundImage: backgroundImage
         }}>
-            <div className={styles.share_main_left}>  <div>{sharelist.title}
+            <div className={styles.share_main_left}>  <div>{sharelist.title} <span style={{ color: "#7E1132", fontSize: 18 }}>+50</span>
                 <img style={{ width: 16, height: 16, marginTop: -3 }} src={Fire} alt="" />
             </div>
                 <div style={{ color: "#5A5A5A", fontSize: 13 }}>{sharelist.content}</div></div>

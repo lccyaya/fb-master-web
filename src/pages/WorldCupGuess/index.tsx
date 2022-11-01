@@ -58,8 +58,12 @@ const WorldCapguess = (props: Props) => {
                 <div className={styles.guess_rule}>
                     <img src={Rule} alt="" />
                 </div>
+
+
             </div>
+            <div style={{ height: 150, background: "#F7F7F7" }}></div>
             {curKey == "0" ? <Guess></Guess> : null}
+
             {curKey == "1" ? <GuessCenter></GuessCenter> : null}
             {curKey == "2" ? <GuessRanking></GuessRanking> : null}
 
