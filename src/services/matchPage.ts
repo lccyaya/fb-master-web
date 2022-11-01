@@ -390,3 +390,16 @@ export async function recommendList(params: expertRecommendListParam) {
   const result = await request('/api/expert/recommend-list', { params });
   return normalizeResponse<expertRecommendList>(result);
 }
+
+
+
+type IMatchFilterParams = Pick<FetchMatchListForInfoType, 'timestamp' | 'tab_type'> & { type: string }
+
+/**
+* 赛事筛选
+* */
+
+export async function matchFilter(params: IMatchFilterParams) {
+  const result = await request('/api/v3/competition/filter', { params });
+  return normalizeResponse<teamPlayersType>(result);
+}

@@ -1,22 +1,26 @@
 import React, { useEffect, useState, useMemo, createRef } from 'react';
-import { useIntl, useHistory } from 'umi';
+import { useIntl, useHistory, useRequest as umiRequest } from 'umi';
 import styles from './mobile.less';
 import { Container, Empty, Search, Spining } from '@/base-components/mobile';
 import { Menu, MatchCard, TimeTitle, Calendar, BottomIcon, League } from '@/func-components/mobile';
-import { MatchListV3, getMatchesTabs } from '@/services/matchPage';
+import { MatchListV3, getMatchesTabs, matchFilter } from '@/services/matchPage';
 import moment from 'moment';
 import { formatDate, getScrollDirection } from '@/utils/utils';
 import IconFont from '@/components/IconFont';
-import filterIcon from '@/assets/icon/filter.svg';
+import MatchFilter from "@/components/MatchFilter";
+import Toggle from '@/components/Toggle';
+// import filterIcon from '@/assets/icon/filter.svg';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
-import FixedBtns from '@/components/FixedBtns/mobile';
+// import FixedBtns from '@/components/FixedBtns/mobile';
 import { useLocalStorageState, useRequest } from 'ahooks';
 import { STORAGE_INDEX_VALUE, SESS_STORAGE_SELECTED_LEAGUES, getSessionStorage } from '@/constants';
 import { useUpdateMatch } from '@/hooks/update-match';
 import cls from 'classnames';
 import { handleReport } from '@/utils/report';
-import { getCalendarTitle, handlerData, initParams, initPageData } from './tools'; // 比赛页面的公用方法
+import { getCalendarTitle, handlerData, initParams, initPageData } from './tools';
+import {boolean} from "mockjs/src/mock/random/basic";
+import {getMainIds} from "@/func-components/league/tools"; // 比赛页面的公用方法
 
 // import {FBTabs} from "@/components/fbt"
 
@@ -37,8 +41,15 @@ const Mobile = () => {
   const [searchShow, setSearchShow] = useState(false); // 搜索
   const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
   const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
-  const [calenderVal, setCalendarVal] = useState(''); // 日历的值
+  // const [calenderVal, setCalendarVal] = useState(''); // 日历的值
   const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`); // 日历组件显示内容
+  const toggleData = [{
+    name: '比分',
+    key: 1
+  },{
+    name: '数据',
+    key: 2
+  }]
   const history = useHistory()
   // 获取列表的参数 和 page 的参数
   const [params, setParams] = useState({
@@ -47,6 +58,11 @@ const Mobile = () => {
   });
   const [pageInfo, setPageInfo] = useState({ ...initPageData });
 
+  // 筛选visible
+  const [filterVisible, setFilterVisible] = useState(false);
+
+  // 筛选数据
+  const [filterData, setFilterData] = useState(null);
   // 调用接口的数据改变
   const onParamsChange = (obj = {}) => {
     const query = { ...params, page: 1, ...obj };
@@ -185,6 +201,7 @@ const Mobile = () => {
       }
     });
   };
+
   const {
     data,
     mutate,
@@ -194,6 +211,22 @@ const Mobile = () => {
     initialData: {},
     manual: true,
   });
+
+  const {
+    data: matchFilterData,
+    loading: matchFilterLoading,
+    run: getMatchFilterData
+  } = umiRequest(matchFilter, {
+    manual: true,
+    formatResult: ({ data, success }) => {
+      if (success) {
+        return data?.categories;
+      } else {
+        return [];
+      }
+    },
+  })
+
   useUpdateMatch(data?.matches || [], (oldList, list) => {
     const newList = oldList.map((old) => {
       let newObj = list?.find((item) => item.match_id === old.match_id);
@@ -248,6 +281,38 @@ const Mobile = () => {
       }
     }
   };
+
+  const handleFilter = () => {
+    setFilterVisible(true)
+    getMatchFilterData({
+      timestamp: apiTimestamp || params.timestamp,
+      type: 5,
+      [params.param_key]: params.param_value
+    })
+    // filterData
+  }
+
+  const handleFilterClose = () => {
+    setFilterVisible(false)
+  }
+  const handleFilterOk = (ids) => {
+    const idStr = JSON.stringify(ids);
+    sessionStorage.setItem(SESS_STORAGE_SELECTED_LEAGUES, idStr);
+    onParamsChange({ competition_ids: ids });
+    setFilterVisible(false)
+  }
+
+  const handleTypeChange = (type) => {
+    getMatchFilterData({
+      timestamp: apiTimestamp || params.timestamp,
+      type,
+      [params.param_key]: params.param_value
+    })
+  }
+
+  const handleToggleChange = (type) => {
+    setIndexVal(type === 2)
+  }
 
   // 初始化
   useEffect(() => {
@@ -350,7 +415,19 @@ const Mobile = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
 
-      <div className={styles.tabbg} style={{ position: "relative" }}>
+      <div className={styles.topWrapper}>
+        <div
+          className={styles.dataBank}
+          onClick={() => {
+            history.push("/zh/library")
+          }}
+        >
+          <IconFont
+            className={styles.dataBankIcon}
+            type='icon-a-11'
+          />
+          资料库
+        </div>
         {menuList?.length ? (
           <Menu
             menus={menuList}
@@ -359,105 +436,110 @@ const Mobile = () => {
             onChange={onMenusChange}
           ></Menu>
         ) : null}
-
-        <div onClick={() => {
-          history.push("/zh/library")
-        }} style={{ position: "absolute", right: 10, zIndex: 1000, top: 10, fontSize: 16, color: "#fff" }}>资料库</div>
-
-        <BottomIcon
-          onClick={onBottomClick}
-          icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}
-        // icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}
-        />
+        <div
+          className={styles.filter}
+          onClick={handleFilter}
+        >
+          <IconFont
+            className={styles.filterIcon}
+            type='icon-a-22'
+          />
+          筛选
+        </div>
+        {/*<BottomIcon*/}
+        {/*  onClick={onBottomClick}*/}
+        {/*  icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}*/}
+        {/*// icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}*/}
+        {/*/>*/}
       </div>
 
-      {menuActive.has_calendar ? (
-        <div>
-          <div style={{ height: 10, background: "#F7FAFB" }}></div>
-          <div
-            style={{ height: 35, background: "#F7FAFB", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{
-              width: "70%", background: "#fff", marginLeft: 12, borderRadius: 4,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+      {/*{menuActive.has_calendar ? (*/}
+      {/*  <div>*/}
+      {/*    <div style={{ height: 10, background: "#F7FAFB" }}></div>*/}
+      {/*    <div*/}
+      {/*      style={{ height: 35, background: "#F7FAFB", display: "flex", alignItems: "center", justifyContent: "space-between" }}>*/}
+      {/*      <div style={{*/}
+      {/*        width: "70%", background: "#fff", marginLeft: 12, borderRadius: 4,*/}
+      {/*        display: "flex",*/}
+      {/*        alignItems: "center",*/}
+      {/*        justifyContent: "center",*/}
 
-              height: 35,
-              padding: "0 12px",
+      {/*        height: 35,*/}
+      {/*        padding: "0 12px",*/}
 
-            }}
-              onClick={() => {
-                setCalenderShow(true);
-                handleReport({ action: 'calendar' });
-              }}>
+      {/*      }}*/}
+      {/*        onClick={() => {*/}
+      {/*          setCalenderShow(true);*/}
+      {/*          handleReport({ action: 'calendar' });*/}
+      {/*        }}>*/}
 
-              <div style={{ fontSize: 15, width: "7%", color: "#848494" }}>
-                <IconFont
+      {/*        <div style={{ fontSize: 15, width: "7%", color: "#848494" }}>*/}
+      {/*          <IconFont*/}
 
-                  className={cls(styles.icon, styles.menu_icon)}
-                  color="#848494"
-                  type="icon-gengduo"
-                  size={16}
-                />
+      {/*            className={cls(styles.icon, styles.menu_icon)}*/}
+      {/*            color="#848494"*/}
+      {/*            type="icon-gengduo"*/}
+      {/*            size={16}*/}
+      {/*          />*/}
 
-              </div>
-              <div style={{
-                width: "93%", display: "flex",
-                alignItems: "center",
-                justifyContent: "center", marginRight: 12,
-              }}>
+      {/*        </div>*/}
+      {/*        <div style={{*/}
+      {/*          width: "93%", display: "flex",*/}
+      {/*          alignItems: "center",*/}
+      {/*          justifyContent: "center", marginRight: 12,*/}
+      {/*        }}>*/}
 
-                <IconFont
+      {/*          <IconFont*/}
 
-                  className={cls(styles.icon, styles.menu_icon)}
-                  color="#848494"
-                  type="icon-a-bianzu2"
-                  size={18}
-                />
-                <span style={{
-                  color: "#848494", fontSize: 14,
-                  marginLeft: 5,
-                }}>  {calenderValtime}
-                </span>
+      {/*            className={cls(styles.icon, styles.menu_icon)}*/}
+      {/*            color="#848494"*/}
+      {/*            type="icon-a-bianzu2"*/}
+      {/*            size={18}*/}
+      {/*          />*/}
+      {/*          <span style={{*/}
+      {/*            color: "#848494", fontSize: 14,*/}
+      {/*            marginLeft: 5,*/}
+      {/*          }}>  {calenderValtime}*/}
+      {/*          </span>*/}
 
-              </div>
-            </div>
+      {/*        </div>*/}
+      {/*      </div>*/}
 
-            <div style={{
-              flex: 1, background: "#fff", margin: "0 12px", borderRadius: 4,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 14,
-              height: 35,
-            }} onClick={() => {
-              setLeagueShow(true);
-              handleReport({ action: 'league_filter' });
-            }}>
-              <div className={styles.menu_right}>
+      {/*      <div style={{*/}
+      {/*        flex: 1, background: "#fff", margin: "0 12px", borderRadius: 4,*/}
+      {/*        display: "flex",*/}
+      {/*        alignItems: "center",*/}
+      {/*        justifyContent: "center",*/}
+      {/*        fontSize: 14,*/}
+      {/*        height: 35,*/}
+      {/*      }} onClick={() => {*/}
+      {/*        setLeagueShow(true);*/}
+      {/*        handleReport({ action: 'league_filter' });*/}
+      {/*      }}>*/}
+      {/*        <div className={styles.menu_right}>*/}
 
-                {/* icon-shaixuan-xuanzhong2 */}
-                {menuActive.has_competition ? (
-                  <IconFont
+      {/*          /!* icon-shaixuan-xuanzhong2 *!/*/}
+      {/*          {menuActive.has_competition ? (*/}
+      {/*            <IconFont*/}
 
-                    className={cls(styles.icon, styles.menu_icon)}
-                    color={params?.competition_ids.length ? '#FA5900' : ''}
-                    type="icon-shaixuan"
-                    size={18}
-                  />
-                ) : // <img onClick={() => setLeagueShow(true)} src={filterIcon} className={cls(styles.img, styles.menu_icon)} />
-                  // active={params?.competition_ids.length}
-                  null}
-                <div style={{ margin: "0  0 0 10px", color: "#848494" }}>   筛选</div>
-
-
-              </div>
+      {/*              className={cls(styles.icon, styles.menu_icon)}*/}
+      {/*              color={params?.competition_ids.length ? '#FA5900' : ''}*/}
+      {/*              type="icon-shaixuan"*/}
+      {/*              size={18}*/}
+      {/*            />*/}
+      {/*          ) : // <img onClick={() => setLeagueShow(true)} src={filterIcon} className={cls(styles.img, styles.menu_icon)} />*/}
+      {/*            // active={params?.competition_ids.length}*/}
+      {/*            null}*/}
+      {/*          <div style={{ margin: "0  0 0 10px", color: "#848494" }}>   筛选</div>*/}
 
 
-            </div>
-          </div></div>
+      {/*        </div>*/}
 
-      ) : null}
+
+      {/*      </div>*/}
+      {/*    </div></div>*/}
+
+      {/*) : null}*/}
 
       <div
         className={cls(
@@ -467,28 +549,28 @@ const Mobile = () => {
         )}
       >
         {/* 搜索 */}
-        {searchShow ? (
-          <div className={styles.search}>
-            <Search
-              value={searchVal}
-              onChange={setSearchVal}
-              onFocus={() => handleReport({ action: 'search_team' })}
-              onEnter={(e) => {
-                onParamsChange({ keywords: e });
-                mutate({ matches: [] }); // 当搜索时，需要把旧的数据清空掉 否则旧数据会一闪一闪的
-              }}
-            />
-            <span
-              className={styles.text}
-              onClick={() => {
-                onParamsChange({ keywords: '' });
-                setSearchShow(!searchShow);
-              }}
-            >
-              {intl.formatMessage({ id: 'key_cancel', defaultMessage: 'key_cancel' })}
-            </span>
-          </div>
-        ) : null}
+        {/*{searchShow ? (*/}
+        {/*  <div className={styles.search}>*/}
+        {/*    <Search*/}
+        {/*      value={searchVal}*/}
+        {/*      onChange={setSearchVal}*/}
+        {/*      onFocus={() => handleReport({ action: 'search_team' })}*/}
+        {/*      onEnter={(e) => {*/}
+        {/*        onParamsChange({ keywords: e });*/}
+        {/*        mutate({ matches: [] }); // 当搜索时，需要把旧的数据清空掉 否则旧数据会一闪一闪的*/}
+        {/*      }}*/}
+        {/*    />*/}
+        {/*    <span*/}
+        {/*      className={styles.text}*/}
+        {/*      onClick={() => {*/}
+        {/*        onParamsChange({ keywords: '' });*/}
+        {/*        setSearchShow(!searchShow);*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      {intl.formatMessage({ id: 'key_cancel', defaultMessage: 'key_cancel' })}*/}
+        {/*    </span>*/}
+        {/*  </div>*/}
+        {/*) : null}*/}
         {/* 主内容 */}
         <div style={{ height: 10, background: "#F7FAFB" }}></div>
         <Spin spinning={spinning}>
@@ -516,14 +598,14 @@ const Mobile = () => {
         </Spin>
 
 
-        <Calendar
-          value={calendarValue} setValue={setCalendarValue}
-          params={params}
-          show={calenderShow}
-          onClose={() => setCalenderShow(false)}
-          onChange={calendarChange}
-          className={styles.calender}
-        />
+        {/*<Calendar*/}
+        {/*  value={calendarValue} setValue={setCalendarValue}*/}
+        {/*  params={params}*/}
+        {/*  show={calenderShow}*/}
+        {/*  onClose={() => setCalenderShow(false)}*/}
+        {/*  onChange={calendarChange}*/}
+        {/*  className={styles.calender}*/}
+        {/*/>*/}
 
         {/* {showTopIcon ? (
           <FixedBtns
@@ -539,7 +621,22 @@ const Mobile = () => {
         ) : null} */}
       </div>
       {/* 联赛选择 */}
-      <League visible={leagueShow} onSubmit={onLeagueSubmit} onClose={() => setLeagueShow(false)} />
+      {/* <League visible={leagueShow} onSubmit={onLeagueSubmit} onClose={() => setLeagueShow(false)} /> */}
+      <div className={styles.toggleWrapper}>
+        <Toggle
+          sourceList={toggleData}
+          defaultSelectedKey={indexVal ? 2 : 1}
+          onChange={handleToggleChange}
+        />
+      </div>
+      <MatchFilter
+        title="赛事筛选"
+        visible={filterVisible}
+        onClose={handleFilterClose}
+        onOk={handleFilterOk}
+        typeChange={handleTypeChange}
+        data={matchFilterData || []}
+      />
     </div>
   );
 };
