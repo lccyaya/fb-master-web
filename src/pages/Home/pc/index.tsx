@@ -1,7 +1,18 @@
-import { WechatOutlined, WeiboOutlined } from "@ant-design/icons";
-import { Divider } from "antd";
-import styles from "./index.module.less";
+import Iconfont from '@/components/IconFont';
+import { WechatOutlined, WeiboOutlined } from '@ant-design/icons';
+import { Divider } from 'antd';
+import styles from './index.module.less';
+import classnames from 'classnames';
 
+import androidQrcode from '@/assets/home/android_qrcode.png';
+import iOSQrcode from '@/assets/home/ios_qrcode.png';
+import appSnapshot from '@/assets/home/app_snapshot.png';
+import app_des_icon01 from '@/assets/home/app_des_icon01.png';
+import app_des_icon02 from '@/assets/home/app_des_icon02.png';
+import app_des_icon03 from '@/assets/home/app_des_icon03.png';
+import app_des_icon04 from '@/assets/home/app_des_icon04.png';
+import { useState } from 'react';
+import pageConfig from '@/utils/pageConfig';
 
 type HomeProps = {
   isPhone?: boolean;
@@ -9,21 +20,75 @@ type HomeProps = {
   hideLoading?: boolean;
 };
 
+enum APP_TYPE {
+  android,
+  iOS,
+}
+
 const NewHome: React.FC<HomeProps> = (props) => {
+  const [appType, setAppType] = useState(APP_TYPE.android);
+
   return (
     <>
       <div>
         <div className={styles.top_container}>
-            <span className={styles.top_title}>34体育</span>
+          <div className={styles.app_container}>
             <span className={styles.top_des}>专注于赛前决策服务</span>
+            <span className={styles.top_note}>所以等待 值得期待，世界杯该你上场啦 </span>
+            <div className={styles.app_box}>
+              <div className={styles.button_box}>
+                <div
+                  className={classnames(
+                    styles.app_button,
+                    appType == APP_TYPE.android ? styles.active : null,
+                  )}
+                  onClick={() => {
+                    setAppType(APP_TYPE.android);
+                  }}
+                >
+                  <Iconfont
+                    type="icon-anzhuo"
+                    color={appType == APP_TYPE.android ? '#050505' : '#E6E6E6'}
+                    size={32}
+                  />
+                  <span className={styles.button_title}>Android 版</span>
+                </div>
+                <div
+                  className={classnames(
+                    styles.app_button,
+                    appType == APP_TYPE.iOS ? styles.active : null,
+                  )}
+                  onClick={() => {
+                    setAppType(APP_TYPE.iOS);
+                  }}
+                >
+                  <Iconfont
+                    type="icon-apple-fill"
+                    color={appType == APP_TYPE.iOS ? '#050505' : '#E6E6E6'}
+                    size={32}
+                  />
+                  <span className={styles.button_title}>iOS 版</span>
+                </div>
+              </div>
+              <div>
+                <img
+                  className={styles.qrcode}
+                  src={appType == APP_TYPE.android ? androidQrcode : iOSQrcode}
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.middle_container}>
-          <span className={styles.middle_title}>34体育专注于赛前决策服务</span>
-          <div className={styles.first_box}>
-            <div className={styles.first_des}>赛前实时情报资讯，包括球员伤停、更衣室氛围、首发阵容、战术打法特点等，让用户能够
-更加全面、有深度的分析比赛；</div>
-          </div>
-          <div className={styles.second_box}>
+          {/* <span className={styles.middle_title}>34体育专注于赛前决策服务</span> */}
+          {/* <div className={styles.first_box}>
+            <div className={styles.first_des}>
+              赛前实时情报资讯，包括球员伤停、更衣室氛围、首发阵容、战术打法特点等，让用户能够
+              更加全面、有深度的分析比赛；
+            </div>
+          </div> */}
+          {/* <div className={styles.second_box}>
             <div className={styles.second_left_box}>
               <div className={styles.des_box}>
                 <span className={styles.second_title}>提供足球</span>
@@ -48,22 +113,59 @@ const NewHome: React.FC<HomeProps> = (props) => {
               <span className={styles.third_title}>和 34SPORTS 一起</span>
               <span className={styles.third_des}>了解足彩与赛前决策服务文案占位</span>
             </div>
+          </div> */}
+          <div className={styles.des_container}>
+            <div className={styles.des_box}>
+              <div className={styles.des_title}>产品介绍</div>
+              <div className={styles.text_box}>
+                <img src={app_des_icon01} alt="" />
+                <div className={styles.des_note}>
+                  ·赛前实时情报资讯，包括球员伤停、更衣室氛围、首发阵容、战术打法特点等，让用户能够更加全面、有深度的分析比赛；
+                </div>
+              </div>
+              <div className={styles.text_box}>
+                <img src={app_des_icon02} alt="" />
+                <div className={styles.des_note}>·提供足球即时比分直播；</div>
+              </div>
+              <div className={styles.text_box}>
+                <img src={app_des_icon03} alt="" />
+                <div className={styles.des_note}>·国内知名赛事分析专家提供多维度赛事攻略；</div>
+              </div>
+              <div className={styles.text_box}>
+                <img src={app_des_icon04} alt="" />
+                <div className={styles.des_note}>·赛事资深达人提供多维度赛事知识分享；</div>
+              </div>
+            </div>
+            <div>
+              <img className={styles.snapshot} src={appSnapshot} alt="" />
+            </div>
           </div>
         </div>
         <div className={styles.footer_container}>
           <div className={styles.footer_box}>
             <div className={styles.about_box}>
               <div className={styles.about_left_box}>
-                <span className={styles.box_title}>关于我们</span>
-                <div>
-                  <span className={styles.box_des}>客服微信：ty34sports</span>
-                  <WeiboOutlined style={{marginLeft: 30, color: '#C5C5C5'}}/>
-                  <WechatOutlined style={{marginLeft: 18, color: '#C5C5C5'}}/>
-                </div>
+                <span className={styles.box_title}>客服电话</span>
+                <Iconfont type="icon-phone05" color="#ffffff" size={28} />
+                <span className={styles.box_des}>18501989134</span>
               </div>
+              <img className={styles.logo} src={pageConfig.logo_34sport_white} />
             </div>
             <div className={styles.copyright_box}>
-              {/* <span className={styles.copyright_title}>Copyright © 2022-2022 www.34.com 版权所有 京ICP备11041704号-31 京ICP证070359号 隐私声明 资质证照</span> */}
+              <div className={styles.copyright_left_box}>
+                <span className={styles.copyright_title}>合作联系方式：hezuo@34sport.cn </span>
+                <span className={styles.copyright_title}>
+                  桂ICP备 桂B2-20220825号 营业执照代码：91450100MABU66J394
+                </span>
+              </div>
+              <div className={styles.copyright_right_box}>
+                <a className={styles.protocol_link} href="/terms-and-conditions.html">
+                  用户协议
+                </a>
+                <a className={styles.protocol_link} href="/privacy.html">
+                  隐私协议
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -72,4 +174,4 @@ const NewHome: React.FC<HomeProps> = (props) => {
   );
 };
 
-export default NewHome
+export default NewHome;
