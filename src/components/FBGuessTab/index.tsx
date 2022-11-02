@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import IconFont from '@/components/IconFont';
 import styles from "./index.less"
 import { useHistory } from 'umi';
+import TabFirstImg from "@/assets/worldcup/guess_tab_first.png";
+import TabTwoImg from "@/assets/worldcup/guess_tab_two.png";
+import TabThreeImg from "@/assets/worldcup/guess_tab_three.png";
 
 
 type itemparms = {
@@ -45,26 +48,27 @@ const FBGuessTab = (props: Props) => {
             </div>
 
 
-            <div style={{ borderRadius: "0 6px 6px 6px", backgroundColor: "#fff", padding: 12, marginTop: -1 }} >
-                {list.map((item) => {
-                    return <div className={styles.card_content}>
+            <div className={styles.card_content_box} >
+                {list.map((item, index) => {
+                    return <div style={{ marginTop: index == 1 ? "-20px" : "20px" }} className={styles.card_content}>
 
 
                         <div className={styles.card_content_name}>
                             <div className={styles.card_content_nameleft}>
-                                {item}
+                                <img className={styles.rank} src={index == 0 ? TabTwoImg : index == 1 ? TabFirstImg : TabThreeImg} alt="" />
+
                             </div>
                             <div>
 
-                                <div>姓名</div>
-                                <div style={{ color: "#848494" }}>竞猜值</div></div>
+                                <div style={{ color: "#7E1132", textAlign: "center" }}>姓名</div>
+                                <div className={styles.guess_num}>128%</div></div>
 
 
                         </div>
                         <div className={styles.card_content_return}>
-                            <div>
-                                30%</div>
-                            回报率</div>
+
+
+                            回报率  30%</div>
                     </div>
 
                 })}

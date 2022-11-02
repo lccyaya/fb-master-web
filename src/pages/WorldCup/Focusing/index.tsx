@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import FBInformationList from "@/components/FBInformationList"
-import FBTitle from "@/components/FBTitle"
-import FBMajorMatchItem from "@/components/FBMajorMatchItem"
+import React, { useState, useEffect } from 'react';
+import FBInformationList from '@/components/FBInformationList';
+import FBTitle from '@/components/FBTitle';
+import FBMajorMatchItem from '@/components/FBMajorMatchItem';
 
-import FBGuessTab from "@/components/FBGuessTab"
-import styles from "./index.less"
-import TitleLogo from "@/assets/worldcup/title_logo.png"
+import FBGuessTab from '@/components/FBGuessTab';
+import styles from './index.less';
+import TitleLogo from '@/assets/worldcup/title_logo.png';
 // import IconFont from '@/components/IconFont';
 import { getMajorData } from '@/services/home';
 // import { Swiper } from 'antd-mobile'
@@ -16,16 +16,14 @@ import { useHistory } from 'umi';
 import type { majorMatchType } from '@/services/home';
 import { AnalysisList } from '@/services/worldcup';
 
-
-
-type Props = {}
+type Props = {};
 // const colors = ['#fff', '#fff', '#fff', '#fff']
 
 const Focusing = (props: Props) => {
-    const history = useHistory()
+    const history = useHistory();
     // const [bannerIndex, setBannerIndex] = useState(0)
     const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
-    const [ativeKey, setActiveKey] = useState("1")
+    const [ativeKey, setActiveKey] = useState('1');
     // 左右滚动卡片
     const getData = async () => {
         const res: any = await getMajorData();
@@ -41,18 +39,16 @@ const Focusing = (props: Props) => {
             size,
             worldcup: true,
             // type: 2
-        }
+        };
         const result: any = await AnalysisList(data);
         if (result.success == true) {
-
             return {
                 list: result.data.news,
                 total: result.data.total,
                 page: page + 1,
             };
         }
-
-    }
+    };
 
     const navlist = [
         {
@@ -63,16 +59,20 @@ const Focusing = (props: Props) => {
             label: `回报榜`,
             key: '2',
         },
-
-    ]
-    const list = [1, 2, 3]
+    ];
+    const list = [1, 2, 3];
     useEffect(() => {
         getData();
-        reload()
+        reload();
     }, []);
-    const { data = () => { }, loading, loadMoreAsync, reload, noMore } = useInfiniteScroll(
+    const {
+        data = () => { },
+        loading,
+        loadMoreAsync,
+        reload,
+        noMore,
+    } = useInfiniteScroll(
         (d) => {
-
             const { page = 1 } = d || {};
             return getAnalysisList(page, 10);
         },
@@ -83,10 +83,9 @@ const Focusing = (props: Props) => {
                     return true;
                 }
                 return data?.list?.length >= data?.total;
-
             },
             manual: true,
-        }
+        },
     );
     // const verticalItems = colors.map((color, index) => (
     //     <Swiper.Item key={index} >
@@ -117,38 +116,45 @@ const Focusing = (props: Props) => {
             </div> */}
             <div style={{ padding: 12 }}>
                 <div className={styles.card_container}>
-                    <FBGuessTab item={navlist} list={list} ativeKey={ativeKey} onChange={(key: string) => {
-                        setActiveKey(key)
-                        console.log(key);
-
-                    }}></FBGuessTab>
-
+                    <FBGuessTab
+                        item={navlist}
+                        list={list}
+                        ativeKey={ativeKey}
+                        onChange={(key: string) => {
+                            setActiveKey(key);
+                            console.log(key);
+                        }}
+                    ></FBGuessTab>
                 </div>
-
             </div>
 
-
-            <div className={styles.conent} style={{ background: "#fff" }}>
+            <div className={styles.conent} style={{ background: '#fff' }}>
                 <div className={styles.title}>
                     <img className={styles.title_logo} src={TitleLogo} alt="" />
 
                     <FBTitle title="世界杯动态" />
-
                 </div>
                 <div>
-
                     <Spin spinning={loading}>
                         <div className={styles.content}>
                             {data?.list?.map((item: any, index: number) => {
-                                return <div key={item.ID} style={{
-                                    borderBottom: "1px solid #EEEEEE",
-
-                                }}>
-                                    <FBInformationList onClick={() => {
-                                        history.push(`/zh/informationdetail/${item.ID}`)
-                                    }} showLine={false} informationList={item} id={index} />
-
-                                </div>
+                                return (
+                                    <div
+                                        key={item.ID}
+                                        style={{
+                                            borderBottom: '1px solid #EEEEEE',
+                                        }}
+                                    >
+                                        <FBInformationList
+                                            onClick={() => {
+                                                history.push(`/zh/informationdetail/${item.ID}`);
+                                            }}
+                                            showLine={false}
+                                            informationList={item}
+                                            id={index}
+                                        />
+                                    </div>
+                                );
                             })}
                             <InfiniteScroll
                                 loadMore={async (isRetry) => {
@@ -159,11 +165,9 @@ const Focusing = (props: Props) => {
                         </div>
                     </Spin>
                 </div>
-
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Focusing
+export default Focusing;

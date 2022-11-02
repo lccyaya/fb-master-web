@@ -1,6 +1,13 @@
-// 获取选择比赛列表
-export const datafilter = (arr, data) => {
-  let ishava = arr.findIndex((item) => {
+
+type datafilterParmas = {
+  id: number | null
+  index: number
+  newiswin: string | null
+}
+
+// 获取选择竞猜
+export const datafilter = (arr: datafilterParmas[], data: datafilterParmas) => {
+  let ishava = arr.findIndex((item: datafilterParmas) => {
     return item.index == data.index
   })
   if (ishava == -1) {
@@ -8,14 +15,14 @@ export const datafilter = (arr, data) => {
     // setSelectvalue()
   } else if (data.id == null) {
 
-    let newarr = arr.filter((item) => {
+    let newarr = arr.filter((item: datafilterParmas) => {
       return item.index !== data.index
     })
 
     return newarr
   } else {
-    arr[data.index].id = data.id,
-      arr[data.index].newiswin = data.newiswin
+    arr[ishava].id = data.id,
+      arr[ishava].newiswin = data.newiswin
     return arr
   }
 }

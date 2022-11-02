@@ -1,9 +1,10 @@
 .guess_rank_info {
     width: 100%;
     position: absolute;
-    top: 70px;
-    height: 100%;
+    top: 50px;
+    min-height: 85%;
     background-color: #fff;
+    padding: 12px;
 
     .guess_rank {
         width: 100%;
@@ -18,5 +19,18 @@
 
         background-color: #F7F7F7;
         border-radius: 50px;
+
+        :global .adm-capsule-tabs-tab {
+            height: 30px;
+        }
+
+        :global .adm-capsule-tabs-header {
+            border: none;
+            border-radius: 100px;
+            // background-color: #fff;
+            color: #7E1132;
+            padding: 1px;
+        }
+
     }
 }
