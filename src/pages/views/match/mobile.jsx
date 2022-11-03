@@ -116,7 +116,7 @@ const Mobile = () => {
   // const calendarChange = (v) => {
   //
   //   console.log(v, "999999eeeeee")
-  //   const date = v.format('YYYY-MM-DD');
+  //   const date = v.format('YYYY-MM-DD')+" 23:59:59";
   //   setApiTimestamp('');
   //   onParamsChange({ timestamp: moment(date) / 1000 });
   //   setCalendarValtime(moment(new Date(+v)).format('YYYY-MM-DD ddd'))
@@ -339,7 +339,6 @@ const Mobile = () => {
   }
 
   const handleDateChange = (time) => {
-    console.log(time, Number(time), apiTimestamp)
     setApiTimestamp('');
     onParamsChange({ timestamp: Number(time) / 1000 });
   }
