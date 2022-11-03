@@ -11,8 +11,9 @@ import app_des_icon01 from '@/assets/home/app_des_icon01.png';
 import app_des_icon02 from '@/assets/home/app_des_icon02.png';
 import app_des_icon03 from '@/assets/home/app_des_icon03.png';
 import app_des_icon04 from '@/assets/home/app_des_icon04.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import pageConfig from '@/utils/pageConfig';
+import { useLocation } from 'umi';
 
 type HomeProps = {
   isPhone?: boolean;
@@ -27,7 +28,22 @@ enum APP_TYPE {
 
 const NewHome: React.FC<HomeProps> = (props) => {
   const [appType, setAppType] = useState(APP_TYPE.android);
+  const [icpnum, setIcpnum] = useState(2);
 
+  const checkHost = () => {
+    const reg01 = /34sport.net/;
+    const reg02 = /gxxuancang.com/;
+    if (reg01.test(window.location.host)) {
+      setIcpnum(1);
+    }
+    if (reg02.test(window.location.host)) {
+      setIcpnum(3);
+    }
+  }
+
+  useEffect(() => {
+    checkHost();
+  },[]);
   return (
     <>
       <div>
@@ -155,7 +171,7 @@ const NewHome: React.FC<HomeProps> = (props) => {
               <div className={styles.copyright_left_box}>
                 <span className={styles.copyright_title}>合作联系方式：hezuo@34sport.cn </span>
                 <div className={styles.copyright_title}>
-                  <a className={styles.copyright_title} target="_blank" href="https://beian.miit.gov.cn">桂ICP备2022008606号</a> 营业执照代码：91450100MABU66J394
+                  <a className={styles.copyright_title} target="_blank" href="https://beian.miit.gov.cn">桂ICP备2022008606号-{icpnum}</a> 营业执照代码：91450100MABU66J394
                 </div>
               </div>
               <div className={styles.copyright_right_box}>
