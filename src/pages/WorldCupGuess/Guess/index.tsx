@@ -112,6 +112,7 @@ const Guess = (props: Props) => {
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+
   return (
     <div className={styles.guess_info}>
       <div style={{ padding: 12 }}>

@@ -45,6 +45,14 @@ const WorldCapguess = (props: Props) => {
   const back = () => {
     history.goBack();
   };
+  // 跳转规则
+  const goRule = () => {
+    history.push(`/zh/rule`, {
+      title: '世界杯竞猜规则',
+      url: `${window.publicPath}worldcup_rules.html`,
+    });
+  };
+
   return (
     <div className={styles.main_guess_bg}>
       <div className={styles.guess_bg}>
@@ -54,7 +62,9 @@ const WorldCapguess = (props: Props) => {
             onBack={back}
             right={
               curKey !== '0' ? (
-                <div style={{ color: '#848494', fontSize: 11, height: 15 }}>规则</div>
+                <div style={{ color: '#848494', fontSize: 11, height: 15 }} onClick={goRule}>
+                  规则
+                </div>
               ) : (
                 ''
               )
@@ -65,7 +75,7 @@ const WorldCapguess = (props: Props) => {
         </div>
         <div style={{ height: 50, background: '#fff' }}></div>
         {curKey !== '0' ? null : (
-          <div className={styles.guess_rule}>
+          <div className={styles.guess_rule} onClick={goRule}>
             <img src={Rule} alt="" />
           </div>
         )}
