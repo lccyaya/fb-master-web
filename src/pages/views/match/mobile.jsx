@@ -5,10 +5,11 @@ import { Container, Empty, Search, Spining } from '@/base-components/mobile';
 import { Menu, MatchCard, TimeTitle, Calendar, BottomIcon, League } from '@/func-components/mobile';
 import { MatchListV3, getMatchesTabs, matchFilter } from '@/services/matchPage';
 import moment from 'moment';
-import { formatDate, getScrollDirection } from '@/utils/utils';
+import { formatDate, getScrollDirection, sortMatch, generateDate } from '@/utils/utils';
 import IconFont from '@/components/IconFont';
 import MatchFilter from "@/components/MatchFilter";
 import Toggle from '@/components/Toggle';
+import DateTab from "@/components/DateTab";
 // import filterIcon from '@/assets/icon/filter.svg';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
@@ -19,8 +20,7 @@ import { useUpdateMatch } from '@/hooks/update-match';
 import cls from 'classnames';
 import { handleReport } from '@/utils/report';
 import { getCalendarTitle, handlerData, initParams, initPageData } from './tools';
-import {boolean} from "mockjs/src/mock/random/basic";
-import {getMainIds} from "@/func-components/league/tools"; // 比赛页面的公用方法
+// import {getMainIds} from "@/func-components/league/tools"; // 比赛页面的公用方法
 
 // import {FBTabs} from "@/components/fbt"
 
@@ -60,9 +60,7 @@ const Mobile = () => {
 
   // 筛选visible
   const [filterVisible, setFilterVisible] = useState(false);
-
-  // 筛选数据
-  const [filterData, setFilterData] = useState(null);
+  // 生成是
   // 调用接口的数据改变
   const onParamsChange = (obj = {}) => {
     const query = { ...params, page: 1, ...obj };
@@ -72,6 +70,7 @@ const Mobile = () => {
     if (!query.tab_type) {
       delete query.tab_type;
     }
+
     setParams(query);
   };
 
@@ -93,7 +92,7 @@ const Mobile = () => {
     onParamsChange(obj);
     setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化
 
-    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`)
+    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-MM-DD')}`)
     // 啊啊啊
     // 埋点
     if (item.param_value === 2) {
@@ -108,23 +107,33 @@ const Mobile = () => {
   };
 
   // 联赛确认点击
-  const onLeagueSubmit = (e) => {
-    console.log(e)
-    onParamsChange({ competition_ids: e });
-  };
+  // const onLeagueSubmit = (e) => {
+  //   console.log(e)
+  //   onParamsChange({ competition_ids: e });
+  // };
 
   // 日历变化
-  const calendarChange = (v) => {
+  // const calendarChange = (v) => {
+  //
+  //   console.log(v, "999999eeeeee")
+  //   const date = v.format('YYYY-MM-DD');
+  //   setApiTimestamp('');
+  //   onParamsChange({ timestamp: moment(date) / 1000 });
+  //   setCalendarValtime(moment(new Date(+v)).format('YYYY-MM-DD ddd'))
+  //   console.log(date, "999999")
+  //
+  //   setCalenderShow(false);
+  // };
 
-    console.log(v, "999999eeeeee")
-    const date = v.format('YYYY-MM-DD');
-    setApiTimestamp('');
-    onParamsChange({ timestamp: moment(date) / 1000 });
-    setCalendarValtime(moment(new Date(+v)).format('YYYY-MM-DD ddd'))
-    console.log(date, "999999")
+  // 赛程 dateList
+  const matchScheduleDateList = useMemo(() => {
+    return generateDate(7)
+  }, [])
 
-    setCalenderShow(false);
-  };
+  // 赛果 dateList
+  const matchResultDateList = useMemo(() => {
+    return generateDate(7, "left")
+  }, [])
 
   // 滚动临时禁止
   const disableScroll = (val) => {
@@ -173,7 +182,12 @@ const Mobile = () => {
   const getRequestMatchListV3 = (params) => {
     return MatchListV3(params).then(({ success, code, data: newData, message }) => {
       if (success) {
-        newData.matches = newData.matches || [];
+
+        if(params.tab_type === 1) {
+          newData.matches = sortMatch(newData.matches || [])
+        } else {
+          newData.matches = newData.matches || [];
+        }
         newData.matches.map((item) => {
           item.time = formatDate(item.match_time);
         });
@@ -184,12 +198,24 @@ const Mobile = () => {
             if (newData.matches.length < params.size) {
               pageExtra.has_pre = false;
             }
-            newData.matches = [...newData.matches.reverse(), ...matches];
+            const newMatches = [...newData.matches.reverse(), ...matches]
+            if(params.tab_type === 1) {
+              newData.matches = sortMatch(newMatches)
+            } else {
+              newData.matches = newMatches;
+            }
+
+
           } else {
             if (newData.matches.length < params.size) {
               pageExtra.has_next = false;
             }
-            newData.matches = [...matches, ...newData.matches];
+            const newMatches = [...matches, ...newData.matches]
+            if(params.tab_type === 1) {
+              newData.matches = sortMatch(newMatches)
+            } else {
+              newData.matches = newMatches;
+            }
           }
         } else {
           setApiTimestamp(newData.timestamp)
@@ -211,10 +237,9 @@ const Mobile = () => {
     initialData: {},
     manual: true,
   });
-
   const {
     data: matchFilterData,
-    loading: matchFilterLoading,
+    // loading: matchFilterLoading,
     run: getMatchFilterData
   } = umiRequest(matchFilter, {
     manual: true,
@@ -253,34 +278,34 @@ const Mobile = () => {
   };
 
   // 底部点击
-  const onBottomClick = (item) => {
-    // 指数切换
-    if (item.type === 'icon-tubiao_zhishu') {
-      handleReport({ action: indexVal ? 'open_index' : 'close_index' });
-      if (indexVal) {
-        setIndexData({ ...indexData, color: '#999999', bg: '' });
-        setIndexVal(false);
-      } else {
-        setIndexData({
-          ...indexData,
-          color: '#ffffff',
-          bg: '#FA5900',
-        });
-        setIndexVal(true);
-      }
-    }
-
-    // 搜索点击
-    if (item.type === 'icon-sousuo') {
-      if (searchShow) {
-        setSearchShow(false);
-      } else {
-        params.keywords && onParamsChange({ keywords: '' });
-        setSearchVal('');
-        setSearchShow(true);
-      }
-    }
-  };
+  // const onBottomClick = (item) => {
+  //   // 指数切换
+  //   if (item.type === 'icon-tubiao_zhishu') {
+  //     handleReport({ action: indexVal ? 'open_index' : 'close_index' });
+  //     if (indexVal) {
+  //       setIndexData({ ...indexData, color: '#999999', bg: '' });
+  //       setIndexVal(false);
+  //     } else {
+  //       setIndexData({
+  //         ...indexData,
+  //         color: '#ffffff',
+  //         bg: '#FA5900',
+  //       });
+  //       setIndexVal(true);
+  //     }
+  //   }
+  //
+  //   // 搜索点击
+  //   if (item.type === 'icon-sousuo') {
+  //     if (searchShow) {
+  //       setSearchShow(false);
+  //     } else {
+  //       params.keywords && onParamsChange({ keywords: '' });
+  //       setSearchVal('');
+  //       setSearchShow(true);
+  //     }
+  //   }
+  // };
 
   const handleFilter = () => {
     setFilterVisible(true)
@@ -289,7 +314,6 @@ const Mobile = () => {
       type: 5,
       [params.param_key]: params.param_value
     })
-    // filterData
   }
 
   const handleFilterClose = () => {
@@ -312,6 +336,12 @@ const Mobile = () => {
 
   const handleToggleChange = (type) => {
     setIndexVal(type === 2)
+  }
+
+  const handleDateChange = (time) => {
+    console.log(time, Number(time), apiTimestamp)
+    setApiTimestamp('');
+    onParamsChange({ timestamp: Number(time) / 1000 });
   }
 
   // 初始化
@@ -340,6 +370,7 @@ const Mobile = () => {
         data.competition_ids = params.competition_ids;
       }
       getMatchList(data);
+
     }
   }, [params]);
 
@@ -446,12 +477,24 @@ const Mobile = () => {
           />
           筛选
         </div>
-        {/*<BottomIcon*/}
-        {/*  onClick={onBottomClick}*/}
-        {/*  icons={[indexData, { type: 'icon-sousuo', color: '#FA5900' }]}*/}
-        {/*// icons={[{ type: 'icon-sousuo', color: '#FA5900' }]}*/}
-        {/*/>*/}
+
       </div>
+      {
+        [2].includes(menuActive.param_value) && (
+          <DateTab
+            dateList={matchScheduleDateList}
+            onChange={handleDateChange}
+          />
+        )
+      }
+      {
+        [3].includes(menuActive.param_value) && (
+          <DateTab
+            dateList={matchResultDateList}
+            onChange={handleDateChange}
+          />
+        )
+      }
 
       {/*{menuActive.has_calendar ? (*/}
       {/*  <div>*/}
@@ -499,7 +542,8 @@ const Mobile = () => {
       {/*          <span style={{*/}
       {/*            color: "#848494", fontSize: 14,*/}
       {/*            marginLeft: 5,*/}
-      {/*          }}>  {calenderValtime}*/}
+      {/*          }}>*/}
+      {/*            {calenderValtime}*/}
       {/*          </span>*/}
 
       {/*        </div>*/}
@@ -548,29 +592,6 @@ const Mobile = () => {
           !menuList?.length ? styles.is_loading : null,
         )}
       >
-        {/* 搜索 */}
-        {/*{searchShow ? (*/}
-        {/*  <div className={styles.search}>*/}
-        {/*    <Search*/}
-        {/*      value={searchVal}*/}
-        {/*      onChange={setSearchVal}*/}
-        {/*      onFocus={() => handleReport({ action: 'search_team' })}*/}
-        {/*      onEnter={(e) => {*/}
-        {/*        onParamsChange({ keywords: e });*/}
-        {/*        mutate({ matches: [] }); // 当搜索时，需要把旧的数据清空掉 否则旧数据会一闪一闪的*/}
-        {/*      }}*/}
-        {/*    />*/}
-        {/*    <span*/}
-        {/*      className={styles.text}*/}
-        {/*      onClick={() => {*/}
-        {/*        onParamsChange({ keywords: '' });*/}
-        {/*        setSearchShow(!searchShow);*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      {intl.formatMessage({ id: 'key_cancel', defaultMessage: 'key_cancel' })}*/}
-        {/*    </span>*/}
-        {/*  </div>*/}
-        {/*) : null}*/}
         {/* 主内容 */}
         <div style={{ height: 10, background: "#F7FAFB" }}></div>
         <Spin spinning={spinning}>
@@ -599,7 +620,8 @@ const Mobile = () => {
 
 
         {/*<Calendar*/}
-        {/*  value={calendarValue} setValue={setCalendarValue}*/}
+        {/*  value={calendarValue}*/}
+        {/*  setValue={setCalendarValue}*/}
         {/*  params={params}*/}
         {/*  show={calenderShow}*/}
         {/*  onClose={() => setCalenderShow(false)}*/}

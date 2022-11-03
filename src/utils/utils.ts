@@ -361,7 +361,7 @@ export const formatDate = (date: any) => {
   return moment(date * 1000).format('ddd,DD/MM YYYY');
 };
 
-// 时间格式化 
+// 时间格式化
 export const formatDateMMDD = (date: any, extra: string = '') => {
   if (getLocale() === 'zh-CN') {
     return moment(date * 1000).format('MM-DD' + extra);
@@ -411,4 +411,63 @@ export const includes = (val: string, keyword: string) => {
   } catch (error) {
     return false;
   }
+}
+
+/***
+ * 根据status排序, [进行中（2-7）, 未开始（1）, 完成或异常（>=8或者0）]
+ *
+ * @param origin
+ */
+export function sortMatch(origin: any) {
+  const underwayMatchList: any = [];
+  const noStartMatchList: any = [];
+  const finishedOrErrorMatchList: any = [];
+  origin.forEach((item: any) => {
+    if(item.status >= 2 && item.status < 8) {
+      underwayMatchList.push(item)
+    }
+    if(item.status === 1) {
+      noStartMatchList.push(item)
+    }
+    if(item.status >= 8 || item === 0) {
+      finishedOrErrorMatchList.push(item)
+    }
+  })
+  return [...underwayMatchList, ...noStartMatchList, ...finishedOrErrorMatchList]
+}
+
+/***
+ *  获取当天零点时间
+ */
+export function currentDayStamp() {
+  return new Date(new Date().setHours(0,0,0,0)).getTime();
+}
+
+type Direction = 'left' | 'right';
+
+/**
+ * 生成零点list
+ * @param days
+ * @param direction
+ */
+export function generateDate(days: number, direction: Direction = "right") {
+  const time = currentDayStamp();
+  const oneDaysTime = 24*60*60*1000;
+  const res = [];
+  for (let i = 0; i < days ; i++) {
+    const curStamp = direction === 'left' ? time - oneDaysTime*i : time + oneDaysTime*i;
+    const dataItem = {
+      timestamp: curStamp,
+      date: moment(curStamp).format('MM-DD'),
+      week: moment(curStamp).format('ddd'),
+      today: i === 0,
+      key: i
+    }
+    if(direction === "left") {
+      res.unshift(dataItem)
+    } else {
+      res.push(dataItem)
+    }
+  }
+  return res;
 }

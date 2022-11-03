@@ -1,0 +1,28 @@
+.dataScrollWrapper {
+  padding: 0 10px;
+  :global {
+    .adm-tabs-tab {
+      padding: 6px 0 8px;
+    }
+  }
+}
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  color: #848494;
+  &.selected {
+    color: #000028;
+    font-weight: 500;
+  }
+  .today {
+    font-size: 14px;
+  }
+  .titleTop, .titleBottom {
+    height: 16px;
+    line-height: 16px;
+  }
+}

@@ -3,7 +3,7 @@ import { Tabs, Button } from 'antd';
 import styles from './mobile.module.less';
 import cls from 'classnames';
 
-const menu = ({ 
+const menu = ({
   menus = [], onChange = () => {}, children, className, operations
 }) => {
   // operations = <Button>Extra Action</Button>;
@@ -14,7 +14,7 @@ const menu = ({
   }
   return <div className={cls(styles.menu, className)}>
      {/* onTabClick={onClick} */}
-    <Tabs 
+    <Tabs
         activeKey={active} className={styles.navTab} onChange={onClick}
         style={{ position: 'sticky', top: '92px'}} tabBarExtraContent={operations}
     >

@@ -8,7 +8,7 @@ import IconFont from '@/components/IconFont';
 import { formatDateMMMYYYY } from '@/utils/utils';
 import { getCalendar } from '@/services/matchPage';
 
-const CalendarCom = ({ 
+const CalendarCom = ({
   className, show, onChange = () => {}, onClose = () => {}, params = {},
   value, setValue,
 }) => {
@@ -20,6 +20,7 @@ const CalendarCom = ({
   // 获取日历信息
   const getCalendarData = async (value) => {
     const month = value.format('YYYY-MM');
+
     setData({});
     const query = {
       zone: params.zone,

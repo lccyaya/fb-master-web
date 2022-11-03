@@ -395,11 +395,24 @@ export async function recommendList(params: expertRecommendListParam) {
 
 type IMatchFilterParams = Pick<FetchMatchListForInfoType, 'timestamp' | 'tab_type'> & { type: string }
 
+export interface CategoryProps {
+  name: string;
+  competitions: {
+    id: number;
+    logo: string;
+    name: string;
+  }[]
+}
+
+export interface ICategoryRes {
+  categories: CategoryProps[]
+}
+
 /**
 * 赛事筛选
 * */
 
 export async function matchFilter(params: IMatchFilterParams) {
   const result = await request('/api/v3/competition/filter', { params });
-  return normalizeResponse<teamPlayersType>(result);
+  return normalizeResponse<ICategoryRes>(result);
 }
