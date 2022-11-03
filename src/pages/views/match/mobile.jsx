@@ -130,6 +130,7 @@ const Mobile = () => {
     return generateDate(7)
   }, [])
 
+
   // 赛果 dateList
   const matchResultDateList = useMemo(() => {
     return generateDate(7, "left")
@@ -340,7 +341,7 @@ const Mobile = () => {
 
   const handleDateChange = (time) => {
     setApiTimestamp('');
-    onParamsChange({ timestamp: Number(time) / 1000 });
+    onParamsChange({ timestamp: Math.floor(Number(time) / 1000) });
   }
 
   // 初始化

@@ -445,16 +445,16 @@ export function sortMatch(origin: any) {
 }
 
 /***
- *  获取当天零点时间
+ *  获取当晚临界时间
  */
 export function currentDayStamp() {
-  return new Date(new Date().setHours(0,0,0,0)).getTime();
+  return new Date(new Date().setHours(23,59,59, 999)).getTime();
 }
 
 type Direction = 'left' | 'right';
 
 /**
- * 生成零点list
+ * 生成晚上临界时间 list
  * @param days
  * @param direction
  */
