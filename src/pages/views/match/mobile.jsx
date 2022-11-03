@@ -240,7 +240,7 @@ const Mobile = () => {
   });
   const {
     data: matchFilterData,
-    // loading: matchFilterLoading,
+    loading: matchFilterLoading,
     run: getMatchFilterData
   } = umiRequest(matchFilter, {
     manual: true,
@@ -658,6 +658,7 @@ const Mobile = () => {
         onOk={handleFilterOk}
         typeChange={handleTypeChange}
         data={matchFilterData || []}
+        loading={matchFilterLoading}
       />
     </div>
   );

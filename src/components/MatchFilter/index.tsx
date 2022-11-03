@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { IndexBar, Button } from 'antd-mobile';
+import { Spin } from 'antd';
 import MatchItem from "@/components/MatchFilter/MatchItem";
 import IconFont from '@/components/IconFont';
 import classNames from 'classnames';
@@ -22,12 +23,12 @@ interface IMatchFilterProps {
   onOk: (ids: number[]) => void;
   data: ItemProps[];
   typeChange?: (id: number) => void;
+  loading?: boolean;
 }
 
 
 
-const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChange}: IMatchFilterProps) => {
-
+const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChange, loading}: IMatchFilterProps) => {
   const [selectedList, setSelectList] = useState<number[]>([]);
   const [optionSelected, setOptionSelected] = useState<number>();
   // const [actionSelected, setActionSelected] = useState<number>();
@@ -115,36 +116,38 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
           <span className={styles.title}>{title}</span>
           <IconFont type='icon-guanbi' onClick={handleClose}/>
         </div>
-        <div className={styles.container}>
-          <IndexBar>
-            {
-              data.map(item => {
-                const {name, competitions} = item;
-                return (
-                  <IndexBar.Panel
-                    index={name}
-                    title={name}
-                    key={name}
-                  >
-                    {
-                      (competitions || []).map((child: { name: string, id: number }) => {
-                        return (
-                          <MatchItem
-                            key={child.id}
-                            id={child.id}
-                            name={child.name}
-                            selectedList={selectedList}
-                            handleClick={handleItemClick}
-                          />
-                        )
-                      })
-                    }
-                  </IndexBar.Panel>
-                )
-              })
-            }
-          </IndexBar>
-        </div>
+        <Spin spinning={loading ?? false}>
+          <div className={styles.container}>
+            <IndexBar>
+              {
+                data.map(item => {
+                  const {name, competitions} = item;
+                  return (
+                    <IndexBar.Panel
+                      index={name}
+                      title={name}
+                      key={name}
+                    >
+                      {
+                        (competitions || []).map((child: { name: string, id: number }) => {
+                          return (
+                            <MatchItem
+                              key={child.id}
+                              id={child.id}
+                              name={child.name}
+                              selectedList={selectedList}
+                              handleClick={handleItemClick}
+                            />
+                          )
+                        })
+                      }
+                    </IndexBar.Panel>
+                  )
+                })
+              }
+            </IndexBar>
+          </div>
+        </Spin>
         <div className={styles.footerWrapper}>
           <div className={styles.optionList}>
             {
