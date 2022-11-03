@@ -154,15 +154,15 @@ const NewHome: React.FC<HomeProps> = (props) => {
             <div className={styles.copyright_box}>
               <div className={styles.copyright_left_box}>
                 <span className={styles.copyright_title}>合作联系方式：hezuo@34sport.cn </span>
-                <span className={styles.copyright_title}>
-                  桂ICP备 桂B2-20220825号 营业执照代码：91450100MABU66J394
-                </span>
+                <div className={styles.copyright_title}>
+                  <a className={styles.copyright_title} target="_blank" href="https://beian.miit.gov.cn">桂ICP备2022008606号</a> 营业执照代码：91450100MABU66J394
+                </div>
               </div>
               <div className={styles.copyright_right_box}>
-                <a className={styles.protocol_link} href="/terms-and-conditions.html">
+                <a className={styles.protocol_link} target="_blank" href="/terms-and-conditions.html">
                   用户协议
                 </a>
-                <a className={styles.protocol_link} href="/privacy.html">
+                <a className={styles.protocol_link} target="_blank" href="/privacy.html">
                   隐私协议
                 </a>
               </div>
