@@ -9,6 +9,7 @@ import { history } from 'umi';
 import React, { useState, useEffect } from 'react';
 import BaseModal from '@/components/BaseModal/mobile';
 import { handleReport } from '@/utils/report';
+import { urlencode } from "@/utils/utils";
 
 const Recharge = ({ coin }) => {
   const [payChannels, setPayChannels] = useState([]);
@@ -42,7 +43,8 @@ const Recharge = ({ coin }) => {
     setLoading(false);
 
     if (resp.success) {
-      window.open(resp.data.param, '_blank');
+      const url = urlencode("https://www.34sport.cn");
+      window.open(resp.data.param+"&redirect_url="+url, '_blank');
     } else {
       message.error(resp.message);
     }

@@ -412,3 +412,10 @@ export const includes = (val: string, keyword: string) => {
     return false;
   }
 }
+
+export const urlencode = (str: string) => {  
+  str = (str + '').toString();   
+
+  return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').  
+  replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');  
+}
