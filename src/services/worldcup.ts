@@ -2,13 +2,6 @@ import request from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 
 
-// export async function getMajorData() {
-//   const result = await request('/api/match/major', {
-//     method: 'GET',
-//   });
-//   return normalizeResponse<majorMatch>(result);
-// }
-
 export type News = {
     ID: number;
     CreatedAt: string;
@@ -42,20 +35,6 @@ export type WordCapParams = {
     world_cup?: number
 }
 
-export type FreeSchemeListData = {
-    // title: string;
-    // avatar: string;
-    // nickname: string;
-    // published_at: string;
-    // content: string | any
-}
-export type WorldCapSchemeListData = {
-    // title: string;
-    // avatar: string;
-    // nickname: string;
-    // published_at: string;
-    // content: string | any
-}
 
 
 
@@ -112,7 +91,6 @@ export type BracketListParams = {
     season_id: number
 }
 export type PlayerGoalListParams = {
-    // competition_id: number
     season_id: number
 
     competition_id: number
@@ -120,16 +98,11 @@ export type PlayerGoalListParams = {
 
 export type Datares = {
 
-    data?: any
+    // data?: any
     success: boolean
 }
 
 
-// 聚焦
-// export async function AnalysisList(params: AnalysisListParams) {
-//     const result = await request('/api/news', { params });
-//     return normalizeResponse<{ news: News[]; total: number; }>(result);
-// }
 
 // 聚焦 分析
 export async function AnalysisList(params: WordCapParams) {
@@ -147,7 +120,7 @@ export async function FreeSchemeList(params: WordCapParams) {
 // 世界杯攻略
 export async function HitSchemeList(params: WordCapParams) {
     const result = await request('/api/v5/expert/scheme-list', { params });
-    return normalizeResponse<WorldCapSchemeListData>(result);
+    return normalizeResponse<Datares>(result);
 }
 // 小组赛
 export async function GroupList(params: GroupListParams) {
@@ -170,7 +143,4 @@ export async function PlayerGoalList(params: PlayerGoalListParams) {
     return normalizeResponse<Datares>(result);
 }
 
-// export async function informationDetail(id: number) {
-//     const result = await request(`/api/news/detail?id=${id}`);
-//     return normalizeResponse<InformationDetailData>(result);
-// }
+// 竞猜

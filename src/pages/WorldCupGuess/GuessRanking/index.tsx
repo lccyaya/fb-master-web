@@ -6,17 +6,19 @@ import Table from './table';
 type Props = {};
 
 const GuessRanking = (props: Props) => {
-  const [activeKey, setActiveKey] = useState('key_worldcap_guessvalue');
+  const [activeKey, setActiveKey] = useState('1');
   const tab = [
     {
       title: <FormattedMessage id={'key_worldcap_guessvalue'} />,
-      key: 'key_worldcap_guessvalue',
+      key: '1',
     },
     {
       title: <FormattedMessage id={'key_worldcap_return'} />,
-      key: 'key_worldcap_return',
+      key: '2',
     },
   ];
+
+  const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
   const onChangetab = (key: string) => {
     setActiveKey(key);
   };
@@ -34,7 +36,7 @@ const GuessRanking = (props: Props) => {
         </div>
       </div>
       <div style={{ height: '17px' }}></div>
-      <Table></Table>
+      <Table data={data} activeKey={activeKey}></Table>
     </div>
   );
 };
