@@ -208,6 +208,7 @@ export default {
     "key_log_in": "登录",
     "key_log_in_to_complete": "请先登录后再进行操作",
     "key_log_out": "退出登录",
+    "key_profile_center": "创作中心",
     "key_login": "登录",
     "key_login_with_facebook": "确认使用 Facebook 登录吗？",
     "key_lose": "负",
