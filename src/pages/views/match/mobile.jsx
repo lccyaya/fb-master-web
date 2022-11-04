@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, createRef } from 'react';
-import { useIntl, useHistory, useRequest as umiRequest } from 'umi';
+import { useHistory, useRequest as umiRequest, useIntl } from 'umi';
 import styles from './mobile.less';
 import { Container, Empty, Search, Spining } from '@/base-components/mobile';
 import { Menu, MatchCard, TimeTitle, Calendar, BottomIcon, League } from '@/func-components/mobile';
@@ -25,7 +25,7 @@ import { getCalendarTitle, handlerData, initParams, initPageData } from './tools
 // import {FBTabs} from "@/components/fbt"
 
 const Mobile = () => {
-  const intl = useIntl();
+  // const intl = useIntl();
   const [menuActive, setMenuActive] = useState({});
   const [menuList, setMenuList] = useState(null);
   const scrollRef = createRef();
@@ -34,13 +34,13 @@ const Mobile = () => {
   const [indexData, setIndexData] = useState({ type: 'icon-tubiao_zhishu', color: '#999999' });
   const [apiTimestamp, setApiTimestamp] = useState('');
   const [currentHeight, setCurrentHeight] = useState(null); // 当前容器高度 上滑需要用到
-  const [leagueShow, setLeagueShow] = useState(false); // league 是否显示
-  const [searchVal, setSearchVal] = useState(''); // 搜索的值
+  // const [leagueShow, setLeagueShow] = useState(false); // league 是否显示
+  // const [searchVal, setSearchVal] = useState(''); // 搜索的值
   const [ignoreScroll, setIgnoreScroll] = useState(false); // 临时禁止滚动
 
   const [searchShow, setSearchShow] = useState(false); // 搜索
   const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
-  const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
+  // const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
   // const [calenderVal, setCalendarVal] = useState(''); // 日历的值
   const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`); // 日历组件显示内容
   const toggleData = [{
@@ -157,7 +157,7 @@ const Mobile = () => {
 
     setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-MM-DD ddd'))
 
-    setShowTopIcon(values.scrollTop > 100 ? true : false);
+    setShowTopIcon(values.scrollTop > 100);
 
     if (values.scrollTop > 100) {
       window.scrollTo(0, 48);
