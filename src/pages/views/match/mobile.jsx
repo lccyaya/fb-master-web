@@ -88,6 +88,7 @@ const Mobile = () => {
       param_key: item.param_key,
       param_value: item.param_value,
       timestamp: 0,
+      size: item.param_value === 1 ? 1500 : 20
     };
     onParamsChange(obj);
     setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化

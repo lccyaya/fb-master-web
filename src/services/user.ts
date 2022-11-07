@@ -19,6 +19,10 @@ export type UserInfoType = {
   subMatchNum: number;
   followExpertNum: number;
   phone: string;
+  user_info: {
+    is_real: string;
+    name: string;
+  }
   expert: {
     id: string;
     avatar: string;
@@ -35,4 +39,18 @@ export async function queryCurrent() {
 export async function uploadPic(key: string) {
   const result = await request('/api/v1/pre-sign-url', { params: { key } });
   return normalizeResponse<string>(result);
+}
+
+// 实名认证
+export interface NameAuthProps {
+  name: string;
+  idCard: string;
+}
+
+export async function nameAuth(data: NameAuthProps) {
+  const result = await request('/api/name-auth', {
+    method: 'post',
+    data
+  });
+  return normalizeResponse<any>(result);
 }

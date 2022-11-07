@@ -6,15 +6,15 @@ export const initParams = {
     timestamp: 0,
     keywords: '', // 搜索的 key
     page: 1,
-    size: 20,
+    size: 1500,
   };
-  
+
 // 初始化分页数据
 export const initPageData = {
-    page: 1, // 记录上拉加载的page 
+    page: 1, // 记录上拉加载的page
     prePage: 0, // 记录下拉加载的page
     isLoading: '', // pre 下拉加载时  next 上滑加载时  '' 没有加载时
-    has_pre: true, // 根据数据判断 是否还有之前更多的数据 
+    has_pre: true, // 根据数据判断 是否还有之前更多的数据
     has_next: true, // 根据数据判断 是否还有之后更多的数据
 }
 

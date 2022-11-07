@@ -1,9 +1,10 @@
 import FeedBack from '@/components/FeedBack/mobile';
 import PopupLogin from '@/components/PopupLogin';
-import { ConnectState } from '@/models/connect';
-import { UserInfoType } from '@/services/user';
+import type { ConnectState } from '@/models/connect';
+import type { UserInfoType } from '@/services/user';
 import { ExpertStatus } from '@/utils/scheme';
-import { Avatar, Button, Card } from 'antd';
+// import { Avatar, Button, Card } from 'antd';
+import { Dialog } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useSelector } from 'umi';
 import styles from './index.less';
@@ -18,9 +19,23 @@ const Mine: React.FC<Props> = (props) => {
   const history = useHistory();
   const [visible, setVisible] = useState(false);
 
+  const handleAuthName = () => {
+    history.push('/zh/certification')
+  }
+
   const applicateExpert = () => {
     if (user) {
-      history.push('/zh/expert/application');
+      if(!user?.user_info?.is_real) {
+        Dialog.confirm({
+          title: '实名认证',
+          content: '您还未完成实名认证，请先进行认证！',
+          confirmText: "去认证",
+          cancelText: <span className={styles.cancelStyle}>取消</span>,
+          onConfirm: handleAuthName
+        })
+      } else {
+        history.push('/zh/expert/application');
+      }
     }
   };
   useEffect(() => {}, []);
