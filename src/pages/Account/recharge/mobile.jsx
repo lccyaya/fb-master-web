@@ -44,7 +44,8 @@ const Recharge = ({ coin }) => {
 
     if (resp.success) {
       const url = urlencode("https://www.34sport.cn");
-      window.open(resp.data.param+"&redirect_url="+url, '_blank');
+      // window.open(resp.data.param+"&redirect_url="+url, '_blank');
+      window.open(resp.data.param, '_blank');
     } else {
       message.error(resp.message);
     }
