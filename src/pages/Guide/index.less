@@ -1,0 +1,166 @@
+.guide_main {
+    height: 100%;
+    width: 100%;
+    background-color: #F6F6F6;
+
+
+    .guide_sport {
+        width: 100%;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .guide_sport_logo {
+            background-color: #FA5900;
+            width: 78px;
+            height: 78px;
+            border-radius: 15px;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sport_name {
+            font-size: 21px;
+            color: #45494C;
+            width: 130px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+
+            span {
+                font-size: 9px;
+                border: 0.5px solid #848494;
+                color: #848494;
+                border-radius: 3px;
+                text-align: center;
+                padding: 3px;
+                margin-left: 5px;
+            }
+        }
+
+        .sport_red {
+
+            color: #848494;
+            font-size: 14px;
+            margin: 5px 0;
+            // width: 150px;
+        }
+
+        .rate {
+
+            width: 120px;
+            margin-right: 15px;
+            color: #000028;
+            align-items: center;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            .rate_icon {
+                padding: 5px;
+                font-size: 15px;
+                color: #FFB200;
+                margin-top: -12px;
+
+                :golbal .ant-rate-star:not(:last-child) {
+                    margin-right: 5px;
+
+                }
+
+            }
+        }
+    }
+
+    .swiper {
+        width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        background-color: #fff;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+
+        .content {
+
+
+            margin: 0 10px;
+            border-radius: 8px;
+            border: 1px solid #FA5900;
+        }
+
+        .swiper_downloadbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper_download {
+            font-size: 14px;
+            background-image: url("~@/assets/bubble.png");
+            width: 80%;
+            height: 35px;
+            line-height: 30px;
+            text-align: center;
+            color: #FA5900;
+            font-weight: 500;
+            margin-bottom: 15px;
+            background-position: center center;
+            background-size: 100% 100%;
+        }
+
+
+    }
+
+
+
+
+    .download {
+        height: 155px;
+        width: 100%;
+        background-color: #F6F6F6;
+        padding: 15px;
+
+
+        .download_info {
+
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #848494;
+            line-height: 20px;
+            margin: 10px 0;
+
+            .info_company {
+
+
+                .company_box {
+                    display: flex;
+
+                    .company_name {
+                        margin-left: 5px;
+                    }
+                }
+
+            }
+
+            .privacy {
+                height: 20px;
+                margin-top: 35px;
+                display: flex;
+
+                div {
+                    width: 45px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+}

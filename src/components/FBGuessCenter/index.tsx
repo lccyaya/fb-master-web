@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 import IconFont from '@/components/IconFont';
+import moment from 'moment';
 type Props = {
   onClickbtn: Function;
   data: any;
@@ -15,10 +16,13 @@ const FBGuessCenter = (props: Props) => {
   const { onClickbtn, data, index } = props;
 
   const onGuessClick = (e: any) => {
-    let id = e.target.getAttribute('data-id');
-    let newiswin = e.target.getAttribute('data-iswin');
+    let match_id = e.target.getAttribute('data-match_id');
+    let odd_scheme_id = e.target.getAttribute('data-odd_scheme_id');
 
-    if (id == selectId && newiswin == iswin) {
+    let newiswin = e.target.getAttribute('data-iswin');
+    console.log(odd_scheme_id, newiswin);
+
+    if (match_id == selectId && newiswin == iswin) {
       setSelectId(null);
       setIswint(null);
 
@@ -26,15 +30,15 @@ const FBGuessCenter = (props: Props) => {
 
       onClickbtn(data);
     } else {
-      setSelectId(id);
+      setSelectId(odd_scheme_id);
       setIswint(newiswin);
-      let data = { id, newiswin, index };
+      let data = { match_id, newiswin, index };
       onClickbtn(data);
     }
   };
 
   return (
-    <div className={styles.guess_center_main}>
+    <div className={styles.guess_center_main} key={data?.match?.match_id}>
       <div
         className={styles.guess_center_team}
         style={
@@ -43,16 +47,17 @@ const FBGuessCenter = (props: Props) => {
           }
         }
       >
-        <div>周四 001</div>
+        <div>{data.match?.issue}</div>
         <div className={styles.guess_center_teamimg}>
           <div style={{ display: 'flex', color: '#7E1132' }}>
-            <div className={styles.guess_center_teamlog}>图片</div>
-            占位
+            <div className={styles.guess_center_teamlog}></div>
+            <div>{data.match.home_team_name}</div>
+            {}
           </div>
           <IconFont className={styles.star} type="icon-VS" color="#7E1132" size={18} />
           <div style={{ display: 'flex', color: '#45494C' }}>
-            <div className={styles.guess_center_teamlog}>图片</div>
-            占位
+            <div className={styles.guess_center_teamlog}></div>
+            <div> {data.match.away_team_name}</div>
           </div>
         </div>
 
@@ -64,80 +69,43 @@ const FBGuessCenter = (props: Props) => {
       <div className={styles.guess_center_team}>
         <div>
           世界杯
-          <div>19:00</div>
+          <div>
+            {' '}
+            {moment(new Date(Number(data?.match?.match_time) * 1000)).format('YYYY-MM-DD HH:mm')}
+          </div>
         </div>
         <div>
-          <div className={styles.button_box}>
-            <div className={styles.buttonnum}>0</div>
-
-            <div
-              className={styles.onbutton}
-              onClick={(e) => {
-                onGuessClick(e);
-              }}
-            >
-              <div
-                className={selectId == data.id && iswin == 'win' ? styles.selectId : styles.button}
-                data-id={data.id}
-                data-iswin="win"
-              >
-                胜
+          {data?.odds?.map((item, index) => {
+            return (
+              <div className={styles.button_box} key={index}>
+                <div className={styles.buttonnum}>0</div>
+                {item?.odds?.map((items) => {
+                  return (
+                    <div
+                      className={styles.onbutton}
+                      onClick={(e) => {
+                        onGuessClick(e);
+                      }}
+                    >
+                      <div
+                        className={
+                          selectId == item?.odd_scheme_id && iswin == items.tag
+                            ? styles.selectId
+                            : styles.button
+                        }
+                        data-match_id={item?.match_id}
+                        data-odd_scheme_id={item?.odd_scheme_id}
+                        data-iswin={items.tag}
+                      >
+                        {items.title}
+                        {items.odd}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div
-                className={selectId == data.id && iswin == 'flat' ? styles.selectId : styles.button}
-                data-id={data.id}
-                data-iswin="flat"
-              >
-                平
-              </div>
-              <div
-                className={
-                  selectId == data.id && iswin == 'guest' ? styles.selectId : styles.button
-                }
-                data-id={data.id}
-                data-iswin="guest"
-              >
-                客
-              </div>
-            </div>
-          </div>
-          <div className={styles.button_box}>
-            <div className={styles.buttonnum}>0</div>
-            <div
-              className={styles.onbutton}
-              onClick={(e) => {
-                onGuessClick(e);
-              }}
-            >
-              <div
-                className={
-                  selectId == data.away && iswin == 'win' ? styles.selectId : styles.button
-                }
-                data-id={data.away}
-                data-iswin="win"
-              >
-                胜
-              </div>
-              <div
-                className={
-                  selectId == data.away && iswin == 'flat' ? styles.selectId : styles.button
-                }
-                data-id={data.away}
-                data-iswin="flat"
-              >
-                平
-              </div>
-              <div
-                className={
-                  selectId == data.away && iswin == 'guest' ? styles.selectId : styles.button
-                }
-                data-id={data.away}
-                data-iswin="guest"
-              >
-                客
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
