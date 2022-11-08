@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
@@ -7,6 +7,12 @@ import FBGuessCenter from '@/components/FBGuessCenter';
 import FBGuessEnergy from '@/components/FBGuessEnergy';
 import { useSelector, useHistory } from 'umi';
 import { Modal } from 'antd-mobile';
+import { InfiniteScroll } from 'antd-mobile';
+import { useInfiniteScroll } from 'ahooks';
+import { Spin } from 'antd';
+import { GuessMatchList } from '@/services/worldcup';
+
+import type { GuessMatchListParams, GuessMatchListRes } from '@/services/worldcup';
 type Props = {};
 
 const GuessCenter = (props: Props) => {
@@ -121,18 +127,72 @@ const GuessCenter = (props: Props) => {
       },
     });
   };
+  const getMyGuessList = async (page: number, size: number): Promise<any> => {
+    let data: GuessMatchListParams = {
+      page,
+      size,
+    };
+    const result: GuessMatchListRes = await GuessMatchList(data);
+    console.log(result, '000000');
 
+    if (result.success == true) {
+      return {
+        list: result.data.list,
+        total: result.data.list.length >= 10,
+        page: page + 1,
+      };
+    }
+  };
+
+  const {
+    data = () => {},
+    loading,
+    loadMoreAsync,
+    reload,
+    noMore,
+  } = useInfiniteScroll(
+    (d) => {
+      const { page = 1 } = d || {};
+
+      return getMyGuessList(page, 10);
+    },
+    {
+      // target: ref,
+      isNoMore: (data) => {
+        if (!data?.list?.length) {
+          return true;
+        }
+        return !data?.total;
+      },
+      manual: true,
+    },
+  );
+  useEffect(() => {
+    reload();
+  }, []);
   return (
     <div className={styles.guesscenter_info}>
       <div className={styles.tip}>购彩请到线下实体销售网点，34体育不支持任何形式的线上购彩</div>
 
       <div className={styles.guesscenter_list}>
         <div className={styles.guesscenter_time}>2022.11.22 星期四 2场比赛</div>
-        {guesslist.map((item, index) => {
-          return <FBGuessCenter data={item} onClickbtn={onbutton} index={index}></FBGuessCenter>;
-        })}
+        <Spin spinning={loading}>
+          <div>
+            {data.list?.map((item, index) => {
+              return (
+                <FBGuessCenter data={item} onClickbtn={onbutton} index={index}></FBGuessCenter>
+              );
+            })}
+            <InfiniteScroll
+              loadMore={async (isRetry) => {
+                await loadMoreAsync();
+              }}
+              hasMore={!noMore}
+            />
+          </div>
+        </Spin>
       </div>
-      <div style={{ height: '57px' }}></div>
+      {/* <div style={{ height: '57px' }}></div> */}
 
       <div className={styles.guesscenter_bottom_box}>
         {!user ? (

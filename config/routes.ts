@@ -242,6 +242,11 @@
               cate: 'rule',
             },
             {
+              path: '/:locale/guide',
+              component: '../pages/Guide',
+              cate: 'guide',
+            },
+            {
               component: './404',
             },
           ],

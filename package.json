@@ -104,6 +104,7 @@
     "react-sticky": "^6.0.3",
     "react-transition-group": "^4.4.2",
     "react-weui": "^1.2.3",
+    "slick-carousel": "^1.8.1",
     "sortablejs": "^1.13.0",
     "swiper": "^7.4.1",
     "umi": "3.5.24",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FBGuessInfo from '@/components/FBGuessInfo';
 import FBGuessShare from '@/components/FBGuessShare';
 import FBMyguess from '@/components/FBMyguess';
@@ -10,7 +10,23 @@ import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
 import MyguessTitleImg from '@/assets/worldcup/my_guess_title.png';
 import WorldcupEmpty from '@/assets/worldcup/worldcup_empty.png';
+import Gotop from '@/assets/worldcup/go_top.png';
+import useScrollTop from '@/hooks/useScrollTop';
+import { MyGuess, GuessUserDetail } from '@/services/worldcup';
 
+import type {
+  GuessUserDetailParams,
+  GuessUserDetailRes,
+  guessUserDetailList,
+  GuessSchemParams,
+} from '@/services/worldcup';
+import { FOOTBALL_MASTER_TOKEN } from '@/constants';
+
+import { timeStorageGet } from '@/utils/timestorage';
+import { Anchor, Spin } from 'antd';
+import { InfiniteScroll } from 'antd-mobile';
+import { useInfiniteScroll } from 'ahooks';
+const { Link } = Anchor;
 type Props = {};
 
 const Guess = (props: Props) => {
@@ -104,7 +120,8 @@ const Guess = (props: Props) => {
       win: 350,
     },
   ];
-
+  const scrollTop = useScrollTop();
+  const [guesUser, setGuesUser] = useState<guessUserDetailList>();
   const sharelist = [
     { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
     { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
@@ -112,11 +129,67 @@ const Guess = (props: Props) => {
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+  useEffect(() => {
+    getGuesUserDetail();
+    console.log(user, 'pppp');
+  }, []);
+  const getGuesUserDetail = async () => {
+    const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
+    let data: GuessUserDetailParams = { authtoken: val };
+    let res: GuessUserDetailRes = await GuessUserDetail(data);
 
+    if (res.success) {
+      setGuesUser(res.data);
+    }
+  };
+  const getMyGuessList = async (page: number, size: number): Promise<any> => {
+    let data: GuessSchemParams = {
+      page,
+      size,
+    };
+    const result: any = await MyGuess(data);
+    console.log(result);
+
+    if (result.success == true) {
+      return {
+        list: result.data,
+        total: result.data.result.length >= 10,
+        page: page + 1,
+      };
+    }
+  };
+
+  const {
+    data = () => {},
+    loading,
+    loadMoreAsync,
+    reload,
+    noMore,
+  } = useInfiniteScroll(
+    (d) => {
+      const { page = 1 } = d || {};
+
+      return getMyGuessList(page, 10);
+    },
+    {
+      // target: ref,
+      isNoMore: (data) => {
+        if (!data?.list?.length) {
+          return true;
+        }
+        return !data?.total;
+      },
+      manual: true,
+    },
+  );
+  useEffect(() => {
+    reload();
+  }, []);
+  //
   return (
     <div className={styles.guess_info}>
       <div style={{ padding: 12 }}>
-        <FBGuessInfo user={user} guessData></FBGuessInfo>
+        <FBGuessInfo user={user} guessUser={guesUser}></FBGuessInfo>
       </div>
       <div className={styles.my_guess_info}>
         {user ? (
@@ -143,24 +216,45 @@ const Guess = (props: Props) => {
           </div>
           {user && (
             <div className={styles.title_right}>
-              <span style={{ color: '#9B9B9B' }}>次数 3 </span>
-              <span style={{ color: '#39906A' }}> 消耗 200 </span>
-              <span style={{ color: '#FE2222' }}> 奖励 200 </span>
+              <span style={{ color: '#9B9B9B' }}>次数 {data.list?.numbers} </span>
+              <span style={{ color: '#39906A' }}> 消耗 {data.list?.consume} </span>
+              <span style={{ color: '#FE2222' }}> 奖励 {data.list?.energy_num} </span>
             </div>
           )}
         </div>
         {user ? (
           <div>
             {' '}
-            {myguesslist &&
-              myguesslist.map((item) => {
-                return <FBMyguess myguesslist={item}></FBMyguess>;
-              })}
+            <Spin spinning={loading}>
+              <div>
+                {data &&
+                  data.list?.result.map((item) => {
+                    return <FBMyguess myguesslist={item}></FBMyguess>;
+                  })}
+                <InfiniteScroll
+                  loadMore={async (isRetry) => {
+                    await loadMoreAsync();
+                  }}
+                  hasMore={!noMore}
+                />
+              </div>
+            </Spin>
           </div>
         ) : (
           <Empty pic={WorldcupEmpty} message="暂无数据，请先登录" />
         )}
       </div>
+
+      <Anchor affix={false}>
+        <Link
+          href="#root"
+          title={
+            <div className={styles.goTop}>
+              {scrollTop > 50 && <img className={styles.goTop_img} src={Gotop} alt="" />}
+            </div>
+          }
+        ></Link>
+      </Anchor>
     </div>
   );
 };

@@ -41,21 +41,21 @@ const TablePage = (props: Props) => {
   const columns: ColumnsType<DataType> = [
     {
       title: '排名',
-      dataIndex: 'team_name',
-      key: 'team_name',
+      dataIndex: 'user_id',
+      key: 'user_id',
       width: 110,
       // align: "center",
       render: (text, record, index) => (
         <div className={styles.rankflex}>
           <div className={styles.rankflex} style={{ width: 25, height: 25, margin: '0 5px' }}>
-            {record.id < 4 ? (
+            {index < 3 ? (
               <img
                 style={{ width: 25, height: 25 }}
-                src={record.id == 1 ? RankingOne : record.id == 2 ? RankingTwo : RankingThree}
+                src={index == 0 ? RankingOne : index == 1 ? RankingTwo : RankingThree}
                 alt=""
               />
             ) : (
-              <span>{record.id}</span>
+              <span>{index + 1}</span>
             )}
           </div>
 
@@ -76,41 +76,42 @@ const TablePage = (props: Props) => {
 
     {
       title: '用户名',
-      dataIndex: 'team',
-      key: 'team',
+      dataIndex: 'nickname',
+      key: 'nickname',
       //   width: 150,
       align: 'center',
-      render: (text, record, index) => <div>你好</div>,
+      render: (text, record, index) => <div>{text}</div>,
     },
     {
       title: '参与次数',
-      dataIndex: 'won',
+      dataIndex: 'number',
 
-      key: 'won',
+      key: 'number',
       align: 'center',
+      render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
     },
     {
-      title: props.activeKey == '1' ? '世界杯竞猜值' : '回报率',
-      dataIndex: 'num',
+      title: props.activeKey == '0' ? '世界杯竞猜值' : '回报率',
+      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
       width: 100,
-      key: 'address',
+
       align: 'center',
       render: (text, record, index) => (
         <div style={{ color: '#7E1132' }}>
-          sss
-          {/* {record.goals}/{record.against}/{record.diff} */}
+          {props.activeKey == '0' ? text : (text / 100).toFixed(0) + '%'}
         </div>
       ),
     },
   ];
+
   return (
     <div className={styles.tab_teamtable}>
       <ConfigProvider renderEmpty={customizeRenderEmpty}>
         <Table
           pagination={false}
           columns={columns}
-          dataSource={props.data}
-
+          dataSource={props.data.list}
+          rowKey="user_id"
           // onRow={record => {
           //     return {
           //         onClick: event => {

@@ -1,7 +1,6 @@
 import request from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 
-
 export type News = {
     ID: number;
     CreatedAt: string;
@@ -144,3 +143,160 @@ export async function PlayerGoalList(params: PlayerGoalListParams) {
 }
 
 // 竞猜
+
+
+// 竞猜入口
+export type GuessEntryParams = {
+    id: number
+}
+export type guessEntryList = {
+    page: number;
+    size: number;
+    worldcup?: boolean;
+    type?: number;
+    play?: number;
+    tab?: number;
+    world_cup?: number
+}
+export type GuessEntryRes = {
+    data?: { list: guessEntryList }
+    success: boolean
+}
+
+// 竞猜排行
+export type GuessRankingParams = {
+    tab: number
+    page: number
+    size: number
+}
+export type guessRankingList = {
+    page: number;
+    size: number;
+    worldcup?: boolean;
+    type?: number;
+    play?: number;
+    tab?: number;
+    world_cup?: number
+}
+export type GuessRankingRes = {
+    data?: { list: guessUserDetailList }
+    success: boolean
+}
+// 竞猜用户详情
+export type GuessUserDetailParams = {
+    authtoken: string
+}
+export type guessUserDetailList = {
+    reward_rank: number
+    avatar: string
+    energy_num: number
+    energy_rank: number
+    nickname: string
+    numbers: number
+    reward_rate: string
+    cumulative: number
+}
+export type GuessUserDetailRes = {
+    data?: guessUserDetailList | any
+    success: boolean
+}
+
+
+
+// 我的竞猜列表
+export type GuessSchemParams = {
+    page: number
+    size: number
+}
+export type guessSchemList = {
+    page: number;
+    size: number;
+    worldcup?: boolean;
+    type?: number;
+    play?: number;
+    tab?: number;
+    world_cup?: number
+}
+export type GuessSchemRes = {
+    data?: { list: guessSchemList }
+    success: boolean
+}
+
+// 竞猜竞猜列表
+export type GuessMatchListParams = {
+
+    page: number
+    size: number
+}
+export type guessMatchList = {
+    page: number;
+    size: number;
+    worldcup?: boolean;
+    type?: number;
+    play?: number;
+    tab?: number;
+    world_cup?: number
+}
+export type GuessMatchListRes = {
+    data?: { result: guessMatchList[] } | any
+
+    success: boolean
+}
+// 创建竞猜
+export type AddGuessParams = {
+    tag: string
+    odd_scheme_id: string
+    expert_id: string
+    match_id: string
+    energy_coin: string
+    odd: string
+}
+
+export type AddGuessRes = {
+    data?: any
+
+    success: boolean
+}
+
+export async function GuessEntry(params: GuessEntryParams) {
+    const result = await request('/api/competition/player-goal', { params });
+    return normalizeResponse<GuessEntryRes>(result);
+}
+
+
+// 用户详情
+export async function GuessUserDetail(params: GuessUserDetailParams) {
+    console.log(params);
+
+    const result = await request('/api/v5/guess/detail', {
+        header: params
+
+    });
+    return normalizeResponse<GuessUserDetailRes>(result);
+}
+
+// 我的竞猜
+export async function MyGuess(params: GuessSchemParams) {
+    const result = await request('/api/v5/guess/scheme-list', { params });
+    return normalizeResponse<GuessSchemRes>(result);
+}
+
+
+// 竞猜中心列表
+export async function GuessMatchList(params: GuessMatchListParams) {
+    const result = await request('/api/v5/guess/match-list', { params });
+    return normalizeResponse<GuessMatchListRes>(result);
+}
+
+
+// 竞猜排行榜
+export async function GuessRank(params: GuessRankingParams) {
+    const result = await request('/api/v5/guess/ranking-list', { params });
+    return normalizeResponse<GuessRankingRes>(result);
+}
+
+// 创建竞猜列表
+export async function AddGuess(params: AddGuessParams) {
+    const result = await request('/api/v5/guess/add', { params });
+    return normalizeResponse<AddGuessRes>(result);
+}

@@ -113,11 +113,6 @@ const FBGuessEnergy = (props: Props) => {
             确定
           </div>
         )}
-
-        {/* <div className={styles.onOk} onClick={() => {
-
-                    // onOk(unfoldValue)
-                }}>做任务得能量</div> */}
       </div>
     </div>
   );
