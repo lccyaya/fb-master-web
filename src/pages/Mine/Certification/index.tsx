@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { history, connect } from 'umi';
 import type { Dispatch } from 'umi';
-import { Spin } from 'antd';
-import { NavBar, Form, Input, Button, Checkbox, Dialog } from 'antd-mobile';
+import { Spin, message } from 'antd';
+import { NavBar, Form, Input, Button, Checkbox, Dialog  } from 'antd-mobile';
 import { nameAuth } from '@/services/user';
 import type { ConnectState } from '@/models/connect';
 import type { UserInfoType } from '@/services/user';
@@ -69,6 +69,10 @@ const Certification: React.FC<ICertificationProps> = ({ currentUser, dispatch })
           confirmText: "确认",
         })
       }
+    }).catch((err) => {
+      message.error({
+        content: err?.message
+      })
     })
   }
 
