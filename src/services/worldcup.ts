@@ -209,13 +209,17 @@ export type GuessSchemParams = {
     size: number
 }
 export type guessSchemList = {
-    page: number;
-    size: number;
-    worldcup?: boolean;
-    type?: number;
-    play?: number;
-    tab?: number;
-    world_cup?: number
+    id: number
+    published_at: number;
+    home_team_name: string;
+    away_team_name: string;
+    award: number
+    energy_coin: number
+    goal: string | number
+    odd: string | number
+    result: string
+    recommend: string
+
 }
 export type GuessSchemRes = {
     data?: { list: guessSchemList }
@@ -224,21 +228,45 @@ export type GuessSchemRes = {
 
 // 竞猜竞猜列表
 export type GuessMatchListParams = {
-
     page: number
     size: number
 }
+
+
+export type guessMatch = {
+    competition_id: number,
+    competition_name: string,
+    match_id: number,
+    match_time: number,
+    home_team_id: number,
+    home_team_name: string,
+    away_team_id: number,
+    away_team_name: string,
+    issue: string
+    energy_coin: string
+    tag: string
+    odd_scheme_id: string
+    odd: string
+
+}
+export type guessOddChind = {
+    title: string,
+    tag: string,
+    odd: string,
+    selected: string
+}
+export type guessOdd = {
+    odd_scheme_id: number
+    scheme_title: string
+    odds: guessOddChind[]
+}
 export type guessMatchList = {
-    page: number;
-    size: number;
-    worldcup?: boolean;
-    type?: number;
-    play?: number;
-    tab?: number;
-    world_cup?: number
+
+    match: guessMatch[]
+    match_time: string
 }
 export type GuessMatchListRes = {
-    data?: { result: guessMatchList[] } | any
+    data?: { list: guessMatchList[] } | any
 
     success: boolean
 }
@@ -246,7 +274,6 @@ export type GuessMatchListRes = {
 export type AddGuessParams = {
     tag: string
     odd_scheme_id: string
-    expert_id: string
     match_id: string
     energy_coin: string
     odd: string
@@ -296,7 +323,7 @@ export async function GuessRank(params: GuessRankingParams) {
 }
 
 // 创建竞猜列表
-export async function AddGuess(params: AddGuessParams) {
-    const result = await request('/api/v5/guess/add', { params });
+export async function AddGuess(data: AddGuessParams) {
+    const result = await request('/api/v5/guess/add', { method: 'POST', data, });
     return normalizeResponse<AddGuessRes>(result);
 }

@@ -91,14 +91,14 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
     },
     {
-      title: props.activeKey == '0' ? '世界杯竞猜值' : '回报率',
+      title: props.activeKey == '0' ? '世界杯能量值' : '回报率',
       dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
       width: 100,
 
       align: 'center',
       render: (text, record, index) => (
         <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? text : (text / 100).toFixed(0) + '%'}
+          {props.activeKey == '0' ? text : Math.trunc(text) + '%'}
         </div>
       ),
     },

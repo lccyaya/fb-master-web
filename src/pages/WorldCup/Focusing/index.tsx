@@ -15,90 +15,104 @@ import { InfiniteScroll } from 'antd-mobile';
 import { useHistory } from 'umi';
 import type { majorMatchType } from '@/services/home';
 import { AnalysisList } from '@/services/worldcup';
-
+import { GuessRank } from '@/services/worldcup';
+import type { GuessRankingParams } from '@/services/worldcup';
 type Props = {};
 // const colors = ['#fff', '#fff', '#fff', '#fff']
 
 const Focusing = (props: Props) => {
-    const history = useHistory();
-    // const [bannerIndex, setBannerIndex] = useState(0)
-    const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
-    const [ativeKey, setActiveKey] = useState('1');
-    // 左右滚动卡片
-    const getData = async () => {
-        const res: any = await getMajorData();
-        if (res.success) {
-            setDataCard(res.data.matches);
-        }
+  const history = useHistory();
+  // const [bannerIndex, setBannerIndex] = useState(0)
+  const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
+  const [ativeKey, setActiveKey] = useState('0');
+  const [guessRank, setGuessRank] = useState([]);
+  // 左右滚动卡片
+  const getData = async () => {
+    const res: any = await getMajorData();
+    if (res.success) {
+      setDataCard(res.data.matches);
+    }
+  };
+
+  // 上拉滚动
+  const getAnalysisList = async (page: number, size: number): Promise<any> => {
+    let data: any = {
+      page,
+      size,
+      worldcup: true,
+      // type: 2
     };
+    const result: any = await AnalysisList(data);
+    if (result.success == true) {
+      return {
+        list: result.data.news,
+        total: result.data.total,
+        page: page + 1,
+      };
+    }
+  };
 
-    // 上拉滚动
-    const getAnalysisList = async (page: number, size: number): Promise<any> => {
-        let data: any = {
-            page,
-            size,
-            worldcup: true,
-            // type: 2
-        };
-        const result: any = await AnalysisList(data);
-        if (result.success == true) {
-            return {
-                list: result.data.news,
-                total: result.data.total,
-                page: page + 1,
-            };
-        }
+  const navlist = [
+    {
+      label: `能量榜`,
+      key: '0',
+    },
+    {
+      label: `回报榜`,
+      key: '1',
+    },
+  ];
+  const list = [1, 2, 3];
+  const getGuessRankList = async (): Promise<any> => {
+    let data: GuessRankingParams = {
+      page: 1,
+      size: 3,
+      tab: Number(ativeKey),
     };
+    const result: any = await GuessRank(data);
+    console.log(result, 'poiuytre');
 
-    const navlist = [
-        {
-            label: `竞猜榜`,
-            key: '1',
-        },
-        {
-            label: `回报榜`,
-            key: '2',
-        },
-    ];
-    const list = [1, 2, 3];
-    useEffect(() => {
-        getData();
-        reload();
-    }, []);
-    const {
-        data = () => { },
-        loading,
-        loadMoreAsync,
-        reload,
-        noMore,
-    } = useInfiniteScroll(
-        (d) => {
-            const { page = 1 } = d || {};
-            return getAnalysisList(page, 10);
-        },
-        {
-            // target: ref,
-            isNoMore: (data) => {
-                if (!data?.list?.length) {
-                    return true;
-                }
-                return data?.list?.length >= data?.total;
-            },
-            manual: true,
-        },
-    );
-    // const verticalItems = colors.map((color, index) => (
-    //     <Swiper.Item key={index} >
-    //         <div className={styles.verticalContent} style={{ background: color, color: bannerIndex == index ? "#7E1132" : "rgba(126, 17, 50, 0.4)" }}>
-    //             {index + "c***e 荣登 世界杯颜值榜 颜王"}
-    //         </div>
-    //     </Swiper.Item>
-    // ))
+    setGuessRank(result.data.list);
+  };
+  useEffect(() => {
+    getData();
+    getGuessRankList();
+    reload();
+  }, [ativeKey]);
+  const {
+    data = () => {},
+    loading,
+    loadMoreAsync,
+    reload,
+    noMore,
+  } = useInfiniteScroll(
+    (d) => {
+      const { page = 1 } = d || {};
+      return getAnalysisList(page, 10);
+    },
+    {
+      // target: ref,
+      isNoMore: (data) => {
+        if (!data?.list?.length) {
+          return true;
+        }
+        return data?.list?.length >= data?.total;
+      },
+      manual: true,
+    },
+  );
+  // const verticalItems = colors.map((color, index) => (
+  //     <Swiper.Item key={index} >
+  //         <div className={styles.verticalContent} style={{ background: color, color: bannerIndex == index ? "#7E1132" : "rgba(126, 17, 50, 0.4)" }}>
+  //             {index + "c***e 荣登 世界杯颜值榜 颜王"}
+  //         </div>
+  //     </Swiper.Item>
+  // ))
 
-    return (
-        <div className={styles.cap_list}>
-            <FBMajorMatchItem data={dataCard} borderColor="#7E1132" />
-            {/* <div className={styles.vertical}>
+  return (
+    <div className={styles.cap_list}>
+      <FBMajorMatchItem data={dataCard} borderColor="#7E1132" />
+      {/* <div className={styles.vertical}>
                 <IconFont type={'icon-tuiguang'} size={20} />
                 <div style={{ width: 10 }}></div>
                 <Swiper
@@ -114,60 +128,60 @@ const Focusing = (props: Props) => {
                     {verticalItems}
                 </Swiper>
             </div> */}
-            <div style={{ padding: 12 }}>
-                <div className={styles.card_container}>
-                    <FBGuessTab
-                        item={navlist}
-                        list={list}
-                        ativeKey={ativeKey}
-                        onChange={(key: string) => {
-                            setActiveKey(key);
-                            console.log(key);
-                        }}
-                    ></FBGuessTab>
-                </div>
-            </div>
-
-            <div className={styles.conent} style={{ background: '#fff' }}>
-                <div className={styles.title}>
-                    <img className={styles.title_logo} src={TitleLogo} alt="" />
-
-                    <FBTitle title="世界杯动态" />
-                </div>
-                <div>
-                    <Spin spinning={loading}>
-                        <div className={styles.content}>
-                            {data?.list?.map((item: any, index: number) => {
-                                return (
-                                    <div
-                                        key={item.ID}
-                                        style={{
-                                            borderBottom: '1px solid #EEEEEE',
-                                        }}
-                                    >
-                                        <FBInformationList
-                                            onClick={() => {
-                                                history.push(`/zh/informationdetail/${item.ID}`);
-                                            }}
-                                            showLine={false}
-                                            informationList={item}
-                                            id={index}
-                                        />
-                                    </div>
-                                );
-                            })}
-                            <InfiniteScroll
-                                loadMore={async (isRetry) => {
-                                    await loadMoreAsync();
-                                }}
-                                hasMore={!noMore}
-                            />
-                        </div>
-                    </Spin>
-                </div>
-            </div>
+      <div style={{ padding: 12 }}>
+        <div className={styles.card_container}>
+          <FBGuessTab
+            item={navlist}
+            list={guessRank}
+            ativeKey={ativeKey}
+            onChange={(key: string) => {
+              setActiveKey(key);
+              console.log(key);
+            }}
+          ></FBGuessTab>
         </div>
-    );
+      </div>
+
+      <div className={styles.conent} style={{ background: '#fff' }}>
+        <div className={styles.title}>
+          <img className={styles.title_logo} src={TitleLogo} alt="" />
+
+          <FBTitle title="世界杯动态" />
+        </div>
+        <div>
+          <Spin spinning={loading}>
+            <div className={styles.content}>
+              {data?.list?.map((item: any, index: number) => {
+                return (
+                  <div
+                    key={item.ID}
+                    style={{
+                      borderBottom: '1px solid #EEEEEE',
+                    }}
+                  >
+                    <FBInformationList
+                      onClick={() => {
+                        history.push(`/zh/informationdetail/${item.ID}`);
+                      }}
+                      showLine={false}
+                      informationList={item}
+                      id={index}
+                    />
+                  </div>
+                );
+              })}
+              <InfiniteScroll
+                loadMore={async (isRetry) => {
+                  await loadMoreAsync();
+                }}
+                hasMore={!noMore}
+              />
+            </div>
+          </Spin>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Focusing;

@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './index.less';
+import { FormattedMessage, useSelector } from 'umi';
 import type { guessUserDetailList } from '@/services/worldcup';
-import { FormattedMessage } from 'umi';
-
 type Props = {
-  guessUser: guessUserDetailList | undefined;
   user: any;
 };
 
 const FBGuessInfo = (props: Props) => {
-  const { guessUser, user } = props;
+  const { user } = props;
+  const guessUser: guessUserDetailList = useSelector((s) => s.guessUser.guessUserState);
 
   return (
     <div className={styles.guess_main}>
@@ -82,38 +81,24 @@ const FBGuessInfo = (props: Props) => {
 
       <div className={styles.guess_box}>
         <div className={styles.guess_list}>
-          <div className={styles.guess_value}>
-            {' '}
-            {guessUser?.energy_num ? guessUser?.energy_num : '-'}
-          </div>
+          <div className={styles.guess_value}> {!user ? '-' : guessUser?.energy_num}</div>
 
           <div>
             <FormattedMessage id={'key_worldcap_guessvalue'} />
           </div>
         </div>
         <div className={styles.guess_list}>
-          <div className={styles.guess_value}>
-            {' '}
-            {guessUser?.cumulative ? guessUser?.cumulative : '-'}
-          </div>
+          <div className={styles.guess_value}> {!user ? '-' : guessUser?.cumulative}</div>
 
           <div>总奖励</div>
         </div>
         <div className={styles.guess_list}>
-          <div className={styles.guess_value}> {guessUser?.numbers ? guessUser?.numbers : '-'}</div>
+          <div className={styles.guess_value}>{!user ? '-' : guessUser?.numbers}</div>
 
           <div>参与次数</div>
         </div>
         <div className={styles.guess_list}>
-          <div className={styles.guess_value}>
-            {' '}
-            {guessUser?.reward_rate
-              ? guessUser?.reward_rate.substring(
-                  guessUser?.reward_rate.indexOf('=') + 1,
-                  guessUser?.reward_rate.indexOf(')'),
-                ) + '%'
-              : '-'}
-          </div>
+          <div className={styles.guess_value}> {!user ? '-' : guessUser?.reward_rate}%</div>
 
           <div>
             <FormattedMessage id={'key_worldcap_return'} />

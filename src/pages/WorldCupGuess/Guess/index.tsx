@@ -5,7 +5,7 @@ import FBMyguess from '@/components/FBMyguess';
 import FBTitle from '@/components/FBTitle';
 import Empty from '@/components/Empty';
 import styles from './index.less';
-import { useSelector } from 'umi';
+import { useSelector, useDispatch } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
 import MyguessTitleImg from '@/assets/worldcup/my_guess_title.png';
@@ -14,12 +14,7 @@ import Gotop from '@/assets/worldcup/go_top.png';
 import useScrollTop from '@/hooks/useScrollTop';
 import { MyGuess, GuessUserDetail } from '@/services/worldcup';
 
-import type {
-  GuessUserDetailParams,
-  GuessUserDetailRes,
-  guessUserDetailList,
-  GuessSchemParams,
-} from '@/services/worldcup';
+import type { GuessUserDetailParams, GuessSchemParams, guessSchemList } from '@/services/worldcup';
 import { FOOTBALL_MASTER_TOKEN } from '@/constants';
 
 import { timeStorageGet } from '@/utils/timestorage';
@@ -30,118 +25,38 @@ const { Link } = Anchor;
 type Props = {};
 
 const Guess = (props: Props) => {
-  const myguesslist = [
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-    {
-      time: '2020-12-20',
-      home: '中国',
-      away: '哈根达斯',
-      iswin: '【让负-2】@1.85',
-      lost: -100,
-      win: 350,
-    },
-  ];
   const scrollTop = useScrollTop();
-  const [guesUser, setGuesUser] = useState<guessUserDetailList>();
+  // const [guesUser, setGuesUser] = useState<guessUserDetailList>();
   const sharelist = [
     { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
     { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
   ];
+  useSelector;
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getGuesUserDetail();
-    console.log(user, 'pppp');
-  }, []);
-  const getGuesUserDetail = async () => {
     const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
     let data: GuessUserDetailParams = { authtoken: val };
-    let res: GuessUserDetailRes = await GuessUserDetail(data);
+    dispatch({
+      type: 'guessUser/guessUser',
+      payload: {
+        data,
+      },
+    });
+    // getGuesUserDetail();
+  }, []);
+  // const getGuesUserDetail = async () => {
+  //   const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
+  //   let data: GuessUserDetailParams = { authtoken: val };
+  //   let res: GuessUserDetailRes = await GuessUserDetail(data);
 
-    if (res.success) {
-      setGuesUser(res.data);
-    }
-  };
+  //   if (res.success) {
+  //     setGuesUser(res.data);
+  //   }
+  // };
   const getMyGuessList = async (page: number, size: number): Promise<any> => {
     let data: GuessSchemParams = {
       page,
@@ -189,7 +104,7 @@ const Guess = (props: Props) => {
   return (
     <div className={styles.guess_info}>
       <div style={{ padding: 12 }}>
-        <FBGuessInfo user={user} guessUser={guesUser}></FBGuessInfo>
+        <FBGuessInfo user={user}></FBGuessInfo>
       </div>
       <div className={styles.my_guess_info}>
         {user ? (
@@ -197,14 +112,17 @@ const Guess = (props: Props) => {
             {sharelist &&
               sharelist.map((item, index) => {
                 return (
-                  <FBGuessShare
-                    backgroundImage={
-                      index == 0
-                        ? 'linear-gradient(to right, #FFEBD9,#CD986A)'
-                        : 'linear-gradient(to right, #FCE6E5,#C66961)'
-                    }
-                    sharelist={item}
-                  />
+                  <div key={index}>
+                    {' '}
+                    <FBGuessShare
+                      backgroundImage={
+                        index == 0
+                          ? 'linear-gradient(to right, #FFEBD9,#CD986A)'
+                          : 'linear-gradient(to right, #FCE6E5,#C66961)'
+                      }
+                      sharelist={item}
+                    />
+                  </div>
                 );
               })}
           </div>
@@ -228,8 +146,12 @@ const Guess = (props: Props) => {
             <Spin spinning={loading}>
               <div>
                 {data &&
-                  data.list?.result.map((item) => {
-                    return <FBMyguess myguesslist={item}></FBMyguess>;
+                  data.list?.result.map((item: guessSchemList) => {
+                    return (
+                      <div key={item.id}>
+                        <FBMyguess myguesslist={item}></FBMyguess>
+                      </div>
+                    );
                   })}
                 <InfiniteScroll
                   loadMore={async (isRetry) => {

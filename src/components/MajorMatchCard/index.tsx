@@ -456,9 +456,7 @@ const MajorMatchCard: React.FC<maojorMatchProps> = (props) => {
           </Col>
           <Col className={styles.dateContainer} span={8}>
             {isShowScore ? (
-              <div className={styles.dateText}>
-                {formatDateMMDD(data.match_time, ' HH:mm')}
-              </div>
+              <div className={styles.dateText}>{formatDateMMDD(data.match_time, ' HH:mm')}</div>
             ) : (
               <div className={styles.dateText}>
                 {formatDateMMDD(data.match_time)}

@@ -2,118 +2,89 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
-import { datafilter } from '@/utils/guess';
 import FBGuessCenter from '@/components/FBGuessCenter';
 import FBGuessEnergy from '@/components/FBGuessEnergy';
 import { useSelector, useHistory } from 'umi';
-import { Modal } from 'antd-mobile';
-import { InfiniteScroll } from 'antd-mobile';
-import { useInfiniteScroll } from 'ahooks';
-import { Spin } from 'antd';
-import { GuessMatchList } from '@/services/worldcup';
+import { Modal, Toast } from 'antd-mobile';
+import type { guessMatchList, guessMatch, AddGuessParams } from '@/services/worldcup';
+import { GuessMatchList, AddGuess } from '@/services/worldcup';
+import { guessSelect, guessTimeMatch } from '@/utils/guess';
+import moment from 'moment';
 
 import type { GuessMatchListParams, GuessMatchListRes } from '@/services/worldcup';
 type Props = {};
 
 const GuessCenter = (props: Props) => {
-  const [selectvalue, setSelectvalue]: any = useState([]);
+  const [data, setData] = useState<guessMatchList[]>();
+  const [modalData, setModalData] = useState<guessMatch>();
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+
   const history = useHistory();
 
-  const onbutton = (data: any) => {
-    //  现在只有这一个点击事件
-    // 只能拿到一个对象
-
-    // console.log(data);
-    let arr = datafilter(selectvalue, data);
-    setSelectvalue(arr);
+  const onbutton = (value: any, modaldata: any) => {
+    setData([...guessSelect(data, value)]);
+    setModalData({ ...modalData, ...modaldata?.match, ...value });
   };
-
-  const guesslist = [
-    { id: 1, away: 2 },
-    {
-      id: 3,
-      away: 4,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-    {
-      id: 5,
-      away: 6,
-    },
-  ];
 
   const content = (
     <div>
-      <div className="guess_contentbox">
-        <div>
-          队阵球队
-          <div style={{ color: '#848494' }}>巴西vs阿根廷</div>
+      <div>
+        <div className="guess_contentbox">
+          <div>
+            队阵球队
+            <div style={{ color: '#848494' }}>
+              {modalData?.home_team_name}VS{modalData?.away_team_name}
+            </div>
+          </div>
+          <div>
+            竞猜序号
+            <div style={{ color: '#848494' }}>{modalData?.issue}</div>
+          </div>
+          <div>
+            开赛时间
+            <div style={{ color: '#848494' }}>
+              {moment(new Date(Number(modalData?.match_time) * 1000)).format('MM-DD HH:mm')}
+            </div>
+          </div>
         </div>
-        <div>
-          竞猜序号
-          <div style={{ color: '#848494' }}>周五 004</div>
-        </div>
-        <div>
-          开赛时间
-          <div style={{ color: '#848494' }}>11-21 21:00</div>
-        </div>
-      </div>
-      <div
-        style={{
-          borderTop: '1px solid #EEEEEE',
-          borderBottom: '1px solid #EEEEEE',
-          padding: '5px 0',
-        }}
-      >
-        <div className="guess_play">
-          <div> 竞猜玩法</div>
-          <div className="guess_playbg">让球胜平负</div>
-        </div>
+        <div
+          style={{
+            borderTop: '1px solid #EEEEEE',
+            borderBottom: '1px solid #EEEEEE',
+            padding: '5px 0',
+          }}
+        >
+          <div className="guess_play">
+            <div> 竞猜玩法</div>
+            <div className="guess_playbg">让球胜平负</div>
+          </div>
 
-        <div className="guess_play">
-          竞猜选项
-          <div className="guess_playbg">让球胜平负</div>
-        </div>
-        <div className="guess_play">
-          过关方式 <div className="guess_playbg">让球胜平负</div>
-        </div>
-        <div className="guess_play">
-          能量消耗 <div className="guess_playbg">让球胜平负</div>
-        </div>
-        <div className="guess_play">
-          最高奖励 <div className="guess_playbg">让球胜平负</div>
+          <div className="guess_play">
+            竞猜选项
+            <div className="guess_playbg">让球胜平负</div>
+          </div>
+          <div className="guess_play">
+            过关方式 <div className="guess_playbg">单关</div>
+          </div>
+          <div className="guess_play">
+            能量消耗
+            <div className="guess_playbg">{modalData?.energy_coin}</div>
+          </div>
+          <div className="guess_play">
+            最高奖励 <div className="guess_playbg">让球胜平负</div>
+          </div>
         </div>
       </div>
     </div>
   );
-  const onSrue = (value: number | string) => {
+  const onSrue = async () => {
     Modal.show({
       title: '竞猜信息',
       content: content,
       showCloseButton: true,
       bodyClassName: 'modal_team',
-
       actions: [
         {
           key: '1',
@@ -123,76 +94,70 @@ const GuessCenter = (props: Props) => {
       ],
       closeOnAction: true,
       onAction: () => {
-        console.log(value, selectvalue, 'sssssss');
+        const { odd_scheme_id, odd, energy_coin, tag, match_id }: any = modalData;
+        let data = { odd_scheme_id, odd, energy_coin, tag, match_id };
+        getAddGuess(data);
       },
     });
   };
-  const getMyGuessList = async (page: number, size: number): Promise<any> => {
+
+  const getMyGuessList = async (): Promise<any> => {
     let data: GuessMatchListParams = {
-      page,
-      size,
+      page: 1,
+      size: 150,
     };
     const result: GuessMatchListRes = await GuessMatchList(data);
-    console.log(result, '000000');
 
     if (result.success == true) {
-      return {
-        list: result.data.list,
-        total: result.data.list.length >= 10,
-        page: page + 1,
-      };
+      let newlist = guessTimeMatch(result.data.list);
+      setData(newlist);
     }
   };
 
-  const {
-    data = () => {},
-    loading,
-    loadMoreAsync,
-    reload,
-    noMore,
-  } = useInfiniteScroll(
-    (d) => {
-      const { page = 1 } = d || {};
+  const getAddGuess = async (data: AddGuessParams) => {
+    const result: any = await AddGuess(data);
 
-      return getMyGuessList(page, 10);
-    },
-    {
-      // target: ref,
-      isNoMore: (data) => {
-        if (!data?.list?.length) {
-          return true;
-        }
-        return !data?.total;
-      },
-      manual: true,
-    },
-  );
+    if (result.success == true) {
+      Toast.show({
+        content: '竞猜成功',
+      });
+    }
+  };
+
   useEffect(() => {
-    reload();
+    getMyGuessList();
   }, []);
   return (
     <div className={styles.guesscenter_info}>
       <div className={styles.tip}>购彩请到线下实体销售网点，34体育不支持任何形式的线上购彩</div>
 
       <div className={styles.guesscenter_list}>
-        <div className={styles.guesscenter_time}>2022.11.22 星期四 2场比赛</div>
-        <Spin spinning={loading}>
-          <div>
-            {data.list?.map((item, index) => {
-              return (
-                <FBGuessCenter data={item} onClickbtn={onbutton} index={index}></FBGuessCenter>
-              );
-            })}
-            <InfiniteScroll
-              loadMore={async (isRetry) => {
-                await loadMoreAsync();
-              }}
-              hasMore={!noMore}
-            />
-          </div>
-        </Spin>
+        {data?.map((item: guessMatchList, index: number) => {
+          return (
+            <div key={index}>
+              <div className={styles.guesscenter_time}>
+                {item.match_time} <span> </span>
+                {item.match.length}场比赛
+              </div>
+              {/* <Spin spinning={loading}> */}
+
+              {item?.match?.map((items, index_i) => {
+                return (
+                  <div key={index_i}>
+                    {' '}
+                    <FBGuessCenter
+                      data={items}
+                      itemsData={item}
+                      onClickbtn={onbutton}
+                    ></FBGuessCenter>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
-      {/* <div style={{ height: '57px' }}></div> */}
+      <div style={{ height: '57px' }}></div>
 
       <div className={styles.guesscenter_bottom_box}>
         {!user ? (
@@ -207,8 +172,12 @@ const GuessCenter = (props: Props) => {
               立即登录
             </div>
           </div>
-        ) : selectvalue.length ? (
-          <FBGuessEnergy onOk={onSrue}></FBGuessEnergy>
+        ) : modalData?.tag ? (
+          <FBGuessEnergy
+            onOk={onSrue}
+            setModalData={setModalData}
+            modalData={modalData}
+          ></FBGuessEnergy>
         ) : (
           <div className={styles.select_team}>请选择一场比赛</div>
         )}

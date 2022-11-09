@@ -2,53 +2,60 @@ import React, { useState } from 'react';
 import styles from './index.less';
 import IconFont from '@/components/IconFont';
 import FBPopover from '@/components/FBPopover';
-
+import type { guessUserDetailList } from '@/services/worldcup';
+import { useSelector } from 'umi';
 type Props = {
   onOk: Function;
+  setModalData: any;
+  modalData: any;
 };
 
 const FBGuessEnergy = (props: Props) => {
-  const { onOk } = props;
+  const { onOk, setModalData, modalData } = props;
   const [unfold, setUnfold] = useState(false);
-  const [unfoldValue, setUnfoldValue] = useState(null);
-
-  const [sum, setSum] = useState(200);
+  const [unfoldValue, setUnfoldValue] = useState<number | string>(0);
+  const guessUser: guessUserDetailList = useSelector((s) => s.guessUser.guessUserState);
 
   return (
     <div>
       {unfold && (
         <div className={styles.unfold}>
           <div style={{ display: 'flex' }}>
-            总能量 <span style={{ color: '#7E1132', marginLeft: 5 }}>188.00</span>
+            总能量 <span style={{ color: '#7E1132', marginLeft: 5 }}>{guessUser.energy_num}</span>
           </div>
           <div
             className={styles.unfoldbtn_box}
             onClick={(e: any) => {
-              if (
-                e.target.getAttribute('data-value') <= sum ||
-                e.target.getAttribute('data-value') == 'all in'
-              ) {
-                setUnfoldValue(e.target.getAttribute('data-value'));
+              let data_value = e.target.getAttribute('data-value');
+              if (data_value <= guessUser.energy_num || data_value == 'all in') {
+                setUnfoldValue(data_value);
+
+                let num = data_value == 'all in' ? guessUser.energy_num : data_value;
+                let obj = {
+                  energy_coin: num,
+                };
+                setModalData({ ...modalData, ...obj });
+                setUnfold(false);
               }
             }}
           >
             <div
               className={unfoldValue == 100 ? styles.select_unfoldbtn : styles.unfoldbtn}
-              style={{ background: sum < 100 ? '#EEEEEE' : '' }}
+              style={{ background: guessUser.energy_num < 100 ? '#EEEEEE' : '' }}
               data-value={100}
             >
               100
             </div>
             <div
               data-value={200}
-              style={{ background: sum < 200 ? '#EEEEEE' : '' }}
+              style={{ background: guessUser.energy_num < 200 ? '#EEEEEE' : '' }}
               className={unfoldValue == 200 ? styles.select_unfoldbtn : styles.unfoldbtn}
             >
               200
             </div>
             <div
               data-value={500}
-              style={{ background: sum < 500 ? '#EEEEEE' : '' }}
+              style={{ background: guessUser.energy_num < 500 ? '#EEEEEE' : '' }}
               className={unfoldValue == 500 ? styles.select_unfoldbtn : styles.unfoldbtn}
             >
               500
@@ -73,7 +80,7 @@ const FBGuessEnergy = (props: Props) => {
                 setUnfold(!unfold);
               }}
             >
-              100
+              {unfoldValue == 'all in' ? guessUser.energy_num : unfoldValue}
               <IconFont
                 className={styles.star}
                 type={unfold ? 'icon-zhankai2' : 'icon-shouqi'}
@@ -86,17 +93,11 @@ const FBGuessEnergy = (props: Props) => {
             最高得<span className={styles.guesscenter_value}>100</span>{' '}
           </div>
         </div>
-        {sum < 100 ? (
+        {guessUser.energy_num < 100 ? (
           <FBPopover
-            // ishidden={hidden}
             content={<div className={styles.content}>能量值不足，可通过分享和购买攻略获取</div>}
           >
-            <div
-              className={styles.nounfold}
-              onClick={() => {
-                // setHidden(!hidden);
-              }}
-            >
+            <div className={styles.nounfold} onClick={() => {}}>
               {' '}
               能量值不足
             </div>
@@ -104,10 +105,14 @@ const FBGuessEnergy = (props: Props) => {
         ) : (
           <div
             className={styles.onOk}
+            style={{
+              background: !unfoldValue ? '#F3F4F6' : '#7E1132',
+              color: !unfoldValue ? '#848494' : '#fff',
+            }}
             onClick={() => {
-              let num = unfoldValue == 'all in' ? sum : unfoldValue;
-
-              onOk(Number(num));
+              if (unfoldValue) {
+                onOk();
+              }
             }}
           >
             确定
