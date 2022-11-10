@@ -106,3 +106,16 @@ export namespace GoalTags {
   }
 }
 
+export namespace GoalTagsAll {
+  export function goaltitleAll(tag: string) {
+    switch (tag) {
+      case OddTags.Home:
+        return '让球主胜';
+      case OddTags.Draw:
+        return '让球平局';
+      default:
+        return '让球客胜';
+    }
+  }
+}
+

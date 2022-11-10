@@ -10,8 +10,9 @@ import type { guessMatchList, guessMatch, AddGuessParams } from '@/services/worl
 import { GuessMatchList, AddGuess } from '@/services/worldcup';
 import { guessSelect, guessTimeMatch } from '@/utils/guess';
 import moment from 'moment';
-
+import { OddTags, GoalTagsAll } from '@/utils/guess';
 import type { GuessMatchListParams, GuessMatchListRes } from '@/services/worldcup';
+
 type Props = {};
 
 const GuessCenter = (props: Props) => {
@@ -20,12 +21,16 @@ const GuessCenter = (props: Props) => {
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+  const [energy_num, setEnergy_num] = useState<number>(
+    useSelector((s) => s.guessUser.guessUserState?.energy_num),
+  );
 
   const history = useHistory();
 
-  const onbutton = (value: any, modaldata: any) => {
+  const onbutton = (value: any, matchdata: any) => {
     setData([...guessSelect(data, value)]);
-    setModalData({ ...modalData, ...modaldata?.match, ...value });
+    setModalData({ ...modalData, ...matchdata, ...value });
+    console.log({ ...modalData, ...matchdata, ...value });
   };
 
   const content = (
@@ -58,12 +63,25 @@ const GuessCenter = (props: Props) => {
         >
           <div className="guess_play">
             <div> 竞猜玩法</div>
-            <div className="guess_playbg">让球胜平负</div>
+            <div className="guess_playbg">
+              {modalData?.scheme_title == '0' ? '胜平负' : '让球胜平负'}
+            </div>
           </div>
 
           <div className="guess_play">
             竞猜选项
-            <div className="guess_playbg">让球胜平负</div>
+            <div className="guess_playbg">
+              {modalData?.scheme_title == '0' ? (
+                <div>
+                  【{OddTags.title(modalData?.tag)}】@{modalData?.odd}
+                </div>
+              ) : (
+                <div>
+                  {modalData?.scheme_title}【{GoalTagsAll.goaltitleAll(modalData?.tag)}】@
+                  {modalData?.odd}
+                </div>
+              )}
+            </div>
           </div>
           <div className="guess_play">
             过关方式 <div className="guess_playbg">单关</div>
@@ -73,13 +91,19 @@ const GuessCenter = (props: Props) => {
             <div className="guess_playbg">{modalData?.energy_coin}</div>
           </div>
           <div className="guess_play">
-            最高奖励 <div className="guess_playbg">让球胜平负</div>
+            最高奖励{' '}
+            <div className="guess_playbg">
+              {' '}
+              {modalData?.energy_coin ? (modalData?.energy_coin * modalData?.odd).toFixed(0) : 0}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
   const onSrue = async () => {
+    console.log();
+
     Modal.show({
       title: '竞猜信息',
       content: content,
@@ -95,8 +119,18 @@ const GuessCenter = (props: Props) => {
       closeOnAction: true,
       onAction: () => {
         const { odd_scheme_id, odd, energy_coin, tag, match_id }: any = modalData;
-        let data = { odd_scheme_id, odd, energy_coin, tag, match_id };
-        getAddGuess(data);
+        let data = {
+          odd_scheme_id: Number(odd_scheme_id),
+          odd,
+          energy_coin: Number(energy_coin),
+          tag,
+          match_id: Number(match_id),
+          published_at: Math.round(new Date().getTime() / 1000),
+        };
+        console.log(data, 'poiuy');
+
+        setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+        // getAddGuess(data);
       },
     });
   };
@@ -118,6 +152,7 @@ const GuessCenter = (props: Props) => {
     const result: any = await AddGuess(data);
 
     if (result.success == true) {
+      setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
       Toast.show({
         content: '竞猜成功',
       });
@@ -177,6 +212,7 @@ const GuessCenter = (props: Props) => {
             onOk={onSrue}
             setModalData={setModalData}
             modalData={modalData}
+            energy_num={energy_num}
           ></FBGuessEnergy>
         ) : (
           <div className={styles.select_team}>请选择一场比赛</div>

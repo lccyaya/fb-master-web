@@ -2,35 +2,34 @@ import React, { useState } from 'react';
 import styles from './index.less';
 import IconFont from '@/components/IconFont';
 import FBPopover from '@/components/FBPopover';
-import type { guessUserDetailList } from '@/services/worldcup';
-import { useSelector } from 'umi';
+
 type Props = {
   onOk: Function;
   setModalData: any;
   modalData: any;
+  energy_num?: any;
 };
 
 const FBGuessEnergy = (props: Props) => {
-  const { onOk, setModalData, modalData } = props;
+  const { onOk, setModalData, modalData, energy_num } = props;
   const [unfold, setUnfold] = useState(false);
   const [unfoldValue, setUnfoldValue] = useState<number | string>(0);
-  const guessUser: guessUserDetailList = useSelector((s) => s.guessUser.guessUserState);
 
   return (
     <div>
       {unfold && (
         <div className={styles.unfold}>
           <div style={{ display: 'flex' }}>
-            总能量 <span style={{ color: '#7E1132', marginLeft: 5 }}>{guessUser.energy_num}</span>
+            总能量 <span style={{ color: '#7E1132', marginLeft: 5 }}>{energy_num}</span>
           </div>
           <div
             className={styles.unfoldbtn_box}
             onClick={(e: any) => {
               let data_value = e.target.getAttribute('data-value');
-              if (data_value <= guessUser.energy_num || data_value == 'all in') {
+              if (data_value <= energy_num || data_value == 'all in') {
                 setUnfoldValue(data_value);
 
-                let num = data_value == 'all in' ? guessUser.energy_num : data_value;
+                let num = data_value == 'all in' ? energy_num : data_value;
                 let obj = {
                   energy_coin: num,
                 };
@@ -41,21 +40,21 @@ const FBGuessEnergy = (props: Props) => {
           >
             <div
               className={unfoldValue == 100 ? styles.select_unfoldbtn : styles.unfoldbtn}
-              style={{ background: guessUser.energy_num < 100 ? '#EEEEEE' : '' }}
+              style={{ background: energy_num < 100 ? '#EEEEEE' : '' }}
               data-value={100}
             >
               100
             </div>
             <div
               data-value={200}
-              style={{ background: guessUser.energy_num < 200 ? '#EEEEEE' : '' }}
+              style={{ background: energy_num < 200 ? '#EEEEEE' : '' }}
               className={unfoldValue == 200 ? styles.select_unfoldbtn : styles.unfoldbtn}
             >
               200
             </div>
             <div
               data-value={500}
-              style={{ background: guessUser.energy_num < 500 ? '#EEEEEE' : '' }}
+              style={{ background: energy_num < 500 ? '#EEEEEE' : '' }}
               className={unfoldValue == 500 ? styles.select_unfoldbtn : styles.unfoldbtn}
             >
               500
@@ -80,7 +79,7 @@ const FBGuessEnergy = (props: Props) => {
                 setUnfold(!unfold);
               }}
             >
-              {unfoldValue == 'all in' ? guessUser.energy_num : unfoldValue}
+              {unfoldValue == 'all in' ? energy_num : unfoldValue}
               <IconFont
                 className={styles.star}
                 type={unfold ? 'icon-zhankai2' : 'icon-shouqi'}
@@ -90,10 +89,13 @@ const FBGuessEnergy = (props: Props) => {
             </div>
           </div>
           <div>
-            最高得<span className={styles.guesscenter_value}>100</span>{' '}
+            最高得
+            <span className={styles.guesscenter_value}>
+              {modalData.energy_coin ? (modalData.energy_coin * modalData.odd).toFixed(0) : 0}
+            </span>{' '}
           </div>
         </div>
-        {guessUser.energy_num < 100 ? (
+        {energy_num < 100 ? (
           <FBPopover
             content={<div className={styles.content}>能量值不足，可通过分享和购买攻略获取</div>}
           >

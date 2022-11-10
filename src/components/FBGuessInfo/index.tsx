@@ -19,8 +19,8 @@ const FBGuessInfo = (props: Props) => {
       ) : (
         <div className={styles.guess_user}>
           <div className={styles.guess_username}>
-            <div className={styles.img}>
-              <img src={guessUser?.avatar} alt="" />
+            <div className={styles.avatar}>
+              <img className={styles.avatar} src={guessUser?.avatar} alt="" />
             </div>
             <div className={styles.guess_name}>
               <div>{guessUser?.nickname}</div>

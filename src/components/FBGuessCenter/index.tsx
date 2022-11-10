@@ -4,6 +4,7 @@ import IconFont from '@/components/IconFont';
 import moment from 'moment';
 import { Toast } from 'antd-mobile';
 import { useHistory } from 'umi';
+import type { guessMatchList, guessMatch, AddGuessParams } from '@/services/worldcup';
 
 type Props = {
   onClickbtn: Function;
@@ -12,32 +13,23 @@ type Props = {
 };
 
 const FBGuessCenter = (props: Props) => {
-  const [selectId, setSelectId] = useState(null);
+  // const [selectId, setSelectId] = useState(null);
   // const [isSelect, setIsSelectId] = useState(false)
-  const [iswin, setIswint] = useState(null);
+  // const [iswin, setIswint] = useState(null);
   const history = useHistory();
   const { onClickbtn, data } = props;
   useEffect(() => {}, []);
-  const onGuessClick = (e: any) => {
-    let match_id = e.target.getAttribute('data-match_id'); //唯一
-    let odd_scheme_id = e.target.getAttribute('data-odd_scheme_id');
-    let tag = e.target.getAttribute('data-tag');
-    let odd = e.target.getAttribute('data-odd');
+  const onGuessClick = (items: any, item: any) => {
+    let match_id = item.match_id; //唯一
+    let odd_scheme_id = item.odd_scheme_id;
+    let tag = items.tag;
+    let odd = items.odd;
+    let scheme_title = item.scheme_title;
+    let value = { match_id, tag, odd_scheme_id, odd, scheme_title };
 
-    if (odd_scheme_id == selectId && tag == iswin) {
-      console.log('jinl');
+    onClickbtn(value, data.match);
 
-      setSelectId(null);
-      setIswint(null);
-      let value = { match_id: match_id, tag: null, odd_scheme_id: null };
-      onClickbtn(value);
-    } else {
-      setSelectId(odd_scheme_id);
-      setIswint(tag);
-      let value = { match_id, tag, odd_scheme_id, odd };
-
-      onClickbtn(value, data);
-    }
+    // }
     console.log(Number(odd));
   };
 
@@ -74,9 +66,9 @@ const FBGuessCenter = (props: Props) => {
           <div> {moment(new Date(Number(data?.match?.match_time) * 1000)).format('HH:mm')}</div>
         </div>
         <div>
-          {data?.odds?.map((item, index) => {
+          {data?.odds?.map((item: any, index: number) => {
             return (
-              <div>
+              <div key={index}>
                 {data?.odds?.length > 1 ? (
                   ''
                 ) : (
@@ -90,40 +82,28 @@ const FBGuessCenter = (props: Props) => {
                     className={styles.buttonnum}
                     style={{
                       background:
-                        item.scheme_title == 0
+                        item.scheme_title == '0'
                           ? '#F3F4F6'
-                          : item.scheme_title >= 1
+                          : item.scheme_title >= '1'
                           ? '#F2E7EA'
                           : '#E7F1ED',
                       color:
-                        item.scheme_title == 0
+                        item.scheme_title == '0'
                           ? '#45494C'
-                          : item.scheme_title >= 1
+                          : item.scheme_title >= '1'
                           ? '#7E1132'
                           : '#39906A',
                     }}
                   >
-                    {item.scheme_title >= 1 ? `+${item.scheme_title}` : item.scheme_title}
+                    {item.scheme_title >= '1' ? `+${item.scheme_title}` : item.scheme_title}
                     {/* {item.scheme_title >= 1 ? `+${item.scheme_title}` : item.scheme_title} */}
                   </div>
 
                   {/* <div>{item.scheme_title < 0 && '未开始'}</div> */}
-                  {item?.odds?.map((items, oddsindex) => {
+                  {item?.odds?.map((items: guessMatch, oddsindex: number) => {
                     return (
-                      <div>
-                        <div
-                          className={styles.onbutton}
-                          key={oddsindex}
-                          onClick={(e) => {
-                            if (Number(items.odd) >= 1.4) {
-                              onGuessClick(e);
-                            } else {
-                              Toast.show({
-                                content: '当前选项不支持竞猜',
-                              });
-                            }
-                          }}
-                        >
+                      <div key={oddsindex}>
+                        <div className={styles.onbutton} key={oddsindex}>
                           <div
                             className={
                               Number(items.odd) < 1.4
@@ -132,11 +112,20 @@ const FBGuessCenter = (props: Props) => {
                                 ? styles.selectId
                                 : styles.button
                             }
+                            onClick={(e) => {
+                              if (Number(items.odd) >= 1.4) {
+                                onGuessClick(items, item);
+                              } else {
+                                Toast.show({
+                                  content: '当前选项不支持竞猜',
+                                });
+                              }
+                            }}
                             data-match_id={item?.match_id}
                             data-odd_scheme_id={item?.odd_scheme_id}
                             data-tag={items.tag}
                             data-odd={items?.odd}
-                            data-item={item}
+                            data-scheme_title={item.scheme_title}
                           >
                             {items.title}
                             {items.odd}

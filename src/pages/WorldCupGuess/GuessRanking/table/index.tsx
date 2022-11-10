@@ -25,6 +25,7 @@ interface DataType {
   diff: number;
   lost: number;
   team_id: number;
+  avatar: string;
 }
 type Props = {
   group?: string | number;
@@ -67,7 +68,7 @@ const TablePage = (props: Props) => {
               borderRadius: 50,
               background: '#eee',
             }}
-            // src={record.team_logo}
+            src={record.avatar}
             alt=""
           />
         </div>

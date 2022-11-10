@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import FBGuessInfo from '@/components/FBGuessInfo';
 import FBGuessShare from '@/components/FBGuessShare';
 import FBMyguess from '@/components/FBMyguess';
@@ -12,11 +12,9 @@ import MyguessTitleImg from '@/assets/worldcup/my_guess_title.png';
 import WorldcupEmpty from '@/assets/worldcup/worldcup_empty.png';
 import Gotop from '@/assets/worldcup/go_top.png';
 import useScrollTop from '@/hooks/useScrollTop';
-import { MyGuess, GuessUserDetail } from '@/services/worldcup';
-
+import { MyGuess } from '@/services/worldcup';
 import type { GuessUserDetailParams, GuessSchemParams, guessSchemList } from '@/services/worldcup';
 import { FOOTBALL_MASTER_TOKEN } from '@/constants';
-
 import { timeStorageGet } from '@/utils/timestorage';
 import { Anchor, Spin } from 'antd';
 import { InfiniteScroll } from 'antd-mobile';
@@ -26,10 +24,9 @@ type Props = {};
 
 const Guess = (props: Props) => {
   const scrollTop = useScrollTop();
-  // const [guesUser, setGuesUser] = useState<guessUserDetailList>();
   const sharelist = [
-    { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
-    { title: '分享34体育', content: '每日分享获得能量值', action: '去分析' },
+    { title: '分享34体育', content: '每日分享获得能量值', action: '去分享' },
+    { title: '分享34体育', content: '每日分享获得能量值', action: '去分享' },
   ];
   useSelector;
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
@@ -46,17 +43,8 @@ const Guess = (props: Props) => {
         data,
       },
     });
-    // getGuesUserDetail();
   }, []);
-  // const getGuesUserDetail = async () => {
-  //   const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
-  //   let data: GuessUserDetailParams = { authtoken: val };
-  //   let res: GuessUserDetailRes = await GuessUserDetail(data);
 
-  //   if (res.success) {
-  //     setGuesUser(res.data);
-  //   }
-  // };
   const getMyGuessList = async (page: number, size: number): Promise<any> => {
     let data: GuessSchemParams = {
       page,
@@ -167,7 +155,7 @@ const Guess = (props: Props) => {
         )}
       </div>
 
-      <Anchor affix={false}>
+      {/* <Anchor affix={false}>
         <Link
           href="#root"
           title={
@@ -176,7 +164,7 @@ const Guess = (props: Props) => {
             </div>
           }
         ></Link>
-      </Anchor>
+      </Anchor> */}
     </div>
   );
 };

@@ -46,7 +46,7 @@ const FBMyguess = (props: Props) => {
               【{GoalTags.goaltitle(myguesslist.recommend)}
               <span style={{ color: myguesslist.goal > 0 ? '#FE2222' : '#39906A' }}>
                 {' '}
-                {myguesslist.goal > 0 ? `+${myguesslist.goal}` : +myguesslist.goal}
+                {myguesslist.goal > 0 ? `+${myguesslist.goal}` : myguesslist.goal}
               </span>
               】@{myguesslist.odd}
             </div>

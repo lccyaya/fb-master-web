@@ -60,7 +60,8 @@ const FBGuessTab = (props: Props) => {
       <div className={styles.card_content_box}>
         <div key={list[1]?.user_id} className={styles.card_content}>
           <div className={styles.card_content_name}>
-            <div className={styles.card_content_nameleft}>
+            <div className={styles.card_content_nameleft} style={{ borderColor: '#1390E2' }}>
+              <img className={styles.Avatar} src={list[1]?.avatar} alt="" />
               <img className={styles.rank} src={TabTwoImg} alt="" />
             </div>
             <div>
@@ -76,11 +77,12 @@ const FBGuessTab = (props: Props) => {
         </div>
         <div key={list[0]?.user_id} className={styles.card_content} style={{ marginTop: -25 }}>
           <div className={styles.card_content_name}>
-            <div className={styles.card_content_nameleft}>
-              <img className={styles.rank} src={TabTwoImg} alt="" />
+            <div className={styles.card_content_nameleft} style={{ borderColor: '#FE9E33' }}>
+              <img className={styles.Avatar} src={list[0]?.avatar} alt="" />
+              <img className={styles.rank} src={TabFirstImg} alt="" />
             </div>
             <div>
-              <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[2]?.nickname}</div>
+              <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[0]?.nickname}</div>
 
               <div className={styles.guess_num}>{list[0]?.energy_num}</div>
             </div>
@@ -92,8 +94,9 @@ const FBGuessTab = (props: Props) => {
         </div>
         <div key={list[2]?.user_id} className={styles.card_content}>
           <div className={styles.card_content_name}>
-            <div className={styles.card_content_nameleft}>
-              <img className={styles.rank} src={TabTwoImg} alt="" />
+            <div className={styles.card_content_nameleft} style={{ borderColor: '#FFA691' }}>
+              <img className={styles.Avatar} src={list[3]?.avatar} alt="" />
+              <img className={styles.rank} src={TabThreeImg} alt="" />
             </div>
             <div>
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[2]?.nickname}</div>

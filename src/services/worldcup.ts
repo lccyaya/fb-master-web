@@ -243,10 +243,13 @@ export type guessMatch = {
     away_team_id: number,
     away_team_name: string,
     issue: string
-    energy_coin: string
+    energy_coin: number
     tag: string
     odd_scheme_id: string
-    odd: string
+    odd: number
+    scheme_title: string
+    selected: boolean
+    title: string
 
 }
 export type guessOddChind = {
@@ -273,10 +276,11 @@ export type GuessMatchListRes = {
 // 创建竞猜
 export type AddGuessParams = {
     tag: string
-    odd_scheme_id: string
-    match_id: string
-    energy_coin: string
+    odd_scheme_id: number
+    match_id: number
+    energy_coin: number
     odd: string
+    published_at: number
 }
 
 export type AddGuessRes = {
