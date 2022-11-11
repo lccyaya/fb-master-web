@@ -17,8 +17,6 @@ const FBGuessShare = (props: Props) => {
         backgroundImage: backgroundImage,
       }}
       onClick={() => {
-        console.log(sharelist.app);
-
         if (!sharelist.app) {
           history.push('/zh/expert/rank');
         }
@@ -34,7 +32,7 @@ const FBGuessShare = (props: Props) => {
       </div>
       <div
         className={styles.share_main_riight}
-        style={{ background: sharelist.app ? '8D5523' : '#963A36' }}
+        style={{ background: sharelist.app ? '#8D5523' : '#963A36' }}
       >
         {sharelist.action}
       </div>

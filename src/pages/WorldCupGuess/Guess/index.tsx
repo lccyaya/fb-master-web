@@ -25,11 +25,15 @@ type Props = {};
 const Guess = (props: Props) => {
   const scrollTop = useScrollTop();
   const sharelist = [
-    { title: '购买比赛攻略', content: '每日分享获得能量值', action: '去购买' },
+    {
+      title: '购买比赛攻略',
+      content: '每次付费购买攻略获得能量值',
+      action: '去购买',
+    },
     {
       title: `分享34体育`,
       app: '(App专享)',
-      content: '每次付费购买攻略获得能量值',
+      content: '每日分享获得能量值',
       action: '去下载',
     },
   ];
