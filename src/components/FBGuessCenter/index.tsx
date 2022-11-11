@@ -4,12 +4,11 @@ import IconFont from '@/components/IconFont';
 import moment from 'moment';
 import { Toast } from 'antd-mobile';
 import { useHistory } from 'umi';
-import type { guessMatchList, guessMatch, AddGuessParams } from '@/services/worldcup';
-
+import type { guessMatch } from '@/services/worldcup';
+import { BgColor, Color } from '@/utils/guess';
 type Props = {
   onClickbtn: Function;
   data: any;
-  itemsData: any;
 };
 
 const FBGuessCenter = (props: Props) => {
@@ -81,25 +80,14 @@ const FBGuessCenter = (props: Props) => {
                   <div
                     className={styles.buttonnum}
                     style={{
-                      background:
-                        item.scheme_title == '0'
-                          ? '#F3F4F6'
-                          : item.scheme_title >= '1'
-                          ? '#F2E7EA'
-                          : '#E7F1ED',
-                      color:
-                        item.scheme_title == '0'
-                          ? '#45494C'
-                          : item.scheme_title >= '1'
-                          ? '#7E1132'
-                          : '#39906A',
+                      background: BgColor.numColor(item.scheme_title),
+
+                      color: Color.numColor(item.scheme_title),
                     }}
                   >
                     {item.scheme_title >= '1' ? `+${item.scheme_title}` : item.scheme_title}
-                    {/* {item.scheme_title >= 1 ? `+${item.scheme_title}` : item.scheme_title} */}
                   </div>
 
-                  {/* <div>{item.scheme_title < 0 && '未开始'}</div> */}
                   {item?.odds?.map((items: guessMatch, oddsindex: number) => {
                     return (
                       <div key={oddsindex}>
@@ -121,11 +109,6 @@ const FBGuessCenter = (props: Props) => {
                                 });
                               }
                             }}
-                            data-match_id={item?.match_id}
-                            data-odd_scheme_id={item?.odd_scheme_id}
-                            data-tag={items.tag}
-                            data-odd={items?.odd}
-                            data-scheme_title={item.scheme_title}
                           >
                             {items.title}
                             {items.odd}

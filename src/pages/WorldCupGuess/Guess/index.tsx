@@ -10,7 +10,7 @@ import { ConnectState } from '@/models/connect';
 import { UserInfoType } from '@/services/user';
 import MyguessTitleImg from '@/assets/worldcup/my_guess_title.png';
 import WorldcupEmpty from '@/assets/worldcup/worldcup_empty.png';
-import Gotop from '@/assets/worldcup/go_top.png';
+// import Gotop from '@/assets/worldcup/go_top.png';
 import useScrollTop from '@/hooks/useScrollTop';
 import { MyGuess } from '@/services/worldcup';
 import type { GuessUserDetailParams, GuessSchemParams, guessSchemList } from '@/services/worldcup';
@@ -19,14 +19,19 @@ import { timeStorageGet } from '@/utils/timestorage';
 import { Anchor, Spin } from 'antd';
 import { InfiniteScroll } from 'antd-mobile';
 import { useInfiniteScroll } from 'ahooks';
-const { Link } = Anchor;
+// const { Link } = Anchor;
 type Props = {};
 
 const Guess = (props: Props) => {
   const scrollTop = useScrollTop();
   const sharelist = [
-    { title: '分享34体育', content: '每日分享获得能量值', action: '去分享' },
-    { title: '分享34体育', content: '每日分享获得能量值', action: '去分享' },
+    { title: '购买比赛攻略', content: '每日分享获得能量值', action: '去购买' },
+    {
+      title: `分享34体育`,
+      app: '(App专享)',
+      content: '每次付费购买攻略获得能量值',
+      action: '去下载',
+    },
   ];
   useSelector;
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
@@ -104,7 +109,7 @@ const Guess = (props: Props) => {
                     {' '}
                     <FBGuessShare
                       backgroundImage={
-                        index == 0
+                        index !== 0
                           ? 'linear-gradient(to right, #FFEBD9,#CD986A)'
                           : 'linear-gradient(to right, #FCE6E5,#C66961)'
                       }

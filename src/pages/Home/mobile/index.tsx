@@ -8,8 +8,8 @@ import { useSelector } from 'umi';
 import styles from './index.less';
 import VersionA from './version-a';
 import VersionB from './version-b';
-import Information from "@/pages/Information"
-
+import Information from '@/pages/Information';
+import DownloadApp from '@/pages/DownloadApp';
 export default function MobileHome() {
   const abVersion = useSelector<ConnectState, ConnectState['abtest']['version']>(
     (state) => state.abtest.version,
@@ -30,15 +30,18 @@ export default function MobileHome() {
             {
               key: 'information',
               title: '资讯',
-              node: <Information />
-
+              node: <Information />,
             },
             {
               key: 'home',
               title: '头条',
               node: <VersionA />,
             },
-
+            {
+              key: 'app',
+              title: '下载APP',
+              node: <DownloadApp />,
+            },
             // {
             //   key: 'library',
             //   title: '资料库',

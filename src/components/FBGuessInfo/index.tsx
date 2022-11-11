@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './index.less';
 import { FormattedMessage, useSelector } from 'umi';
 import type { guessUserDetailList } from '@/services/worldcup';
+import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
+
 type Props = {
   user: any;
 };
@@ -20,7 +22,11 @@ const FBGuessInfo = (props: Props) => {
         <div className={styles.guess_user}>
           <div className={styles.guess_username}>
             <div className={styles.avatar}>
-              <img className={styles.avatar} src={guessUser?.avatar} alt="" />
+              <img
+                className={styles.avatar}
+                src={guessUser?.avatar ? guessUser?.avatar : GuessAvatar}
+                alt=""
+              />
             </div>
             <div className={styles.guess_name}>
               <div>{guessUser?.nickname}</div>

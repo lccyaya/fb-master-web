@@ -6,27 +6,33 @@ import FBGuessCenter from '@/components/FBGuessCenter';
 import FBGuessEnergy from '@/components/FBGuessEnergy';
 import { useSelector, useHistory } from 'umi';
 import { Modal, Toast } from 'antd-mobile';
-import type { guessMatchList, guessMatch, AddGuessParams } from '@/services/worldcup';
+import type {
+  guessMatchList,
+  guessMatch,
+  AddGuessParams,
+  GuessMatchListRes,
+  GuessMatchListParams,
+} from '@/services/worldcup';
 import { GuessMatchList, AddGuess } from '@/services/worldcup';
 import { guessSelect, guessTimeMatch } from '@/utils/guess';
 import moment from 'moment';
 import { OddTags, GoalTagsAll } from '@/utils/guess';
-import type { GuessMatchListParams, GuessMatchListRes } from '@/services/worldcup';
-
+import { Spin } from 'antd';
 type Props = {};
 
 const GuessCenter = (props: Props) => {
   const [data, setData] = useState<guessMatchList[]>();
   const [modalData, setModalData] = useState<guessMatch>();
+  const [loading, setLoading] = useState<boolean>(true);
+
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
+
   const [energy_num, setEnergy_num] = useState<number>(
     useSelector((s) => s.guessUser.guessUserState?.energy_num),
   );
-
   const history = useHistory();
-
   const onbutton = (value: any, matchdata: any) => {
     setData([...guessSelect(data, value)]);
     setModalData({ ...modalData, ...matchdata, ...value });
@@ -102,7 +108,7 @@ const GuessCenter = (props: Props) => {
     </div>
   );
   const onSrue = async () => {
-    console.log();
+    // console.log(modalData, '“poiuytre');
 
     Modal.show({
       title: '竞猜信息',
@@ -127,10 +133,9 @@ const GuessCenter = (props: Props) => {
           match_id: Number(match_id),
           published_at: Math.round(new Date().getTime() / 1000),
         };
-        console.log(data, 'poiuy');
 
-        setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
-        // getAddGuess(data);
+        // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+        getAddGuess(data);
       },
     });
   };
@@ -143,6 +148,7 @@ const GuessCenter = (props: Props) => {
     const result: GuessMatchListRes = await GuessMatchList(data);
 
     if (result.success == true) {
+      setLoading(false);
       let newlist = guessTimeMatch(result.data.list);
       setData(newlist);
     }
@@ -167,30 +173,28 @@ const GuessCenter = (props: Props) => {
       <div className={styles.tip}>购彩请到线下实体销售网点，34体育不支持任何形式的线上购彩</div>
 
       <div className={styles.guesscenter_list}>
-        {data?.map((item: guessMatchList, index: number) => {
-          return (
-            <div key={index}>
-              <div className={styles.guesscenter_time}>
-                {item.match_time} <span> </span>
-                {item.match.length}场比赛
-              </div>
-              {/* <Spin spinning={loading}> */}
+        <Spin spinning={loading}>
+          {data?.map((item: guessMatchList, index: number) => {
+            return (
+              <div key={index}>
+                <div className={styles.guesscenter_time}>
+                  {item.match_time} <span> </span>
+                  {item.match.length}场比赛
+                </div>
+                {/* <Spin spinning={loading}> */}
 
-              {item?.match?.map((items, index_i) => {
-                return (
-                  <div key={index_i}>
-                    {' '}
-                    <FBGuessCenter
-                      data={items}
-                      itemsData={item}
-                      onClickbtn={onbutton}
-                    ></FBGuessCenter>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                {item?.match?.map((items, index_i) => {
+                  return (
+                    <div key={index_i}>
+                      {' '}
+                      <FBGuessCenter data={items} onClickbtn={onbutton}></FBGuessCenter>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </Spin>
       </div>
       <div style={{ height: '57px' }}></div>
 

@@ -6,7 +6,7 @@ import TabFirstImg from '@/assets/worldcup/guess_tab_first.png';
 import TabTwoImg from '@/assets/worldcup/guess_tab_two.png';
 import TabThreeImg from '@/assets/worldcup/guess_tab_three.png';
 import { FormattedMessage } from 'umi';
-
+import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
 type itemparms = {
   label: string;
   key: string;
@@ -61,7 +61,11 @@ const FBGuessTab = (props: Props) => {
         <div key={list[1]?.user_id} className={styles.card_content}>
           <div className={styles.card_content_name}>
             <div className={styles.card_content_nameleft} style={{ borderColor: '#1390E2' }}>
-              <img className={styles.Avatar} src={list[1]?.avatar} alt="" />
+              <img
+                className={styles.Avatar}
+                src={list[1]?.avatar ? list[1]?.avatar : GuessAvatar}
+                alt=""
+              />
               <img className={styles.rank} src={TabTwoImg} alt="" />
             </div>
             <div>
@@ -78,7 +82,11 @@ const FBGuessTab = (props: Props) => {
         <div key={list[0]?.user_id} className={styles.card_content} style={{ marginTop: -25 }}>
           <div className={styles.card_content_name}>
             <div className={styles.card_content_nameleft} style={{ borderColor: '#FE9E33' }}>
-              <img className={styles.Avatar} src={list[0]?.avatar} alt="" />
+              <img
+                className={styles.Avatar}
+                src={list[0]?.avatar ? list[0]?.avatar : GuessAvatar}
+                alt=""
+              />
               <img className={styles.rank} src={TabFirstImg} alt="" />
             </div>
             <div>
@@ -95,7 +103,11 @@ const FBGuessTab = (props: Props) => {
         <div key={list[2]?.user_id} className={styles.card_content}>
           <div className={styles.card_content_name}>
             <div className={styles.card_content_nameleft} style={{ borderColor: '#FFA691' }}>
-              <img className={styles.Avatar} src={list[3]?.avatar} alt="" />
+              <img
+                className={styles.Avatar}
+                src={list[2]?.avatar ? list[2]?.avatar : GuessAvatar}
+                alt=""
+              />
               <img className={styles.rank} src={TabThreeImg} alt="" />
             </div>
             <div>

@@ -6,6 +6,7 @@ import RankingOne from '@/assets/worldcup/Ranking_1.png';
 import RankingTwo from '@/assets/worldcup/Ranking_2.png';
 import RankingThree from '@/assets/worldcup/Ranking_3.png';
 import { useHistory } from 'umi';
+import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
 // import { ScoresList } from "@/services/worldcup"
 
 import styles from './index.less';
@@ -68,7 +69,7 @@ const TablePage = (props: Props) => {
               borderRadius: 50,
               background: '#eee',
             }}
-            src={record.avatar}
+            src={record?.avatar ? record?.avatar : GuessAvatar}
             alt=""
           />
         </div>

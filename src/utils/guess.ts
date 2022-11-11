@@ -119,3 +119,32 @@ export namespace GoalTagsAll {
   }
 }
 
+export enum NumColor {
+  Zero = '0',
+  One = '1',
+}
+
+export namespace BgColor {
+  export function numColor(type: string) {
+    switch (type) {
+      case NumColor.Zero:
+        return '#F3F4F6';
+      case NumColor.One:
+        return '#F2E7EA';
+      default:
+        return '#E7F1ED';
+    }
+  }
+}
+export namespace Color {
+  export function numColor(type: string) {
+    switch (type) {
+      case NumColor.Zero:
+        return '#45494C';
+      case NumColor.One:
+        return '#7E1132';
+      default:
+        return '#39906A';
+    }
+  }
+}
