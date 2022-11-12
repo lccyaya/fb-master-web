@@ -47,10 +47,7 @@ const WorldCapguess = (props: Props) => {
   };
   // 跳转规则
   const goRule = () => {
-    history.push(`/zh/rule`, {
-      title: '世界杯竞猜规则',
-      url: `${window.publicPath}worldcup_rules.html`,
-    });
+    history.push('/zh/informationdetail/4153');
   };
 
   return (

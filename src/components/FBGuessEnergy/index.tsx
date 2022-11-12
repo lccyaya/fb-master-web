@@ -39,23 +39,38 @@ const FBGuessEnergy = (props: Props) => {
             }}
           >
             <div
-              className={unfoldValue == 100 ? styles.select_unfoldbtn : styles.unfoldbtn}
-              style={{ background: energy_num < 100 ? '#EEEEEE' : '' }}
+              className={
+                unfoldValue == 100 && energy_num >= 100 ? styles.select_unfoldbtn : styles.unfoldbtn
+              }
+              style={{
+                background: energy_num < 100 ? '#EEEEEE' : '',
+                color: energy_num < 100 ? '#999999' : '',
+              }}
               data-value={100}
             >
               100
             </div>
             <div
               data-value={200}
-              style={{ background: energy_num < 200 ? '#EEEEEE' : '' }}
-              className={unfoldValue == 200 ? styles.select_unfoldbtn : styles.unfoldbtn}
+              style={{
+                background: energy_num < 200 ? '#EEEEEE' : '',
+                color: energy_num < 200 ? '#999999' : '',
+              }}
+              className={
+                unfoldValue == 200 && energy_num >= 200 ? styles.select_unfoldbtn : styles.unfoldbtn
+              }
             >
               200
             </div>
             <div
               data-value={500}
-              style={{ background: energy_num < 500 ? '#EEEEEE' : '' }}
-              className={unfoldValue == 500 ? styles.select_unfoldbtn : styles.unfoldbtn}
+              style={{
+                background: energy_num < 500 ? '#EEEEEE' : '',
+                color: energy_num < 500 ? '#999999' : '',
+              }}
+              className={
+                unfoldValue == 500 && energy_num >= 500 ? styles.select_unfoldbtn : styles.unfoldbtn
+              }
             >
               500
             </div>
@@ -91,7 +106,9 @@ const FBGuessEnergy = (props: Props) => {
           <div>
             最高得
             <span className={styles.guesscenter_value}>
-              {modalData.energy_coin ? (modalData.energy_coin * modalData.odd).toFixed(0) : 0}
+              {unfoldValue == 'all in'
+                ? (energy_num * modalData.odd).toFixed(0)
+                : (unfoldValue * modalData.odd).toFixed(0)}
             </span>{' '}
           </div>
         </div>
@@ -108,11 +125,14 @@ const FBGuessEnergy = (props: Props) => {
           <div
             className={styles.onOk}
             style={{
-              background: !unfoldValue ? '#F3F4F6' : '#7E1132',
-              color: !unfoldValue ? '#848494' : '#fff',
+              background: !unfoldValue || energy_num < unfoldValue ? '#F3F4F6' : '#7E1132',
+              color: !unfoldValue || energy_num < unfoldValue ? '#848494' : '#fff',
             }}
             onClick={() => {
-              if (unfoldValue) {
+              console.log(energy_num, unfoldValue, 'unfoldValue');
+
+              if (!unfoldValue || energy_num < unfoldValue) {
+              } else {
                 onOk();
               }
             }}

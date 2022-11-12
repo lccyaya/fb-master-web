@@ -32,11 +32,13 @@ const GuessCenter = (props: Props) => {
   const [energy_num, setEnergy_num] = useState<number>(
     useSelector((s) => s.guessUser.guessUserState?.energy_num),
   );
+  // ),
+
   const history = useHistory();
   const onbutton = (value: any, matchdata: any) => {
     setData([...guessSelect(data, value)]);
     setModalData({ ...modalData, ...matchdata, ...value });
-    console.log({ ...modalData, ...matchdata, ...value });
+    // console.log({ ...modalData, ...matchdata, ...value });
   };
 
   const content = (
@@ -108,8 +110,6 @@ const GuessCenter = (props: Props) => {
     </div>
   );
   const onSrue = async () => {
-    // console.log(modalData, '“poiuytre');
-
     Modal.show({
       title: '竞猜信息',
       content: content,
@@ -133,9 +133,10 @@ const GuessCenter = (props: Props) => {
           match_id: Number(match_id),
           published_at: Math.round(new Date().getTime() / 1000),
         };
+        console.log(data);
 
-        // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
-        getAddGuess(data);
+        setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+        // getAddGuess(data);
       },
     });
   };
