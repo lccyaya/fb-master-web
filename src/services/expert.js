@@ -192,3 +192,10 @@ export const applicationExpert = async (params) => {
   });
   return normalizeResponse(result);
 };
+
+
+// 实名认证状态查询
+export const getNameAuthStatus = async () => {
+  const result = await request('/api/name-auth/check');
+  return normalizeResponse(result);
+}

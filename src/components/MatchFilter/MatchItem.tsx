@@ -14,6 +14,7 @@ const MatchItem = ({ name, selectedList = [], id, handleClick, className, allBg 
   const handleItemClick = (idx: number) => {
     if(handleClick) handleClick(idx)
   }
+
   return (
     <div
       className={classNames(styles.itemWrapper, className, {

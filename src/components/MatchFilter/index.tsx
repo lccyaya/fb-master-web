@@ -31,9 +31,9 @@ interface IMatchFilterProps {
 const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChange, loading}: IMatchFilterProps) => {
   const [selectedList, setSelectList] = useState<number[]>([]);
   const [optionSelected, setOptionSelected] = useState<number>();
-  // const [actionSelected, setActionSelected] = useState<number>();
+  // const [actionSelected, setActionSelected] = useState<number>(5);
   useEffect(() => {
-    setOptionSelected(undefined)
+    setOptionSelected(1)
     // setActionSelected(undefined)
   }, [visible])
   const flatId = (source: ItemProps[]) => {
@@ -55,6 +55,9 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
     onClose()
   }
   const optionList = [{
+    id: 5,
+    name: '全部'
+  },{
     id: 1,
     name: '重要'
   }, {
@@ -63,9 +66,6 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
   }, {
     id: 3,
     name: '北单'
-  }, {
-    id: 4,
-    name: '攻略'
   }];
   const actionList = [{
     id: 1,

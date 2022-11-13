@@ -313,7 +313,7 @@ const Mobile = () => {
     setFilterVisible(true)
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
-      type: 5,
+      type: 1,
       [params.param_key]: params.param_value
     })
   }

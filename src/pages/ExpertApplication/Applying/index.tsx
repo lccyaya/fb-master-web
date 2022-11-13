@@ -3,7 +3,7 @@ import { UserInfoType } from '@/services/user';
 import { ExpertStatus } from '@/utils/scheme';
 import { Avatar, Button, Form, Input, message, Spin, Upload } from 'antd';
 import { Image, NavBar } from 'antd-mobile';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useHistory, useSelector } from 'umi';
 import ApplicationSteps from '../ApplicationSteps';
 import styles from './index.less';
@@ -13,7 +13,7 @@ import { getAPIHost } from '@/utils/env';
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload';
 import IconFont from '@/components/IconFont';
 import lodash from 'lodash';
-import { applicationExpert } from '@/services/expert';
+import { applicationExpert, getNameAuthStatus } from '@/services/expert';
 
 type Props = {};
 
@@ -26,6 +26,7 @@ const Applying: React.FC<Props> = (props) => {
   const [picAvatar, setPicAvatar] = useState('');
   const [picIdFront, setPicIdFront] = useState('');
   const [picIdBack, setPicIdBack] = useState('');
+  const [isAuth, setIsAuth] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -82,6 +83,7 @@ const Applying: React.FC<Props> = (props) => {
 
   const onSubmit = async () => {
     const values = form.getFieldsValue();
+    console.log('values', values)
     if (lodash.isEmpty(values.avatar)) {
       message.error('请上传头像');
       return;
@@ -126,6 +128,28 @@ const Applying: React.FC<Props> = (props) => {
       });
     }
   };
+
+  const InputProps = useMemo(() => {
+    return {
+      readOnly: isAuth
+    }
+  }, [isAuth])
+
+  useEffect(() => {
+    getNameAuthStatus().then((res) => {
+      if(res?.data?.status === 1) {
+        const { name, id_card } = res?.data || {};
+        form.setFieldsValue({
+          name,
+          id_card
+        })
+        setIsAuth(true)
+      } else {
+        setIsAuth(false)
+      }
+    })
+  }, [])
+
 
   return (
     <Spin spinning={loading}>
@@ -175,12 +199,15 @@ const Applying: React.FC<Props> = (props) => {
           </Form.Item>
         </FormField>
         <FormField title="真实姓名" required>
-          <Form.Item name="name">
+          <Form.Item
+            name="name"
+          >
             <Input
               className={styles.field_input}
               placeholder="请输入"
               bordered={false}
               maxLength={20}
+              {...InputProps}
             />
           </Form.Item>
         </FormField>
@@ -191,6 +218,7 @@ const Applying: React.FC<Props> = (props) => {
               placeholder="请输入"
               bordered={false}
               maxLength={20}
+              {...InputProps}
             />
           </Form.Item>
         </FormField>
