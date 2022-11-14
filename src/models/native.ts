@@ -27,7 +27,7 @@ const NativeModel: NativeModelType = {
     setNative(state, action) {
       return {
         ...state,
-        native: action.payload,
+        isNative: action.payload,
       };
     }
   },

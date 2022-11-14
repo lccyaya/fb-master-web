@@ -247,20 +247,19 @@
               cate: 'guide',
             },
             {
+              path: '/:locale/native',
+              component: '@/layouts/NativeLayout',
+              routes:[
+                {
+                  path: '/:locale/native/worldcup_guess',
+                  component: '@/pages/WorldCupGuess',
+                },
+              ],
+            },
+            {
               component: './404',
             },
           ],
-        },
-      ],
-    },
-    {
-      path: '/native',
-      component: '../layouts/NativeLayout',
-      routes:[
-        {
-          path: '/:locale/native/worldcup_guess',
-          component: '../pages/WorldCupGuess',
-          cate: 'world_WorldCupGuess',
         },
       ],
     },
