@@ -219,6 +219,7 @@ export type guessSchemList = {
     odd: string | number
     result: string
     recommend: string
+    status_id: number
 
 }
 export type GuessSchemRes = {

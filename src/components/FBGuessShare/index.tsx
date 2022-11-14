@@ -19,6 +19,8 @@ const FBGuessShare = (props: Props) => {
       onClick={() => {
         if (!sharelist.app) {
           history.push('/zh/expert/rank');
+        } else {
+          history.push('/zh/home');
         }
       }}
     >

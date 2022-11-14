@@ -7,7 +7,6 @@ type Props = {};
 
 const DownloadApp = (props: Props) => {
   const { height } = useWindowSize();
-  console.log(height);
 
   return (
     <div className={styles.downloadApp} style={{ height: height - 97 }}>
