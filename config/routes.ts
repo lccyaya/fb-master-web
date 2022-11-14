@@ -254,6 +254,17 @@
       ],
     },
     {
+      path: '/native',
+      component: '../layouts/NativeLayout',
+      routes:[
+        {
+          path: '/:locale/native/worldcup_guess',
+          component: '../pages/WorldCupGuess',
+          cate: 'world_WorldCupGuess',
+        },
+      ],
+    },
+    {
       component: './404',
     },
   ];

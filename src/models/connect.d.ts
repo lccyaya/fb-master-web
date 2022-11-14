@@ -6,6 +6,7 @@ import type { StateType } from './login';
 import { Result } from '@/utils/tools';
 import { NewMatchList } from '@/services/matchPage';
 import { ABTestModelState } from '@/models/abtest';
+import { NativeModelState } from 'umi';
 
 export { GlobalModelState, UserModelState, DeviceState };
 
@@ -32,7 +33,8 @@ export type ConnectState = {
   divice: DeviceState;
   abtest: ABTestModelState;
   mainMatchListResult: Result<NewMatchList>,
-  tips: any
+  tips: any,
+  native: NativeModelState,
 };
 
 export type Route = {

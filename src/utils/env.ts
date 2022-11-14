@@ -14,14 +14,14 @@ export function getAPIHost() {
   // return '//10.149.62.60:8080';
   return 'http://47.93.46.29:80'; // 测试地址
   // return 'http://47.94.89.58:8080'; // 正式地址
-  // return '//api.34.com';
+  // return '//api.34sport.cn'; // 正式地址
 }
 
 export function getFeedbackAPIHost() {
-  return 'http//47.94.89.58:7007';
+  return '//feedback.34sport.cn';
 }
 
 export function getLangAPIHost() {
-  return '//language.34.com';
+  return '//language.34sport.cn';
 }
 

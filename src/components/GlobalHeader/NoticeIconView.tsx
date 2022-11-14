@@ -24,7 +24,7 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
 
     if (dispatch) {
       dispatch({
-        type: 'global/changeNoticeReadState',
+        type: 'global/setNative',
         payload: id,
       });
     }
