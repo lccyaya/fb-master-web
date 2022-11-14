@@ -1,15 +1,15 @@
 import styles from './mobile.module.less';
 import GoldIcon from '@/assets/gold_icon.png';
-import { Button, message } from 'antd';
+import { Button, message, Modal, Form } from 'antd';
 import cls from 'classnames';
 import { getCoinScheme, coinCharger } from '@/services/expert';
 import { toShortLangCode } from '@/utils/utils';
 import { locale } from '@/app';
-import { history } from 'umi';
+import { history, useDispatch } from 'umi';
 import React, { useState, useEffect } from 'react';
 import BaseModal from '@/components/BaseModal/mobile';
 import { handleReport } from '@/utils/report';
-import { urlencode } from "@/utils/utils";
+import { urlencode } from '@/utils/utils';
 
 const Recharge = ({ coin }) => {
   const [payChannels, setPayChannels] = useState([]);
@@ -18,6 +18,9 @@ const Recharge = ({ coin }) => {
   const [schemeId, setSchemeId] = useState('');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [channelItem, setChannelItem] = useState({});
+
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     const resp = await getCoinScheme();
@@ -26,6 +29,7 @@ const Recharge = ({ coin }) => {
       const schemes = resp.data.schemes || [];
       if (pay_channels.length) {
         setChannel(pay_channels[0].channel);
+        setChannelItem(pay_channels[0]);
       }
       if (schemes.length) {
         setSchemeId(schemes[0].ID);
@@ -43,9 +47,10 @@ const Recharge = ({ coin }) => {
     setLoading(false);
 
     if (resp.success) {
-      const url = urlencode("https://www.34sport.cn");
+      const url = urlencode('https://www.34sport.cn');
       // window.open(resp.data.param+"&redirect_url="+url, '_blank');
       window.open(resp.data.param, '_blank');
+      setVisible(true);
     } else {
       message.error(resp.message);
     }
@@ -56,6 +61,18 @@ const Recharge = ({ coin }) => {
     });
     fetchData();
   }, []);
+
+  const onCancel = () => {
+    setVisible(false);
+  };
+
+  const refreshUserInfo = () => {
+    dispatch({
+      type: 'user/fetchCurrent',
+    });
+    setVisible(false);
+  }
+
   return (
     <div className={styles.recharge}>
       <div className={styles.section}>
@@ -126,6 +143,7 @@ const Recharge = ({ coin }) => {
                   key={item.channel}
                   onClick={() => {
                     setChannel(item.channel);
+                    setChannelItem(item);
                     handleReport({
                       action: item.channel === 1 ? 'alipay' : 'wechat',
                     });
@@ -155,7 +173,7 @@ const Recharge = ({ coin }) => {
           </div>
         </div>
       </div>
-      <BaseModal
+      {/* <BaseModal
         visible={visible}
         onCancel={() => {
           setVisible(false);
@@ -166,7 +184,35 @@ const Recharge = ({ coin }) => {
           <div className={styles.success}>支付成功</div>
           <div className={styles.fail}>支付遇到问题，重新支付</div>
         </div>
-      </BaseModal>
+      </BaseModal> */}
+      <Modal
+        destroyOnClose
+        visible={visible}
+        footer={null}
+        closable={false}
+        centered
+        wrapClassName={styles.modal}
+        // onCancel={onCancel}
+      >
+        <div className={styles.modal_content}>
+          <div className={styles.modal_title}>请确认支付宝支付是否已完成</div>
+          <div className={styles.modal_icon}>
+            <img src={channelItem?.logo} alt="" className={styles.icon} />
+          </div>
+          <div>
+            <div className={styles.modal_note}>
+              1.如果已在{channelItem?.name}内支付成功，请点击“已完成付款“按钮 ;
+            </div>
+            <div className={styles.modal_note}>
+              2.如果支付遇到问题，未支付成功，请选择"关闭”,重新提交支付 ;
+            </div>
+          </div>
+        </div>
+        <div className={styles.modal_buttons}>
+          <div onClick={onCancel} className={styles.modal_cancel}>取消</div>
+          <div onClick={refreshUserInfo} className={styles.modal_done}>已完成支付</div>
+        </div>
+      </Modal>
     </div>
   );
 };
