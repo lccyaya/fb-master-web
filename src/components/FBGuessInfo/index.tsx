@@ -104,8 +104,10 @@ const FBGuessInfo = (props: Props) => {
           <div>参与次数</div>
         </div>
         <div className={styles.guess_list}>
-          <div className={styles.guess_value}> {!user ? '-' : guessUser?.reward_rate}%</div>
-
+          <div className={styles.guess_value}>
+            {' '}
+            {!user ? '-' : Math.trunc(Number(guessUser?.reward_rate))}%
+          </div>
           <div>
             <FormattedMessage id={'key_worldcap_return'} />
           </div>

@@ -38,6 +38,7 @@ const GuessCenter = (props: Props) => {
   const onbutton = (value: any, matchdata: any) => {
     setData([...guessSelect(data, value)]);
     setModalData({ ...modalData, ...matchdata, ...value });
+
     // console.log({ ...modalData, ...matchdata, ...value });
   };
 
@@ -135,8 +136,8 @@ const GuessCenter = (props: Props) => {
         };
         console.log(data);
 
-        setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
-        // getAddGuess(data);
+        // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+        getAddGuess(data);
       },
     });
   };
