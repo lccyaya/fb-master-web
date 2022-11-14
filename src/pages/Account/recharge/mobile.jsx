@@ -5,7 +5,7 @@ import cls from 'classnames';
 import { getCoinScheme, coinCharger } from '@/services/expert';
 import { toShortLangCode } from '@/utils/utils';
 import { locale } from '@/app';
-import { history, useDispatch } from 'umi';
+import { history, useDispatch, useLocation } from 'umi';
 import React, { useState, useEffect } from 'react';
 import BaseModal from '@/components/BaseModal/mobile';
 import { handleReport } from '@/utils/report';
@@ -19,6 +19,8 @@ const Recharge = ({ coin }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [channelItem, setChannelItem] = useState({});
+  const location = useLocation();
+  const { confirm } = location.query;
 
   const dispatch = useDispatch();
 
@@ -49,8 +51,8 @@ const Recharge = ({ coin }) => {
     if (resp.success) {
       const url = urlencode('https://www.34sport.cn');
       // window.open(resp.data.param+"&redirect_url="+url, '_blank');
-      window.open(resp.data.param, '_blank');
-      setVisible(true);
+      // window.open(resp.data.param, '_blank');
+      window.location.href = resp.data.param;
     } else {
       message.error(resp.message);
     }
@@ -60,6 +62,8 @@ const Recharge = ({ coin }) => {
       action: 'recharge_coin_display',
     });
     fetchData();
+
+    setVisible(confirm == "1");
   }, []);
 
   const onCancel = () => {
