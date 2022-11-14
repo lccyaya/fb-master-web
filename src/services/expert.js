@@ -138,7 +138,7 @@ export const getCollectList = async (params) => {
 
 //获取充值方案
 export const getCoinScheme = async (params) => {
-  const result = await request('/api/coin/scheme?' + qs.stringify(params));
+  const result = await request('/api/coin/schemeH5?' + qs.stringify(params));
   return normalizeResponse(result);
 };
 
