@@ -94,7 +94,7 @@ const SchemeItem: React.FC<Props> = (props) => {
             </span>
           ) : (
             <span className={styles.gold} style={{ color: '#B64B11' }}>
-              {scheme.gold_coin === 0 ? '免费' : `${scheme.gold_coin}金币`}
+              {scheme.gold_coin === 0 ? '免费' : `${scheme.gold_coin}金豆`}
             </span>
           )}
         </div>

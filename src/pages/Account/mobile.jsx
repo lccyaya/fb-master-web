@@ -33,7 +33,7 @@ const Account = (props) => {
     ? {
         setting: intl.formatMessage({ id: 'key_setting' }),
         myteam: intl.formatMessage({ id: 'key_my_teams' }),
-        recharge: '金币充值',
+        recharge: '金豆充值',
         'recharge-record': '交易记录',
         coupon: '我的卡券',
         myorder: '我的订单',

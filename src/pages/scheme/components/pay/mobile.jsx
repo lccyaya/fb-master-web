@@ -123,7 +123,7 @@ const Pay = function ({ detail = {}, id, currentUser, onSuccess = () => {}, even
   const onSubmit = async () => {
     if (currentUser.coin < payAmount) {
       Toast.show({
-        content: '金币余额不足',
+        content: '金豆余额不足',
       });
       setTimeout(() => {
         const lang = toShortLangCode(locale.getLocale());
@@ -155,16 +155,16 @@ const Pay = function ({ detail = {}, id, currentUser, onSuccess = () => {}, even
       <div className={styles.pay_wrap}>
         <div className={styles.pay_info}>
           <div className={styles.pay_coin}>
-            {/* 需支付：<span>{detail.gold_coin} 金币</span>
-            <span className={styles.del}>{detail.gold_coin} 金币</span> */}
+            {/* 需支付：<span>{detail.gold_coin} 金豆</span>
+            <span className={styles.del}>{detail.gold_coin} 金豆</span> */}
             {useCoupon && selectedCoupon.ID ? (
               <>
-                需支付：<span>{payAmount} 金币</span>
-                <span className={styles.del}>{detail.gold_coin} 金币</span>
+                需支付：<span>{payAmount} 金豆</span>
+                <span className={styles.del}>{detail.gold_coin} 金豆</span>
               </>
             ) : (
               <>
-                需支付：<span>{detail.gold_coin} 金币</span>
+                需支付：<span>{detail.gold_coin} 金豆</span>
               </>
             )}
           </div>
@@ -182,7 +182,7 @@ const Pay = function ({ detail = {}, id, currentUser, onSuccess = () => {}, even
               {usableCoupons.length === 0 ? (
                 <span className={styles.used_status}>暂无可用优惠券</span>
               ) : useCoupon ? (
-                <span className={styles.used_status}>使用卡券已优惠{selectedCoupon.value}金币</span>
+                <span className={styles.used_status}>使用卡券已优惠{selectedCoupon.value}金豆</span>
               ) : (
                 <span className={styles.used_status}>不使用优惠券</span>
               )}
@@ -217,11 +217,11 @@ const Pay = function ({ detail = {}, id, currentUser, onSuccess = () => {}, even
         <div className={styles.modal_content}>
           <div className={styles.title}>
             确认支付
-            <span> {useCoupon && selectedCoupon.ID ? payAmount : detail.gold_coin} 金币</span>
+            <span> {useCoupon && selectedCoupon.ID ? payAmount : detail.gold_coin} 金豆</span>
             购买该方案？
           </div>
           <div className={styles.desc}>
-            金币余额：<span>{currentUser?.coin || 0}</span>
+            金豆余额：<span>{currentUser?.coin || 0}</span>
           </div>
           <div className={styles.checkbox_wrap}>
             <Checkbox

@@ -94,7 +94,7 @@ const SchemeList: React.FC = (props) => {
       title: '定价',
       width: 120,
       render: (record: any) => {
-        return record.gold_coin ? record.gold_coin + '金币' : '免费';
+        return record.gold_coin ? record.gold_coin + '金豆' : '免费';
       },
     },
     {
