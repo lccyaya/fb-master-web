@@ -22,6 +22,14 @@ const NativeLayout: React.FC<Props> = (props) => {
         type: 'user/fetchCurrent',
       });
     })
+    webJsBridge.registerHandler("setAuthToken", (data: string, callback: (data: string) => void) => {
+      timeStorageSet(FOOTBALL_MASTER_TOKEN, data, 864e5 - 10 * 1000);
+      extendOptionsAuth();
+      dispatch({
+        type: 'user/fetchCurrent',
+      });
+      callback("");
+    })
   };
 
   useEffect(() => {

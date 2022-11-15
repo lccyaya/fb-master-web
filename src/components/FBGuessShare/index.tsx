@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './index.less';
 import Fire from '@/assets/worldcup/fire.png';
-import { useHistory } from 'umi';
+import { useHistory, useSelector } from 'umi';
+import { webJsBridge } from "@/services/webjsbridge";
+import { ConnectState } from '@/models/connect';
+
 type Props = {
   sharelist: any;
   backgroundImage: string;
@@ -10,6 +13,8 @@ type Props = {
 const FBGuessShare = (props: Props) => {
   const { sharelist, backgroundImage } = props;
   const history = useHistory();
+  const isNative = useSelector<ConnectState>((s) => s.native.isNative);
+  
   return (
     <div
       className={styles.share_main}
@@ -17,10 +22,22 @@ const FBGuessShare = (props: Props) => {
         backgroundImage: backgroundImage,
       }}
       onClick={() => {
-        if (!sharelist.app) {
-          history.push('/zh/expert/rank');
-        } else {
-          history.push('/zh/home', { activekey: 'app' });
+        if (isNative) {
+          if (!sharelist.app) {
+            webJsBridge.callHandler("showExpertRank", "", (res: string)=> {
+              console.log(res);
+            })
+          } else {
+            webJsBridge.callHandler("showShare", "", (res: string)=> {
+              console.log(res);
+            })
+          }
+        }else {
+          if (!sharelist.app) {
+            history.push('/zh/expert/rank');
+          } else {
+            history.push('/zh/home', { activekey: 'app' });
+          }
         }
       }}
     >

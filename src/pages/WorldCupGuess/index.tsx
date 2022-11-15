@@ -5,15 +5,19 @@ import Guess from './Guess';
 import GuessCenter from './GuessCenter';
 import GuessRanking from './GuessRanking';
 import Rule from '@/assets/worldcup/rule.png';
-import { useHistory } from 'umi';
+import { useHistory, useSelector } from 'umi';
 
 import styles from './index.less';
+import { ConnectState } from '@/models/connect';
+import { webJsBridge } from "@/services/webjsbridge";
 
 type Props = {};
 
 const WorldCapguess = (props: Props) => {
   const history = useHistory();
   const [curKey, setCurKey] = useState('0');
+  const isNative = useSelector<ConnectState>((s) => s.native.isNative);
+
   const items = [
     {
       key: '0',
@@ -47,7 +51,13 @@ const WorldCapguess = (props: Props) => {
   };
   // 跳转规则
   const goRule = () => {
-    history.push('/zh/informationdetail/4153');
+    if (isNative) {
+        webJsBridge.callHandler("openSchemeUrl", "sport34://router/news?id=4153", (res: string)=> {
+            console.log(res);
+        })
+    }else {
+        history.push('/zh/informationdetail/4153');
+    }
   };
 
   return (

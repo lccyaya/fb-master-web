@@ -24,6 +24,8 @@ type Props = {};
 
 const Guess = (props: Props) => {
   const scrollTop = useScrollTop();
+  const isNative = useSelector<ConnectState>((s) => s.native.isNative);
+
   const sharelist = [
     {
       title: '购买比赛攻略',
@@ -34,7 +36,7 @@ const Guess = (props: Props) => {
       title: `分享34体育`,
       app: '(App专享)',
       content: '每日分享获得能量值',
-      action: '去下载',
+      action: isNative ? '去分享' :'去下载',
     },
   ];
   useSelector;
