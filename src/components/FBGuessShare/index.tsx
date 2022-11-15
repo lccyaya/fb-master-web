@@ -20,7 +20,7 @@ const FBGuessShare = (props: Props) => {
         if (!sharelist.app) {
           history.push('/zh/expert/rank');
         } else {
-          history.push('/zh/home');
+          history.push('/zh/home', { activekey: 'app' });
         }
       }}
     >

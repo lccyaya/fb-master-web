@@ -10,12 +10,15 @@ import VersionA from './version-a';
 import VersionB from './version-b';
 import Information from '@/pages/Information';
 import DownloadApp from '@/pages/DownloadApp';
-export default function MobileHome() {
+export default function MobileHome(props) {
   const abVersion = useSelector<ConnectState, ConnectState['abtest']['version']>(
     (state) => state.abtest.version,
   );
+
   const content = { A: <VersionA />, B: <VersionB />, '': null }[abVersion];
-  const [tabkey, setTabkey] = useState('information');
+  const [tabkey, setTabkey] = useState(
+    props.location.state ? props.location.state.activekey : 'information',
+  );
 
   return (
     <Spin spinning={!abVersion}>
