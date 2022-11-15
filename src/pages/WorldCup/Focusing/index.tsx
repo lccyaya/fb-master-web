@@ -14,8 +14,7 @@ import { useInfiniteScroll } from 'ahooks';
 import { InfiniteScroll } from 'antd-mobile';
 import { useHistory } from 'umi';
 import type { majorMatchType } from '@/services/home';
-import { AnalysisList } from '@/services/worldcup';
-import { GuessRank } from '@/services/worldcup';
+import { GuessRank, GuessEntry, AnalysisList } from '@/services/worldcup';
 import type { GuessRankingParams } from '@/services/worldcup';
 type Props = {};
 // const colors = ['#fff', '#fff', '#fff', '#fff']
@@ -26,6 +25,8 @@ const Focusing = (props: Props) => {
   const [dataCard, setDataCard] = useState<majorMatchType[]>([]);
   const [ativeKey, setActiveKey] = useState('0');
   const [guessRank, setGuessRank] = useState([]);
+  const [guessEntryState, setGuessEntry] = useState(false);
+
   // 左右滚动卡片
   const getData = async () => {
     const res: any = await getMajorData();
@@ -70,14 +71,23 @@ const Focusing = (props: Props) => {
       tab: Number(ativeKey),
     };
     const result: any = await GuessRank(data);
-    console.log(result, 'poiuytre');
 
     setGuessRank(result.data.list);
   };
+  const getGuessEntry = async (): Promise<any> => {
+    const result: any = await GuessEntry();
+    if (result.data.status == 1) {
+      setGuessEntry(true);
+    } else {
+      setGuessEntry(false);
+    }
+  };
+
   useEffect(() => {
     getData();
     getGuessRankList();
     reload();
+    getGuessEntry();
   }, [ativeKey]);
   const {
     data = () => {},
@@ -128,19 +138,22 @@ const Focusing = (props: Props) => {
                     {verticalItems}
                 </Swiper>
             </div> */}
-      <div style={{ padding: 12 }}>
-        <div className={styles.card_container}>
-          <FBGuessTab
-            item={navlist}
-            list={guessRank}
-            ativeKey={ativeKey}
-            onChange={(key: string) => {
-              setActiveKey(key);
-              console.log(key);
-            }}
-          ></FBGuessTab>
+
+      {guessEntryState && (
+        <div style={{ padding: 12 }}>
+          <div className={styles.card_container}>
+            <FBGuessTab
+              item={navlist}
+              list={guessRank}
+              ativeKey={ativeKey}
+              onChange={(key: string) => {
+                setActiveKey(key);
+                console.log(key);
+              }}
+            ></FBGuessTab>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className={styles.conent} style={{ background: '#fff' }}>
         <div className={styles.title}>

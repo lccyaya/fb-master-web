@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useSelector } from 'umi';
 import styles from './index.less';
 import UserInfo from './UserInfo';
+import MainCorldCup from '@/assets/worldcup/mine_world_cup.png';
 
 type Props = {};
 
@@ -20,19 +21,19 @@ const Mine: React.FC<Props> = (props) => {
   const [visible, setVisible] = useState(false);
 
   const handleAuthName = () => {
-    history.push('/zh/certification')
-  }
+    history.push('/zh/certification');
+  };
 
   const applicateExpert = () => {
     if (user) {
-      if(!user?.user_info?.is_real) {
+      if (!user?.user_info?.is_real) {
         Dialog.confirm({
           title: '实名认证',
           content: '您还未完成实名认证，请先进行认证！',
-          confirmText: "去认证",
+          confirmText: '去认证',
           cancelText: <span className={styles.cancelStyle}>取消</span>,
-          onConfirm: handleAuthName
-        })
+          onConfirm: handleAuthName,
+        });
       } else {
         history.push('/zh/expert/application');
       }
@@ -67,6 +68,9 @@ const Mine: React.FC<Props> = (props) => {
   const openSchemeCenter = () => {
     history.push('/zh/profile/center');
   };
+  const goGuessEntry = () => {
+    history.push('/zh/worldcup');
+  };
 
   return (
     <div className={styles.container}>
@@ -76,7 +80,7 @@ const Mine: React.FC<Props> = (props) => {
           <span className={styles.value_text}>{user?.followExpertNum ?? 0}</span>
           <span className={styles.des_text}>关注</span>
         </div>
-        <div className={styles.followitem_box}  onClick={openSubMatch}>
+        <div className={styles.followitem_box} onClick={openSubMatch}>
           <span className={styles.value_text}>{user?.subMatchNum ?? 0}</span>
           <span className={styles.des_text}>订阅</span>
         </div>
@@ -172,6 +176,10 @@ const Mine: React.FC<Props> = (props) => {
         </div>
       </div>
       <FeedBack visible={visible} setVisible={setVisible} />
+
+      <div className={styles.main_cord_cup} onClick={goGuessEntry}>
+        <img className={styles.main_cord_cup_img} src={MainCorldCup} alt="" />
+      </div>
     </div>
   );
 };
