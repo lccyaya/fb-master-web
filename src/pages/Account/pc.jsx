@@ -51,7 +51,7 @@ const Account = (props) => {
     ? {
         setting: intl.formatMessage({ id: 'key_setting' }),
         myteam: intl.formatMessage({ id: 'key_my_teams' }),
-        recharge: '金币充值',
+        recharge: '金豆充值',
         'recharge-record': '交易记录',
         coupon: '我的卡券',
         myorder: '我的订单',
@@ -98,7 +98,7 @@ const Account = (props) => {
                     tab={
                       <div className={styles.tab}>
                         <IconFont className={styles.icon} type="icon-jinbichongzhi" size={20} />
-                        <span className={styles.tabName}>金币充值</span>
+                        <span className={styles.tabName}>金豆充值</span>
                       </div>
                     }
                     key="recharge"
@@ -129,7 +129,7 @@ const Account = (props) => {
                       </div>
                     )}
                   </TabPane>
-                  <TabPane
+                  {/* <TabPane
                     tab={
                       <div className={styles.tab}>
                         <IconFont className={styles.icon} type="icon-kaquan" size={20} />
@@ -167,10 +167,10 @@ const Account = (props) => {
                     <div className={styles.tabContent}>
                       <Follow />
                     </div>
-                  </TabPane>
+                  </TabPane> */}
                 </>
               ) : null}
-              <TabPane
+              {/* <TabPane
                 tab={
                   <div className={styles.tab}>
                     <IconFont className={styles.icon} type="icon-gerenzhongxin" size={20} />
@@ -199,7 +199,7 @@ const Account = (props) => {
                 <div className={styles.tabContent}>
                   <Setting />
                 </div>
-              </TabPane>
+              </TabPane> */}
             </Tabs>
           )}
         </div>

@@ -11,7 +11,7 @@ const WarnTip = ({ className = '' }) => {
     <div className={cls(styles.warm_tip, className)}>
       <p>温馨提示：</p>
       <p>
-        1、34 Sport <span>非购彩平台</span>，金币一经充值成功，只可在 app 内使用，
+        1、34 Sport <span>非购彩平台</span>，金豆一经充值成功，只可在 app 内使用，
         <span>不支持提现、退款等操作</span>。
       </p>
       <p>

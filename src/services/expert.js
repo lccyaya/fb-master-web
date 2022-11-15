@@ -142,7 +142,7 @@ export const getCoinScheme = async (params) => {
   return normalizeResponse(result);
 };
 
-//金币充值
+//金豆充值
 export const coinCharger = async (params) => {
   const result = await request('/api/coin/charger', {
     method: 'POST',
@@ -160,7 +160,7 @@ export const toggleCollect = async (params) => {
   return normalizeResponse(result);
 };
 
-//金币购买方案
+//金豆购买方案
 export const buyScheme = async (params) => {
   const result = await request('/api/scheme/buy', {
     method: 'POST',
@@ -169,7 +169,7 @@ export const buyScheme = async (params) => {
   return normalizeResponse(result);
 };
 
-//金币购买方案
+//金豆购买方案
 export const getRecommendCoupon = async (params) => {
   const result = await request('/api/coupon-recommend', {
     method: 'GET',

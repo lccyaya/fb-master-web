@@ -150,7 +150,7 @@ export default function SchemeList({
                           {/* {item.state === SCHEME_STATE.HIT ? <img src={HitImage} /> : null}
                           {item.state === SCHEME_STATE.MISS ? <img src={MissImage} /> : null} */}
                           <span className={styles.gold}>
-                            {item.gold_coin === 0 ? '免费' : `${item.gold_coin} 金币`}
+                            {item.gold_coin === 0 ? '免费' : `${item.gold_coin} 金豆`}
                           </span>
                         </span>
                       </>
@@ -171,7 +171,7 @@ export default function SchemeList({
                             <span className={styles.stop_sale}>停售</span>
                           ) : (
                             <span className={styles.gold}>
-                              {item.gold_coin === 0 ? '免费' : `${item.gold_coin} 金币`}
+                              {item.gold_coin === 0 ? '免费' : `${item.gold_coin} 金豆`}
                             </span>
                           )}
                         </span>

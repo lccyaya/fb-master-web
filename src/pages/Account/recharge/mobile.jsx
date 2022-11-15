@@ -81,7 +81,7 @@ const Recharge = ({ coin }) => {
     <div className={styles.recharge}>
       <div className={styles.section}>
         <div className={styles.label}>
-          我的金币：
+          我的金豆：
           <span
             className={styles.record}
             onClick={() => {
@@ -103,7 +103,7 @@ const Recharge = ({ coin }) => {
         </div>
       </div>
       <div className={styles.section}>
-        <div className={styles.label}>金币充值：</div>
+        <div className={styles.label}>金豆充值：</div>
         <div className={styles.content}>
           <div className={styles.select_box}>
             {schemes.map((item) => {

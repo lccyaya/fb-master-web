@@ -17,6 +17,7 @@ const Recharge = ({ coin }) => {
   const [payChannels, setPayChannels] = useState([]);
   const [schemes, setSchemes] = useState([]);
   const [channel, setChannel] = useState('');
+  const [channelItem, setChannelItem] = useState({});
   const [schemeId, setSchemeId] = useState('');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ const Recharge = ({ coin }) => {
       const schemes = resp.data.schemes || [];
       if (pay_channels.length) {
         setChannel(pay_channels[0].channel);
+        setChannelItem(pay_channels[0]);
       }
       if (schemes.length) {
         setSchemeId(schemes[0].ID);
@@ -58,6 +60,7 @@ const Recharge = ({ coin }) => {
       if (resp.data.status === 2) {
         message.success('支付成功');
         setChannel(payChannels[0].channel);
+        setChannelItem(payChannels[0]);
         setSchemeId(schemes[0].ID);
         setVisible(false);
         getUserInfo();
@@ -111,7 +114,7 @@ const Recharge = ({ coin }) => {
   return (
     <div className={styles.recharge}>
       <div className={cls(styles.section, styles.overview)}>
-        <div className={styles.label}>我的金币</div>
+        <div className={styles.label}>我的金豆</div>
         <div className={styles.content}>
           <div className={styles.total}>
             <div>
@@ -134,7 +137,7 @@ const Recharge = ({ coin }) => {
         </div>
       </div>
       <div className={styles.section}>
-        <div className={styles.label}>金币充值：</div>
+        <div className={styles.label}>金豆充值：</div>
         <div className={styles.content}>
           <div className={styles.select_box}>
             {schemes.map((item) => {
@@ -178,6 +181,7 @@ const Recharge = ({ coin }) => {
                   key={item.channel}
                   onClick={() => {
                     setChannel(item.channel);
+                    setChannelItem(item);
                     handleReport({
                       action: item.channel === 1 ? 'alipay' : 'wechat',
                     });
@@ -212,7 +216,7 @@ const Recharge = ({ coin }) => {
       </div>
       {/* <Privilege /> */}
       <BaseModal
-        title="微信支付"
+        title={channelItem.name+"支付"}
         visible={visible}
         onCancel={() => {
           setVisible(false);
@@ -220,7 +224,7 @@ const Recharge = ({ coin }) => {
         width={345}
       >
         <div className={styles.modal_content}>
-          <div className={styles.sub_title}>请使用微信扫描下方二维码进行支付。</div>
+          <div className={styles.sub_title}>请使用{channelItem.name}扫描下方二维码进行支付。</div>
           {/* <img src={qrCode} alt="" /> */}
           <div className={styles.qrcode_wrap}>
             <QRCode value={qrCodeUrl} size={180} />

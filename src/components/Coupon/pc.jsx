@@ -39,7 +39,7 @@ const Mobile = ({
           >
             <div className={styles.coupon_bg}>
               <div className={styles.gold_coin}>
-                <span className={styles.gold_coin_val}>{item.value}</span> 金币
+                <span className={styles.gold_coin_val}>{item.value}</span> 金豆
               </div>
               <div className={styles.condition}>{item.threshold_title}</div>
             </div>

@@ -38,7 +38,7 @@ const Order = ({ list = [] }) => {
                 </div>
                 {item.coin ? (
                   <div className={styles.gold_coin}>
-                    {item.coin > 0 ? `+${item.coin}` : item.coin}金币
+                    {item.coin > 0 ? `+${item.coin}` : item.coin}金豆
                   </div>
                 ) : null}
               </div>

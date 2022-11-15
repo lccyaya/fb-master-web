@@ -66,6 +66,10 @@ const AvatarDropdown = (props) => {
       history.push(`/${lang}/profile/center`);
       return;
     }
+    if (key === 'recharge') {
+      history.push(`/${lang}/account/recharge`);
+      return;
+    }
     history.push(`/${lang}/account/${key}`);
     setVisible(false);
   };
@@ -82,7 +86,7 @@ const AvatarDropdown = (props) => {
         },
         {
           key: 'recharge',
-          title: '金币充值',
+          title: '金豆充值',
         },
         {
           key: 'coupon',
@@ -109,6 +113,10 @@ const AvatarDropdown = (props) => {
         {
           key: 'profile_center',
           title: <FormattedMessage id="key_profile_center" />,
+        },
+        {
+          key: 'recharge',
+          title: "金豆充值",
         },
         {
           key: 'logout',
