@@ -40,7 +40,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div>
           <span>{record.position}</span>
-          <img style={{ width: 20, height: 20, margin: ' 0 5px' }} src={record.team_logo} alt="" />
+          <img style={{ width: 20, height: 20, margin: ' 0 5px', objectFit: 'cover' }} src={record.team_logo} alt="" />
           {text}
         </div>
       ),

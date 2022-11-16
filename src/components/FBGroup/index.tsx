@@ -57,7 +57,7 @@ const FBGroup = (props: Props) => {
                       {items.HomeTeam.name}
                     </div>
                     <img
-                      style={{ width: 20, height: 20, marginRight: 5 }}
+                      className={styles.team_logo}
                       src={items.HomeTeam.logo}
                       alt=""
                     />
@@ -73,7 +73,7 @@ const FBGroup = (props: Props) => {
                     </div>
                     <div className={styles.logo_name}>
                       <img
-                        style={{ width: 20, height: 20, marginRight: 5 }}
+                        className={styles.team_logo}
                         src={items.AwayTeam.logo}
                         alt=""
                       />

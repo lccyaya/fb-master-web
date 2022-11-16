@@ -43,7 +43,7 @@ const Mine: React.FC<Props> = (props) => {
   };
   const getGuessEntry = async (): Promise<any> => {
     const result: any = await GuessEntry();
-    if (result.data.status == 1) {
+    if (result.data.status == 2) {
       setGuessEntry(true);
     } else {
       setGuessEntry(false);
@@ -81,7 +81,7 @@ const Mine: React.FC<Props> = (props) => {
     history.push('/zh/profile/center');
   };
   const goGuessEntry = () => {
-    history.push('/zh/worldcup');
+    history.push('/zh/worldcup_guess');
   };
 
   return (
