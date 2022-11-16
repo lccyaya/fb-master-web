@@ -138,7 +138,7 @@ const Focusing = (props: Props) => {
                 </Swiper>
             </div> */}
 
-      {guessEntryState && (
+      {!guessEntryState && (
         <div style={{ padding: 12 }}>
           <div className={styles.card_container}>
             <FBGuessTab

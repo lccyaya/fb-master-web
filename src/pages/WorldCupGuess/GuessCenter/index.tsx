@@ -18,6 +18,10 @@ import { guessSelect, guessTimeMatch } from '@/utils/guess';
 import moment from 'moment';
 import { OddTags, GoalTagsAll } from '@/utils/guess';
 import { Spin } from 'antd';
+import type { GuessUserDetailParams } from '@/services/worldcup';
+import { useDispatch } from 'umi';
+import { timeStorageGet } from '@/utils/timestorage';
+import { FOOTBALL_MASTER_TOKEN } from '@/constants';
 type Props = {};
 
 const GuessCenter = (props: Props) => {
@@ -28,12 +32,12 @@ const GuessCenter = (props: Props) => {
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
-
-  const [energy_num, setEnergy_num] = useState<number>(
-    useSelector((s) => s.guessUser.guessUserState?.energy_num),
-  );
+  const dispatch = useDispatch();
+  // const [energy_num, setEnergy_num] = useState<number>(
+  //   useSelector((s) => s.guessUser.guessUserState?.energy_num),
+  // );
   // ),
-
+  const energy_num = useSelector((s) => s.guessUser.guessUserState?.energy_num);
   const history = useHistory();
   const onbutton = (value: any, matchdata: any) => {
     setData([...guessSelect(data, value)]);
@@ -134,9 +138,6 @@ const GuessCenter = (props: Props) => {
           match_id: Number(match_id),
           published_at: Math.round(new Date().getTime() / 1000),
         };
-        console.log(data);
-
-        // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
         getAddGuess(data);
       },
     });
@@ -160,7 +161,15 @@ const GuessCenter = (props: Props) => {
     const result: any = await AddGuess(data);
 
     if (result.success == true) {
-      setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+      // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
+      const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
+      let data: GuessUserDetailParams = { authtoken: val };
+      dispatch({
+        type: 'guessUser/guessUser',
+        payload: {
+          data,
+        },
+      });
       Toast.show({
         content: '竞猜成功',
       });
