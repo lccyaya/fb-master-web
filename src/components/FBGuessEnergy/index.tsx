@@ -13,7 +13,7 @@ type Props = {
 const FBGuessEnergy = (props: Props) => {
   const { onOk, setModalData, modalData, energy_num } = props;
   const [unfold, setUnfold] = useState(false);
-  const [unfoldValue, setUnfoldValue] = useState<number | string>(0);
+  const [unfoldValue, setUnfoldValue] = useState<number | string>(energy_num >= 100 ? 100 : 0);
 
   return (
     <div>

@@ -93,7 +93,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
     },
     {
-      title: props.activeKey == '0' ? '世界杯能量值' : '回报率',
+      title: props.activeKey == '0' ? '能量值' : '回报率',
       dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
       width: 100,
 
@@ -112,7 +112,7 @@ const TablePage = (props: Props) => {
         <Table
           pagination={false}
           columns={columns}
-          dataSource={props.data.list}
+          dataSource={props.data}
           rowKey="user_id"
           // onRow={record => {
           //     return {

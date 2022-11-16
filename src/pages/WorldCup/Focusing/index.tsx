@@ -63,7 +63,6 @@ const Focusing = (props: Props) => {
       key: '1',
     },
   ];
-  const list = [1, 2, 3];
   const getGuessRankList = async (): Promise<any> => {
     let data: GuessRankingParams = {
       page: 1,

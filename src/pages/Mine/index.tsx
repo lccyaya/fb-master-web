@@ -10,7 +10,7 @@ import { useHistory, useSelector } from 'umi';
 import styles from './index.less';
 import UserInfo from './UserInfo';
 import MainCorldCup from '@/assets/worldcup/mine_world_cup.png';
-
+import { GuessEntry } from '@/services/worldcup';
 type Props = {};
 
 const Mine: React.FC<Props> = (props) => {
@@ -19,6 +19,8 @@ const Mine: React.FC<Props> = (props) => {
   );
   const history = useHistory();
   const [visible, setVisible] = useState(false);
+
+  const [guessEntryState, setGuessEntry] = useState(false);
 
   const handleAuthName = () => {
     history.push('/zh/certification');
@@ -39,7 +41,17 @@ const Mine: React.FC<Props> = (props) => {
       }
     }
   };
-  useEffect(() => {}, []);
+  const getGuessEntry = async (): Promise<any> => {
+    const result: any = await GuessEntry();
+    if (result.data.status == 1) {
+      setGuessEntry(true);
+    } else {
+      setGuessEntry(false);
+    }
+  };
+  useEffect(() => {
+    getGuessEntry();
+  }, []);
 
   const toOrders = () => {
     history.push('/zh/myorders');
@@ -176,10 +188,11 @@ const Mine: React.FC<Props> = (props) => {
         </div>
       </div>
       <FeedBack visible={visible} setVisible={setVisible} />
-
-      <div className={styles.main_cord_cup} onClick={goGuessEntry}>
-        <img className={styles.main_cord_cup_img} src={MainCorldCup} alt="" />
-      </div>
+      {guessEntryState && (
+        <div className={styles.main_cord_cup} onClick={goGuessEntry}>
+          <img className={styles.main_cord_cup_img} src={MainCorldCup} alt="" />
+        </div>
+      )}
     </div>
   );
 };

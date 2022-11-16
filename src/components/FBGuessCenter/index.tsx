@@ -24,7 +24,8 @@ const FBGuessCenter = (props: Props) => {
     let tag = items.tag;
     let odd = items.odd;
     let scheme_title = item.scheme_title;
-    let value = { match_id, tag, odd_scheme_id, odd, scheme_title };
+    let energy_coin = 100;
+    let value = { match_id, tag, odd_scheme_id, odd, scheme_title, energy_coin };
 
     onClickbtn(value, data.match);
 
@@ -42,7 +43,7 @@ const FBGuessCenter = (props: Props) => {
       >
         <div>{data.match?.issue}</div>
         <div className={styles.guess_center_teamimg}>
-          <div style={{ display: 'flex', color: '#7E1132' }}>
+          <div style={{ display: 'flex', color: '#45494C' }}>
             {/* <div className={styles.guess_center_teamlog}></div> */}
             <div>{data.match.home_team_name}</div>
             {}
