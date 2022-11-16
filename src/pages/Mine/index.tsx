@@ -43,7 +43,7 @@ const Mine: React.FC<Props> = (props) => {
   };
   const getGuessEntry = async (): Promise<any> => {
     const result: any = await GuessEntry();
-    if (result.data.status == 2) {
+    if (result.data.status == 1) {
       setGuessEntry(true);
     } else {
       setGuessEntry(false);
