@@ -37,7 +37,7 @@ export default function MobileHome(props) {
             },
             {
               key: 'home',
-              title: '头条',
+              title: '攻略',
               node: <VersionA />,
             },
             {

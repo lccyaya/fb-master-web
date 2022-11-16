@@ -1,0 +1,13 @@
+{
+    "applinks": {
+        "apps": [ ], 
+        "details": [
+            {
+                "appID": "467UCNLD5Y.com.sport34.ios", 
+                "paths": [
+                    "/*",
+                ]
+            }
+        ]
+    }
+}
