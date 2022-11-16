@@ -7,9 +7,9 @@ import { MatchListV3, getMatchesTabs, matchFilter } from '@/services/matchPage';
 import moment from 'moment';
 import { formatDate, getScrollDirection, sortMatch, generateDate } from '@/utils/utils';
 import IconFont from '@/components/IconFont';
-import MatchFilter from "@/components/MatchFilter";
+import MatchFilter from '@/components/MatchFilter';
 import Toggle from '@/components/Toggle';
-import DateTab from "@/components/DateTab";
+import DateTab from '@/components/DateTab';
 // import filterIcon from '@/assets/icon/filter.svg';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
@@ -42,15 +42,20 @@ const Mobile = () => {
   const [calendarValue, setCalendarValue] = useState(moment()); // 日历的value
   // const [calenderShow, setCalenderShow] = useState(false); // 日历是否显示
   // const [calenderVal, setCalendarVal] = useState(''); // 日历的值
-  const [calenderValtime, setCalendarValtime] = useState(`今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`); // 日历组件显示内容
-  const toggleData = [{
-    name: '比分',
-    key: 1
-  },{
-    name: '数据',
-    key: 2
-  }]
-  const history = useHistory()
+  const [calenderValtime, setCalendarValtime] = useState(
+    `今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`,
+  ); // 日历组件显示内容
+  const toggleData = [
+    {
+      name: '比分',
+      key: 1,
+    },
+    {
+      name: '数据',
+      key: 2,
+    },
+  ];
+  const history = useHistory();
   // 获取列表的参数 和 page 的参数
   const [params, setParams] = useState({
     ...initParams,
@@ -88,12 +93,12 @@ const Mobile = () => {
       param_key: item.param_key,
       param_value: item.param_value,
       timestamp: 0,
-      size: item.param_value === 1 ? 1500 : 20
+      size: item.param_value === 1 ? 1500 : 20,
     };
     onParamsChange(obj);
     setCalendarValue(moment()); // 日历的数据每次切换 tab 需要初始化
 
-    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-MM-DD')}`)
+    setCalendarValtime(`今天 ${moment(new Date()).format('YYYY-MM-DD')}`);
     // 啊啊啊
     // 埋点
     if (item.param_value === 2) {
@@ -128,14 +133,13 @@ const Mobile = () => {
 
   // 赛程 dateList
   const matchScheduleDateList = useMemo(() => {
-    return generateDate(7)
-  }, [])
-
+    return generateDate(7);
+  }, []);
 
   // 赛果 dateList
   const matchResultDateList = useMemo(() => {
-    return generateDate(7, "left")
-  }, [])
+    return generateDate(7, 'left');
+  }, []);
 
   // 滚动临时禁止
   const disableScroll = (val) => {
@@ -156,7 +160,7 @@ const Mobile = () => {
     const status = getScrollDirection(values);
     getCalendarTitle(current, setCalendarValue, renderData); // 获取当前的日历日期
 
-    setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-MM-DD ddd'))
+    setCalendarValtime(moment(new Date(calendarValue)).format('YYYY-MM-DD ddd'));
 
     setShowTopIcon(values.scrollTop > 100);
 
@@ -184,12 +188,11 @@ const Mobile = () => {
   const getRequestMatchListV3 = (params) => {
     return MatchListV3(params).then(({ success, code, data: newData, message }) => {
       if (success) {
-
-        if(params.tab_type === 1) {
-          newData.matches = sortMatch(newData.matches || [])
-        } else {
+        // if (params.tab_type === 1) {
+        //   newData.matches = sortMatch(newData.matches || []);
+        // } else {
           newData.matches = newData.matches || [];
-        }
+        // }
         newData.matches.map((item) => {
           item.time = formatDate(item.match_time);
         });
@@ -200,27 +203,25 @@ const Mobile = () => {
             if (newData.matches.length < params.size) {
               pageExtra.has_pre = false;
             }
-            const newMatches = [...newData.matches.reverse(), ...matches]
-            if(params.tab_type === 1) {
-              newData.matches = sortMatch(newMatches)
-            } else {
+            const newMatches = [...newData.matches.reverse(), ...matches];
+            // if (params.tab_type === 1) {
+            //   newData.matches = sortMatch(newMatches);
+            // } else {
               newData.matches = newMatches;
-            }
-
-
+            // }
           } else {
             if (newData.matches.length < params.size) {
               pageExtra.has_next = false;
             }
-            const newMatches = [...matches, ...newData.matches]
-            if(params.tab_type === 1) {
-              newData.matches = sortMatch(newMatches)
-            } else {
+            const newMatches = [...matches, ...newData.matches];
+            // if (params.tab_type === 1) {
+            //   newData.matches = sortMatch(newMatches);
+            // } else {
               newData.matches = newMatches;
-            }
+            // }
           }
         } else {
-          setApiTimestamp(newData.timestamp)
+          setApiTimestamp(newData.timestamp);
         }
         setPageInfo({ ...pageInfo, isLoading: false, ...pageExtra });
         return newData;
@@ -242,7 +243,7 @@ const Mobile = () => {
   const {
     data: matchFilterData,
     loading: matchFilterLoading,
-    run: getMatchFilterData
+    run: getMatchFilterData,
   } = umiRequest(matchFilter, {
     manual: true,
     formatResult: ({ data, success }) => {
@@ -252,7 +253,7 @@ const Mobile = () => {
         return [];
       }
     },
-  })
+  });
 
   useUpdateMatch(data?.matches || [], (oldList, list) => {
     const newList = oldList.map((old) => {
@@ -310,40 +311,40 @@ const Mobile = () => {
   // };
 
   const handleFilter = () => {
-    setFilterVisible(true)
+    setFilterVisible(true);
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
       type: 1,
-      [params.param_key]: params.param_value
-    })
-  }
+      [params.param_key]: params.param_value,
+    });
+  };
 
   const handleFilterClose = () => {
-    setFilterVisible(false)
-  }
+    setFilterVisible(false);
+  };
   const handleFilterOk = (ids) => {
     const idStr = JSON.stringify(ids);
     sessionStorage.setItem(SESS_STORAGE_SELECTED_LEAGUES, idStr);
     onParamsChange({ competition_ids: ids });
-    setFilterVisible(false)
-  }
+    setFilterVisible(false);
+  };
 
   const handleTypeChange = (type) => {
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
       type,
-      [params.param_key]: params.param_value
-    })
-  }
+      [params.param_key]: params.param_value,
+    });
+  };
 
   const handleToggleChange = (type) => {
-    setIndexVal(type === 2)
-  }
+    setIndexVal(type === 2);
+  };
 
   const handleDateChange = (time) => {
     setApiTimestamp('');
     onParamsChange({ timestamp: Math.floor(Number(time) / 1000) });
-  }
+  };
 
   // 初始化
   useEffect(() => {
@@ -371,7 +372,6 @@ const Mobile = () => {
         data.competition_ids = params.competition_ids;
       }
       getMatchList(data);
-
     }
   }, [params]);
 
@@ -392,11 +392,41 @@ const Mobile = () => {
     if (menuActive.two_way && current?.getValues().scrollTop === 0) {
       disableScroll(1); // 设置并禁止触发滚动
     }
-  }, [currentHeight, loading])
+  }, [currentHeight, loading]);
+
+  const handlerMatch = () => {
+    if (menuActive.param_value == 1) {
+      const { matches } = data || {};
+      const underwayMatchList = [];
+      const noStartMatchList = [];
+      const finishedMatchList = [];
+      const errorMatchList = [];
+      matches?.forEach((item) => {
+        if (item.status >= 2 && item.status < 8) {
+          underwayMatchList.push(item);
+        }
+        if (item.status === 1) {
+          noStartMatchList.push(item);
+        }
+        if (item.status === 8) {
+          finishedMatchList.push(item);
+        }
+        if (item.status > 8 || item === 0) {
+          errorMatchList.push(item);
+        }
+      });
+      const [timeList, timeData] = handlerData({
+        matches: noStartMatchList,
+      });
+      return [underwayMatchList, timeList, timeData, finishedMatchList, errorMatchList];
+    } else {
+      const [timeList, timeData] = handlerData(data);
+      return [[], timeList, timeData, [], []];
+    }
+  };
 
   // 获取渲染的数据
-  const [renderList, renderData] = handlerData(data);
-
+  const [liveList, renderList, renderData, finishedList, errorList] = handlerMatch();
   // loading
   const spinning = useMemo(() => {
     if (menuList === null) {
@@ -446,18 +476,14 @@ const Mobile = () => {
   // )
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-
       <div className={styles.topWrapper}>
         <div
           className={styles.dataBank}
           onClick={() => {
-            history.push("/zh/library")
+            history.push('/zh/library');
           }}
         >
-          <IconFont
-            className={styles.dataBankIcon}
-            type='icon-a-11'
-          />
+          <IconFont className={styles.dataBankIcon} type="icon-a-11" />
           资料库
         </div>
         {menuList?.length ? (
@@ -468,34 +494,17 @@ const Mobile = () => {
             onChange={onMenusChange}
           ></Menu>
         ) : null}
-        <div
-          className={styles.filter}
-          onClick={handleFilter}
-        >
-          <IconFont
-            className={styles.filterIcon}
-            type='icon-a-22'
-          />
+        <div className={styles.filter} onClick={handleFilter}>
+          <IconFont className={styles.filterIcon} type="icon-a-22" />
           筛选
         </div>
-
       </div>
-      {
-        [2].includes(menuActive.param_value) && (
-          <DateTab
-            dateList={matchScheduleDateList}
-            onChange={handleDateChange}
-          />
-        )
-      }
-      {
-        [3].includes(menuActive.param_value) && (
-          <DateTab
-            dateList={matchResultDateList}
-            onChange={handleDateChange}
-          />
-        )
-      }
+      {[2].includes(menuActive.param_value) && (
+        <DateTab dateList={matchScheduleDateList} onChange={handleDateChange} />
+      )}
+      {[3].includes(menuActive.param_value) && (
+        <DateTab dateList={matchResultDateList} onChange={handleDateChange} />
+      )}
 
       {/*{menuActive.has_calendar ? (*/}
       {/*  <div>*/}
@@ -577,9 +586,7 @@ const Mobile = () => {
       {/*            null}*/}
       {/*          <div style={{ margin: "0  0 0 10px", color: "#848494" }}>   筛选</div>*/}
 
-
       {/*        </div>*/}
-
 
       {/*      </div>*/}
       {/*    </div></div>*/}
@@ -594,11 +601,14 @@ const Mobile = () => {
         )}
       >
         {/* 主内容 */}
-        <div style={{ height: 10, background: "#F7FAFB" }}></div>
+        <div style={{ height: 10, background: '#F7FAFB' }}></div>
         <Spin spinning={spinning}>
           <ScrollView className={styles.scroll_view} onScroll={handleUpdate} ref={scrollRef}>
             <Spining show={pageInfo.isLoading === 'pre'} />
 
+            {liveList?.map((item, key) => (
+                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+            ))}
             {/* 列表渲染 */}
             {renderList.map((dataKey, key) => (
               <div className={styles.list} key={key}>
@@ -610,6 +620,12 @@ const Mobile = () => {
               </div>
             ))}
 
+            {finishedList?.map((item, key) => (
+                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+            ))}
+            {errorList?.map((item, key) => (
+                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+            ))}
             <Spining show={pageInfo.isLoading === 'next'} />
 
             {/* 无数据 */}
@@ -618,7 +634,6 @@ const Mobile = () => {
             {isEmpty ? <Empty /> : null}
           </ScrollView>
         </Spin>
-
 
         {/*<Calendar*/}
         {/*  value={calendarValue}*/}

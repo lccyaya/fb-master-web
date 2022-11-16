@@ -422,14 +422,15 @@ export const urlencode = (str: string) => {
 }
 
 /***
- * 根据status排序, [进行中（2-7）, 未开始（1）, 完成或异常（>=8或者0）]
+ * 根据status排序, [进行中（2-7）, 未开始（1）, 完成(8),异常（>8或者0）]
  *
  * @param origin
  */
 export function sortMatch(origin: any) {
   const underwayMatchList: any = [];
   const noStartMatchList: any = [];
-  const finishedOrErrorMatchList: any = [];
+  const finishedMatchList: any = [];
+  const errorMatchList: any = [];
   origin.forEach((item: any) => {
     if(item.status >= 2 && item.status < 8) {
       underwayMatchList.push(item)
@@ -437,11 +438,14 @@ export function sortMatch(origin: any) {
     if(item.status === 1) {
       noStartMatchList.push(item)
     }
-    if(item.status >= 8 || item === 0) {
-      finishedOrErrorMatchList.push(item)
+    if(item.status === 8) {
+      finishedMatchList.push(item)
+    }
+    if(item.status > 8 || item === 0) {
+      errorMatchList.push(item)
     }
   })
-  return [...underwayMatchList, ...noStartMatchList, ...finishedOrErrorMatchList]
+  return [...underwayMatchList, ...noStartMatchList, ...finishedMatchList, ...errorMatchList]
 }
 
 /***
