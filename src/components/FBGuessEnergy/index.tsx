@@ -25,16 +25,19 @@ const FBGuessEnergy = (props: Props) => {
           <div
             className={styles.unfoldbtn_box}
             onClick={(e: any) => {
-              let data_value = e.target.getAttribute('data-value');
-              if (data_value <= energy_num || data_value == 'all in') {
-                setUnfoldValue(data_value);
+              const data_value = e.target.getAttribute('data-value');
+              if (energy_num >= 600 && data_value == 'all in') {
+              } else {
+                if (data_value <= energy_num || data_value == 'all in') {
+                  setUnfoldValue(data_value);
 
-                let num = data_value == 'all in' ? energy_num : data_value;
-                let obj = {
-                  energy_coin: num,
-                };
-                setModalData({ ...modalData, ...obj });
-                setUnfold(false);
+                  const num = data_value == 'all in' ? energy_num : data_value;
+                  const obj = {
+                    energy_coin: num,
+                  };
+                  setModalData({ ...modalData, ...obj });
+                  setUnfold(false);
+                }
               }
             }}
           >
@@ -76,6 +79,10 @@ const FBGuessEnergy = (props: Props) => {
             </div>
             <div
               data-value="all in"
+              style={{
+                background: energy_num >= 600 ? '#EEEEEE' : '',
+                color: energy_num >= 600 ? '#999999' : '',
+              }}
               className={unfoldValue == 'all in' ? styles.select_unfoldbtn : styles.unfoldbtn}
             >
               ALL IN

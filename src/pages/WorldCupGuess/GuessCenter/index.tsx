@@ -50,7 +50,7 @@ const GuessCenter = (props: Props) => {
     <div>
       <div>
         <div className="guess_contentbox">
-          <div>
+          <div style={{ width: 100 }}>
             队阵球队
             <div style={{ color: '#848494' }}>
               {modalData?.home_team_name}VS{modalData?.away_team_name}
