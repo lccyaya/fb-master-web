@@ -65,7 +65,7 @@ const FBGuessCenter = (props: Props) => {
           {data.match.competition_name}
           <div> {moment(new Date(Number(data?.match?.match_time) * 1000)).format('HH:mm')}</div>
         </div>
-        <div>
+        <div style={{ width: '82%' }}>
           {data?.odds?.map((item: any, index: number) => {
             return (
               <div key={index}>
