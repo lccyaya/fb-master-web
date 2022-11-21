@@ -1,8 +1,8 @@
 import type { Effect, Reducer } from 'umi';
-import { GuessUserDetail } from '@/services/worldcup';
+import { GuessUserDetail, guessUserDetailList } from '@/services/worldcup';
 
 export type GuessUserState = {
-    guessUserState: {};
+    guessUserState: guessUserDetailList | undefined;
 };
 
 export type ABTestModelType = {
@@ -19,13 +19,13 @@ export type ABTestModelType = {
 const GuessUserModel: ABTestModelType = {
     namespace: 'guessUser',
     state: {
-        guessUserState: {},
+        guessUserState: undefined,
     },
     effects: {
         * guessUser({ payload }, { call, put }) {
             console.log("ssssssss");
 
-            const res = yield call(GuessUserDetail, payload);
+            const res = yield call(GuessUserDetail);
             yield put({
                 type: 'setGuessUser',
                 payload: res.success ? res.data : null,

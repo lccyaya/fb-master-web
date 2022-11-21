@@ -46,15 +46,12 @@ const Guess = (props: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
-    let data: GuessUserDetailParams = { authtoken: val };
     dispatch({
       type: 'guessUser/guessUser',
       payload: {
-        data,
       },
     });
-  }, []);
+  }, [user]);
 
   const getMyGuessList = async (page: number, size: number): Promise<any> => {
     let data: GuessSchemParams = {

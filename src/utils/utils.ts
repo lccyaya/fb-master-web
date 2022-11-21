@@ -90,7 +90,7 @@ export function getLangFromPath(pathname?: string) {
     const lang = (pathname || window.location.pathname)
       ?.match(/^\/[a-zA-Z]+\//)?.[0]
       ?.replace(/\//g, '');
-    return toStandardLangCode(lang) || localStorage.getItem('umi_locale') || 'th';
+    return toStandardLangCode(lang) || localStorage?.getItem('umi_locale') || 'th';
   } else {
 
     const lang = (global?.pathname)

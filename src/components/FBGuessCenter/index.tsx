@@ -3,9 +3,12 @@ import styles from './index.less';
 import IconFont from '@/components/IconFont';
 import moment from 'moment';
 import { Toast } from 'antd-mobile';
-import { useHistory } from 'umi';
+import { useHistory, useSelector } from 'umi';
 import type { guessMatch } from '@/services/worldcup';
 import { BgColor, Color } from '@/utils/guess';
+import { webJsBridge } from '@/services/webjsbridge';
+import { ConnectState } from '@/models/connect';
+
 type Props = {
   onClickbtn: Function;
   data: any;
@@ -16,6 +19,8 @@ const FBGuessCenter = (props: Props) => {
   // const [isSelect, setIsSelectId] = useState(false)
   // const [iswin, setIswint] = useState(null);
   const history = useHistory();
+  const isNative = useSelector<ConnectState>((s) => s.native.isNative);
+
   const { onClickbtn, data } = props;
   useEffect(() => {}, []);
   const onGuessClick = (items: any, item: any) => {
@@ -38,7 +43,17 @@ const FBGuessCenter = (props: Props) => {
       <div
         className={styles.guess_center_team}
         onClick={() => {
-          history.push(`/zh/details/${data.match.match_id}`);
+          if (isNative) {
+            webJsBridge.callHandler(
+              'openSchemeUrl',
+              `sport34://router/match?id=${data.match.match_id}`,
+              (res: string) => {
+                console.log(res);
+              },
+            );
+          } else {
+            history.push(`/zh/details/${data.match.match_id}`);
+          }
         }}
       >
         <div>{data.match?.issue}</div>

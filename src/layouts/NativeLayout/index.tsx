@@ -30,6 +30,12 @@ const NativeLayout: React.FC<Props> = (props) => {
       });
       callback("");
     })
+    webJsBridge.registerHandler("refreshUserinfo", (data: string, callback: (data: string) => void) => {
+      dispatch({
+        type: 'user/fetchCurrent',
+      });
+      callback("");
+    })
   };
 
   useEffect(() => {

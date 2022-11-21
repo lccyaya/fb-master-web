@@ -7,6 +7,8 @@ import { Result } from '@/utils/tools';
 import { NewMatchList } from '@/services/matchPage';
 import { ABTestModelState } from '@/models/abtest';
 import { NativeModelState } from 'umi';
+import { GuessUserState } from './guessuser';
+import { NativeModelState } from './native';
 
 export { GlobalModelState, UserModelState, DeviceState };
 
@@ -35,6 +37,7 @@ export type ConnectState = {
   mainMatchListResult: Result<NewMatchList>,
   tips: any,
   native: NativeModelState,
+  guessUser: GuessUserState,
 };
 
 export type Route = {

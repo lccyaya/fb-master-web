@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.less';
 import { FormattedMessage, useSelector } from 'umi';
 import type { guessUserDetailList } from '@/services/worldcup';
 import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
+import Certification from '@/pages/Certification';
+import { ConnectState } from '@/models/connect';
+
+import { webJsBridge } from '@/services/webjsbridge';
 
 type Props = {
   user: any;
@@ -10,14 +14,30 @@ type Props = {
 
 const FBGuessInfo = (props: Props) => {
   const { user } = props;
-  const guessUser: guessUserDetailList = useSelector((s) => s.guessUser.guessUserState);
+  const guessUser = useSelector<ConnectState, guessUserDetailList | undefined>((s) => s.guessUser.guessUserState);
+  const [visible, setVisible] = useState<boolean>(false);
+  const isNative = useSelector<ConnectState, boolean>((s) => s.native.isNative);
+
+  const showLogin = () => {
+    if (isNative) {
+      webJsBridge.callHandler(
+        'showLogin',
+        '',
+        (res: string) => {
+          console.log(res);
+        },
+      );
+    } else {
+      setVisible(true);
+    }
+  }
 
   return (
     <div className={styles.guess_main}>
       {/* { }
                 未登录，请写登录 */}
       {user == null ? (
-        <div className={styles.guess_userlogin}>未登录，请先登录</div>
+        <div className={styles.guess_userlogin} onClick={showLogin}>未登录，请先登录</div>
       ) : (
         <div className={styles.guess_user}>
           <div className={styles.guess_username}>
@@ -113,6 +133,16 @@ const FBGuessInfo = (props: Props) => {
           </div>
         </div>
       </div>
+      <Certification
+        action='login'
+        visible={visible}
+        onSuccess={() => {
+          setVisible(false);
+        }}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
     </div>
   );
 };

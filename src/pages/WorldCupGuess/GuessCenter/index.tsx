@@ -162,12 +162,9 @@ const GuessCenter = (props: Props) => {
 
     if (result.success == true) {
       // setEnergy_num(energy_num - data.energy_coin < 0 ? 0 : energy_num - data.energy_coin);
-      const val = timeStorageGet(FOOTBALL_MASTER_TOKEN);
-      let data: GuessUserDetailParams = { authtoken: val };
       dispatch({
         type: 'guessUser/guessUser',
         payload: {
-          data,
         },
       });
       Toast.show({

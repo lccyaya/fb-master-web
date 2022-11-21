@@ -286,11 +286,11 @@ export async function GuessEntry() {
 // }
 
 // 用户详情
-export async function GuessUserDetail(params: GuessUserDetailParams) {
-  console.log(params);
+export async function GuessUserDetail() {
+  // console.log(params);
 
   const result = await request('/api/v5/guess/detail', {
-    header: params,
+    // header: params,
   });
   return normalizeResponse<GuessUserDetailRes>(result);
 }

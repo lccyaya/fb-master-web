@@ -65,6 +65,7 @@ const WorldCapguess = (props: Props) => {
       <div className={styles.guess_bg}>
         <div style={{ position: 'fixed', width: '100%', zIndex: '1000', background: '#fff' }}>
           <NavBar
+            backArrow={!isNative}
             style={{ '--height': '50px' }}
             onBack={back}
             right={
