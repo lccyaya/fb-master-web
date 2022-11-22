@@ -21,17 +21,19 @@ const FeedBack = ({ visible, setVisible }) => {
   const [categoryItems, setCategoryItems] = useState([]);
 
   const getData = async () => {
-    const resp = await getFeedbackCategory('007');
-    if (resp.success) {
-      const items = resp.data || [];
-      setCategoryItems(items);
-      items.forEach((item) => {
-        if (item.default) {
-          setDefaultId(item.id);
-          setCategoryId(item.id);
-        }
-      });
-    }
+    try {
+      const resp = await getFeedbackCategory('007');
+      if (resp.success) {
+        const items = resp.data || [];
+        setCategoryItems(items);
+        items.forEach((item) => {
+          if (item.default) {
+            setDefaultId(item.id);
+            setCategoryId(item.id);
+          }
+        });
+      }
+    } catch (error) {}
   };
   useEffect(() => {
     getData();

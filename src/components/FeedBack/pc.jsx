@@ -73,17 +73,19 @@ const FeedBack = ({ visible, setVisible }) => {
   useEffect(() => {
     let isUnmount = false;
     const getData = async () => {
-      const resp = await getFeedbackCategory('007');
-      if (resp.success && !isUnmount) {
-        const data = resp.data;
-        data.forEach((item) => {
-          if (item.default) {
-            setDefaultId(item.id);
-            setCategoryId(item.id);
-          }
-        });
-        setCategoryItems(data || []);
-      }
+      try {
+        const resp = await getFeedbackCategory('007');
+        if (resp.success && !isUnmount) {
+          const data = resp.data;
+          data.forEach((item) => {
+            if (item.default) {
+              setDefaultId(item.id);
+              setCategoryId(item.id);
+            }
+          });
+          setCategoryItems(data || []);
+        }
+      } catch (error) {}
     };
     getData();
     return () => (isUnmount = true);

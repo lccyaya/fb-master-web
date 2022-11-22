@@ -9,44 +9,29 @@ import type {
   MenuDataItem,
   Settings,
 } from '@ant-design/pro-layout';
-import ProLayout from '@ant-design/pro-layout';
-import classnames from 'classnames';
-import 'moment-timezone';
 import moment from 'moment';
+import 'moment-timezone';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Dispatch } from 'umi';
-import { getLocale } from 'umi';
-import { connect, FormattedMessage, history, Link, useIntl, useSelector } from 'umi';
+import { connect, FormattedMessage, getLocale, history, Link, useIntl } from 'umi';
 // import { GithubOutlined } from '@ant-design/icons';
 import { Button, Result } from 'antd';
 import { parse } from 'query-string';
 // @ts-ignore
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-import Authorized from '@/utils/Authorized';
-import RightContent from '@/components/GlobalHeader/RightContent';
-import type { ConnectState } from '@/models/connect';
-import { getMatchMenu } from '@umijs/route-utils';
-import GoogleLogin from 'react-google-login';
-import MobileLayout from './NewMobileLayout';
-import ADPopup from '@/components/ADPopup';
-import { checkIsPhone, getLangFromPath, toShortLangCode } from '@/utils/utils';
 import { FOOTBALL_MASTER_LINE_CODE } from '@/constants';
+import type { ConnectState } from '@/models/connect';
+import Authorized from '@/utils/Authorized';
+import { checkIsPhone, getLangFromPath } from '@/utils/utils';
+import { getMatchMenu } from '@umijs/route-utils';
+import MobileLayout from './NewMobileLayout';
 
-import styles from './BasicLayout.less';
-import OpenApp from '@/components/OpenApp';
-import { report } from '@/services/ad';
-import { locale } from '@/app';
-import { getPageFromPath } from '@/utils/page-info';
-import { PageActive } from '@/utils/page-active';
-import { active } from '@/services/abtest';
-import FixedBtns from '@/components/FixedBtns/pc';
-import FixedBtnsMobile from '@/components/FixedBtns/mobile';
-import { getTipsStatus } from '@/services/tips';
 import LoginModal from '@/components/MatchCard/Login';
+import { active } from '@/services/abtest';
+import { getTipsStatus } from '@/services/tips';
+import { PageActive } from '@/utils/page-active';
 
 import EventEmitter from '@/utils/event';
-import pageConfig from '@/utils/pageConfig';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 
@@ -94,7 +79,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
     const result = menuList
       .filter((item) => {
-        return item.locale === 'key_home_tab' || item.locale === 'key_profile_center'
+        return item.locale === 'key_home_tab' || item.locale === 'key_profile_center';
       })
       .filter((item) => {
         if (showTips) {
@@ -109,7 +94,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         };
         return Authorized.check(item.authority, localItem, null) as MenuDataItem;
       });
-    
+
     return result;
   };
 
@@ -176,8 +161,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   };
 
   const { formatMessage } = useIntl();
-  const [checkCurrentIsPhone, setCheckCurrentIsPhone] = useState(false);
-  // const checkCurrentIsPhone = checkIsPhone();
 
   const handlePageActive = useCallback(() => {
     // eslint-disable-next-line no-new
@@ -197,7 +180,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       });
     } catch (error) {}
 
-    setCheckCurrentIsPhone(checkIsPhone());
     const query = parse(window?.location.search);
 
     if (query.code) {
@@ -211,32 +193,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     handlePageActive();
   }, []);
 
-  // const nickname = useSelector<ConnectState, string | undefined>(
-  //   (state) => state.user.currentUser?.nickname,
-  // );
-  // const userGotResult = useSelector<ConnectState, boolean>((state) => state.user.gotResult);
-
-  // const getVersion = () => {
-  //   dispatch({
-  //     type: 'abtest/fetchVersion',
-  //     payload: {
-  //       nickname,
-  //     },
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   if (userGotResult) {
-  //     getVersion();
-  //   }
-  // }, [userGotResult]);
-
-  // useEffect(() => {
-  //   if (nickname) {
-  //     // 用户登录后或者切换用户
-  //     getVersion();
-  //   }
-  // }, [nickname]);
   const openLoginModal = (open) => {
     setLoginVisible(open);
   };
@@ -256,123 +212,26 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         </div>
       ) : (
         <>
-          {/* {checkCurrentIsPhone && <OpenApp />} */}
-          {/* <ProLayout
-            logo={() => (
-              <img
-                src={pageConfig.logo}
-                onClick={() => {
-                  const lang = toShortLangCode(locale.getLocale(location.pathname));
-                  history.push(`/${lang}/home`);
-                }}
-              />
-            )}
-            className={classnames(styles.layout, checkCurrentIsPhone && styles.mobileLayout)}
-            formatMessage={formatMessage}
-            collapsedButtonRender={() => null}
-            {...{
-              ...props,
-              isPhone: checkCurrentIsPhone,
+          <Authorized authority={authorized!.authority} noMatch={noMatch}>
+            <MobileLayout onPageChange={onPageChangeHandle} {...props}>
+              {children}
+            </MobileLayout>
+          </Authorized>
+          <LoginModal
+            visible={loginVisible}
+            onLogin={() => {
+              setLoginVisible(false);
+              EventEmitter.emit('login-status-change');
             }}
-            {...settings}
-            title={false}
-            onCollapse={handleMenuCollapse}
-            contentWidth="Fixed"
-            menuItemRender={(menuItemProps, defaultDom) => {
-              const lang = toShortLangCode(locale.getLocale(location.pathname));
-              if (
-                menuItemProps.isUrl ||
-                !menuItemProps.path ||
-                location.pathname === menuItemProps.path.replace('/:locale', `/${lang}`)
-              ) {
-                return (
-                  <span
-                    className={
-                      menuItemProps.locale === 'key_download'
-                        ? classnames(styles.selecteItem, styles.hot)
-                        : styles.selecteItem
-                    }
-                  >
-                    {defaultDom}
-                  </span>
-                );
-              }
-              return (
-                <Link
-                  className={
-                    menuItemProps.locale === 'key_download'
-                      ? classnames(styles.classItem, styles.hot)
-                      : styles.classItem
-                  }
-                  to={menuItemProps.path.replace('/:locale', `/${lang}`)}
-                  onClick={() => {
-                    const page = getPageFromPath(history.location.pathname);
-                    if (!page) return;
-                    report({
-                      cate: page.cate,
-                      action: menuItemProps.cate,
-                    });
-                  }}
-                >
-                  {defaultDom}
-                </Link>
-              );
+            onCancel={() => {
+              setLoginVisible(false);
             }}
-            menuDataRender={menuDataRender}
-            onPageChange={onPageChangeHandle}
-            menuProps={{ className: styles.menu, selectable: false }}
-            rightContentRender={() => <RightContent /> }
-            fixedHeader={!checkCurrentIsPhone}
-            // contentStyle={props.isPhone ? { minWidth: 0, maxHeight: 1024, margin: '0 auto' } : { minWidth: 1200, margin: 0, background: '#fff' }}
-            contentStyle={{
-              minWidth: checkCurrentIsPhone ? 0 : 1200,
-              maxWidth: 1200,
-              margin: checkCurrentIsPhone ? 0 : '0 auto',
-            }}
-          > */}
-            <Authorized authority={authorized!.authority} noMatch={noMatch}>
-              {/* <GoogleLogin
-                clientId="328500312724-429l1mffavbja8qcnlq5n2dhn4rm1gqr.apps.googleusercontent.com"
-                buttonText="Login"
-                render={() => <span />}
-                cookiePolicy={'single_host_origin'}
-              /> */}
-              {/* <FacebookLogin appId="498368014598571" autoLoad={false} render={() => <span />} /> */}
-
-              {checkCurrentIsPhone ? (
-                <MobileLayout onPageChange={onPageChangeHandle} {...props}>
-                  {children}
-                </MobileLayout>
-              ) : (
-                children
-              )}
-            </Authorized>
-            {/* <ADPopup pathname={pathname} /> */}
-            {/* {checkCurrentIsPhone ? <FixedBtnsMobile /> : null} */}
-            {!checkCurrentIsPhone ? <FixedBtns /> : null}
-            <LoginModal
-              visible={loginVisible}
-              onLogin={() => {
-                setLoginVisible(false);
-                EventEmitter.emit('login-status-change');
-              }}
-              onCancel={() => {
-                setLoginVisible(false);
-              }}
-            />
+          />
           {/* </ProLayout> */}
         </>
       )}
     </>
   );
-  // if (code) {
-  //   return (
-  //     <div>
-  //       <FormattedMessage id="Being certified" />
-  //       ...
-  //     </div>
-  //   );
-  // }
 };
 
 export default connect(({ global, tips, settings, divice, user }: ConnectState) => ({
