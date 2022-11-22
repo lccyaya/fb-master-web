@@ -71,7 +71,7 @@ const FBGuessTab = (props: Props) => {
             <div className={styles.guess_name}>
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[1]?.nickname}</div>
 
-              <div className={styles.guess_num}>{list[1]?.energy_num}</div>
+              <div className={styles.guess_num}>{Math.trunc(list[1]?.energy_num)}</div>
             </div>
           </div>
           <div className={styles.card_content_return}>
@@ -92,7 +92,7 @@ const FBGuessTab = (props: Props) => {
             <div className={styles.guess_name}>
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[0]?.nickname}</div>
 
-              <div className={styles.guess_num}>{list[0]?.energy_num}</div>
+              <div className={styles.guess_num}>{Math.trunc(list[0]?.energy_num)}</div>
             </div>
           </div>
           <div className={styles.card_content_return}>
@@ -113,7 +113,7 @@ const FBGuessTab = (props: Props) => {
             <div className={styles.guess_name}>
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[2]?.nickname}</div>
 
-              <div className={styles.guess_num}>{list[2]?.energy_num}</div>
+              <div className={styles.guess_num}>{Math.trunc(list[2]?.energy_num)}</div>
             </div>
           </div>
           <div className={styles.card_content_return}>
