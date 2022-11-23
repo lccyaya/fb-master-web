@@ -7,7 +7,7 @@ import Ranking from './ranking';
 import RecentGames from './recent';
 import { report } from '@/services/ad';
 import { REPORT_ACTION, REPORT_CATE } from '@/constants';
-import styles from "./index.less"
+import styles from './index.less';
 
 const { TabPane } = Tabs;
 
@@ -59,9 +59,12 @@ const Stats: React.FC<IProps> = (props) => {
   return (
     <Spin spinning={loading}>
       <div className={styles.tabstyle}>
-
         <Tabs defaultActiveKey="rank" onChange={handleTabChange}>
-          <TabPane style={{ color: "reds" }} tab={<FormattedMessage id="key_league_ranking" />} key="rank">
+          <TabPane
+            style={{ color: 'reds' }}
+            tab={<FormattedMessage id="key_league_ranking" />}
+            key="rank"
+          >
             <Ranking match={props.match} data={allRanking} />
           </TabPane>
           <TabPane tab={<FormattedMessage id="key_home_team" />} key="home">

@@ -15,8 +15,8 @@ import { divide } from 'lodash';
 
 type Props = {
   scheme: any;
-  color?: string
-  ten_hit?: boolean
+  color?: string;
+  ten_hit?: boolean;
 };
 
 const SchemeItem: React.FC<Props> = (props) => {
@@ -52,25 +52,45 @@ const SchemeItem: React.FC<Props> = (props) => {
           </div>
         </div>
 
-        {props.ten_hit ? <div>  {scheme.hit_rate >= 60 ? (
-          <div className={styles.hit_info_box}>
-            <div className={styles.hit_rate}>
-              <span style={{ color: color ? color : "" }} className={styles.rate}>{scheme.ten_hit}</span>
-              <span style={{ color: color ? color : "" }} className={styles.rate_flag}>%</span>
-            </div>
-            <div style={{ color: color ? color : "" }} className={styles.rate_des}>近期10场命中</div>
+        {props.ten_hit ? (
+          <div>
+            {' '}
+            {scheme.ten_hit >= 60 ? (
+              <div className={styles.hit_info_box}>
+                <div className={styles.hit_rate}>
+                  <span style={{ color: color ? color : '' }} className={styles.rate}>
+                    {scheme.ten_hit}
+                  </span>
+                  <span style={{ color: color ? color : '' }} className={styles.rate_flag}>
+                    %
+                  </span>
+                </div>
+                <div style={{ color: color ? color : '' }} className={styles.rate_des}>
+                  近期10场命中
+                </div>
+              </div>
+            ) : null}
           </div>
-        ) : null}</div> : <div>  {scheme.hit_rate >= 60 ? (
-          <div className={styles.hit_info_box}>
-            <div className={styles.hit_rate}>
-              <span style={{ color: color ? color : "" }} className={styles.rate}>{scheme.hit_rate}</span>
-              <span style={{ color: color ? color : "" }} className={styles.rate_flag}>%</span>
-            </div>
-            <div style={{ color: color ? color : "" }} className={styles.rate_des}>近期命中率</div>
+        ) : (
+          <div>
+            {' '}
+            {scheme.hit_rate >= 60 ? (
+              <div className={styles.hit_info_box}>
+                <div className={styles.hit_rate}>
+                  <span style={{ color: color ? color : '' }} className={styles.rate}>
+                    {scheme.hit_rate}
+                  </span>
+                  <span style={{ color: color ? color : '' }} className={styles.rate_flag}>
+                    %
+                  </span>
+                </div>
+                <div style={{ color: color ? color : '' }} className={styles.rate_des}>
+                  近期命中率
+                </div>
+              </div>
+            ) : null}
           </div>
-        ) : null}</div>}
-
-
+        )}
       </div>
       <div className={styles.title_box}>{scheme.describe}</div>
       <div className={styles.match_box}>

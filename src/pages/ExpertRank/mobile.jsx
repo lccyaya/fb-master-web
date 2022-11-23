@@ -15,13 +15,18 @@ import FBTabs from '@/components/FBTabs';
 import RankList from './RankList';
 import rankBg from '@/assets/expert/rank_header_bg.png';
 import classnames from 'classnames';
+import VersionA from '@/pages/Home/mobile/version-a';
 
 const ExpertRank = ({ currentUser = {} }) => {
   const { query } = history.location;
   const [curKey, setCurKey] = useState(() => {
-    return query.tab || '0';
+    return query.tab || '2';
   });
   const items = [
+    {
+      key: '2',
+      title: '专家',
+    },
     {
       key: '0',
       title: '排行榜',
@@ -71,19 +76,23 @@ const ExpertRank = ({ currentUser = {} }) => {
         <img src={rankBg} alt="" />
       </div>
 
-      <div className={styles.list_box}>
-        <FBTabs
-          items={items}
-          activeKey={curKey}
-          onChange={setCurKey}
-          selectStyle={{ fontSize: '20px', color: curKey === '0' ? '#FFFFFF' : '#FA5900' }}
-          normalStyle={{color: curKey === '0' ? '#EEEEFF' : '#848494'}}
-        />
-
-        <div style={{flex: 1}}>
+      <div className={styles.list_box} style={{ height: curKey === '0' ? "100%" : null }}>
+        <div className={curKey === '2' ? styles.list_box_version : null} >
+          <FBTabs
+            items={items}
+            activeKey={curKey}
+            onChange={setCurKey}
+            selectStyle={{ fontSize: '20px', color: curKey === '0' || curKey === '2' ? '#FFFFFF' : '#FA5900' }}
+            normalStyle={{ color: curKey === '0' || curKey === '2' ? '#EEEEFF' : '#848494' }}
+          />
+        </div>
+        <div style={{ flex: 1 }}>
           {curKey === '0' ? <RankList /> : null}
           {curKey === '1' ? <Watch /> : null}
-       
+
+          {curKey === '2' ? <VersionA /> : null}
+
+
         </div>
       </div>
     </div>

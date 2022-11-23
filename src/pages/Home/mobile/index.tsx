@@ -35,11 +35,11 @@ export default function MobileHome(props) {
               title: '资讯',
               node: <Information />,
             },
-            {
-              key: 'home',
-              title: '攻略',
-              node: <VersionA />,
-            },
+            // {
+            //   key: 'home',
+            //   title: '攻略',
+            //   node: <VersionA />,
+            // },
             {
               key: 'app',
               title: '下载APP',
