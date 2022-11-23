@@ -100,7 +100,7 @@ const TablePage = (props: Props) => {
       align: 'center',
       render: (text, record, index) => (
         <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? text : Math.trunc(text) + '%'}
+          {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
         </div>
       ),
     },

@@ -68,7 +68,7 @@ const createClient = async (baseUrl?: string, header: Record<string, any> = {}) 
       ...header
     },
   });
-  request.extendOptions({
+  request?.extendOptions({
     headers: {
       Authorization: !isServer ? timeStorageGet(FOOTBALL_MASTER_TOKEN) || '' : '',
     },
@@ -77,7 +77,7 @@ const createClient = async (baseUrl?: string, header: Record<string, any> = {}) 
 }
 
 export const extendOptionsAuth = () => {
-  defaultRequest.extendOptions({
+  defaultRequest?.extendOptions({
     headers: {
       Authorization: !isServer ? timeStorageGet(FOOTBALL_MASTER_TOKEN) || '' : '',
     },
@@ -86,7 +86,7 @@ export const extendOptionsAuth = () => {
 
 export const logout = () => {
   timeStorageRemove(FOOTBALL_MASTER_TOKEN);
-  defaultRequest.extendOptions({
+  defaultRequest?.extendOptions({
     headers: {
       Authorization: '',
     },
