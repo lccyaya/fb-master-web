@@ -4,7 +4,8 @@ import moment from 'moment';
 import emptyLogo from '@/assets/emptyLogo.png';
 import { getMatchStatus, getMatchStatusDes, MatchStatus } from '@/utils/match';
 import { useRef, useState, useEffect } from 'react';
-import { Link, useIntl } from 'umi';
+import { Link, useIntl, history } from 'umi';
+
 import * as homeService from '@/services/home';
 import { message } from 'antd';
 import { report } from '@/services/ad';
@@ -61,7 +62,7 @@ export default (props: {
   const status = getMatchStatus(match.status);
   const showScore = status !== MatchStatus.Before && status !== MatchStatus.TBD;
   const final = match.final_scores;
-  const time = moment(new Date(match.match_time * 1000)).format('MM-DD HH:mm');
+  const time = moment(new Date(match.match_time * 1000)).format('YYYY.MM.DD HH:mm');
   const { round } = match;
   let nameSuffix = '';
 
@@ -162,11 +163,44 @@ export default (props: {
           ) : null}
         </div>
       </div>
-
       <div className={styles.mobileWrapper}>
-        <div className={styles.name}>{match.competition_name}</div>
-        <div className={styles.time}>{time}</div>
+        <div className={styles.nav_title}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <div
+              className={styles.nav_title_back}
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              {' '}
+              <Iconfont type="icon-gengduo" size={15} color="#fff" />
+            </div>
+            <div className={styles.name}>
+              {match.competition_name}
+              {match.round?.group_name}组{match.round?.show_name}
+            </div>
 
+            <div className={styles.time}>{time}</div>
+          </div>
+        </div>
+        <div className={styles.progress}>
+          {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
+          {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
+          {(status === MatchStatus.Before || status === MatchStatus.Going) && (
+            <>
+              {status === MatchStatus.Before
+                ? intl.formatMessage({ id: 'key_to_play' })
+                : match.minutes}
+            </>
+          )}
+        </div>
         <div
           className={styles.reminder}
           onClick={() => {
@@ -188,7 +222,6 @@ export default (props: {
           </Link>
 
           <div>
-
             <div className={`${styles.score} ${showOtOrPen ? styles.top : ''}`}>
               {showScore ? (
                 <>
@@ -197,22 +230,14 @@ export default (props: {
                   <div className={styles.num}>{final.away}</div>
                 </>
               ) : (
-                <div style={{
-                  margin: "0 20px 0 20px ", fontSize: "28px"
-                }}>VS</div>
-
-              )}
-            </div>
-
-            <div className={styles.progress}>
-              {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
-              {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
-              {(status === MatchStatus.Before || status === MatchStatus.Going) && (
-                <>
-                  {status === MatchStatus.Before
-                    ? intl.formatMessage({ id: 'key_to_play' })
-                    : match.minutes}
-                </>
+                <div
+                  style={{
+                    margin: '0 20px 0 20px ',
+                    fontSize: '28px',
+                  }}
+                >
+                  VS
+                </div>
               )}
             </div>
           </div>
@@ -244,6 +269,7 @@ export default (props: {
             </div>
           </CallAppModal>
         )}
+        <div className={styles.weather}>天气</div>
       </div>
     </div>
   );

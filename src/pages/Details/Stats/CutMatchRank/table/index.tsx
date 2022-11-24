@@ -1,8 +1,17 @@
-import React from 'react';
-import Table from '../table';
-import RightTab from '../RightTab';
-import styles from './index.less';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import Empty from '@/components/Empty';
+import RankingOne from '@/assets/worldcup/Ranking_1.png';
+import RankingTwo from '@/assets/worldcup/Ranking_2.png';
+import RankingThree from '@/assets/worldcup/Ranking_3.png';
+import { useHistory } from 'umi';
+import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
+import FBTitle from '@/components/FBTitle';
+import { Color } from '@/utils/match';
+// import { ScoresList } from "@/services/worldcup"
+
+import styles from './index.less';
 interface DataType {
   key: string;
   ranking: string;
@@ -21,10 +30,19 @@ interface DataType {
   team_id: number;
   avatar: string;
 }
-type Props = {};
-
-const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+type Props = {
+  group?: string | number;
+  data?: any;
+  activeKey?: string;
+  addRight?: ReactElement;
+};
+const customizeRenderEmpty = () => (
+  <div style={{ textAlign: 'center' }}>
+    <Empty style={{ fontSize: 20 }} />
+  </div>
+);
+const TablePage = (props: Props) => {
+  const history = useHistory();
   const columns: ColumnsType<DataType> = [
     {
       title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
@@ -83,19 +101,29 @@ const Ranking = (props: Props) => {
       ),
     },
   ];
+  const { addRight } = props;
   return (
-    <div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
+    <div className={styles.tab_teamtable_rank}>
+      <ConfigProvider renderEmpty={customizeRenderEmpty}>
+        <Table
+          pagination={false}
+          columns={columns}
+          dataSource={props.data}
+          rowKey="user_id"
+          // onRow={record => {
+          //     return {
+          //         onClick: event => {
+          //             console.log(record, "pppp");
+
+          //             history.push(`/zh/teamdetails/${record.team_id}`)
+          //         }, // 点击行
+
+          //     };
+          // }}
+        />
+      </ConfigProvider>
     </div>
   );
 };
 
-export default Ranking;
+export default TablePage;

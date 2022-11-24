@@ -72,11 +72,11 @@ const FBGuessTab = (props: Props) => {
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[1]?.nickname}</div>
 
               <div className={styles.guess_num}>{Math.trunc(list[1]?.energy_num)}</div>
+              <div className={styles.card_content_return}>
+                {Math.trunc(list[1]?.reward_rate)}%
+                {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
+              </div>
             </div>
-          </div>
-          <div className={styles.card_content_return}>
-            {Math.trunc(list[1]?.reward_rate)}%
-            {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
           </div>
         </div>
         <div key={list[0]?.user_id} className={styles.card_content} style={{ marginTop: -25 }}>
@@ -93,11 +93,11 @@ const FBGuessTab = (props: Props) => {
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[0]?.nickname}</div>
 
               <div className={styles.guess_num}>{Math.trunc(list[0]?.energy_num)}</div>
+              <div className={styles.card_content_return}>
+                {Math.trunc(list[0]?.reward_rate)}%
+                {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
+              </div>
             </div>
-          </div>
-          <div className={styles.card_content_return}>
-            {Math.trunc(list[0]?.reward_rate)}%
-            {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
           </div>
         </div>
         <div key={list[2]?.user_id} className={styles.card_content}>
@@ -114,11 +114,11 @@ const FBGuessTab = (props: Props) => {
               <div style={{ color: '#7E1132', textAlign: 'center' }}>{list[2]?.nickname}</div>
 
               <div className={styles.guess_num}>{Math.trunc(list[2]?.energy_num)}</div>
+              <div className={styles.card_content_return}>
+                {Math.trunc(list[2]?.reward_rate)}%
+                {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
+              </div>
             </div>
-          </div>
-          <div className={styles.card_content_return}>
-            {Math.trunc(list[2]?.reward_rate)}%
-            {/* <FormattedMessage id={'key_worldcap_guessvalue'} /> */}
           </div>
         </div>
       </div>

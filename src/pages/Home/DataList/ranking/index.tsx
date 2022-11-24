@@ -3,7 +3,7 @@ import { Tabs, Spin } from 'antd';
 import type * as matchService from '@/services/match';
 import * as competitionService from '@/services/competition';
 import { useIntl } from 'umi';
-import Ranking from '@/pages/Details/Stats/ranking';
+import Ranking from '@/pages/Details/Stats/Ranking';
 import styles from './index.less';
 
 const { TabPane } = Tabs;

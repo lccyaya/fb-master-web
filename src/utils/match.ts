@@ -157,3 +157,21 @@ export const getMatchListV3 = async (params: {
   const res = await matchService.MatchListV3(params);
   return res.data;
 };
+export enum NumColor {
+  win = 'win',
+  draw = 'draw',
+  lost = 'lost',
+}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace Color {
+  export function numColor(type: string) {
+    switch (type) {
+      case NumColor.win:
+        return '#FA5900';
+      case NumColor.draw:
+        return '#4064B2';
+      default:
+        return '#39906A';
+    }
+  }
+}

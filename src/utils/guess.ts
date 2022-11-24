@@ -137,6 +137,7 @@ export enum NumColor {
   One = '1',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BgColor {
   export function numColor(type: string) {
     switch (type) {
@@ -149,6 +150,7 @@ export namespace BgColor {
     }
   }
 }
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Color {
   export function numColor(type: string) {
     switch (type) {

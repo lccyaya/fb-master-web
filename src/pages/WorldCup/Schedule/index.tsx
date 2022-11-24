@@ -32,18 +32,6 @@ const Scheme = (props: Props) => {
     },
   ];
 
-  const onChangetab = (key: string) => {
-    // console.log(key, "ppooiuytre");
-    if (key == '0') {
-      getGroupList();
-    } else if (key == '1') {
-      getScoresList();
-    } else {
-      getBracketList();
-    }
-
-    setActiveKey(key);
-  };
   const getGroupList = async () => {
     let data = {
       competition_id: 1,
@@ -108,7 +96,18 @@ const Scheme = (props: Props) => {
 
     return obj;
   }
+  const onChangetab = (key: string) => {
+    // console.log(key, "ppooiuytre");
+    if (key == '0') {
+      getGroupList();
+    } else if (key == '1') {
+      getScoresList();
+    } else {
+      getBracketList();
+    }
 
+    setActiveKey(key);
+  };
   const goRule = () => {
     history.push(`/zh/rule`, {
       title: '世界杯赛制说明',

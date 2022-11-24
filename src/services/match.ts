@@ -113,6 +113,7 @@ export type Round = {
   group_name: string;
   round_name: string;
   stage_name: string;
+  show_name: string
 }
 
 export type FinalScore = {

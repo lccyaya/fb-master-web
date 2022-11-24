@@ -24,33 +24,34 @@ interface DataType {
 type Props = {};
 
 const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+  const data = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const columns: ColumnsType<DataType> = [
     {
-      title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
+      title: '赛事',
       dataIndex: 'id',
       key: 'id',
+      width: 110,
       // align: "center",
     },
 
     {
-      title: '赛',
+      title: '主队',
       dataIndex: 'nickname',
       key: 'nickname',
-      width: 50,
+      //   width: 150,
       align: 'center',
       render: (text, record, index) => <div>{text}</div>,
     },
     {
-      title: '胜/平/负',
+      title: '客队',
       dataIndex: 'number',
 
-      key: 'number',
+      key: '盘',
       align: 'center',
       render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
     },
     {
-      title: '进/失/净',
+      title: '进',
       dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
 
       align: 'center',
@@ -61,18 +62,7 @@ const Ranking = (props: Props) => {
       ),
     },
     {
-      title: '积分',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
-
-      align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
-        </div>
-      ),
-    },
-    {
-      title: '排名',
+      title: '角',
       dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
 
       align: 'center',
@@ -86,13 +76,10 @@ const Ranking = (props: Props) => {
   return (
     <div>
       <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
+        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
       </div>
       <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
+        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
       </div>
     </div>
   );

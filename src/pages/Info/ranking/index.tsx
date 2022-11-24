@@ -4,7 +4,7 @@ import { Tabs, Spin } from 'antd';
 import type * as matchService from '@/services/match';
 import * as competitionService from '@/services/competition';
 
-import Ranking from '@/pages/Details/Stats/ranking';
+import Ranking from '@/pages/Details/Stats/libraryranking';
 import styles from './index.less';
 import { FormattedMessage } from 'react-intl';
 import { report } from '@/services/ad';

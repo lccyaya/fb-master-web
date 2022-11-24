@@ -13,8 +13,8 @@ import { getMatchStatus, MatchStatus } from '@/utils/match';
 import Banner from '@/components/Banner';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
 import Scheme from './scheme/index';
-import { Tabs, Badge } from 'antd-mobile';
-
+import { Tabs, Badge, CapsuleTabs } from 'antd-mobile';
+import FBWorldCapTab from '@/components/FBWordCopTab';
 import SupportYourTeam from '../../components/SupportYourTeam';
 import Tips from '../../components/Tips';
 import styles from './index.less';
@@ -22,6 +22,12 @@ import styles from './index.less';
 import IndexTab from './IndexTab';
 import LineUp from './LineUp';
 import Stats from './Stats';
+import CutMatchRank from './Stats/CutMatchRank';
+import HistoryRanking from './Stats/HistoryRanking';
+import FutureMatch from './Stats/FutureMatch';
+import RecentGames from './Stats/RecentGames';
+
+// import Strength from './Strength';
 
 import type { SupportVoteData } from '@/components/SupportYourTeam';
 
@@ -79,6 +85,7 @@ const Details: React.FC<DetailProps> = (props) => {
 
   const { matchId } = props.match.params;
   const { showTips } = props;
+  const { TabPane } = Tabs;
   const init = async (showLoading = true) => {
     if (showLoading) {
       setLoading(true);
@@ -216,11 +223,11 @@ const Details: React.FC<DetailProps> = (props) => {
   return (
     <div style={{ height: '100%', background: '#F7FAFB' }}>
       <Spin spinning={loading}>
-        {checkIsPhone() && (
+        {/* {checkIsPhone() && (
           <NavBar className={styles.navbar} onBack={back}>
-            {/* 比赛详情 */}
+            比赛详情
           </NavBar>
-        )}
+        )} */}
         <div className={styles.main}>
           <InfoCard
             match={data}
@@ -369,23 +376,85 @@ const Details: React.FC<DetailProps> = (props) => {
                       )}
                       {detailType === 'data' && (
                         <>
-                          {isPhone ? (
-                            <>
-                              {Vote}
-                              <div className={styles.mobileStatTitle}>
-                                <FormattedMessage id="key_league_ranking" />
-                              </div>
-                            </>
-                          ) : null}
-                          <div
-                            style={{
-                              background: '#fff',
-                              padding: 10,
-                              borderRadius: 8,
-                              marginTop: 12,
-                            }}
-                          >
-                            <Stats match={data} matchId={matchId as any} />
+                          <div className={styles.smallView_state}>
+                            <CapsuleTabs>
+                              <CapsuleTabs.Tab title="基本面" key="fruits">
+                                <div>
+                                  {isPhone ? <>{Vote}</> : null}
+                                  <div>
+                                    {' '}
+                                    <div className={styles.mobileStatTitle}>
+                                      <div className={styles.title_logo}></div>
+                                      <FormattedMessage id="key_league_ranking" />
+                                    </div>
+                                    <div
+                                      style={{
+                                        marginTop: 12,
+                                      }}
+                                    >
+                                      <Stats match={data} matchId={matchId as any} />
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div className={styles.mobileStatTitle}>
+                                      <div className={styles.title_logo}></div>
+                                      <FormattedMessage id="key_cup_match_ranking" />
+                                    </div>
+                                    <div
+                                      style={{
+                                        marginTop: 12,
+                                      }}
+                                    >
+                                      <CutMatchRank match={data} matchId={matchId as any} />
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    {' '}
+                                    <div className={styles.mobileStatTitle}>
+                                      <div className={styles.title_logo}></div>
+                                      <FormattedMessage id="key_history_ranking" />
+                                    </div>
+                                    <div
+                                      style={{
+                                        marginTop: 12,
+                                      }}
+                                    >
+                                      <HistoryRanking match={data} matchId={matchId as any} />
+                                    </div>
+                                  </div>
+                                  <div>
+                                    {' '}
+                                    <div className={styles.mobileStatTitle}>
+                                      <div className={styles.title_logo}></div>
+                                      <FormattedMessage id="key_recent_games" />
+                                    </div>
+                                    <div
+                                      style={{
+                                        marginTop: 12,
+                                      }}
+                                    >
+                                      <RecentGames match={data} matchId={matchId as any} />
+                                    </div>
+                                  </div>
+                                  <div>
+                                    {' '}
+                                    <div className={styles.mobileStatTitle}>
+                                      <div className={styles.title_logo}></div>
+                                      <FormattedMessage id="key_future_match" />
+                                    </div>
+                                    <div
+                                      style={{
+                                        marginTop: 12,
+                                      }}
+                                    >
+                                      <FutureMatch match={data} matchId={matchId as any} />
+                                    </div>
+                                  </div>
+                                </div>
+                              </CapsuleTabs.Tab>
+                              <CapsuleTabs.Tab title="实力" key="vegetables"></CapsuleTabs.Tab>
+                            </CapsuleTabs>
                           </div>
                         </>
                       )}

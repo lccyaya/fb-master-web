@@ -144,6 +144,7 @@ export default {
     "key_goals_s": "球",
     "key_goalstwo": "射手榜",
     "key_h2h": "近期交锋",
+    "key_future_match": "未来三场赛事",
     "key_handicap": "让球数",
     "key_have_account": "已经有账号了？",
     "key_have_already_voter": "抱歉，您已经投过票了",
@@ -186,6 +187,9 @@ export default {
     "key_latest_news": "最新资讯",
     "key_league": "联赛",
     "key_league_ranking": "联赛排名",
+    "key_history_ranking": "历史交锋",
+    "key_cup_match_ranking": "杯赛积分榜",
+
     "key_league_selected": "个已选",
     "key_leagues": "联赛",
     "key_leagues_selected": "联赛已选择",
