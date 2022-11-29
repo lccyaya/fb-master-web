@@ -101,7 +101,7 @@ const TablePage = (props: Props) => {
       ),
     },
   ];
-  const { addRight } = props;
+  // const { addRight } = props;
   return (
     <div className={styles.tab_teamtable_rank}>
       <ConfigProvider renderEmpty={customizeRenderEmpty}>
@@ -109,7 +109,7 @@ const TablePage = (props: Props) => {
           pagination={false}
           columns={columns}
           dataSource={props.data}
-          rowKey="user_id"
+          rowKey="id"
           // onRow={record => {
           //     return {
           //         onClick: event => {

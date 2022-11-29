@@ -69,6 +69,34 @@ export const getMatchStatusDes = (code: number): String => {
   }
 }
 
+
+export function Weather(state: string): { text: string, img: string } {
+  switch (state) {
+    case "1":
+      return { text: '有云', img: "cloud" }
+    case "2" || "10":
+      return { text: '多云', img: "cloud" }
+    case "3" || "12":
+      return { text: '有云/雨', img: "rain" }
+    case "4":
+      return { text: '雪', img: "snow" }
+    case "5":
+      return { text: '晴', img: "shine" }
+    case "6" || "9":
+      return { text: '阴有雨', img: "rain" }
+    case "7":
+      return { text: '阴', img: "overcast" }
+    case "8":
+      return { text: '薄雾', img: "fog" }
+    case "11":
+      return { text: '云有雨', img: "rain" }
+    default:
+      return { text: '雾', img: "fog" }
+
+  }
+}
+
+
 export const getScore = (scores: number[]) => {
   if (scores && scores.length >= 7) {
     // 0:"比分(常规时间) - int" 1:"半场比分 - int" 2:"红牌 - int" 3:"黄牌 - int" 4:"角球，-1表示没有角球数据 - int" 5:"加时比分(120分钟，即包括常规时间比分)，加时赛才有 - int" 6:"点球大战比分(不包含常规时间及加时赛比分)，点球大战才有 - int"

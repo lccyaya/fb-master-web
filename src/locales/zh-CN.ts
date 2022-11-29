@@ -145,6 +145,7 @@ export default {
     "key_goalstwo": "射手榜",
     "key_h2h": "近期交锋",
     "key_future_match": "未来三场赛事",
+    "key_attack_defenseh": "攻防对比",
     "key_handicap": "让球数",
     "key_have_account": "已经有账号了？",
     "key_have_already_voter": "抱歉，您已经投过票了",
@@ -337,6 +338,8 @@ export default {
     "key_say_something": "说点什么吗？留下你的评论~",
     "key_scan_and_download": "扫码下载",
     "key_schedule": "赛程",
+    "key_schedule_before": "赛前SP",
+
     //  "key_scheme": "方案",
     "key_scheme": "攻略",
     "key_score": "比分",

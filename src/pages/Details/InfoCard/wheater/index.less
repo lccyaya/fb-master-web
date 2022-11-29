@@ -1,0 +1,63 @@
+.weather_main {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+
+    .weather_left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+        font-size: 23px;
+        color: #00004C;
+        font-weight: 500
+    }
+
+    .weather_right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+
+        .weather_right_box {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            // justify-content: space-between;
+            .right_img {
+                width: 17px;
+                height: 17px;
+                margin: 1px 5px;
+            }
+        }
+    }
+}
+
+.cloud {
+    background-image: url("~@/assets/match/cloud.png");
+}
+
+.rain {
+    background-image: url("~@/assets/match/rain.png");
+}
+
+.snow {
+    background-image: url("~@/assets/match/snow.png");
+}
+
+.shine {
+    background-image: url("~@/assets/match/shine.png");
+}
+
+.overcast {
+    background-image: url("~@/assets/match/overcast.png");
+}
+
+.fog {
+    background-image: url("~@/assets/match/fog.png");
+}

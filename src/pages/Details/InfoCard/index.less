@@ -1,319 +1,335 @@
 @import '~antd/es/style/themes/default.less';
 
 .matchInfo {
-  min-width: 100vw;
-  width: 100%;
-  background: url('../../../assets/image/match_detail_bg.png') no-repeat center center;
-
-  background-size: 100% 100%;
-  padding: 15px 0 184px 0;
-  display: flex;
-  background-color: #F7FAFB;
-  justify-content: center;
-  //margin-left: ~'min(calc((100% - 100vw) / 2), 0px)';
-  margin-bottom: -168px;
-
-  .mobileWrapper {
-    display: none;
-
-    .reminder {
-      top: 40px;
-    }
-
-    .progress {
-      min-width: 60px;
-      height: 32px;
-      padding: 0 10px;
-      background: #676B7E;
-      border-radius: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      font-weight: 500;
-      color: #fff;
-      line-height: 24px;
-      margin-top: 20px;
-    }
-  }
-
-  .reminder {
-    position: absolute;
-    right: 8px;
-    top: 0;
-    cursor: pointer;
-
-    img {
-      width: 26px;
-      height: 26px;
-    }
-  }
-
-  .wrapper {
+    min-width: 100vw;
     width: 100%;
-    max-width: 1200px;
-    border-radius: 16px;
-    background-color: rgba(255, 255, 255, .84);
-    padding: 12px;
-    height: 160px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    background: url('../../../assets/image/match_detail_bg.png') no-repeat center center;
 
-    .top {
-      text-align: center;
-      position: relative;
-      font-size: 18px;
-      line-height: 26px;
-      color: #46494C;
-      font-weight: 500;
-
-      .time {
-        position: absolute;
-        font-size: 22px;
-        line-height: 26px;
-        left: 20px;
-        top: 0;
-        font-family: Barlow;
-        font-style: italic;
-      }
-
-    }
-
-    .mid {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .team {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        overflow: hidden;
-        width: 31%;
-
-        &.reverse {
-          flex-direction: row-reverse;
-
-          .name {
-            margin: 0 0 0 16px;
-          }
-        }
-
-        .name {
-          font-size: 20px;
-          color: #46494C;
-          line-height: 24px;
-          margin-right: 16px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        .logo {
-          width: 56px;
-          height: 56px;
-        }
-      }
-
-      .scores {
-        width: 21.75%;
-        margin: 0 7.16%;
-        font-size: 40px;
-        font-weight: bold;
-        font-family: Barlow;
-        font-style: italic;
-        color: #46494C;
-        line-height: 1.2;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-
-    .bottom {
-      margin-top: auto;
-      display: flex;
-      justify-content: center;
-      color: #46494C;
-      font-size: 18px;
-      font-weight: bold;
-
-
-    }
-  }
-
-  @media (max-width: @screen-xs) {
-    margin: 0;
-    // padding: 10px 14px 9px 14px;
-    width: 100%;
-    height: 280px;
-    background: url('~@/assets/match/match_detail_bg.png') no-repeat center;
     background-size: 100% 100%;
-
-    .wrapper {
-      display: none;
-    }
+    padding: 15px 0 184px 0;
+    display: flex;
+    background-color: #F7FAFB;
+    justify-content: center;
+    //margin-left: ~'min(calc((100% - 100vw) / 2), 0px)';
+    margin-bottom: -168px;
 
     .mobileWrapper {
-      display: block;
-      color: #fff;
-      text-align: center;
-      width: 100%;
-      position: relative;
+        display: none;
 
-      .nav_title {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-        height: 50px;
-        background: #01014D;
-
-        .nav_title_back {
-
-          position: absolute;
-          left: 10px;
-
+        .reminder {
+            top: 40px;
         }
-      }
 
+        .progress {
+            min-width: 60px;
+            height: 32px;
+            padding: 0 10px;
+            background: #676B7E;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            line-height: 24px;
+            margin-top: 20px;
+        }
+    }
 
-      .name {
-        font-size: 16px;
-      }
+    .reminder {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        cursor: pointer;
 
-      .time {
-        font-size: 14px;
-        line-height: 18px;
-      }
+        img {
+            width: 26px;
+            height: 26px;
+        }
+    }
 
-      .time {
-        margin-top: 2px;
-      }
-
-      .progress {
-        margin: auto;
-        width: 70px;
-        margin-top: 10px;
+    .wrapper {
+        width: 100%;
+        max-width: 1200px;
+        border-radius: 16px;
+        background-color: rgba(255, 255, 255, .84);
+        padding: 12px;
+        height: 160px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0 12px;
-        height: 18px;
-        background: #6B6F7C;
-        border-radius: 9px;
-        font-size: 12px;
-        line-height: 14px;
-        margin-top: 40px;
-      }
 
-      .teams {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: relative;
-
-        .team {
-          width: 31%;
-          font-size: 0;
-
-          .logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto;
-          }
-
-          .name {
-            font-size: 16px;
-            line-height: 20px;
+        .top {
             text-align: center;
-            margin-top: 8px;
-            height: 40px;
-            word-break: break-all;
-            color: #fff;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+            position: relative;
+            font-size: 18px;
+            line-height: 26px;
+            color: #46494C;
+            font-weight: 500;
+
+            .time {
+                position: absolute;
+                font-size: 22px;
+                line-height: 26px;
+                left: 20px;
+                top: 0;
+                font-family: Barlow;
+                font-style: italic;
+            }
+
         }
 
-        .score {
-          display: flex;
-          align-items: center;
-          // margin-bottom: 16px;
-          font-weight: 600;
-          margin-top: -18px;
+        .mid {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-          &.top {
-            margin-bottom: 46px;
-          }
+            .team {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                overflow: hidden;
+                width: 31%;
 
-          .num {
-            font-size: 28px;
-            line-height: 40px;
-          }
+                &.reverse {
+                    flex-direction: row-reverse;
 
-          .colon {
-            font-size: 20px;
-            margin: 0 10px;
-          }
+                    .name {
+                        margin: 0 0 0 16px;
+
+                    }
+                }
+
+                .name {
+                    font-size: 20px;
+                    color: #46494C;
+                    line-height: 24px;
+                    margin-right: 16px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .logo {
+                    width: 56px;
+                    height: 56px;
+                }
+
+            }
+
+            .scores {
+                width: 21.75%;
+                margin: 0 7.16%;
+                font-size: 40px;
+                font-weight: bold;
+                font-family: Barlow;
+                font-style: italic;
+                color: #46494C;
+                line-height: 1.2;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
         }
 
-        .otPen {
-          position: absolute;
-          bottom: 32px;
-          left: 50%;
-          transform: translateX(-50%);
-          color: #fff;
-          font-size: 12px;
-        }
-      }
+        .bottom {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            color: #46494C;
+            font-size: 18px;
+            font-weight: bold;
 
-      .livePlayback {
-        margin-top: -20px;
-        line-height: 1;
 
-        .livePlaybackWrapper {
-          margin: 0 auto;
-          display: inline-flex;
-          background-color: rgba(24, 24, 24, .4);
-          height: 24px;
-          border-radius: 12px;
-          padding: 0 10px;
-          align-items: center;
-          justify-content: center;
         }
-
-        .icon {
-          width: 18px;
-          height: 18px;
-          background: url('../../../assets/image/match_detail_mobile_camera.png') no-repeat 0 0;
-          background-size: cover;
-          margin-right: 5px;
-        }
-
-        .text {
-          font-size: 12px;
-          color: #F9F9F9;
-          line-height: 16px;
-        }
-      }
     }
-  }
 
-  .weather {
-    width: 95%;
-    height: 60px;
-    background-image: linear-gradient(to right, rgba(240, 241, 246, 1), rgba(171, 216, 255, 1));
-    font-size: 12px;
-    color: #4D5187;
-    border-radius: 8px;
-    margin: auto;
-  }
+    @media (max-width: @screen-xs) {
+        margin: 0;
+        // padding: 10px 14px 9px 14px;
+        width: 100%;
+        height: 280px;
+        background: url('~@/assets/match/match_detail_bg.png') no-repeat center;
+        background-size: 100% 100%;
+
+        .wrapper {
+            display: none;
+        }
+
+        .mobileWrapper {
+            display: block;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            position: relative;
+
+            .nav_title {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 100;
+                height: 50px;
+                background: #01014D;
+
+                .nav_title_back {
+
+                    position: absolute;
+                    left: 10px;
+
+                }
+            }
+
+            .video {
+                font-size: 10px;
+                color: #E9EBE4;
+                width: 75px;
+                margin: auto;
+                background: rgba(1, 1, 77, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    margin-right: 3px;
+                }
+            }
+
+            .name {
+                font-size: 16px;
+            }
+
+            .time {
+                font-size: 14px;
+                line-height: 18px;
+            }
+
+            .time {
+                margin-top: 2px;
+            }
+
+            .progress {
+                margin: auto;
+                width: 70px;
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0 12px;
+                height: 18px;
+                background: #6B6F7C;
+                border-radius: 9px;
+                font-size: 12px;
+                line-height: 14px;
+                margin-top: 40px;
+            }
+
+            .teams {
+                margin: 22px 0 10px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+
+                .team {
+                    width: 31%;
+                    font-size: 0;
+
+                    .logo {
+                        width: 50px;
+                        height: 50px;
+                        margin: 0 auto;
+                    }
+
+                    .name {
+                        font-size: 16px;
+                        line-height: 20px;
+                        text-align: center;
+                        margin-top: 8px;
+                        height: 40px;
+                        // font-weight: 500;
+                        word-break: break-all;
+                        color: #fff;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .score {
+                    display: flex;
+                    align-items: center;
+                    // margin-bottom: 16px;
+                    font-weight: 400;
+                    // margin-top: -18px;
+
+                    &.top {
+                        margin-bottom: 46px;
+                    }
+
+                    .num {
+                        font-size: 45px;
+                        line-height: 40px;
+                    }
+
+                    .colon {
+                        font-size: 30px;
+                        margin: 0 10px;
+                    }
+                }
+
+                .otPen {
+                    position: absolute;
+                    bottom: 32px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: #fff;
+                    font-size: 12px;
+                }
+            }
+
+            .livePlayback {
+                margin-top: -20px;
+                line-height: 1;
+
+                .livePlaybackWrapper {
+                    margin: 0 auto;
+                    display: inline-flex;
+                    background-color: rgba(24, 24, 24, .4);
+                    height: 24px;
+                    border-radius: 12px;
+                    padding: 0 10px;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .icon {
+                    width: 18px;
+                    height: 18px;
+                    background: url('../../../assets/image/match_detail_mobile_camera.png') no-repeat 0 0;
+                    background-size: cover;
+                    margin-right: 5px;
+                }
+
+                .text {
+                    font-size: 12px;
+                    color: #F9F9F9;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+
+    .weather {
+        width: 95%;
+        height: 60px;
+        font-size: 12px;
+        color: #4D5187;
+        border-radius: 8px;
+        margin: auto;
+    }
 }

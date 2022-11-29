@@ -2,11 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Empty from '@/components/Empty';
-import RankingOne from '@/assets/worldcup/Ranking_1.png';
-import RankingTwo from '@/assets/worldcup/Ranking_2.png';
-import RankingThree from '@/assets/worldcup/Ranking_3.png';
 import { useHistory } from 'umi';
-import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
 import FBTitle from '@/components/FBTitle';
 import { Color } from '@/utils/match';
 // import { ScoresList } from "@/services/worldcup"
@@ -62,7 +58,7 @@ const TablePage = (props: Props) => {
             <div>
               近12场交战 卡塔尔
               <span style={{ color: Color.numColor('win') }}> 2胜</span>
-              <span style={{ color: Color.numColor('draw') }}>2平</span>
+              <span style={{ color: Color.numColor('draw') }}> 2平</span>
               <span style={{ color: Color.numColor('lost') }}> 0负</span>
             </div>
 
@@ -76,7 +72,7 @@ const TablePage = (props: Props) => {
           pagination={false}
           columns={props.columns}
           dataSource={props.data}
-          rowKey="user_id"
+          rowKey="id"
           // onRow={record => {
           //     return {
           //         onClick: event => {

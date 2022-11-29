@@ -22,6 +22,8 @@ import styles from './index.less';
 import IndexTab from './IndexTab';
 import LineUp from './LineUp';
 import Stats from './Stats';
+import Strength from './Strength';
+
 import CutMatchRank from './Stats/CutMatchRank';
 import HistoryRanking from './Stats/HistoryRanking';
 import FutureMatch from './Stats/FutureMatch';
@@ -453,7 +455,17 @@ const Details: React.FC<DetailProps> = (props) => {
                                   </div>
                                 </div>
                               </CapsuleTabs.Tab>
-                              <CapsuleTabs.Tab title="实力" key="vegetables"></CapsuleTabs.Tab>
+                              {/* <CapsuleTabs.Tab title="实力" key="vegetables">
+                                <div className={styles.mobileStatTitle}>
+                                  <div className={styles.title_logo}></div>
+                                  <FormattedMessage id="key_schedule_before" />
+                                </div>
+                                <div className={styles.mobileStatTitle}>
+                                  <div className={styles.title_logo}></div>
+                                  <FormattedMessage id="key_attack_defenseh" />
+                                </div>
+                                <Strength />
+                              </CapsuleTabs.Tab> */}
                             </CapsuleTabs>
                           </div>
                         </>

@@ -3,7 +3,7 @@ import styles from './index.less';
 type Props = {};
 
 const RightTab = (props: Props) => {
-  const [key, setKey] = useState('0');
+  const [activekey, setActivekey] = useState<string | null>(null);
   const tab = [
     { title: '同主客', key: '0' },
     { title: '同赛事', key: '1' },
@@ -12,8 +12,11 @@ const RightTab = (props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const onTabChange = (key: string) => {
     console.log(key, 'poiuytre');
-
-    setKey(key);
+    if (key == activekey) {
+      setActivekey(null);
+    } else {
+      setActivekey(key);
+    }
   };
   return (
     <div className={styles.right_tab}>
@@ -21,7 +24,7 @@ const RightTab = (props: Props) => {
         return (
           <div
             key={item.key}
-            className={key == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
+            className={activekey == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
             onClick={() => {
               onTabChange(item.key);
             }}

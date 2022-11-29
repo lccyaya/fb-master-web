@@ -2,6 +2,8 @@ import styles from './index.less';
 import type * as matchService from '@/services/match';
 import moment from 'moment';
 import emptyLogo from '@/assets/emptyLogo.png';
+import Video from '@/assets/match/video.png';
+
 import { getMatchStatus, getMatchStatusDes, MatchStatus } from '@/utils/match';
 import { useRef, useState, useEffect } from 'react';
 import { Link, useIntl, history } from 'umi';
@@ -17,6 +19,7 @@ import { locale } from '@/app';
 import { FormattedMessage } from '@@/plugin-locale/localeExports';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
 import Iconfont from '@/base-components/iconfont';
+import Weather from './wheater';
 
 export default (props: {
   match?: matchService.MatchDetails;
@@ -217,7 +220,8 @@ export default (props: {
           <Link className={styles.team} to={`../teamdetails/${match.home_team_id}`}>
             <img className={styles.logo} src={match.home_team_logo || emptyLogo} />
             <div className={styles.name} title={match.home_team_name}>
-              {match.home_team_name}
+              <div style={{ fontWeight: 500 }}> {match.home_team_name}</div>
+              <div style={{ fontSize: 10, color: '#E9EBE4' }}>西甲</div>
             </div>
           </Link>
 
@@ -226,7 +230,13 @@ export default (props: {
               {showScore ? (
                 <>
                   <div className={styles.num}>{final.home}</div>
-                  <div className={styles.colon}>:</div>
+                  <div className={styles.colon}>
+                    {' '}
+                    <div style={{ fontSize: 10, color: '#E9EBE4' }}>
+                      {getMatchStatusDes(match.status)}
+                      <div>(1-0)</div>
+                    </div>
+                  </div>
                   <div className={styles.num}>{final.away}</div>
                 </>
               ) : (
@@ -240,12 +250,18 @@ export default (props: {
                 </div>
               )}
             </div>
+            <div style={{ fontSize: 10, color: '#E9EBE4', margin: '5px 0' }}>点球(3-4)</div>
+            <div className={styles.video}>
+              <img src={Video} style={{ width: 15, height: 15 }} alt="" />
+              视频直播
+            </div>
           </div>
 
           <Link className={styles.team} to={`../teamdetails/${match.away_team_id}`}>
             <img className={styles.logo} src={match.away_team_logo || emptyLogo} />
             <div className={styles.name} title={match.away_team_name}>
-              {match.away_team_name}
+              <div style={{ fontWeight: 500 }}>{match.away_team_name}</div>
+              <div style={{ fontSize: 10, color: '#E9EBE4' }}>西甲</div>
             </div>
           </Link>
           {showOtOrPen && (
@@ -269,7 +285,9 @@ export default (props: {
             </div>
           </CallAppModal>
         )}
-        <div className={styles.weather}>天气</div>
+        <div className={styles.weather}>
+          <Weather />
+        </div>
       </div>
     </div>
   );
