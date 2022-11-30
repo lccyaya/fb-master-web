@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import styles from './index.less';
-type Props = {};
+type tabData = {
+  title: string;
+  key: string;
+};
+type Props = {
+  tab: tabData[];
+};
 
 const RightTab = (props: Props) => {
   const [activekey, setActivekey] = useState<string | null>(null);
-  const tab = [
-    { title: '同主客', key: '0' },
-    { title: '同赛事', key: '1' },
-    { title: '20场', key: '2' },
-  ];
+
+  const { tab } = props;
   // eslint-disable-next-line @typescript-eslint/no-shadow
+  // 点击切换tab
   const onTabChange = (key: string) => {
     console.log(key, 'poiuytre');
     if (key == activekey) {

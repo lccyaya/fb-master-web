@@ -14,7 +14,12 @@ import Banner from '@/components/Banner';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
 import Scheme from './scheme/index';
 import { Tabs, Badge, CapsuleTabs } from 'antd-mobile';
-import FBWorldCapTab from '@/components/FBWordCopTab';
+// import FBWorldCapTab from '@/components/FBWordCopTab';
+import RightTab from './Stats/RightTab';
+import GoalLost from './Strength/GoalLost';
+
+import IconFont from '@/components/IconFont';
+
 import SupportYourTeam from '../../components/SupportYourTeam';
 import Tips from '../../components/Tips';
 import styles from './index.less';
@@ -87,7 +92,12 @@ const Details: React.FC<DetailProps> = (props) => {
 
   const { matchId } = props.match.params;
   const { showTips } = props;
-  const { TabPane } = Tabs;
+  // const { TabPane } = Tabs;
+  const tab = [
+    { title: '同主客', key: '0' },
+    { title: '同赛事', key: '1' },
+    { title: '20场', key: '2' },
+  ];
   const init = async (showLoading = true) => {
     if (showLoading) {
       setLoading(true);
@@ -218,9 +228,9 @@ const Details: React.FC<DetailProps> = (props) => {
     Boolean(data?.normal_live_link || data?.high_live_link);
   const hasHighlight = Boolean(data?.has_highlight && data?.highlights.length);
   const hasPlayback = Boolean(data?.playback_link);
-  const back = () => {
-    history.goBack();
-  };
+  // const back = () => {
+  //   history.goBack();
+  // };
 
   return (
     <div style={{ height: '100%', background: '#F7FAFB' }}>
@@ -385,7 +395,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                   {isPhone ? <>{Vote}</> : null}
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle}>
+                                    <div className={styles.mobileStatTitle_title}>
                                       <div className={styles.title_logo}></div>
                                       <FormattedMessage id="key_league_ranking" />
                                     </div>
@@ -398,7 +408,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                     </div>
                                   </div>
                                   <div>
-                                    <div className={styles.mobileStatTitle}>
+                                    <div className={styles.mobileStatTitle_title}>
                                       <div className={styles.title_logo}></div>
                                       <FormattedMessage id="key_cup_match_ranking" />
                                     </div>
@@ -413,7 +423,7 @@ const Details: React.FC<DetailProps> = (props) => {
 
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle}>
+                                    <div className={styles.mobileStatTitle_title}>
                                       <div className={styles.title_logo}></div>
                                       <FormattedMessage id="key_history_ranking" />
                                     </div>
@@ -427,7 +437,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                   </div>
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle}>
+                                    <div className={styles.mobileStatTitle_title}>
                                       <div className={styles.title_logo}></div>
                                       <FormattedMessage id="key_recent_games" />
                                     </div>
@@ -441,7 +451,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                   </div>
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle}>
+                                    <div className={styles.mobileStatTitle_title}>
                                       <div className={styles.title_logo}></div>
                                       <FormattedMessage id="key_future_match" />
                                     </div>
@@ -455,17 +465,39 @@ const Details: React.FC<DetailProps> = (props) => {
                                   </div>
                                 </div>
                               </CapsuleTabs.Tab>
-                              {/* <CapsuleTabs.Tab title="实力" key="vegetables">
+                              <CapsuleTabs.Tab title="实力" key="vegetables">
                                 <div className={styles.mobileStatTitle}>
-                                  <div className={styles.title_logo}></div>
-                                  <FormattedMessage id="key_schedule_before" />
+                                  <div className={styles.mobileStatTitle_title}>
+                                    <div className={styles.title_logo}></div>
+                                    <FormattedMessage id="key_schedule_before" />
+                                  </div>
+
+                                  <div>
+                                    <div className={styles.getmore}>
+                                      查看更多
+                                      <IconFont
+                                        className={styles.icon}
+                                        size={12}
+                                        type="icon-jiantouyou"
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
+                                <div>
+                                  {' '}
+                                  <GoalLost />
+                                </div>
+
                                 <div className={styles.mobileStatTitle}>
-                                  <div className={styles.title_logo}></div>
-                                  <FormattedMessage id="key_attack_defenseh" />
+                                  <div className={styles.mobileStatTitle_title}>
+                                    <div className={styles.title_logo}></div>
+                                    <FormattedMessage id="key_attack_defenseh" />
+                                  </div>
+
+                                  <RightTab tab={tab} />
                                 </div>
                                 <Strength />
-                              </CapsuleTabs.Tab> */}
+                              </CapsuleTabs.Tab>
                             </CapsuleTabs>
                           </div>
                         </>

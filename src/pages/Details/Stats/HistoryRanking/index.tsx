@@ -20,6 +20,7 @@ interface DataType {
   lost: number;
   team_id: number;
   avatar: string;
+  render: any;
 }
 type Props = {};
 
@@ -55,7 +56,7 @@ const Ranking = (props: Props) => {
       dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
 
       align: 'center',
-      render: (text, record, index) => (
+      render: (text) => (
         <div style={{ color: '#7E1132' }}>
           {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
         </div>
@@ -73,13 +74,19 @@ const Ranking = (props: Props) => {
       ),
     },
   ];
+
+  const tab = [
+    { title: '同主客', key: '0' },
+    { title: '同赛事', key: '1' },
+    { title: '20场', key: '2' },
+  ];
   return (
     <div>
       <div className={styles.table_space}>
-        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
+        <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
       </div>
       <div className={styles.table_space}>
-        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
+        <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
       </div>
     </div>
   );

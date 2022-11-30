@@ -139,6 +139,8 @@ export default {
     "key_get_into_account_web": "请先输入你的账号",
     "key_go_to_open_push": "去开启",
     "key_goal": "进球",
+    "key_match_goal": "进球分布",
+    "key_match_lost": "失球分布",
     "key_goalkeeper": "守门员",
     "key_goals": "进球",
     "key_goals_s": "球",

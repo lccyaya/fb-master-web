@@ -36,7 +36,7 @@ const Guess = (props: Props) => {
       title: `分享34体育`,
       app: '(App专享)',
       content: '每日分享获得能量值',
-      action: isNative ? '去分享' :'去下载',
+      action: isNative ? '去分享' : '去下载',
     },
   ];
   useSelector;
@@ -48,8 +48,7 @@ const Guess = (props: Props) => {
   useEffect(() => {
     dispatch({
       type: 'guessUser/guessUser',
-      payload: {
-      },
+      payload: {},
     });
   }, [user]);
 

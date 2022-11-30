@@ -90,13 +90,18 @@ const Ranking = (props: Props) => {
       render: (text, record, index) => <div style={{ color: '#7E1132' }}>赢</div>,
     },
   ];
+  const tab = [
+    { title: '同主客', key: '0' },
+    { title: '同赛事', key: '1' },
+    { title: '20场', key: '2' },
+  ];
   return (
     <div>
       <div className={styles.table_space}>
-        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
+        <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
       </div>
       <div className={styles.table_space}>
-        <Table addRight={<RightTab />} data={data} columns={columns} dataText />
+        <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
       </div>
     </div>
   );
