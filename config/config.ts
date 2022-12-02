@@ -30,7 +30,8 @@ export default defineConfig({
         }
         return result
       }
-      return Promise.resolve(buildRoute(['home', 'highlight', 'news', 'live', 'match', 'tips', 'info', 'download']));
+      return Promise.resolve(buildRoute(['home', 'match']));
+      // return Promise.resolve(buildRoute(['home', 'highlight', 'news', 'live', 'match', 'tips', 'info', 'download']));
     },
   },
   devtool: false,

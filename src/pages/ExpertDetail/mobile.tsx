@@ -1,20 +1,16 @@
-import styles from './mobile.module.less';
+import Avatar from '@/components/avatar';
+import Empty from '@/components/Empty';
+import SkilledCompetitions from '@/components/expert/skilled-competitions/mobile';
+import Achievements from '@/components/FBNewAchievements';
 import SchemeList from '@/components/SchemeList/mobile';
 import Watch from '@/components/Watch/mobile';
-import Iconfont from '@/components/IconFont';
-import cls from 'classnames';
-import Tags from '@/components/Tags/mobile';
-import SkilledCompetitions from '@/components/expert/skilled-competitions/mobile';
 import { expertDetail } from '@/services/expert';
-import { history, useHistory, useLocation } from 'umi';
-import React, { useState, useEffect } from 'react';
-import Achievements from '@/components/FBNewAchievements';
-import Chart from '@/components/Chart/mobile';
-import Avatar from '@/components/avatar';
-import { Spin } from 'antd';
-import Empty from '@/components/Empty';
 import EventEmitter from '@/utils/event';
+import { Spin } from 'antd';
 import { NavBar } from 'antd-mobile';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'umi';
+import styles from './mobile.module.less';
 
 const ExpertDetail: React.FC = () => {
   const [loading, setLoading] = useState(false);

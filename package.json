@@ -15,6 +15,7 @@
     "locales:dev": "node download-locales --env=dev",
     "locales:prd": "node download-locales --env=prd",
     "analyze": "cross-env ANALYZE=1 umi build",
+    "analyze:cn": "cross-env ANALYZE=1 DEPLOY_TARGET=cn umi build",
     "deploy": "npm run site && npm run gh-pages",
     "dev": "npm run start:dev",
     "dev:https": "npm run start:https",
