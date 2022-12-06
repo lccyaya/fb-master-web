@@ -2,41 +2,52 @@ import React, { useState } from 'react';
 import styles from './index.less';
 type tabData = {
   title: string;
-  key: string;
+  key: number | string;
 };
 type Props = {
   tab: tabData[];
+  setActivekey: any;
+  activekey: any;
+  num: number;
+  setNum: any;
 };
 
 const RightTab = (props: Props) => {
-  const [activekey, setActivekey] = useState<string | null>(null);
-
-  const { tab } = props;
+  const { tab, activekey, setActivekey, num, setNum } = props;
   // eslint-disable-next-line @typescript-eslint/no-shadow
   // 点击切换tab
-  const onTabChange = (key: string) => {
+  const onTabChange = (key: number | string) => {
     console.log(key, 'poiuytre');
-    if (key == activekey) {
-      setActivekey(null);
-    } else {
-      setActivekey(key);
-    }
+    setActivekey(key);
   };
   return (
     <div className={styles.right_tab}>
       {tab.map((item) => {
         return (
-          <div
-            key={item.key}
-            className={activekey == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
-            onClick={() => {
-              onTabChange(item.key);
-            }}
-          >
-            {item.title}
+          // eslint-disable-next-line react/jsx-key
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              key={item.key}
+              // className={activekey == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
+              className={activekey == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
+              onClick={() => {
+                onTabChange(item.key);
+              }}
+            >
+              {item.title}
+            </div>
           </div>
         );
       })}
+      <div
+        // className={activekey == item.key ? styles.right_tab_btn_active : styles.right_tab_btn}
+        className={num == 20 ? styles.right_tab_btn_active : styles.right_tab_btn}
+        onClick={() => {
+          setNum(20);
+        }}
+      >
+        20场
+      </div>
     </div>
   );
 };

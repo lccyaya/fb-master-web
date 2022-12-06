@@ -1,85 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../table';
 import RightTab from '../RightTab';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
-interface DataType {
-  key: string;
-  ranking: string;
-  num: number;
-  team: string;
-  teamplay: string;
-  team_logo: string;
-  position: number;
-  played: number;
-  won: number;
-  against: number;
-  drawn: number;
-  goals: number;
-  diff: number;
-  lost: number;
-  team_id: number;
-  avatar: string;
-}
-type Props = {};
+import { futureList } from '@/services/matchdetail';
+import type { FutureListRes, futurematchType } from '@/services/matchdetail';
+import moment from 'moment';
 
 const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }];
-  const columns: ColumnsType<DataType> = [
-    {
-      title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
-      dataIndex: 'id',
-      key: 'id',
-      align: 'center',
-    },
+  const { match_id } = props;
+  const [data, setData] = useState<FutureListRes[]>([]);
+  const columns = (name: string): ColumnsType<futurematchType> => {
+    return [
+      {
+        title: <div style={{ fontWeight: 600, color: '#000028' }}>{name}</div>,
+        dataIndex: 'competition_name',
+        key: 'competition_name',
+        align: 'center',
+      },
 
-    {
-      title: '日期',
-      dataIndex: 'nickname',
-      key: 'nickname',
-      align: 'center',
-      render: (text, record, index) => <div>2022-11-02</div>,
-    },
-    {
-      title: '主队',
-      dataIndex: 'number',
-      width: 60,
-      key: 'number',
-      align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#45494C', width: 60, whiteSpace: 'pre-wrap', fontWeight: 500 }}>
-          沙特阿拉沙特阿拉
-        </div>
-      ),
-    },
-    {
-      title: '客队',
-      dataIndex: 'reward_rate',
-      width: 60,
-      align: 'center',
-      render: (text, record, index) => (
-        <div style={{ width: 60, whiteSpace: 'pre-wrap' }}>沙特阿拉沙特阿拉</div>
-      ),
-    },
-    {
-      title: '间隔',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+      {
+        title: '日期',
+        dataIndex: 'match_time',
+        key: 'match_time',
+        align: 'center',
+        render: (text, record, index) => <div>{moment(text * 1000).format('YYYY-MM-DD')}</div>,
+      },
+      {
+        title: '主队',
+        dataIndex: 'home_team_name',
+        width: 60,
+        key: 'home_team_name',
+        align: 'center',
+        render: (text, record, index) => (
+          <div className={text === name ? styles.namestyle : null}>{text}</div>
+        ),
+      },
+      {
+        title: '客队',
+        dataIndex: 'away_team_name',
+        key: 'away_team_name',
+        width: 60,
+        align: 'center',
+        render: (text, record, index) => (
+          <div className={text === name ? styles.namestyle : null}>{text}</div>
+        ),
+      },
+      {
+        title: '间隔',
+        dataIndex: 'interval',
+        key: 'interval',
+        align: 'center',
+        render: (text, record, index) => <div>{text}天</div>,
+      },
+    ];
+  };
 
-      align: 'center',
-      render: (text, record, index) => <div>3天</div>,
-    },
-  ];
+  const getFutureList = async () => {
+    const res = await futureList({ match_id });
+    if (res.success) {
+      setData(res.data);
+    }
+  };
+
+  useEffect(() => {
+    console.log(match_id);
+    getFutureList();
+  }, []);
   return (
     <div>
-      <div className={styles.table_space}>
-        <Table data={data} columns={columns} />
-      </div>
-      <div className={styles.table_space}>
-        <Table data={data} columns={columns} />
-      </div>
-      <div className={styles.table_space}>
-        <Table data={data} columns={columns} />
-      </div>
+      {data?.map((item) => {
+        return (
+          // eslint-disable-next-line react/jsx-key
+          <div className={styles.table_space}>
+            <Table dataSource={item.match} rowKey="match_id" columns={columns(item.name)} />
+          </div>
+        );
+      })}
     </div>
   );
 };

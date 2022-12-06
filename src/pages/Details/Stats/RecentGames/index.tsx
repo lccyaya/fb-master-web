@@ -1,110 +1,127 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../table';
 import RightTab from '../RightTab';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
-interface DataType {
-  key: string;
-  ranking: string;
-  num: number;
-  team: string;
-  teamplay: string;
-  team_logo: string;
-  position: number;
-  played: number;
-  won: number;
-  against: number;
-  drawn: number;
-  goals: number;
-  diff: number;
-  lost: number;
-  team_id: number;
-  avatar: string;
-}
-type Props = {};
+import { analysisList } from '@/services/matchdetail';
+import type { AnalysisListRes, analysisType, AnalysisListParams } from '@/services/matchdetail';
 
-const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }];
-  const columns: ColumnsType<DataType> = [
+type Props = {
+  match_id: number;
+};
+
+const RecentGames = (props: Props) => {
+  const columns: ColumnsType<analysisType> = [
     {
       title: '赛事',
-      dataIndex: 'nickname',
-      key: 'nickname',
-      //   width: 150,
+      dataIndex: 'competition_name',
+      key: 'competition_name',
       align: 'center',
-      render: (text, record, index) => <div>西甲</div>,
     },
+
     {
       title: '主队',
-      dataIndex: 'id',
-      key: 'id',
-      width: 60,
+      dataIndex: 'home',
+      key: 'home',
+      //   width: 150,
       align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#45494C', width: 60, whiteSpace: 'pre-wrap' }}>沙特阿拉沙特阿拉</div>
-      ),
+      render: (text, record, index) => <div>{text.team_name}</div>,
     },
     {
       title: '',
-      dataIndex: 'id',
-      key: 'id',
-
+      dataIndex: 'home',
+      key: 'home',
+      //   width: 150,
       align: 'center',
       render: (text, record, index) => (
-        <div>
-          <div style={{ fontSize: 15, fontWeight: 500, color: '#45494C' }}>2:1</div>
-
-          <div style={{ fontSize: 11 }}>(0:0)</div>
+        <div className={styles.namestyle}>
+          {record.home.score}:{record.away.score}
         </div>
       ),
     },
     {
       title: '客队',
-      dataIndex: 'number',
-      width: 60,
-      key: 'number',
-      align: 'center',
-      render: (text, record, index) => (
-        <div style={{ width: 60, whiteSpace: 'pre-wrap' }}>沙特阿拉沙特阿拉</div>
-      ),
-    },
-    {
-      title: '盘',
-      dataIndex: 'reward_rate',
+      dataIndex: 'away',
 
+      key: 'away',
       align: 'center',
-      render: (text, record, index) => <div style={{ color: '#7E1132' }}>赢</div>,
+      render: (text, record, index) => <div>{text.team_name}</div>,
     },
-    {
-      title: '进',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+    // {
+    //   title: '进',
+    //   dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
 
-      align: 'center',
-      render: (text, record, index) => <div style={{ color: '#7E1132' }}>赢</div>,
-    },
-    {
-      title: '角',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+    //   align: 'center',
+    //   render: (text) => (
+    //     <div style={{ color: '#7E1132' }}>
+    //       {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   title: '角',
+    //   dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
 
-      align: 'center',
-      render: (text, record, index) => <div style={{ color: '#7E1132' }}>赢</div>,
-    },
+    //   align: 'center',
+    //   render: (text, record, index) => (
+    //     <div style={{ color: '#7E1132' }}>
+    //       {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
+    //     </div>
+    //   ),
+    // },
   ];
+  const { match_id } = props;
+  const [homedata, setHomeData] = useState<AnalysisListRes>();
+
+  const [activekey, setActivekey] = useState<string | number>(1);
+  const [num, setNum] = useState<number>(1);
+  // 近10/20场
+
   const tab = [
-    { title: '同主客', key: '0' },
-    { title: '同赛事', key: '1' },
-    { title: '20场', key: '2' },
+    { title: '同主客', key: 1 },
+    { title: '同赛事', key: 0 },
   ];
+  const getHomeFutureList = async () => {
+    const params: AnalysisListParams = {
+      match_id,
+      tab: 3, //近期对战
+      event: activekey,
+      size: num,
+    };
+    const res = await analysisList(params);
+    if (res.success) {
+      setHomeData(res.data.list);
+    }
+    console.log(res.data, 'pppppppppp的点点滴滴');
+  };
+
+  useEffect(() => {
+    getHomeFutureList();
+    // getAwayFutureList();
+  }, [activekey, num]);
   return (
     <div>
       <div className={styles.table_space}>
-        <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
+        <Table
+          addRight={
+            <RightTab
+              tab={tab}
+              activekey={activekey}
+              setActivekey={setActivekey}
+              num={num}
+              setNum={setNum}
+            />
+          }
+          dataSource={homedata}
+          columns={columns}
+        />
       </div>
-      <div className={styles.table_space}>
+
+      {/* <div className={styles.table_space}>
         <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default Ranking;
+export default RecentGames;

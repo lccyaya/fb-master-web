@@ -17,10 +17,10 @@ const GoalLost = (props: Props) => {
   return (
     <div className={styles.goallost_match_tab}>
       <OddsType />
-      <div>xxxx</div>
-      <div>
+      {/* <div>xxxx</div> */}
+      {/* <div>
         <RightTab tab={tab} />
-      </div>
+      </div> */}
     </div>
   );
 };

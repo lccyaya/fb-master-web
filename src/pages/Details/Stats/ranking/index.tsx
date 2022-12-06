@@ -1,99 +1,119 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '../table';
-import RightTab from '../RightTab';
+// import RightTab from '../RightTab';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
-interface DataType {
-  key: string;
-  ranking: string;
-  num: number;
-  team: string;
-  teamplay: string;
-  team_logo: string;
-  position: number;
-  played: number;
-  won: number;
-  against: number;
-  drawn: number;
-  goals: number;
-  diff: number;
-  lost: number;
-  team_id: number;
-  avatar: string;
-}
-type Props = {};
+import type * as matchServicets from '@/services/match';
+
+type Props = {
+  match: { home: matchServicets.TeamRankingItemType[]; away: matchServicets.TeamRankingItemType[] };
+  matchTypeData: matchServicets.MatchDetails;
+};
 
 const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
-  const columns: ColumnsType<DataType> = [
+  const { match, matchTypeData } = props;
+  // const { match_id } = props;
+  // const [data, setData] = useState<any>();
+  const columns: ColumnsType<matchServicets.TeamRankingItemType> = [
     {
-      title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
-      dataIndex: 'id',
-      key: 'id',
-      // align: "center",
+      title: (
+        <div style={{ fontWeight: 600, color: '#000028' }}>{matchTypeData.home_team_name}</div>
+      ),
+      dataIndex: 'team_name',
+      key: 'team_name',
+      align: 'center',
+      render: (text, record) => (
+        <div>
+          <img className={styles.team_logo} src={record.team_logo} alt="" />
+          {text}
+        </div>
+      ),
     },
 
     {
       title: '赛',
-      dataIndex: 'nickname',
-      key: 'nickname',
-      width: 50,
+      dataIndex: 'played',
+      key: 'played',
       align: 'center',
-      render: (text, record, index) => <div>{text}</div>,
+      // render: (text, record, index) => <div>{text}</div>,
     },
     {
       title: '胜/平/负',
-      dataIndex: 'number',
+      dataIndex: 'won',
 
-      key: 'number',
+      key: 'won',
       align: 'center',
-      render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
+      render: (text, record) => (
+        <div>
+          {text}/ {record.drawn}/{record.lost}
+        </div>
+      ),
     },
     {
       title: '进/失/净',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+      dataIndex: 'goals',
 
       align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
+      render: (text, record) => (
+        <div>
+          {text}/{record.against}
         </div>
       ),
     },
     {
       title: '积分',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+      dataIndex: 'pts',
 
       align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
-        </div>
-      ),
     },
     {
       title: '排名',
-      dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
-
+      dataIndex: 'position',
       align: 'center',
-      render: (text, record, index) => (
-        <div style={{ color: '#7E1132' }}>
-          {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
-        </div>
-      ),
+      // render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
     },
   ];
+  // const getCupmatchList = async () => {
+  //   const params: any = {
+  //     match_id,
+  //   };
+  //   const res = await cupmatchList(params);
+  //   if (res.success) {
+  //     setData(res.data);
+  //   }
+  //   console.log(res.data, 'pppppppppp');
+  // };
+
+  // useEffect(() => {
+  //   getCupmatchList();
+  //   // getAwayFutureList();
+  // }, []);
   return (
     <div>
-      <div className={styles.table_space}>
+      {match?.home && (
+        <div className={styles.table_space}>
+          <Table
+            addRight={<div>完整积分榜</div>}
+            dataTitle={matchTypeData.competition_name}
+            dataSource={match?.home}
+            columns={columns}
+          />
+        </div>
+      )}
+      {match?.away && (
+        <div className={styles.table_space}>
+          <Table
+            addRight={<div>完整积分榜</div>}
+            // dataSource={data?.home.}
+            columns={columns}
+            dataTitle={matchTypeData.competition_name}
+          />
+        </div>
+      )}
+
+      {/* <div className={styles.table_space}>
         <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
-      <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div>
+      </div> */}
     </div>
   );
 };

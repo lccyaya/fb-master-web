@@ -187,6 +187,9 @@ export const getMatchListV3 = async (params: {
 };
 export enum NumColor {
   win = 'win',
+  winname = "赢",
+  goname = "走",
+  lostname = "输",
   draw = 'draw',
   lost = 'lost',
 }
@@ -194,10 +197,17 @@ export enum NumColor {
 export namespace Color {
   export function numColor(type: string) {
     switch (type) {
+
+      case NumColor.winname:
+        return '#FA5900';
       case NumColor.win:
         return '#FA5900';
+      case NumColor.goname:
+        return '#4064B2';
+
       case NumColor.draw:
         return '#4064B2';
+
       default:
         return '#39906A';
     }

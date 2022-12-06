@@ -9,6 +9,8 @@ import { useHistory } from 'umi';
 import GuessAvatar from '@/assets/worldcup/guess_avatar.png';
 import FBTitle from '@/components/FBTitle';
 import { Color } from '@/utils/match';
+import { cupmatchList } from '@/services/matchdetail';
+// import type { FutureListRes, cupmatchList } from '@/services/matchdetail';
 // import { ScoresList } from "@/services/worldcup"
 
 import styles from './index.less';
@@ -32,9 +34,10 @@ interface DataType {
 }
 type Props = {
   group?: string | number;
-  data?: any;
+
   activeKey?: string;
   addRight?: ReactElement;
+  match_id?: number;
 };
 const customizeRenderEmpty = () => (
   <div style={{ textAlign: 'center' }}>
@@ -43,6 +46,8 @@ const customizeRenderEmpty = () => (
 );
 const TablePage = (props: Props) => {
   const history = useHistory();
+  const { match_id } = props;
+  const [data, setData] = useState<any>();
   const columns: ColumnsType<DataType> = [
     {
       title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
@@ -101,14 +106,28 @@ const TablePage = (props: Props) => {
       ),
     },
   ];
-  // const { addRight } = props;
+  const getCupmatchList = async () => {
+    const params: any = {
+      match_id,
+    };
+    const res = await cupmatchList(params);
+    if (res.success) {
+      setData(res.data.home);
+    }
+    console.log(res.data, 'pppppppppp');
+  };
+
+  useEffect(() => {
+    getCupmatchList();
+    // getAwayFutureList();
+  }, []);
   return (
     <div className={styles.tab_teamtable_rank}>
       <ConfigProvider renderEmpty={customizeRenderEmpty}>
         <Table
           pagination={false}
           columns={columns}
-          dataSource={props.data}
+          dataSource={data?.list}
           rowKey="id"
           // onRow={record => {
           //     return {

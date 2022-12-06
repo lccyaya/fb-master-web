@@ -186,8 +186,7 @@ export default (props: {
               <Iconfont type="icon-gengduo" size={15} color="#fff" />
             </div>
             <div className={styles.name}>
-              {match.competition_name}
-              {match.round?.group_name}组{match.round?.show_name}
+              {match.round?.stage_name} {match.round?.group_name}组 第{match.round?.round_name}轮
             </div>
 
             <div className={styles.time}>{time}</div>
@@ -221,7 +220,7 @@ export default (props: {
             <img className={styles.logo} src={match.home_team_logo || emptyLogo} />
             <div className={styles.name} title={match.home_team_name}>
               <div style={{ fontWeight: 500 }}> {match.home_team_name}</div>
-              <div style={{ fontSize: 10, color: '#E9EBE4' }}>西甲</div>
+              <div style={{ fontSize: 10, color: '#E9EBE4' }}>{match.competition_name}</div>
             </div>
           </Link>
 
@@ -261,7 +260,7 @@ export default (props: {
             <img className={styles.logo} src={match.away_team_logo || emptyLogo} />
             <div className={styles.name} title={match.away_team_name}>
               <div style={{ fontWeight: 500 }}>{match.away_team_name}</div>
-              <div style={{ fontSize: 10, color: '#E9EBE4' }}>西甲</div>
+              <div style={{ fontSize: 10, color: '#E9EBE4' }}>{match.competition_name}</div>
             </div>
           </Link>
           {showOtOrPen && (

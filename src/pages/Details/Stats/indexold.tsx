@@ -3,7 +3,7 @@ import { Tabs, Spin } from 'antd';
 import { FormattedMessage } from 'umi';
 
 import * as matchService from '@/services/match';
-import Ranking from './Ranking';
+import Ranking from './libraryranking';
 import RecentGames from './recent';
 import { report } from '@/services/ad';
 import { REPORT_ACTION, REPORT_CATE } from '@/constants';

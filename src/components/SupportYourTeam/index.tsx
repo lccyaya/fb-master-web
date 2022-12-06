@@ -20,7 +20,7 @@ export type SupportVoteData = {
     asia: OddsItemType;
     bs: OddsItemType;
     eu: OddsItemType;
-  }
+  };
 };
 
 export type SupportYourTeamProps = {
@@ -44,7 +44,7 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
     let setLoading = setHomeLoading;
     let reportAction: REPORT_ACTION | undefined;
     if (type === VOTE_TYPE.HOME) {
-      setLoading = setHomeLoading
+      setLoading = setHomeLoading;
       reportAction = REPORT_ACTION.dt_vote_h;
     } else if (type === VOTE_TYPE.DRAW) {
       setLoading = setDrawLoading;
@@ -66,7 +66,7 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
       cate: REPORT_CATE.match_detail,
       action: reportAction,
     });
-  }
+  };
 
   const pieData = {
     total,
@@ -74,53 +74,79 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
     draw_vote: data.draw_vote,
     away_team_vote: data.away_team_vote,
     odds: data.odds,
-    home_odds: (data.odds && data.odds.eu) ? data.odds.eu.home : 0,
-    away_odds: (data.odds && data.odds.eu) ? data.odds.eu.away : 0,
-    draw_odds: (data.odds && data.odds.eu) ? data.odds.eu.draw : 0,
-  }
+    home_odds: data.odds && data.odds.eu ? data.odds.eu.home : 0,
+    away_odds: data.odds && data.odds.eu ? data.odds.eu.away : 0,
+    draw_odds: data.odds && data.odds.eu ? data.odds.eu.draw : 0,
+  };
 
   const isSelected = (e: VOTE_TYPE) => {
     return disabled && isVoted && voteType === e;
-  }
+  };
 
   return (
     <div className={styles.supportContainer}>
-      <Row className={styles.title}><FormattedMessage id="key_support_your_team" /></Row>
-      <Row className={styles.votes}>投票人数：{`${total} ${useIntl().formatMessage({ id: 'key_votes' })}`}</Row>
+      <div className={styles.mobileStatTitle}>
+        <div className={styles.mobileStatTitle_title}>
+          <div className={styles.title_logo}></div>
+          <FormattedMessage id="key_support_your_team" />
+        </div>
+
+        <div>
+          <div className={styles.getmore}>
+            投票人数：{`${total} ${useIntl().formatMessage({ id: 'key_votes' })}`}
+          </div>
+        </div>
+      </div>
+
+      {/* <Row className={styles.title}>
+        <FormattedMessage id="key_support_your_team" />
+      </Row> */}
+      {/* <Row className={styles.votes}>
+        投票人数：{`${total} ${useIntl().formatMessage({ id: 'key_votes' })}`}
+      </Row> */}
       <div className={styles.info}>
         <PiechartVertical data={pieData} />
         <Row className={styles.voteContainer}>
-          <PopupLogin
-            onLogin={() => voteHandler(VOTE_TYPE.HOME)}
-          >
+          <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.HOME)}>
             <Button
               disabled={disabled}
               loading={homeLoading}
-              className={classNames(styles.button, styles.home, disabled ? styles.disable : '', isSelected(VOTE_TYPE.HOME) ? styles.selected : '')}
-              icon={<LikeOutlined />}>
-              <FormattedMessage id="key_vote" />
-            </Button>
-          </PopupLogin>
-          <PopupLogin
-            onLogin={() => voteHandler(VOTE_TYPE.DRAW)}
-          >
-            <Button
-              disabled={disabled}
-              loading={drawLoading}
-              className={classNames(styles.button, styles.draw, disabled ? styles.disable : '', isSelected(VOTE_TYPE.DRAW) ? styles.selected : '')}
+              className={classNames(
+                styles.button,
+                styles.home,
+                disabled ? styles.disable : '',
+                isSelected(VOTE_TYPE.HOME) ? styles.selected : '',
+              )}
               icon={<LikeOutlined />}
             >
               <FormattedMessage id="key_vote" />
             </Button>
           </PopupLogin>
-          <PopupLogin
-            onLogin={() => voteHandler(VOTE_TYPE.AWAY)}
-          >
+          <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.DRAW)}>
+            <Button
+              disabled={disabled}
+              loading={drawLoading}
+              className={classNames(
+                styles.button,
+                styles.draw,
+                disabled ? styles.disable : '',
+                isSelected(VOTE_TYPE.DRAW) ? styles.selected : '',
+              )}
+              icon={<LikeOutlined />}
+            >
+              <FormattedMessage id="key_vote" />
+            </Button>
+          </PopupLogin>
+          <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.AWAY)}>
             <Button
               disabled={disabled}
               loading={awayLoading}
-              className={classNames(styles.button, styles.away, disabled ? styles.disable : '',
-                isSelected(VOTE_TYPE.AWAY) ? styles.selected : '')}
+              className={classNames(
+                styles.button,
+                styles.away,
+                disabled ? styles.disable : '',
+                isSelected(VOTE_TYPE.AWAY) ? styles.selected : '',
+              )}
               icon={<LikeOutlined />}
             >
               <FormattedMessage id="key_vote" />

@@ -1,39 +1,23 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Table, ConfigProvider } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import Empty from '@/components/Empty';
-import { useHistory } from 'umi';
+// import { useHistory } from 'umi';
 import FBTitle from '@/components/FBTitle';
 import { Color } from '@/utils/match';
+import type { spType } from '@/services/matchdetail';
 // import { ScoresList } from "@/services/worldcup"
 
 import styles from './index.less';
-interface DataType {
-  key: string;
-  ranking: string;
-  num: number;
-  team: string;
-  teamplay: string;
-  team_logo: string;
-  position: number;
-  played: number;
-  won: number;
-  against: number;
-  drawn: number;
-  goals: number;
-  diff: number;
-  lost: number;
-  team_id: number;
-  avatar: string;
-}
+
 type Props = {
   group?: string | number;
-  data?: any;
+  dataSource?: any;
   activeKey?: string;
   addRight?: ReactElement;
-  columns?: ColumnsType<DataType>;
-  dataText?: boolean;
-  dataTitle?: boolean;
+  columns?: any;
+  dataText?: spType;
+  dataTitle?: string;
+  rowKey?: string;
 };
 const customizeRenderEmpty = () => (
   <div style={{ textAlign: 'center' }}>
@@ -41,14 +25,15 @@ const customizeRenderEmpty = () => (
   </div>
 );
 const TablePage = (props: Props) => {
-  const history = useHistory();
+  // const history = useHistory();
 
-  const { addRight, dataText, dataTitle } = props;
+  const { addRight, dataText, dataTitle, rowKey, dataSource } = props;
+
   return (
     <div className={styles.tab_teamtable_rank}>
       <div style={{ padding: '0 10px' }}>
         <div className={styles.rank_title}>
-          {dataTitle ? <FBTitle title="西甲" /> : <FBTitle title="" />}
+          {dataTitle ? <FBTitle title={dataTitle} /> : <FBTitle title="" />}
 
           <div>{addRight}</div>
         </div>
@@ -56,13 +41,13 @@ const TablePage = (props: Props) => {
         {dataText && (
           <div className={styles.data_text}>
             <div>
-              近12场交战 卡塔尔
-              <span style={{ color: Color.numColor('win') }}> 2胜</span>
-              <span style={{ color: Color.numColor('draw') }}> 2平</span>
-              <span style={{ color: Color.numColor('lost') }}> 0负</span>
+              近{dataText.played}场交战 卡塔尔
+              <span style={{ color: Color.numColor('win') }}> {dataText.won}胜</span>
+              <span style={{ color: Color.numColor('draw') }}> {dataText.drawn}平</span>
+              <span style={{ color: Color.numColor('lost') }}> {dataText.lost}负</span>
             </div>
 
-            <div className={styles.data_text_rate}>胜率50% 赢率37.5% 大率75%备份</div>
+            <div className={styles.data_text_rate}>{dataText.recent}</div>
           </div>
         )}
       </div>
@@ -71,8 +56,8 @@ const TablePage = (props: Props) => {
         <Table
           pagination={false}
           columns={props.columns}
-          dataSource={props.data}
-          rowKey="id"
+          dataSource={dataSource}
+          rowKey={rowKey}
           // onRow={record => {
           //     return {
           //         onClick: event => {

@@ -33,6 +33,7 @@ import CutMatchRank from './Stats/CutMatchRank';
 import HistoryRanking from './Stats/HistoryRanking';
 import FutureMatch from './Stats/FutureMatch';
 import RecentGames from './Stats/RecentGames';
+import Tableold from './Stats/indexold';
 
 // import Strength from './Strength';
 
@@ -395,10 +396,6 @@ const Details: React.FC<DetailProps> = (props) => {
                                   {isPhone ? <>{Vote}</> : null}
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo}></div>
-                                      <FormattedMessage id="key_league_ranking" />
-                                    </div>
                                     <div
                                       style={{
                                         marginTop: 12,
@@ -417,7 +414,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <CutMatchRank match={data} matchId={matchId as any} />
+                                      <CutMatchRank match_id={matchId as any} />
                                     </div>
                                   </div>
 
@@ -432,7 +429,10 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <HistoryRanking match={data} matchId={matchId as any} />
+                                      <HistoryRanking
+                                        // matchTypeData={data}
+                                        match_id={matchId as any}
+                                      />
                                     </div>
                                   </div>
                                   <div>
@@ -446,7 +446,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <RecentGames match={data} matchId={matchId as any} />
+                                      <RecentGames matchTypeData={data} match_id={matchId as any} />
                                     </div>
                                   </div>
                                   <div>
@@ -460,12 +460,16 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <FutureMatch match={data} matchId={matchId as any} />
+                                      <FutureMatch match_id={matchId as any} />
                                     </div>
                                   </div>
+                                  {/* 之前的 */}
+                                  {/* <div style={{ height: 80 }}>
+                                    <Tableold match={data} matchId={matchId as any} />
+                                  </div> */}
                                 </div>
                               </CapsuleTabs.Tab>
-                              <CapsuleTabs.Tab title="实力" key="vegetables">
+                              {/* <CapsuleTabs.Tab title="实力" key="vegetables">
                                 <div className={styles.mobileStatTitle}>
                                   <div className={styles.mobileStatTitle_title}>
                                     <div className={styles.title_logo}></div>
@@ -497,7 +501,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                   <RightTab tab={tab} />
                                 </div>
                                 <Strength />
-                              </CapsuleTabs.Tab>
+                              </CapsuleTabs.Tab> */}
                             </CapsuleTabs>
                           </div>
                         </>
