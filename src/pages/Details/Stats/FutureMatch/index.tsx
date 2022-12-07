@@ -9,6 +9,7 @@ import moment from 'moment';
 
 const Ranking = (props: Props) => {
   const { match_id } = props;
+  const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<FutureListRes[]>([]);
   const columns = (name: string): ColumnsType<futurematchType> => {
     return [
@@ -57,9 +58,11 @@ const Ranking = (props: Props) => {
   };
 
   const getFutureList = async () => {
+    setLoading(true);
     const res = await futureList({ match_id });
     if (res.success) {
       setData(res.data);
+      setLoading(false);
     }
   };
 
@@ -73,7 +76,12 @@ const Ranking = (props: Props) => {
         return (
           // eslint-disable-next-line react/jsx-key
           <div className={styles.table_space}>
-            <Table dataSource={item.match} rowKey="match_id" columns={columns(item.name)} />
+            <Table
+              loading={loading}
+              dataSource={item.match}
+              rowKey="match_id"
+              columns={columns(item.name)}
+            />
           </div>
         );
       })}

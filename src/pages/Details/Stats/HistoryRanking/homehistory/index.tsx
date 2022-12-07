@@ -72,8 +72,8 @@ const Ranking = (props: Props) => {
       dataIndex: 'bs',
 
       align: 'center',
-      render: (text) => (
-        <div style={{ color: Color.numColor(text.name) }}>
+      render: (text, record) => (
+        <div style={{ color: Color.numColor(record.asia) }}>
           <div>{text.branch}</div>
           {text.name}
         </div>
@@ -94,7 +94,7 @@ const Ranking = (props: Props) => {
   ];
   const { match_id } = props;
   const [homedata, setHomeData] = useState<AnalysisListRes>();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [activekey, setActivekey] = useState<string | number>(1);
   const [num, setNum] = useState<number>(1);
   // 近10/20场
@@ -104,6 +104,7 @@ const Ranking = (props: Props) => {
     { title: '同赛事', key: 0 },
   ];
   const getHomeFutureList = async () => {
+    setLoading(true);
     const params: AnalysisListParams = {
       match_id,
       tab: 1, //历史交锋主
@@ -113,6 +114,7 @@ const Ranking = (props: Props) => {
     const res = await analysisList(params);
     if (res.success) {
       setHomeData(res.data);
+      setLoading(false);
     }
   };
 
@@ -124,7 +126,8 @@ const Ranking = (props: Props) => {
     <div>
       <div className={styles.table_space}>
         <Table
-          dataText={homedata?.sp}
+          loading={loading}
+          dataText={homedata?.list && homedata?.sp}
           rowKey="match_id"
           addRight={
             <RightTab

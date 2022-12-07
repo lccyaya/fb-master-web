@@ -401,7 +401,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <Stats match={data} matchId={matchId as any} />
+                                      <Stats match={data} match_id={matchId as any} />
                                     </div>
                                   </div>
                                   <div>
@@ -446,7 +446,7 @@ const Details: React.FC<DetailProps> = (props) => {
                                         marginTop: 12,
                                       }}
                                     >
-                                      <RecentGames matchTypeData={data} match_id={matchId as any} />
+                                      <RecentGames match_id={matchId as any} />
                                     </div>
                                   </div>
                                   <div>

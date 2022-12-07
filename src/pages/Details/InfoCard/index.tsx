@@ -285,7 +285,7 @@ export default (props: {
           </CallAppModal>
         )}
         <div className={styles.weather}>
-          <Weather />
+          <Weather data={match.environment} />
         </div>
       </div>
     </div>

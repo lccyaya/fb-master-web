@@ -49,6 +49,9 @@ export type analysisType = {
     team_name: string
     home: matchType
     away: matchType
+    asia: {
+        name: string
+    }
 };
 export type spType = {
     drawn: number
@@ -56,6 +59,8 @@ export type spType = {
     played: number
     recent: string
     won: number
+    team_logo: string
+    team_name: string
 };
 export type AnalysisListRes = {
     list: analysisType[]

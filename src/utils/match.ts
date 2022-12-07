@@ -70,25 +70,25 @@ export const getMatchStatusDes = (code: number): String => {
 }
 
 
-export function Weather(state: string): { text: string, img: string } {
+export function Weather(state: number): { text: string, img: string } {
   switch (state) {
-    case "1":
+    case 1:
       return { text: '有云', img: "cloud" }
-    case "2" || "10":
+    case 2 || 10:
       return { text: '多云', img: "cloud" }
-    case "3" || "12":
+    case 3 || 12:
       return { text: '有云/雨', img: "rain" }
-    case "4":
+    case 4:
       return { text: '雪', img: "snow" }
-    case "5":
+    case 5:
       return { text: '晴', img: "shine" }
-    case "6" || "9":
+    case 6 || 9:
       return { text: '阴有雨', img: "rain" }
-    case "7":
+    case 7:
       return { text: '阴', img: "overcast" }
-    case "8":
+    case 8:
       return { text: '薄雾', img: "fog" }
-    case "11":
+    case 11:
       return { text: '云有雨', img: "rain" }
     default:
       return { text: '雾', img: "fog" }

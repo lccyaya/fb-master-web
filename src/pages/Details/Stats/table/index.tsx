@@ -18,6 +18,7 @@ type Props = {
   dataText?: spType;
   dataTitle?: string;
   rowKey?: string;
+  loading?: boolean;
 };
 const customizeRenderEmpty = () => (
   <div style={{ textAlign: 'center' }}>
@@ -27,7 +28,8 @@ const customizeRenderEmpty = () => (
 const TablePage = (props: Props) => {
   // const history = useHistory();
 
-  const { addRight, dataText, dataTitle, rowKey, dataSource } = props;
+  const { addRight, dataText, dataTitle, rowKey, dataSource, loading } = props;
+  console.log(dataText);
 
   return (
     <div className={styles.tab_teamtable_rank}>
@@ -40,11 +42,26 @@ const TablePage = (props: Props) => {
 
         {dataText && (
           <div className={styles.data_text}>
-            <div>
-              近{dataText.played}场交战 卡塔尔
-              <span style={{ color: Color.numColor('win') }}> {dataText.won}胜</span>
-              <span style={{ color: Color.numColor('draw') }}> {dataText.drawn}平</span>
-              <span style={{ color: Color.numColor('lost') }}> {dataText.lost}负</span>
+            <div className={styles.data_big}>
+              近{dataText.played}场
+              <img
+                style={{ width: 20, height: 20, margin: '0 5px' }}
+                src={dataText.team_logo}
+                alt=""
+              />
+              {dataText.team_name}
+              <span style={{ color: Color.numColor('win'), margin: '0 0 0 5px' }}>
+                {' '}
+                {dataText.won}胜
+              </span>
+              <span style={{ color: Color.numColor('draw'), margin: '0 0 0 5px' }}>
+                {' '}
+                {dataText.drawn}平
+              </span>
+              <span style={{ color: Color.numColor('lost'), margin: '0 0 0 5px' }}>
+                {' '}
+                {dataText.lost}负
+              </span>
             </div>
 
             <div className={styles.data_text_rate}>{dataText.recent}</div>
@@ -54,6 +71,7 @@ const TablePage = (props: Props) => {
 
       <ConfigProvider renderEmpty={customizeRenderEmpty}>
         <Table
+          loading={loading}
           pagination={false}
           columns={props.columns}
           dataSource={dataSource}

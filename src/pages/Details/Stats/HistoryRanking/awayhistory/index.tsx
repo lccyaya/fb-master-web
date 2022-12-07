@@ -74,8 +74,8 @@ const Ranking = (props: Props) => {
       dataIndex: 'bs',
 
       align: 'center',
-      render: (text) => (
-        <div style={{ color: Color.numColor(text.name) }}>
+      render: (text, record) => (
+        <div style={{ color: Color.numColor(record.asia.name) }}>
           <div>{text.branch}</div>
           {text.name}
         </div>
@@ -96,7 +96,7 @@ const Ranking = (props: Props) => {
   ];
   const { match_id } = props;
   const [awaydata, setAwayData] = useState<AnalysisListRes>();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [activekey, setActivekey] = useState<string | number>(1);
   const [num, setNum] = useState<number>(0);
   // 近10/20场
@@ -107,6 +107,7 @@ const Ranking = (props: Props) => {
   ];
 
   const getAwayFutureList = async () => {
+    setLoading(true);
     const params: AnalysisListParams = {
       match_id,
       tab: 2, //历史交锋客
@@ -116,6 +117,7 @@ const Ranking = (props: Props) => {
     const res = await analysisList(params);
     if (res.success) {
       setAwayData(res.data);
+      setLoading(false);
     }
   };
 
@@ -126,7 +128,8 @@ const Ranking = (props: Props) => {
     <div>
       <div className={styles.table_space}>
         <Table
-          dataText={awaydata?.sp}
+          loading={loading}
+          dataText={awaydata?.list && awaydata?.sp}
           rowKey="match_id"
           addRight={
             <RightTab
@@ -141,6 +144,7 @@ const Ranking = (props: Props) => {
           columns={columns}
         />
       </div>
+
       {/* <div className={styles.table_space}>
         <Table addRight={<RightTab tab={tab} />} data={data} columns={columns} dataText />
       </div> */}

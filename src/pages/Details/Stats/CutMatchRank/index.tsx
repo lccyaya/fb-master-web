@@ -10,7 +10,7 @@ type Props = {
   match_id: number;
 };
 
-const Ranking = (props: Props) => {
+const CutMatchRank = (props: Props) => {
   useEffect(() => {
     // getFutureList();
   }, []);
@@ -23,4 +23,4 @@ const Ranking = (props: Props) => {
   );
 };
 
-export default Ranking;
+export default CutMatchRank;

@@ -4,6 +4,9 @@ import RightTab from '../RightTab';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
 import { analysisList } from '@/services/matchdetail';
+import moment from 'moment';
+import { Color } from '@/utils/match';
+
 import type { AnalysisListRes, analysisType, AnalysisListParams } from '@/services/matchdetail';
 
 type Props = {
@@ -17,24 +20,29 @@ const RecentGames = (props: Props) => {
       dataIndex: 'competition_name',
       key: 'competition_name',
       align: 'center',
+      render: (text, record, index) => (
+        <div>
+          {text}
+          <div>{moment(record.match_time * 1000).format('YYYY-MM-DD')}</div>
+        </div>
+      ),
     },
-
     {
       title: '主队',
       dataIndex: 'home',
       key: 'home',
-      //   width: 150,
+      width: 80,
       align: 'center',
-      render: (text, record, index) => <div>{text.team_name}</div>,
+      render: (text, record, index) => <div className={styles.namestyle}>{text.team_name}</div>,
     },
     {
       title: '',
       dataIndex: 'home',
       key: 'home',
-      //   width: 150,
+      width: 20,
       align: 'center',
       render: (text, record, index) => (
-        <div className={styles.namestyle}>
+        <div className={styles.bfstyle}>
           {record.home.score}:{record.away.score}
         </div>
       ),
@@ -42,36 +50,52 @@ const RecentGames = (props: Props) => {
     {
       title: '客队',
       dataIndex: 'away',
-
+      width: 80,
       key: 'away',
       align: 'center',
-      render: (text, record, index) => <div>{text.team_name}</div>,
+      render: (text, record, index) => <div className={styles.namestyle}>{text.team_name}</div>,
     },
-    // {
-    //   title: '进',
-    //   dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+    {
+      title: '盘',
+      dataIndex: 'asia',
 
-    //   align: 'center',
-    //   render: (text) => (
-    //     <div style={{ color: '#7E1132' }}>
-    //       {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   title: '角',
-    //   dataIndex: props.activeKey == '0' ? 'energy_num' : 'reward_rate',
+      align: 'center',
+      render: (text) => (
+        <div style={{ color: Color.numColor(text.name) }}>
+          <div>{text.branch}</div>
+          {text.name}
+        </div>
+      ),
+    },
 
-    //   align: 'center',
-    //   render: (text, record, index) => (
-    //     <div style={{ color: '#7E1132' }}>
-    //       {props.activeKey == '0' ? Math.trunc(text) : Math.trunc(text) + '%'}
-    //     </div>
-    //   ),
-    // },
+    {
+      title: '进球',
+      dataIndex: 'bs',
+
+      align: 'center',
+      render: (text, record) => (
+        <div style={{ color: Color.numColor(record.asia.name) }}>
+          <div>{text.branch}</div>
+          {text.name}
+        </div>
+      ),
+    },
+    {
+      title: '角球',
+      dataIndex: 'cr',
+
+      align: 'center',
+      render: (text) => (
+        <div>
+          <div>{text.branch}</div>
+          <div> {text.name}</div>
+        </div>
+      ),
+    },
   ];
   const { match_id } = props;
-  const [homedata, setHomeData] = useState<AnalysisListRes>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [data, setData] = useState<AnalysisListRes>();
 
   const [activekey, setActivekey] = useState<string | number>(1);
   const [num, setNum] = useState<number>(1);
@@ -82,6 +106,7 @@ const RecentGames = (props: Props) => {
     { title: '同赛事', key: 0 },
   ];
   const getHomeFutureList = async () => {
+    setLoading(true);
     const params: AnalysisListParams = {
       match_id,
       tab: 3, //近期对战
@@ -90,7 +115,8 @@ const RecentGames = (props: Props) => {
     };
     const res = await analysisList(params);
     if (res.success) {
-      setHomeData(res.data.list);
+      setData(res.data);
+      setLoading(false);
     }
     console.log(res.data, 'pppppppppp的点点滴滴');
   };
@@ -103,6 +129,9 @@ const RecentGames = (props: Props) => {
     <div>
       <div className={styles.table_space}>
         <Table
+          loading={loading}
+          dataText={data?.list && data?.sp}
+          rowKey="match_id"
           addRight={
             <RightTab
               tab={tab}
@@ -112,7 +141,7 @@ const RecentGames = (props: Props) => {
               setNum={setNum}
             />
           }
-          dataSource={homedata}
+          dataSource={data?.list}
           columns={columns}
         />
       </div>
