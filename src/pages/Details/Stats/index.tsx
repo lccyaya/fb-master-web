@@ -17,13 +17,14 @@ const Stats: React.FC<IProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>();
   const getCupmatchList = async () => {
+    setLoading(true);
     const params: any = {
       match_id,
     };
     const res = await cupmatchList(params);
     if (res.success) {
       setData(res.data);
-      setLoading(true);
+      setLoading(false);
     }
     console.log(res.data, 'pppppppppp');
   };
@@ -34,18 +35,17 @@ const Stats: React.FC<IProps> = (props) => {
   }, []);
 
   return (
-    // <Spin spinning={loading}>
     <div className={styles.tabstyle}>
-      {data?.home && data?.away ? (
-        <div className={styles.mobileStatTitle_title}>
-          <div className={styles.title_logo}></div>
-          <FormattedMessage id="key_league_ranking" />
-        </div>
-      ) : null}
-
-      <Ranking match={data} matchTypeData={props.match} />
+      <Spin style={{ minHeight: 70 }} spinning={loading}>
+        {data ? (
+          <div className={styles.mobileStatTitle_title}>
+            <div className={styles.title_logo} />
+            <FormattedMessage id="key_league_ranking" />
+          </div>
+        ) : null}
+        <Ranking match={data} matchTypeData={props.match} />
+      </Spin>
     </div>
-    // </Spin>
   );
 };
 

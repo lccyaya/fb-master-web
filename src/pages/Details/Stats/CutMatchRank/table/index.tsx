@@ -50,9 +50,10 @@ const TablePage = (props: Props) => {
   const [data, setData] = useState<any>();
   const columns: ColumnsType<DataType> = [
     {
-      title: <div style={{ fontWeight: 600, color: '#000028' }}>英格兰</div>,
-      dataIndex: 'id',
-      key: 'id',
+      title: <div style={{ fontWeight: 600, color: '#000028' }}>{data?.name}</div>,
+      dataIndex: 'home_team_name',
+      key: 'home_team_name',
+      // className: data?.name == home_team_name,
       // align: "center",
     },
 
@@ -112,14 +113,13 @@ const TablePage = (props: Props) => {
     };
     const res = await cupmatchList(params);
     if (res.success) {
-      setData(res.data.home);
+      setData(res.data);
     }
     console.log(res.data, 'pppppppppp');
   };
 
   useEffect(() => {
     getCupmatchList();
-    // getAwayFutureList();
   }, []);
   return (
     <div className={styles.tab_teamtable_rank}>
@@ -127,7 +127,7 @@ const TablePage = (props: Props) => {
         <Table
           pagination={false}
           columns={columns}
-          dataSource={data?.list}
+          dataSource={data?.match}
           rowKey="id"
           // onRow={record => {
           //     return {
