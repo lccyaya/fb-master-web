@@ -73,7 +73,8 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
           break;
         case '/scheme':
           const schemeid = url.query.id;
-          history.push(`/zh/scheme?id=${schemeid}`);
+          const match_id = url.query.match_id;
+          history.push(`/zh/scheme?id=${schemeid}&match_id=${match_id}`);
           break;
         case '/news':
           const newsid = url.query.id;
