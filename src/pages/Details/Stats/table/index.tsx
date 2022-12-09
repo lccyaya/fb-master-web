@@ -29,18 +29,17 @@ const TablePage = (props: Props) => {
   // const history = useHistory();
 
   const { addRight, dataText, dataTitle, rowKey, dataSource, loading } = props;
-  console.log(dataText);
 
   return (
     <div className={styles.tab_teamtable_rank}>
       <div style={{ padding: '0 10px' }}>
         <div className={styles.rank_title}>
-          {dataTitle ? <FBTitle title={dataTitle} /> : <FBTitle title="" />}
+          {dataTitle ? <FBTitle color="#45494C" title={dataTitle} /> : <FBTitle title="" />}
 
           <div>{addRight}</div>
         </div>
 
-        {dataText && (
+        {dataSource?.length && dataText ? (
           <div className={styles.data_text}>
             <div className={styles.data_big}>
               近{dataText.played}场
@@ -66,7 +65,7 @@ const TablePage = (props: Props) => {
 
             <div className={styles.data_text_rate}>{dataText.recent}</div>
           </div>
-        )}
+        ) : null}
       </div>
 
       <ConfigProvider renderEmpty={customizeRenderEmpty}>

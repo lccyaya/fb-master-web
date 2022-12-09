@@ -3,31 +3,31 @@ import Table from '../table';
 // import RightTab from '../RightTab';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
-import type * as matchServicets from '@/services/match';
+import type { cupmatchListType, cupmatchTypeList } from '@/services/matchdetail';
+// import type  matchServicets  from '@/services/match';
+import { MatchRanking } from '@/utils/match';
+import IconFont from '@/components/IconFont';
 
 type Props = {
-  match: any;
-  matchTypeData: matchServicets.MatchDetails;
+  match: cupmatchTypeList;
+  // matchTypeData: matchServicets.MatchDetails;
+  matchTypeData: any;
 };
 
 const Ranking = (props: Props) => {
   const { match, matchTypeData } = props;
 
+  const [dataSource, setDataSource] = useState<any>([]);
   // const { match_id } = props;
   // const [data, setData] = useState<any>();
-  const columns = (name: string) => {
+  const columns = (name: string): ColumnsType<cupmatchListType> => {
     return [
       {
         title: <div style={{ fontWeight: 600, color: '#000028' }}>{name}</div>,
-        dataIndex: 'home_team_name',
-        key: 'home_team_name',
+        dataIndex: 'label',
+        key: 'label',
         align: 'center',
-        render: (text, record) => (
-          <div>
-            <img className={styles.team_logo} src={record.team_logo} alt="" />
-            {text}
-          </div>
-        ),
+        render: (text) => <div>{MatchRanking(text)}</div>,
       },
 
       {
@@ -45,7 +45,7 @@ const Ranking = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div>
-            {text}/ {record.drawn}/{record.lost}
+            {text}/{record.drawn}/{record.lost}
           </div>
         ),
       },
@@ -56,7 +56,7 @@ const Ranking = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div>
-            {text}/{record.against}
+            {text}/{record.against}/{record.diff}
           </div>
         ),
       },
@@ -74,25 +74,53 @@ const Ranking = (props: Props) => {
       },
     ];
   };
+  useEffect(() => {
+    const home = [];
+    const away = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-for-in-array
+    for (const key in match.home) {
+      match.home[key].label = key;
+      home.push(match.home[key]);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-for-in-array
+    for (const key in match.away) {
+      match.away[key].label = key;
+      away.push(match.away[key]);
+    }
+    const data = { home, away };
+    console.log(data, 'ooooooooooo');
+    setDataSource(data);
+    // setDataSource;
+  }, []);
   return (
-    <div>
-      {match?.map((item: any) => {
-        return (
-          <div className={styles.table_space} key={item.name}>
-            <Table
-              addRight={<div>完整积分榜</div>}
-              dataTitle={matchTypeData.competition_name}
-              dataSource={item?.match}
-              columns={columns(item.name)}
-            />
-          </div>
-        );
-      })}
-
-      {/* <div className={styles.table_space}>
-        <Table addRight={<div>完整积分榜</div>} data={data} columns={columns} dataTitle />
-      </div> */}
+    <div style={{ width: '100%' }}>
+      <div className={styles.table_space} style={{ marginBottom: 12 }}>
+        <Table
+          rowKey="label"
+          // addRight={
+          //   <div className={styles.intact_rank}>
+          //     完整积分榜 <IconFont type="icon-jiantouyou" size={10} />
+          //   </div>
+          // }
+          dataTitle={matchTypeData.competition_name}
+          dataSource={dataSource?.home}
+          columns={columns(matchTypeData?.home_team_name)}
+        />
+      </div>
+      <div className={styles.table_space}>
+        <Table
+          rowKey="label"
+          // addRight={
+          //   <div className={styles.intact_rank}>
+          //     完整积分榜 <IconFont type="icon-jiantouyou" size={10} />
+          //   </div>
+          // }
+          dataTitle={matchTypeData.competition_name}
+          dataSource={dataSource.away}
+          columns={columns(matchTypeData.away_team_name)}
+        />
+      </div>
     </div>
   );
 };

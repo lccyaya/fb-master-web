@@ -7,10 +7,14 @@ import { futureList } from '@/services/matchdetail';
 import type { FutureListRes, futurematchType } from '@/services/matchdetail';
 import moment from 'moment';
 
+type Props = {
+  match_id: number;
+};
+
 const Ranking = (props: Props) => {
   const { match_id } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState<FutureListRes[]>([]);
+  const [data, setData] = useState<FutureListRes[]>();
   const columns = (name: string): ColumnsType<futurematchType> => {
     return [
       {
@@ -25,7 +29,7 @@ const Ranking = (props: Props) => {
         dataIndex: 'match_time',
         key: 'match_time',
         align: 'center',
-        render: (text, record, index) => <div>{moment(text * 1000).format('YYYY-MM-DD')}</div>,
+        render: (text) => <div>{moment(text * 1000).format('YYYY-MM-DD')}</div>,
       },
       {
         title: '主队',
@@ -33,9 +37,7 @@ const Ranking = (props: Props) => {
         width: 60,
         key: 'home_team_name',
         align: 'center',
-        render: (text, record, index) => (
-          <div className={text === name ? styles.namestyle : null}>{text}</div>
-        ),
+        render: (text) => <div className={text === name ? styles.namestyle : null}>{text}</div>,
       },
       {
         title: '客队',
@@ -43,16 +45,14 @@ const Ranking = (props: Props) => {
         key: 'away_team_name',
         width: 60,
         align: 'center',
-        render: (text, record, index) => (
-          <div className={text === name ? styles.namestyle : null}>{text}</div>
-        ),
+        render: (text) => <div className={text === name ? styles.namestyle : null}>{text}</div>,
       },
       {
         title: '间隔',
         dataIndex: 'interval',
         key: 'interval',
         align: 'center',
-        render: (text, record, index) => <div>{text}天</div>,
+        render: (text) => <div>{text}天</div>,
       },
     ];
   };
@@ -75,7 +75,7 @@ const Ranking = (props: Props) => {
       {data?.map((item) => {
         return (
           // eslint-disable-next-line react/jsx-key
-          <div className={styles.table_space}>
+          <div className={styles.table_space} key={item.name}>
             <Table
               loading={loading}
               dataSource={item.match}

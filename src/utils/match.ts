@@ -69,7 +69,7 @@ export const getMatchStatusDes = (code: number): String => {
   }
 }
 
-
+// 分析天气
 export function Weather(state: number): { text: string, img: string } {
   switch (state) {
     case 1:
@@ -96,6 +96,20 @@ export function Weather(state: number): { text: string, img: string } {
   }
 }
 
+// 联赛排名
+export function MatchRanking(state: string): string {
+  switch (state) {
+    case "all":
+      return "全部"
+    case "home":
+      return "主场"
+    case "away":
+      return "客场"
+    default:
+      return "近期"
+
+  }
+}
 
 export const getScore = (scores: number[]) => {
   if (scores && scores.length >= 7) {
@@ -207,9 +221,13 @@ export namespace Color {
 
       case NumColor.draw:
         return '#4064B2';
+      case NumColor.lost:
+        return '#39906A';
+      case NumColor.lostname:
+        return '#39906A';
 
       default:
-        return '#39906A';
+        return '#848494';
     }
   }
 }

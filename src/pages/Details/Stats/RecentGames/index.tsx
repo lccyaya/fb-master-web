@@ -10,6 +10,7 @@ const Ranking = (props: Props) => {
   return (
     <div>
       <HomeHistory match_id={match_id} />
+      <div style={{ height: 12 }} />
       <AwayHistory match_id={match_id} />
     </div>
   );

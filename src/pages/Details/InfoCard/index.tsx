@@ -186,7 +186,7 @@ export default (props: {
               <Iconfont type="icon-gengduo" size={15} color="#fff" />
             </div>
             <div className={styles.name}>
-              {match.round?.stage_name} {match.round?.group_name}组 第{match.round?.round_name}轮
+              {match.competition_name} {match.round?.show_name}
             </div>
 
             <div className={styles.time}>{time}</div>
@@ -232,8 +232,16 @@ export default (props: {
                   <div className={styles.colon}>
                     {' '}
                     <div style={{ fontSize: 10, color: '#E9EBE4' }}>
-                      {getMatchStatusDes(match.status)}
-                      <div>(1-0)</div>
+                      {/* {getMatchStatusDes(match.status)} */}
+                      <div>
+                        {' '}
+                        <div>
+                          {final.first_half_home >= 0 && final.first_half_away >= 0 && (
+                            <div>半场</div>
+                          )}
+                          ({final.first_half_home}-{final.first_half_away})
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className={styles.num}>{final.away}</div>
@@ -249,11 +257,24 @@ export default (props: {
                 </div>
               )}
             </div>
-            <div style={{ fontSize: 10, color: '#E9EBE4', margin: '5px 0' }}>点球(3-4)</div>
-            <div className={styles.video}>
-              <img src={Video} style={{ width: 15, height: 15 }} alt="" />
-              视频直播
+            <div style={{ fontSize: 10, color: '#E9EBE4', margin: '5px 0' }}>
+              {final.has_ot ? `点球 ${final.ot_home || 0}-${final.ot_away || 0}` : ''}
+              {/* {showOtOrPen && (
+                <div className={styles.otPen}>
+                  {final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : ''}
+                  {final.has_ot && final.has_penalty && <>&nbsp;&nbsp;&nbsp;&nbsp;</>}
+                  {final.has_penalty
+                    ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}`
+                    : ''}
+                </div>
+              )} */}
             </div>
+            {(hasHighlight || hasPlayback) && (
+              <div className={styles.video}>
+                <img src={Video} style={{ width: 15, height: 15 }} alt="" />
+                视频直播
+              </div>
+            )}
           </div>
 
           <Link className={styles.team} to={`../teamdetails/${match.away_team_id}`}>
@@ -263,13 +284,13 @@ export default (props: {
               <div style={{ fontSize: 10, color: '#E9EBE4' }}>{match.competition_name}</div>
             </div>
           </Link>
-          {showOtOrPen && (
+          {/* {showOtOrPen && (
             <div className={styles.otPen}>
               {final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : ''}
               {final.has_ot && final.has_penalty && <>&nbsp;&nbsp;&nbsp;&nbsp;</>}
               {final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : ''}
             </div>
-          )}
+          )} */}
         </div>
         {(hasHighlight || hasPlayback) && (
           <CallAppModal title={intl.formatMessage({ id: 'key_watch_in_app' })}>
@@ -284,6 +305,7 @@ export default (props: {
             </div>
           </CallAppModal>
         )}
+
         <div className={styles.weather}>
           <Weather data={match.environment} />
         </div>

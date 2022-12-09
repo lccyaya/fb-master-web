@@ -29,7 +29,6 @@ import LineUp from './LineUp';
 import Stats from './Stats';
 import Strength from './Strength';
 
-import CutMatchRank from './Stats/CutMatchRank';
 import HistoryRanking from './Stats/HistoryRanking';
 import FutureMatch from './Stats/FutureMatch';
 import RecentGames from './Stats/RecentGames';
@@ -53,6 +52,7 @@ import DetailNews from '@/pages/Details/News';
 import { locale } from '@/app';
 import { handleReport } from '@/utils/report';
 import { NavBar } from 'antd-mobile';
+import FBTitle from '@/components/FBTitle';
 
 type TabType = 'index' | 'lineUp' | 'data' | 'overview' | 'info' | 'scheme';
 
@@ -283,18 +283,12 @@ const Details: React.FC<DetailProps> = (props) => {
                         </Tabs.Tab>
                       )}
 
-                      <Tabs.Tab
-                        title={<FormattedMessage id="key_overview" />}
-                        key="overview"
-                      ></Tabs.Tab>
-                      {hasScheme ? <Tabs.Tab title="攻略" key="scheme"></Tabs.Tab> : null}
+                      <Tabs.Tab title={<FormattedMessage id="key_overview" />} key="overview" />
+                      {hasScheme ? <Tabs.Tab title="攻略" key="scheme" /> : null}
 
-                      <Tabs.Tab title="分析" key="data"></Tabs.Tab>
-                      <Tabs.Tab
-                        title={<FormattedMessage id="key_line_up" />}
-                        key="lineUp"
-                      ></Tabs.Tab>
-                      <Tabs.Tab title="数据" key="index"></Tabs.Tab>
+                      <Tabs.Tab title="分析" key="data" />
+                      <Tabs.Tab title={<FormattedMessage id="key_line_up" />} key="lineUp" />
+                      <Tabs.Tab title="数据" key="index" />
                     </Tabs>
 
                     {/* {newsTabVisible && (
@@ -404,31 +398,18 @@ const Details: React.FC<DetailProps> = (props) => {
                                       <Stats match={data} match_id={matchId as any} />
                                     </div>
                                   </div>
-                                  <div>
-                                    <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo}></div>
-                                      <FormattedMessage id="key_cup_match_ranking" />
-                                    </div>
-                                    <div
-                                      style={{
-                                        marginTop: 12,
-                                      }}
-                                    >
-                                      <CutMatchRank match_id={matchId as any} />
-                                    </div>
-                                  </div>
 
                                   <div>
                                     {' '}
                                     <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo}></div>
-                                      <FormattedMessage id="key_history_ranking" />
+                                      <div className={styles.title_logo} />
+                                      <FBTitle
+                                        size="18px"
+                                        color="#45494C"
+                                        title={<FormattedMessage id="key_history_ranking" />}
+                                      />
                                     </div>
-                                    <div
-                                      style={{
-                                        marginTop: 12,
-                                      }}
-                                    >
+                                    <div>
                                       <HistoryRanking
                                         // matchTypeData={data}
                                         match_id={matchId as any}
@@ -438,28 +419,28 @@ const Details: React.FC<DetailProps> = (props) => {
                                   <div>
                                     {' '}
                                     <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo}></div>
-                                      <FormattedMessage id="key_recent_games" />
+                                      <div className={styles.title_logo} />
+                                      <FBTitle
+                                        size="18px"
+                                        color="#45494C"
+                                        title={<FormattedMessage id="key_recent_games" />}
+                                      />
                                     </div>
-                                    <div
-                                      style={{
-                                        marginTop: 12,
-                                      }}
-                                    >
+                                    <div>
                                       <RecentGames match_id={matchId as any} />
                                     </div>
                                   </div>
                                   <div>
                                     {' '}
                                     <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo}></div>
-                                      <FormattedMessage id="key_future_match" />
+                                      <div className={styles.title_logo} />
+                                      <FBTitle
+                                        size="18px"
+                                        color="#45494C"
+                                        title={<FormattedMessage id="key_future_match" />}
+                                      />
                                     </div>
-                                    <div
-                                      style={{
-                                        marginTop: 12,
-                                      }}
-                                    >
+                                    <div>
                                       <FutureMatch match_id={matchId as any} />
                                     </div>
                                   </div>
