@@ -89,7 +89,6 @@ const Ranking = (props: Props) => {
       away.push(match.away[key]);
     }
     const data = { home, away };
-    console.log(data, 'ooooooooooo');
     setDataSource(data);
     // setDataSource;
   }, []);

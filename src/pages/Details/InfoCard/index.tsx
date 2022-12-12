@@ -257,8 +257,12 @@ export default (props: {
                 </div>
               )}
             </div>
-            <div style={{ fontSize: 10, color: '#E9EBE4', margin: '5px 0' }}>
-              {final.has_ot ? `点球 ${final.ot_home || 0}-${final.ot_away || 0}` : ''}
+            <div style={{ fontSize: 10, color: '#E9EBE4', margin: '5px 0', height: 20 }}>
+              {final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : ''}
+              {final.has_ot && final.has_penalty && <>&nbsp;&nbsp;&nbsp;&nbsp;</>}
+              {final.has_penalty ? `PEN ${final.penalty_home || 0}:${final.penalty_away || 0}` : ''}
+
+              {/* {final.has_ot ? `点球 ${final.ot_home || 0}-${final.ot_away || 0}` : ''} */}
               {/* {showOtOrPen && (
                 <div className={styles.otPen}>
                   {final.has_ot ? `AET ${final.ot_home || 0}:${final.ot_away || 0}` : ''}

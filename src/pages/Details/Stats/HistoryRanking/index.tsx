@@ -157,7 +157,6 @@ const RecentGames = (props: Props) => {
       setData(res.data);
       setLoading(false);
     }
-    console.log(res, 'pppppppppp的点点滴滴');
   };
 
   // 切换按钮

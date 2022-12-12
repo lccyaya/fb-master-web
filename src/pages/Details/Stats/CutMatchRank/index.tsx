@@ -30,7 +30,11 @@ const CutMatchRank = (props: Props) => {
   const { dataSource, matchTypeData } = props;
   const grouplist = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
 
-  const columns = (group: number, home_name, away_name): ColumnsType<cupmatchListType> => {
+  const columns = (
+    group: number,
+    home_name: string,
+    away_name: string,
+  ): ColumnsType<cupmatchListType> => {
     return [
       {
         title: <div style={{ fontWeight: 600, color: '#000028' }}>{grouplist[group]}组</div>,
@@ -40,6 +44,7 @@ const CutMatchRank = (props: Props) => {
 
         render: (text, record, index) => (
           <div
+            style={{ fontWeight: 500 }}
             className={
               home_name == record.team_name
                 ? styles.home_name_bg
