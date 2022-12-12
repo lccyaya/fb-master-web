@@ -63,7 +63,7 @@ const FBInformationList: React.FC<Informationlist> = (props: Informationlist) =>
           </div>
         </div>
         <div className={styles.rightImg}>
-          <img style={{ width: "100%", height: "100%", borderRadius: 4 }} src={informationList?.cover_img_url} />
+          <img style={{ width: "100%", height: "100%", borderRadius: 4, objectFit: 'cover'}} src={informationList?.cover_img_url} />
         </div>
       </div>
     </div>
