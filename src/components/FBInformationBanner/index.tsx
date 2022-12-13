@@ -92,6 +92,9 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
           const h5url = url.query.url;
           window.open(h5url, '_blank');
           break;
+        case '/share':
+          history.push(`/zh/downloadapp`);
+          break;
         default:
           break;
       }
