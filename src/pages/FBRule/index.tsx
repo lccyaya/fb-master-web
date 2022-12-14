@@ -13,7 +13,6 @@ type Props = {
 const FBRule = (props: Props) => {
   const { url, title } = props.location.state;
 
-  console.log(props, '9999999');
   const history = useHistory();
 
   const back = () => {

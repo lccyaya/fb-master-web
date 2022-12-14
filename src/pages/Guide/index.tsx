@@ -5,6 +5,11 @@ import { Button, Swiper } from 'antd-mobile';
 import { useHistory } from 'umi';
 import IconFont from '@/components/IconFont';
 import useWindowSize from '@/hooks/useWindowSize';
+import guide_1 from '@/assets/guide/guide_1.png';
+import guide_2 from '@/assets/guide/guide_2.png';
+
+import guide_3 from '@/assets/guide/guide_3.png';
+import guide_4 from '@/assets/guide/guide_4.png';
 
 type Props = {};
 
@@ -18,7 +23,7 @@ const Guide = (props: Props) => {
     const height1 = height - 355;
     setInnerHeight(height1);
   }, [height]);
-  const colors = ['#ace0ff', '#bcffbd', '#e4fabd', '#ffcfac'];
+  const imgs = [guide_1, guide_2, guide_3, guide_4];
   const goRule = () => {
     history.push(`/zh/rule`, {
       title: '权限说明',
@@ -36,17 +41,18 @@ const Guide = (props: Props) => {
     return false;
   };
 
-  const items = colors.map((color, index) => (
+  const items = imgs.map((img, index) => (
     <Swiper.Item key={index}>
       <div
         className={styles.content}
         style={{
           height: activeIdnex == index ? innerHeight : innerHeight - 20,
-          background: color,
+
           marginTop: activeIdnex == index ? 0 : 10,
         }}
       >
         {/* {index + 1} */}
+        <img className={styles.banner_img} src={img} alt="" />
       </div>
     </Swiper.Item>
   ));

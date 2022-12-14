@@ -18,9 +18,14 @@ const Ranking = (props: Props) => {
   const columns = (name: string): ColumnsType<futurematchType> => {
     return [
       {
-        title: <div style={{ fontWeight: 600, color: '#000028' }}>{name}</div>,
+        title: (
+          <div className={styles.wrapnamestyle} style={{ fontWeight: 600, color: '#000028' }}>
+            {name}
+          </div>
+        ),
         dataIndex: 'competition_name',
         key: 'competition_name',
+        width: 80,
         align: 'center',
       },
 
@@ -37,7 +42,9 @@ const Ranking = (props: Props) => {
         width: 60,
         key: 'home_team_name',
         align: 'center',
-        render: (text) => <div className={text === name ? styles.namestyle : null}>{text}</div>,
+        render: (text) => (
+          <div className={text === name ? styles.namestyle : styles.wrapnamestyle}>{text}</div>
+        ),
       },
       {
         title: '客队',
@@ -45,7 +52,9 @@ const Ranking = (props: Props) => {
         key: 'away_team_name',
         width: 60,
         align: 'center',
-        render: (text) => <div className={text === name ? styles.namestyle : null}>{text}</div>,
+        render: (text) => (
+          <div className={text === name ? styles.namestyle : styles.wrapnamestyle}>{text}</div>
+        ),
       },
       {
         title: '间隔',

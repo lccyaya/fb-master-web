@@ -237,6 +237,12 @@
               cate: 'world_WorldCupGuess',
             },
             {
+              path: '/:locale/downloadapp',
+              component: '../pages/DqdDownloadapp',
+              cate: 'downloadapp',
+            },
+
+            {
               path: '/:locale/rule',
               component: '../pages/FBRule',
               cate: 'rule',
@@ -249,7 +255,7 @@
             {
               path: '/:locale/native',
               component: '@/layouts/NativeLayout',
-              routes:[
+              routes: [
                 {
                   path: '/:locale/native/worldcup_guess',
                   component: '@/pages/WorldCupGuess',

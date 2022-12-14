@@ -23,10 +23,15 @@ const Ranking = (props: Props) => {
   const columns = (name: string): ColumnsType<cupmatchListType> => {
     return [
       {
-        title: <div style={{ fontWeight: 600, color: '#000028' }}>{name}</div>,
+        title: (
+          <div className={styles.wrapnamestyle} style={{ fontWeight: 600, color: '#000028' }}>
+            {name}
+          </div>
+        ),
         dataIndex: 'label',
         key: 'label',
         align: 'center',
+        width: 80,
         render: (text) => <div>{MatchRanking(text)}</div>,
       },
 
