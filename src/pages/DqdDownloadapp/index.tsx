@@ -1,25 +1,16 @@
 import React from 'react';
-import { NavBar } from 'antd-mobile';
 import styles from './index.less';
-import { useHistory } from 'umi';
 import useWindowSize from '@/hooks/useWindowSize';
 import Iconfont from '@/components/IconFont';
 
 type Props = {};
 
 const DqdDownloadapp = (props: Props) => {
-  const history = useHistory();
   const { height } = useWindowSize();
 
-  const back = () => {
-    history.goBack();
-  };
   return (
     <div className={styles.dqd_downloadapp}>
-      <NavBar className={styles.navbar} onBack={back}>
-        分享
-      </NavBar>
-      <div className={styles.dqd_downloadappbg} style={{ height: height - 45 }}>
+      <div className={styles.dqd_downloadappbg} style={{ height: height }}>
         <div
           // style={{ }}
           className={styles.button_download}

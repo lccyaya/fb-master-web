@@ -119,7 +119,7 @@ const Ranking = (props: Props) => {
 
         align: 'center',
         render: (text, record) => (
-          <div style={{ color: Color.numColor(record.asia.name) }}>
+          <div style={{ color: Color.numColor(text.name) }}>
             <div>{text.branch}</div>
             {text.name}
           </div>

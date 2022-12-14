@@ -74,15 +74,18 @@ export function Weather(state: number): { text: string, img: string } {
   switch (state) {
     case 1:
       return { text: '有云', img: "cloud" }
-    case 2 || 10:
+    case 2:
+    case 10:
       return { text: '多云', img: "cloud" }
-    case 3 || 12:
+    case 3:
+    case 12:
       return { text: '有云/雨', img: "rain" }
     case 4:
       return { text: '雪', img: "snow" }
     case 5:
       return { text: '晴', img: "shine" }
-    case 6 || 9:
+    case 6:
+    case 9:
       return { text: '阴有雨', img: "rain" }
     case 7:
       return { text: '阴', img: "overcast" }
@@ -204,6 +207,8 @@ export enum NumColor {
   winname = "赢",
   goname = "走",
   lostname = "输",
+  big = "大",
+  small = "小",
   draw = 'draw',
   lost = 'lost',
 }
@@ -213,19 +218,16 @@ export namespace Color {
     switch (type) {
 
       case NumColor.winname:
-        return '#FA5900';
       case NumColor.win:
+      case NumColor.big:
         return '#FA5900';
       case NumColor.goname:
-        return '#4064B2';
-
       case NumColor.draw:
         return '#4064B2';
       case NumColor.lost:
-        return '#39906A';
       case NumColor.lostname:
+      case NumColor.small:
         return '#39906A';
-
       default:
         return '#848494';
     }

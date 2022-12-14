@@ -39,7 +39,7 @@ const Ranking = (props: Props) => {
       {
         title: '主队',
         dataIndex: 'home_team_name',
-        width: 60,
+        width: 70,
         key: 'home_team_name',
         align: 'center',
         render: (text) => (
@@ -50,7 +50,7 @@ const Ranking = (props: Props) => {
         title: '客队',
         dataIndex: 'away_team_name',
         key: 'away_team_name',
-        width: 60,
+        width: 70,
         align: 'center',
         render: (text) => (
           <div className={text === name ? styles.namestyle : styles.wrapnamestyle}>{text}</div>
