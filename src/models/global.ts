@@ -12,6 +12,7 @@ export type NoticeItem = {
 export type GlobalModelState = {
   collapsed: boolean;
   notices: NoticeItem[];
+  homeactivekey: string;
 };
 
 export type GlobalModelType = {
@@ -25,6 +26,7 @@ export type GlobalModelType = {
     changeLayoutCollapsed: Reducer<GlobalModelState>;
     saveNotices: Reducer<GlobalModelState>;
     saveClearedNotices: Reducer<GlobalModelState>;
+    setHomeActiveKey: Reducer<GlobalModelState>;
   };
 };
 
@@ -34,6 +36,7 @@ const GlobalModel: GlobalModelType = {
   state: {
     collapsed: false,
     notices: [],
+    homeactivekey: 'information',
   },
 
   effects: {
@@ -62,26 +65,32 @@ const GlobalModel: GlobalModelType = {
   },
 
   reducers: {
-    changeLayoutCollapsed(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
+    changeLayoutCollapsed(state = { notices: [], collapsed: true, homeactivekey: 'information' }, { payload }): GlobalModelState {
       return {
         ...state,
         collapsed: payload,
       };
     },
-    saveNotices(state, { payload }): GlobalModelState {
+    saveNotices(state: any, { payload }): GlobalModelState {
       return {
         collapsed: false,
         ...state,
         notices: payload,
       };
     },
-    saveClearedNotices(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
+    saveClearedNotices(state: any, { payload }): GlobalModelState {
       return {
         ...state,
         collapsed: false,
-        notices: state.notices.filter((item): boolean => item.type !== payload),
+        notices: state.notices.filter((item: any): boolean => item.type !== payload),
       };
     },
+    setHomeActiveKey(state: any, action) {
+      return {
+        ...state,
+        homeactivekey: action.payload,
+      };
+    }
   },
 };
 

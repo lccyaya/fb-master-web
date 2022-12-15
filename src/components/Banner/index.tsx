@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel } from 'antd';
-import { connect, useHistory } from 'umi';
+import { connect, useDispatch, useHistory } from 'umi';
 import classnames from 'classnames';
 import type { ConnectState } from '@/models/connect';
 import styles from './index.less';
@@ -37,6 +37,7 @@ export function getPosition() {
 const BannerWidget: React.FC<CarouselProps> = (props) => {
   const [banners, setBanners] = useState<bannerType[]>([]);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const init = async () => {
     console.log('开始调用Banner 接口');
@@ -85,7 +86,10 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
           window.open(h5url, '_blank');
           break;
         case '/share':
-          history.push(`/zh/downloadapp`);
+          dispatch({
+            type: 'global/setHomeActiveKey',
+            payload: 'app',
+          });
           break;
         default:
           break;

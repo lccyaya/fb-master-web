@@ -4,7 +4,7 @@ import Info from '@/pages/Info';
 import { Spin } from 'antd';
 import { NavBar } from 'antd-mobile';
 import { useState } from 'react';
-import { useSelector } from 'umi';
+import { useDispatch, useSelector } from 'umi';
 import styles from './index.less';
 import VersionA from './version-a';
 import VersionB from './version-b';
@@ -14,11 +14,22 @@ export default function MobileHome(props) {
   const abVersion = useSelector<ConnectState, ConnectState['abtest']['version']>(
     (state) => state.abtest.version,
   );
+  const dispatch = useDispatch();
 
   const content = { A: <VersionA />, B: <VersionB />, '': null }[abVersion];
-  const [tabkey, setTabkey] = useState(
-    props.location.state ? props.location.state.activekey : 'information',
+  // const [tabkey, setTabkey] = useState(
+  //   props.location.state ? props.location.state.activekey : 'information',
+  // );
+  const tabkey = useSelector<ConnectState, ConnectState['global']['homeactivekey']>(
+    (state) => state.global.homeactivekey,
   );
+
+  const changeTab = (tabkey: string) => {
+    dispatch({
+      type: 'global/setHomeActiveKey',
+      payload: tabkey,
+    });
+  }
 
   return (
     <Spin spinning={!abVersion}>
@@ -53,7 +64,7 @@ export default function MobileHome(props) {
             //   ),
             // },
           ]}
-          onChange={setTabkey}
+          onChange={changeTab}
         />
       </div>
     </Spin>

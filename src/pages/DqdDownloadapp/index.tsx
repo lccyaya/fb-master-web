@@ -15,10 +15,13 @@ const DqdDownloadapp = (props: Props) => {
           // style={{ }}
           className={styles.button_download}
           onClick={() => {
+            // 百度统计
+            _hmt.push(['_trackEvent', 'download Button', 'click', '下载APP']);
+
             const a = document.createElement('a');
             a.style.display = 'none';
             a.download = '34sport';
-            a.href = 'https://34api.oss-cn-beijing.aliyuncs.com/package/34Sport_Release_Last.apk';
+            a.href = 'https://34api.oss-cn-beijing.aliyuncs.com/package/34Sport_1.2.3_Dongqiudi_Release.apk';
             document.body.appendChild(a);
             a.click(); // 自动触发点击a标签的click事件
             document.body.removeChild(a);
