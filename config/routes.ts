@@ -222,6 +222,13 @@
               component: '@/pages/Info',
             },
             {
+              path: '/:locale/library/detail',
+              name: 'Library_detail',
+              cate: 'library_detail',
+              locale: 'key_library_detail',
+              component: '@/pages/Info/detail',
+            },
+            {
               path: '/:locale/informationdetail/:id',
               component: '../pages/Information/InformationDetails',
               cate: 'informationdetail',

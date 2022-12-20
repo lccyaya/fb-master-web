@@ -233,3 +233,19 @@ export namespace Color {
     }
   }
 }
+// 弹窗值筛选
+export const getAccordWithLabel = (array, value) => {
+  let newArray;
+  array.map(data => {
+    const list = data.filter(item => {
+      return item.value === value;
+    });
+    if (list.length) {
+      newArray = list[0]
+    }
+  });
+  console.log(newArray?.label);
+  return newArray?.label;
+
+
+};

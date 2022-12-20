@@ -32,15 +32,19 @@ const TablePage = (props: Props) => {
   const history = useHistory();
   const columns: ColumnsType<DataType> = [
     {
-      title: `${grouplist[props.group]}组`,
+      title: <div className={styles.title}>{grouplist[props.group]}组</div>,
       dataIndex: 'team_name',
       key: 'team_name',
       // width: 150,
       // align: "center",
       render: (text, record, index) => (
-        <div>
-          <span>{record.position}</span>
-          <img style={{ width: 20, height: 20, margin: ' 0 5px', objectFit: 'contain' }} src={record.team_logo} alt="" />
+        <div style={{ display: 'flex' }}>
+          <div style={{ margin: ' 0 5px' }}>{record.position}</div>
+          <img
+            style={{ width: 20, height: 20, margin: ' 0 5px', objectFit: 'contain' }}
+            src={record.team_logo}
+            alt=""
+          />
           {text}
         </div>
       ),
@@ -49,7 +53,7 @@ const TablePage = (props: Props) => {
       title: '赛',
       dataIndex: 'team',
       key: 'team',
-      width: 100,
+      // width: 100,
       align: 'center',
       render: (text, record, index) => <div>{record.played}</div>,
     },
@@ -84,23 +88,21 @@ const TablePage = (props: Props) => {
   ];
   return (
     <div className={styles.tab_teamtable}>
-      <Spin spinning={!props.data?.length}>
-        <Table
-          pagination={false}
-          columns={columns}
-          dataSource={props.data}
-          rowKey="team_id"
-          onRow={(record) => {
-            return {
-              onClick: (event) => {
-                console.log(record, 'pppp');
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={props.data}
+        rowKey="team_id"
+        onRow={(record) => {
+          return {
+            onClick: (event) => {
+              console.log(record, 'pppp');
 
-                history.push(`/zh/teamdetails/${record.team_id}`);
-              }, // 点击行
-            };
-          }}
-        />
-      </Spin>
+              history.push(`/zh/teamdetails/${record.team_id}`);
+            }, // 点击行
+          };
+        }}
+      />
     </div>
   );
 };

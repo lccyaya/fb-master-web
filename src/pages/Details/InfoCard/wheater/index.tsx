@@ -16,7 +16,7 @@ const WeatherPage = (props: Props) => {
   const { data } = props;
   return (
     <div>
-      {data?.weather && (
+      {data?.weather > 0 && (
         <div className={classnames(styles.weather_main, styles[Weather(data?.weather).img])}>
           <div className={styles.weather_left}>{Weather(data?.weather).text}</div>
           <div className={styles.weather_right}>

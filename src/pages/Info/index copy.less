@@ -1,0 +1,199 @@
+@import '~antd/es/style/themes/default.less';
+
+.main {
+  display: flex;
+  max-width: 1024px;
+  height: calc(100vh - 48px);
+  height: calc(var(--vh, 1vh) * 100 - 48px);
+  margin: auto;
+  overflow: hidden;
+
+
+
+  //  :global .ant-menu-horizontal: not(.ant-menu-dark)>.ant-menu-item:hover
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open,
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected,
+  // .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
+  //   color: red
+  // }
+
+
+  :global .ant-menu-horizontal {
+    border: none;
+  }
+
+  :global .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
+    color: #fff;
+    font-size: 18px !important;
+  }
+
+  //  :global .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after{
+  //   border: none;
+  //  }
+
+  :global .ant-menu-horizontal>.ant-menu-submenu>.ant-menu-submenu-title {
+    // font-size: 18px;
+    color: #fff
+  }
+
+  :global(.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title) {
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+  }
+
+  .spin {
+    .empty {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .tabButton {
+    min-width: 96px;
+    height: 30px;
+    padding: 0 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: PingFang SC;
+    font-style: normal;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 100px;
+  }
+
+  :global(.ant-tag-checkable-checked) {
+    color: #FA5900;
+    background-color: #fff;
+  }
+
+  .left {
+    width: 260px;
+    height: 100%;
+  }
+
+  .right_content {
+    background-color: #fff;
+    padding: 12px;
+  }
+
+  .right {
+    flex: 1;
+    height: 100%;
+    margin-left: -1px;
+    margin-top: -1;
+
+    .mean {
+      // width: 100%;
+      height: 50px;
+      overflow-x: auto;
+      font-size: 14px;
+      display: flex;
+    }
+
+    :global .adm-tabs-header-mask {
+      width: 0;
+    }
+
+    // padding-right: 10px;
+    // padding-left: 40px;
+    // border-left: 1px #eee solid;
+  }
+
+  @media screen and (max-width: @screen-xs) {
+    .left {
+      width: 80px;
+    }
+
+    .right {
+      padding-top: 0;
+      // padding-left: 10px;
+    }
+
+    .menu {
+      width: 100%;
+      height: 33px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #FA5900;
+      color: #fff;
+
+    }
+
+    // :global .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after {
+    //   border-bottom: 2px solid #ffffff;
+    // }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  background-color: #FA5900;
+  padding: 12px 12px;
+
+  .season_name {
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.season_wrap {
+  height: 160px;
+  overflow: scroll;
+}
+
+.season_list {
+  padding: 5px 0;
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+  cursor: pointer;
+}
+
+.icon_wrap {
+  // width: 12px;
+  // height: 12px;
+  // background: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // border-radius: 50%;
+  margin-left: 5px;
+}
+
+@media screen and (max-width: @screen-xs) {
+  .main {
+    display: block;
+    padding-bottom: 44px;
+  }
+
+  :global(.ant-menu-horizontal > .ant-menu-submenu) {
+    font-size: 15px !important;
+    line-height: 22px !important;
+    height: 22px !important;
+  }
+
+  :global(.ant-menu-vertical .ant-menu-item:not(:last-child)) {
+    height: 22px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  :global(.ant-menu-vertical > .ant-menu-item) {
+    height: 22px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+}

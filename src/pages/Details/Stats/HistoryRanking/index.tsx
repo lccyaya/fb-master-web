@@ -68,7 +68,7 @@ const RecentGames = (props: Props) => {
             >
               {record.home.score}
             </span>
-            :{' '}
+            :
             <span
               style={{
                 color: Color.numColor(

@@ -471,5 +471,9 @@ export default {
     "key_wordcap_winhit": "连红",
     "key_wordcap_free": "免费",
     "key_worldcap_guessvalue": "能量值",
-    "key_worldcap_return": "回报率"
+    "key_worldcap_return": "回报率",
+    "key_matchall": "全部",
+    "key_jingcai": "竞彩",
+    "key_beidan": "北单",
+    "key_importance": "重要",
 }
