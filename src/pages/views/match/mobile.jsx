@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, createRef } from 'react';
-import { useHistory, useRequest as umiRequest, useIntl } from 'umi';
+import { useHistory, useRequest as umiRequest, useIntl, FormattedMessage } from 'umi';
 import styles from './mobile.less';
 import { Container, Empty, Search, Spining } from '@/base-components/mobile';
 import { Menu, MatchCard, TimeTitle, Calendar, BottomIcon, League } from '@/func-components/mobile';
@@ -10,6 +10,9 @@ import IconFont from '@/components/IconFont';
 import MatchFilter from '@/components/MatchFilter';
 import Toggle from '@/components/Toggle';
 import DateTab from '@/components/DateTab';
+import FBWorldCapTab from '@/components/FBWordCopTab';
+
+
 // import filterIcon from '@/assets/icon/filter.svg';
 import ScrollView from 'react-custom-scrollbars';
 import { Spin } from 'antd';
@@ -191,7 +194,7 @@ const Mobile = () => {
         // if (params.tab_type === 1) {
         //   newData.matches = sortMatch(newData.matches || []);
         // } else {
-          newData.matches = newData.matches || [];
+        newData.matches = newData.matches || [];
         // }
         newData.matches.map((item) => {
           item.time = formatDate(item.match_time);
@@ -207,7 +210,7 @@ const Mobile = () => {
             // if (params.tab_type === 1) {
             //   newData.matches = sortMatch(newMatches);
             // } else {
-              newData.matches = newMatches;
+            newData.matches = newMatches;
             // }
           } else {
             if (newData.matches.length < params.size) {
@@ -217,7 +220,7 @@ const Mobile = () => {
             // if (params.tab_type === 1) {
             //   newData.matches = sortMatch(newMatches);
             // } else {
-              newData.matches = newMatches;
+            newData.matches = newMatches;
             // }
           }
         } else {
@@ -474,6 +477,29 @@ const Mobile = () => {
   // const MenuTools = (
   //   <div style={{ background: "#FA5900" }}>资料库</div>
   // )
+  const tab = [
+    {
+      title: <FormattedMessage id={'key_matchall'} />,
+      key: 'key_worldcap_focusing',
+    },
+    {
+      title: <FormattedMessage id={'key_importance'} />,
+      key: 'key_worldcap_schedule',
+    },
+    {
+      title: <FormattedMessage id={'key_jingcai'} />,
+      key: 'key_worldcap_analysis',
+    },
+    {
+      title: <FormattedMessage id={'key_beidan'} />,
+      key: 'key_scheme',
+    },
+
+    {
+      title: <FormattedMessage id={'key_scheme'} />,
+      key: 'key_worldcap_rankinglist',
+    },
+  ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div className={styles.topWrapper}>
@@ -498,7 +524,20 @@ const Mobile = () => {
           <IconFont className={styles.filterIcon} type="icon-a-22" />
           筛选
         </div>
+        {[1].includes(menuActive.param_value) && (
+          <div className={styles.active_box}>
+            <div className={styles.active}>
+              <FBWorldCapTab
+                list={tab}
+                defaultActiveKey="key_scheme"
+                mini
+              // onChange={onChangetab}
+              ></FBWorldCapTab>
+            </div>
+          </div>
+        )}
       </div>
+
       {[2].includes(menuActive.param_value) && (
         <DateTab dateList={matchScheduleDateList} onChange={handleDateChange} />
       )}
@@ -607,11 +646,12 @@ const Mobile = () => {
             <Spining show={pageInfo.isLoading === 'pre'} />
 
             {liveList?.map((item, key) => (
-                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
             ))}
             {/* 列表渲染 */}
             {renderList.map((dataKey, key) => (
               <div className={styles.list} key={key}>
+
                 <TimeTitle title={dataKey} sticky key={key} className="time_title" />
 
                 {renderData[dataKey].map((item, key) => (
@@ -621,10 +661,10 @@ const Mobile = () => {
             ))}
 
             {finishedList?.map((item, key) => (
-                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
             ))}
             {errorList?.map((item, key) => (
-                <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
             ))}
             <Spining show={pageInfo.isLoading === 'next'} />
 
