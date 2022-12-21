@@ -24,15 +24,20 @@ interface DataType {
   team_id: number;
 }
 type Props = {
-  group: string | number;
+  group?: string | number;
   data: any;
+  propscolumns?: any
 };
 const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 const TablePage = (props: Props) => {
   const history = useHistory();
   const columns: ColumnsType<DataType> = [
     {
-      title: <div className={styles.title}>{grouplist[props.group]}组</div>,
+      title: (
+        <div className={styles.title}>
+          {grouplist[props.group]}组
+        </div>
+      ),
       dataIndex: 'team_name',
       key: 'team_name',
       // width: 150,
@@ -90,7 +95,7 @@ const TablePage = (props: Props) => {
     <div className={styles.tab_teamtable}>
       <Table
         pagination={false}
-        columns={columns}
+        columns={props?.propscolumns ? props.propscolumns : columns}
         dataSource={props.data}
         rowKey="team_id"
         onRow={(record) => {

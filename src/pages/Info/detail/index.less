@@ -6,10 +6,68 @@
 
     .content {
         position: absolute;
-        top: 100px;
+        top: 45px;
         width: 100%;
         background-color: #fff;
         border-radius: 10px;
+
+
+        .content_list {
+            :global .adm-capsule-tabs-tab-list {
+                :global .adm-capsule-tabs-tab-wrapper {
+
+                    :global .adm-capsule-tabs-tab-active {
+                        width: 70px;
+                        background-color: #fff;
+                        padding: 16px;
+                        color: #FA5900;
+                        border-radius: 10px 10px 0 0;
+                        // box-shadow: -2px 0 3px -1px green, 0 -2px 3px -1px green, 0 2px 3px -1px green, 2px 0 3px -1px green, ;
+                        // box-sizing: border-box;
+                    }
+
+                    // :global .adm-capsule-tabs-tab {
+                    //     margin: 0;
+                    // }
+
+
+                }
+
+            }
+        }
+
+        .tab {
+            width: 200px;
+
+            background-color: #fff;
+            border-radius: 20px;
+
+            :global .adm-capsule-tabs-tab-list {
+                :global .adm-capsule-tabs-tab-wrapper {
+
+                    :global .adm-capsule-tabs-tab-active {
+                        background-color: #FFF6F2;
+                        color: #FA5900;
+                        border-radius: 4px;
+                    }
+
+
+                }
+
+            }
+        }
+
+        .tabfelx {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 12px;
+            color: #000028;
+            // background-color: #FA5900;
+        }
+
+
     }
 
     .detail {
@@ -27,30 +85,7 @@
             z-index: 10;
             width: 100%;
 
-            .tabfelx {
-                width: 100%;
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                padding: 12px;
-                // background-color: #FA5900;
-            }
 
-            .tab {
-                width: 200px;
-
-                background-color: #fff;
-                border-radius: 20px;
-
-                :global .adm-capsule-tabs-tab-list {
-                    :global .adm-capsule-tabs-tab-wrapper {
-                        :global .adm-capsule-tabs-tab-active {
-                            background-color: #FA5900;
-                        }
-                    }
-
-                }
-            }
 
 
 

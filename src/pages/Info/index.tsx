@@ -4,7 +4,6 @@ import { useHistory } from 'umi';
 import { Tabs, Badge } from 'antd-mobile';
 import * as competitionService from '@/services/competition';
 import styles from './index.less';
-import { Menu } from '@/func-components/mobile';
 
 import FBNavList from '@/components/FBNavList';
 type Props = {};
@@ -28,13 +27,14 @@ const Info = (props: Props) => {
   return (
     <div className={styles.library}>
       <NavBar
-        style={{ color: '#fff', background: '#FA5900' }}
+        style={{ fontWeight: '500' }}
         onBack={() => {
           history.goBack();
         }}
       >
         资料库
       </NavBar>
+
       <div className={styles.nav}>
         <Tabs
           style={{

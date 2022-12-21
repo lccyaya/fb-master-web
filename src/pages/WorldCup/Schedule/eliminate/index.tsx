@@ -23,7 +23,7 @@ const Eliminate = (props: Props) => {
     <div className={styles.box_main}>
       <div>
         <div className={styles.box_onetop}>
-          {eliminateList?.onelist[0].map((item: eliminateList) => {
+          {eliminateList?.onelist[0]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -94,7 +94,7 @@ const Eliminate = (props: Props) => {
         </div>
 
         <div className={styles.box_onetop}>
-          {eliminateList?.onelist[1].map((item: eliminateList) => {
+          {eliminateList?.onelist[1]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -162,7 +162,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
         <div className={styles.box_onetop}>
-          {eliminateList?.onelist[2].map((item: eliminateList) => {
+          {eliminateList?.onelist[2]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -232,7 +232,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
         <div className={styles.box_onetop}>
-          {eliminateList?.onelist[3].map((item: eliminateList) => {
+          {eliminateList?.onelist[3]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -276,7 +276,7 @@ const Eliminate = (props: Props) => {
 
       <div>
         <div className={styles.box_onetop}>
-          {eliminateList?.twolist[eliminateList.twolist.length - 1].map((item: eliminateList) => {
+          {eliminateList?.twolist[eliminateList.twolist.length - 1]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -333,7 +333,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
         <div className={styles.box_onetop}>
-          {eliminateList?.twolist[eliminateList.twolist.length - 2].map((item: eliminateList) => {
+          {eliminateList?.twolist[eliminateList.twolist.length - 2]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -403,7 +403,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
         <div className={styles.box_onetop}>
-          {eliminateList?.twolist[1].map((item: eliminateList) => {
+          {eliminateList?.twolist[1]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -469,7 +469,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
         <div className={styles.box_onetop}>
-          {eliminateList?.twolist[0].map((item: eliminateList) => {
+          {eliminateList?.twolist[0]?.map((item: eliminateList) => {
             return (
               <div
                 key={item.id}
@@ -536,7 +536,7 @@ const Eliminate = (props: Props) => {
           })}
         </div>
       </div>
-      <div style={{ height: 55 }}></div>
+      {/* <div style={{ height: 55 }}></div> */}
     </div>
   );
 };

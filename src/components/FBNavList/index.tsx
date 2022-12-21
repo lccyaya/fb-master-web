@@ -3,6 +3,7 @@ import styles from './index.less';
 import { useHistory } from 'umi';
 import { report } from '@/services/ad';
 import { REPORT_ACTION, REPORT_CATE } from '@/constants';
+import Logo from '@/assets/match/library_logo.png';
 
 type Props = {
   data?: any;
@@ -28,7 +29,13 @@ const FBNavList = (props: Props) => {
               });
             }}
           >
-            <div className={styles.logo}>头像</div>
+            <div className={styles.logo}>
+              {item?.logo ? (
+                <img className={styles.logo_img} src={item?.logo} alt="" />
+              ) : (
+                <img className={styles.logo_default_img} src={Logo} alt="" />
+              )}
+            </div>
             <div>{item?.name}</div>
             <div className={styles.num}>20场</div>
           </div>

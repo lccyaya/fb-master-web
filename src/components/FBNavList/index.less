@@ -12,7 +12,7 @@
     .navlist_flex {
         width: 23%;
         height: 90px;
-        background-color: #FAFBFD;
+        background-image: url("~@/assets/match/library_navbg.png");
         flex-wrap: wrap;
         display: flex;
         align-items: center;
@@ -22,15 +22,27 @@
         flex-direction: column;
         line-height: 30px;
         position: relative;
-        border-radius: 0 0 30px 30px;
+        // border-radius: 0 0 30px 30px;
 
         .logo {
             width: 45px;
             height: 45px;
-            background-color: #fff;
             border-radius: 20px;
+            background-color: #fff;
+            border: 1px solid #FAFBFD;
             position: absolute;
             top: -25px;
+
+            .logo_default_img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .logo_img {
+                width: 35px;
+                height: 35px;
+                margin: 5px;
+            }
         }
 
         .num {

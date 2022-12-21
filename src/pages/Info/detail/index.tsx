@@ -3,7 +3,7 @@ import { useHistory } from 'umi';
 import * as matchService from '@/services/match';
 import { NavBar, Picker } from 'antd-mobile';
 import IconFont from '@/components/IconFont';
-import * as competitionService from '@/services/competition';
+
 import styles from './index.less';
 import FBWorldCapTab from '@/components/FBWordCopTab';
 import Groupmatch from '../groupmatch';
@@ -26,9 +26,7 @@ const Detail = (props: Props) => {
   const [tabvisible, setTabVisible] = useState(false);
   // 积分 赛程 榜单状态
   const [picktabvalue, setPicTabValue] = useState('1');
-
   const [integrate, setIntegrate] = useState<any>('1');
-  const [ranking, setRanking] = useState<any>();
   const history = useHistory();
   const picktab = [
     [
@@ -46,7 +44,11 @@ const Detail = (props: Props) => {
           }}
         >
           {getAccordWithLabel(picktab, integrate)}
-          <IconFont type="icon-zhankai2" color="#fff" size={10} />
+          <IconFont
+            type="icon-zhankai2"
+            color={picktabvalue == '1' ? '#FA5900' : '#848494'}
+            size={10}
+          />
         </div>
       ),
       key: '1',
@@ -61,14 +63,6 @@ const Detail = (props: Props) => {
     },
   ];
 
-  const init = async (competition_id: number, season_id?: number) => {
-    //    setLoading(!hideLoading);
-    const result = await competitionService.ranking({ competition_id: competition_id, season_id });
-
-    if (result.success) {
-      setRanking(result.data.tables);
-    }
-  };
   // 赛季年份
   const fetchSeasonData = async (competitionId: any) => {
     const result = await matchService.getSeasonList(competitionId);
@@ -94,11 +88,6 @@ const Detail = (props: Props) => {
     fetchSeasonData(id);
   }, []);
 
-  useEffect(() => {
-    if (curSeasonId) {
-      init(id, Number(curSeasonId));
-    }
-  }, [curSeasonId]);
   return (
     <div className={styles.detail_box}>
       {' '}
@@ -112,26 +101,6 @@ const Detail = (props: Props) => {
           >
             {name}
           </NavBar>
-          <div className={styles.tabfelx}>
-            <div
-              onClick={() => {
-                setVisible(true);
-              }}
-            >
-              {' '}
-              赛季{getAccordWithLabel(yeardata, curSeasonId)}
-              <IconFont type="icon-zhankai2" color="#fff" size={12} />
-            </div>
-
-            <div className={styles.tab}>
-              <FBWorldCapTab
-                list={tab}
-                defaultActiveKey={picktabvalue}
-                mini
-                onChange={onChangetab}
-              ></FBWorldCapTab>
-            </div>
-          </div>
         </div>
       </div>
       <Picker
@@ -162,13 +131,33 @@ const Detail = (props: Props) => {
         }}
       />
       <div className={styles.content}>
-        {picktabvalue == '1' && <Groupmatch data={ranking} season_id={curSeasonId}></Groupmatch>}
-      </div>
-      <div className={styles.content}>
-        {picktabvalue == '2' && <Schedule competition_id={id} season_id={curSeasonId}></Schedule>}
-      </div>
-      <div className={styles.content}>
-        {picktabvalue == '3' && <Ranking competition_id={id} season_id={curSeasonId}></Ranking>}
+        <div className={styles.tabfelx}>
+          <div
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            {' '}
+            赛季{getAccordWithLabel(yeardata, curSeasonId)}
+            <IconFont type="icon-zhankai2" color="#000028" size={12} />
+          </div>
+
+          <div className={styles.tab}>
+            <FBWorldCapTab
+              list={tab}
+              defaultActiveKey={picktabvalue}
+              mini
+              onChange={onChangetab}
+            ></FBWorldCapTab>
+          </div>
+        </div>
+        <div className={styles.content_list}>
+          {picktabvalue == '1' && (
+            <Groupmatch competition_id={id} season_id={curSeasonId} integrate={integrate} />
+          )}
+          {picktabvalue == '2' && <Schedule competition_id={id} season_id={curSeasonId} />}
+          {picktabvalue == '3' && <Ranking competition_id={id} season_id={curSeasonId} />}
+        </div>
       </div>
     </div>
   );
