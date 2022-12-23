@@ -10,7 +10,10 @@ import Empty from '@/components/Empty';
 
 import useWindowSize from '@/hooks/useWindowSize';
 import { PlayerGoalList } from '@/services/worldcup';
-type Props = {};
+type Props = {
+  season_id: number
+  competition_id: number
+};
 interface DataType {
   key: string;
   ranking: string;
@@ -31,7 +34,7 @@ const team_columns: ColumnsType<DataType> = [
     title: '球队',
     dataIndex: 'team',
     key: 'team',
-    width: 100,
+    // width: 100,
     align: 'center',
   },
   {
@@ -47,7 +50,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
     dataIndex: 'position',
     key: 'position',
     align: 'center',
-    width: 50,
+    width: 40,
 
     // render: text => <a>{text}</a>,
   },
@@ -56,12 +59,19 @@ const teamplayer_columns: ColumnsType<DataType> = [
     dataIndex: 'name',
     key: 'name',
     // width: 100,
-    align: 'center',
+    // align: 'center',
+    // ellipsis: true,
     render: (text, record, index) => (
-      <div className={styles.team_logo}>
-        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.team_logo} alt="" />
+      <div className={styles.logo}>
+        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.logo} alt="" />
 
-        <div>{text}</div>
+        <div style={{
+          textAlign: "left",
+          // width: 150,
+          // overflow: "hidden",
+          // whiteSpace: "nowrap",
+          // textOverflow: "ellipsis"
+        }}>{text}</div>
       </div>
     ),
   },
@@ -71,6 +81,13 @@ const teamplayer_columns: ColumnsType<DataType> = [
     key: 'team_name',
     align: 'center',
     // ellipsis: true
+    render: (text, record, index) => (
+      <div className={styles.team_logo}>
+        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.team_logo} alt="" />
+
+      </div>
+    ),
+
   },
   {
     title: '总数',
@@ -82,8 +99,10 @@ const teamplayer_columns: ColumnsType<DataType> = [
 ];
 
 const Rankinglist = (props: Props) => {
+  const { competition_id, season_id } = props
   const [activeKey, setActiveKey] = useState('key_teamplayers');
   const [columns, setColumns] = useState(teamplayer_columns);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [innerHeight, setInnerHeight] = useState<number>(0);
   const [data, setData] = useState([]);
@@ -97,6 +116,7 @@ const Rankinglist = (props: Props) => {
     {
       title: '球员',
       key: 'key_teamplayers',
+
     },
   ];
   const customizeRenderEmpty = () => (
@@ -116,13 +136,17 @@ const Rankinglist = (props: Props) => {
   };
 
   const getPlayerGoalList = async (): Promise<any> => {
+    setLoading(true);
+
     let data: PlayerGoalListParams = {
-      competition_id: 1,
-      season_id: 10810,
+      competition_id: competition_id,
+      season_id: season_id,
     };
     const result: any = await PlayerGoalList(data);
 
     if (result.success == true) {
+      setLoading(false);
+
       setData(result.data);
     }
   };
@@ -131,7 +155,7 @@ const Rankinglist = (props: Props) => {
     getPlayerGoalList();
     const height1 = height - tabref.current?.clientHeight - 170;
     setInnerHeight(height1);
-  }, [height]);
+  }, [height, season_id]);
 
   return (
     <div className={styles.match_cap_list}>
@@ -144,7 +168,7 @@ const Rankinglist = (props: Props) => {
             list={tab}
             defaultActiveKey={activeKey}
             onChange={onChangetab}
-          ></FBWorldCapTab>
+          />
         </div>
       </div>
       <div className={styles.tab_team}>
@@ -162,6 +186,7 @@ const Rankinglist = (props: Props) => {
           <ConfigProvider renderEmpty={customizeRenderEmpty}>
             <Table
               scroll={{ y: innerHeight }}
+              loading={loading}
               rowKey="position"
               pagination={false}
               columns={columns}

@@ -36,7 +36,7 @@ const FBNavList = (props: Props) => {
                 <img className={styles.logo_default_img} src={Logo} alt="" />
               )}
             </div>
-            <div>{item?.name}</div>
+            <div style={{ fontSize: 12, }}>{item?.name}</div>
             <div className={styles.num}>20场</div>
           </div>
         );

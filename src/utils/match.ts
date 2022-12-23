@@ -244,7 +244,6 @@ export const getAccordWithLabel = (array, value) => {
       newArray = list[0]
     }
   });
-  console.log(newArray?.label);
   return newArray?.label;
 
 

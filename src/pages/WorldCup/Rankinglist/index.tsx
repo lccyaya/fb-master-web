@@ -47,7 +47,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
     dataIndex: 'position',
     key: 'position',
     align: 'center',
-    width: 50,
+    width: 40,
 
     // render: text => <a>{text}</a>,
   },
@@ -59,7 +59,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
     align: 'center',
     render: (text, record, index) => (
       <div className={styles.team_logo}>
-        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.team_logo} alt="" />
+        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.logo} alt="" />
 
         <div>{text}</div>
       </div>
@@ -71,6 +71,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
     key: 'team_name',
     align: 'center',
     // ellipsis: true
+
   },
   {
     title: '总数',

@@ -151,7 +151,10 @@ const Scheme = (props: Props) => {
         ''
       )}
 
-      {activeKey == '2' ? <Eliminate eliminateList={eliminateList}></Eliminate> : ''}
+      {activeKey == '2' ? <div>
+        <Eliminate eliminateList={eliminateList}></Eliminate>
+        <div style={{ height: 40 }}></div>
+      </div> : ''}
     </div>
   );
 };

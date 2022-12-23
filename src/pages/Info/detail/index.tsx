@@ -40,7 +40,11 @@ const Detail = (props: Props) => {
       title: (
         <div
           onClick={() => {
-            setTabVisible(true);
+
+            if (picktabvalue == "1") {
+              setTabVisible(true);
+
+            }
           }}
         >
           {getAccordWithLabel(picktab, integrate)}
@@ -103,6 +107,7 @@ const Detail = (props: Props) => {
           </NavBar>
         </div>
       </div>
+      {/* 日期弹框 */}
       <Picker
         defaultValue={[curSeasonId]}
         columns={yeardata}
@@ -118,6 +123,7 @@ const Detail = (props: Props) => {
           setCurSeasonId(val[0]);
         }}
       />
+      {/* 积分弹框 */}
       <Picker
         defaultValue={[picktabvalue]}
         columns={picktab}
@@ -138,7 +144,7 @@ const Detail = (props: Props) => {
             }}
           >
             {' '}
-            赛季{getAccordWithLabel(yeardata, curSeasonId)}
+            {getAccordWithLabel(yeardata, curSeasonId)}
             <IconFont type="icon-zhankai2" color="#000028" size={12} />
           </div>
 
@@ -148,7 +154,7 @@ const Detail = (props: Props) => {
               defaultActiveKey={picktabvalue}
               mini
               onChange={onChangetab}
-            ></FBWorldCapTab>
+            />
           </div>
         </div>
         <div className={styles.content_list}>

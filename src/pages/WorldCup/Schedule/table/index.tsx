@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Spin } from 'antd';
 import { useHistory } from 'umi';
+import Empty from '@/components/Empty';
 // import { ScoresList } from "@/services/worldcup"
 
 import styles from './index.less';
@@ -26,7 +27,7 @@ interface DataType {
 type Props = {
   group?: string | number;
   data: any;
-  propscolumns?: any
+  titletext?: any
 };
 const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 const TablePage = (props: Props) => {
@@ -35,22 +36,32 @@ const TablePage = (props: Props) => {
     {
       title: (
         <div className={styles.title}>
-          {grouplist[props.group]}组
+          {props?.titletext ? props?.titletext : `${grouplist[props.group]}组`}
+
         </div>
       ),
       dataIndex: 'team_name',
       key: 'team_name',
-      // width: 150,
+      // width: 60,
       // align: "center",
       render: (text, record, index) => (
-        <div style={{ display: 'flex' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: "center"
+        }}>
           <div style={{ margin: ' 0 5px' }}>{record.position}</div>
           <img
-            style={{ width: 20, height: 20, margin: ' 0 5px', objectFit: 'contain' }}
+            style={{ width: 20, height: 15, margin: ' 0 5px', objectFit: 'contain' }}
             src={record.team_logo}
             alt=""
           />
-          {text}
+          <div style={{
+            width: 75,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis"
+          }}>  {text}</div>
+
         </div>
       ),
     },
@@ -91,23 +102,37 @@ const TablePage = (props: Props) => {
       align: 'center',
     },
   ];
+  const customizeRenderEmpty = () => (
+    <div style={{ textAlign: 'center' }}>
+      <Empty style={{ fontSize: 20 }} />
+    </div>
+  );
   return (
     <div className={styles.tab_teamtable}>
-      <Table
-        pagination={false}
-        columns={props?.propscolumns ? props.propscolumns : columns}
-        dataSource={props.data}
-        rowKey="team_id"
-        onRow={(record) => {
-          return {
-            onClick: (event) => {
-              console.log(record, 'pppp');
+      <ConfigProvider renderEmpty={customizeRenderEmpty}>
 
-              history.push(`/zh/teamdetails/${record.team_id}`);
-            }, // 点击行
-          };
-        }}
-      />
+        <Table
+          pagination={false}
+          columns={columns}
+          dataSource={props.data}
+          rowKey="team_id"
+          rowClassName={(record: any): any => {
+            if (record.position == 1 && props?.titletext) {
+              return "rowbgcolor"
+            }
+
+          }}
+          onRow={(record) => {
+            return {
+              onClick: (event) => {
+                console.log(record, 'pppp');
+
+                history.push(`/zh/teamdetails/${record.team_id}`);
+              }, // 点击行
+            };
+          }}
+        />
+      </ConfigProvider>
     </div>
   );
 };

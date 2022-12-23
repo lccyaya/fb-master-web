@@ -8,20 +8,24 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px;
+    line-height: 16px;
 
     .navlist_flex {
         width: 23%;
         height: 90px;
         background-image: url("~@/assets/match/library_navbg.png");
+        background-repeat: no-repeat;
         flex-wrap: wrap;
         display: flex;
         align-items: center;
-        // justify-content: end;
-        padding-top: 20px;
+        justify-content: center;
+        text-align: center;
+        padding-top: 10px;
         margin: 20px 0;
         flex-direction: column;
-        line-height: 30px;
+        // line-height: 30px;
         position: relative;
+
         // border-radius: 0 0 30px 30px;
 
         .logo {
@@ -47,12 +51,16 @@
 
         .num {
             text-align: center;
-            width: 60px;
-            height: 25px;
-
-            line-height: 23px;
+            width: 55px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // line-height: 20px;
             border-radius: 20px;
             border: 1px solid #848494;
+            margin-top: 5px;
+            font-size: 12px;
         }
     }
 

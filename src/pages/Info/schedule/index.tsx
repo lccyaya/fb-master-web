@@ -7,7 +7,7 @@ import * as matchPageService from '@/services/matchPage';
 import { getAccordWithLabel } from '@/utils/match';
 
 import moment from 'moment';
-// import { Color } from '@/utils/match';
+import { Color } from '@/utils/match';
 import { Picker } from 'antd-mobile';
 // import type {
 //   AnalysisListRes,
@@ -39,11 +39,15 @@ const Schedule = (props: Props) => {
         // title: '赛事',
         dataIndex: 'competition_name',
         key: 'competition_name',
+        // width: 40,
+        className: "first_columns",
         align: 'center',
         render: (text, record) => (
-          <div>
-            {text}
-            <div>{moment(record.match_time * 1000).format('YYYY-MM-DD')}</div>
+          <div >
+            {/* {text} */}
+            <div>{moment(record.match_time * 1000).format('MM-DD')}</div>
+            <div>{moment(record.match_time * 1000).format('HH:mm')}</div>
+
           </div>
         ),
       },
@@ -54,63 +58,80 @@ const Schedule = (props: Props) => {
         width: 80,
         align: 'center',
       },
-      //   {
-      //     // title: '',
-      //     dataIndex: 'home',
-      //     key: 'home',
-      //     width: 20,
-      //     align: 'center',
-      //     render: (text, record) => (
-      //       <div className={styles.bfstyle}>
-      //         <span
-      //           style={{
-      //             color: Color.numColor(
-      //               record?.home?.score > record.away?.score
-      //                 ? '赢'
-      //                 : record?.home?.score == record.away?.score
-      //                 ? '走'
-      //                 : '输',
-      //             ),
-      //           }}
-      //         >
-      //           {record.home.score}
-      //         </span>
-      //         :
-      //         <span
-      //           style={{
-      //             color: Color.numColor(
-      //               record?.home?.score < record.away?.score
-      //                 ? '赢'
-      //                 : record?.home?.score == record.away?.score
-      //                 ? '走'
-      //                 : '输',
-      //             ),
-      //           }}
-      //         >
-      //           {record.away.score}
-      //         </span>
-      //       </div>
-      //     ),
-      //   },
+      {
+        // title: '',
+        dataIndex: 'status',
+        key: 'status',
+        width: 20,
+        align: 'center',
+        render: (text, record) => (
+          <div className={styles.bfstyle}>
+            {text > 1 ? <div>
+              <div style={{
+                color: Color.numColor(
+                  record.final_scores.home > record.final_scores.away
+                    ? '赢'
+                    : record.final_scores.home == record.final_scores.away
+                      ? '走'
+                      : '输',
+                ),
+              }}>
+                {record.final_scores.home}:{record.final_scores.away}
+              </div>
+              <div className={styles.first_half_score}>
+                ({record.final_scores.first_half_home}:{record.final_scores.first_half_away})
+              </div>
+            </div> : <div style={{ color: "#848494" }}>VS</div>}
+            {/* <span
+              style={{
+                color: Color.numColor(
+                  record?.home?.score > record.away?.score
+                    ? '赢'
+                    : record?.home?.score == record.away?.score
+                      ? '走'
+                      : '输',
+                ),
+              }}
+            >
+              {record.home.score}
+            </span>
+            :
+            <span
+              style={{
+                color: Color.numColor(
+                  record?.home?.score < record.away?.score
+                    ? '赢'
+                    : record?.home?.score == record.away?.score
+                      ? '走'
+                      : '输',
+                ),
+              }}
+            >
+              {record.away.score}
+            </span> */}
+          </div>
+        ),
+      },
       {
         // title: '客队',
         dataIndex: 'away_team_name',
         width: 80,
         key: 'away',
+        className: "last_columns",
+
         align: 'center',
       },
-      //   {
-      //     // title: '盘',
-      //     dataIndex: 'odds',
+      {
+        // title: '盘',
+        dataIndex: 'odds',
 
-      //     align: 'center',
-      //     render: (text) => (
-      //       <div style={{ color: Color.numColor(text.name) }}>
-      //         <div>{text.branch}</div>
-      //         {text.name}
-      //       </div>
-      //     ),
-      //   },
+        align: 'center',
+        render: (text) => (
+          <div style={{ color: Color.numColor(text.name) }}>
+            wwww
+          </div>
+        ),
+      },
 
       //   {
       //     // title: '进球',
@@ -140,25 +161,24 @@ const Schedule = (props: Props) => {
   };
 
   const { competition_id, season_id } = props;
-  //   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>();
   // 弹窗
   const [visible, setVisible] = useState<boolean>(false);
-  const [pickervalue, setPickerValue] = useState<any>(['0', '5']);
+  const [pickervalue, setPickerValue] = useState<any>(['one', '1']);
   //   const [pickertext, setPickertext] = useState<any>(['0', '5']);
 
   const yeardata = [
     [
-      { label: '分组赛', value: '0' },
-      { label: '1/8决赛', value: '1' },
-      { label: '1/4决赛', value: '2' },
+      { label: '分组赛', value: 'one' },
+      { label: '1/8决赛', value: 'two' },
+      { label: '1/4决赛', value: 'three' },
     ],
     [
-      { label: '第1轮', value: '3' },
-      { label: '第2轮', value: '4' },
-      { label: '第3轮', value: '5' },
+      { label: '第1轮', value: '1' },
+      { label: '第2轮', value: '2' },
+      { label: '第3轮', value: '3' },
 
-      { label: '第4轮', value: '6' },
+      { label: '第4轮', value: '4' },
     ],
   ];
   const [loading, setLoading] = useState<boolean>(false);
@@ -208,51 +228,98 @@ const Schedule = (props: Props) => {
     }
   };
   useEffect(() => {
-    // const params: AnalysisListParams = {
-    //   match_id,
-    //   tab: 3, //历史交锋
-    //   event: 0,
-    //   sameCompetition: 0,
-    //   size: 10,
-    // };
 
-    // getHistoryRankList(params);
-    // // getAwayFutureList();
     init();
   }, [season_id]);
   const onPicker = () => {
     setVisible(true);
   };
+  const scrollToAnchor = (anchorName) => {
 
+    if (anchorName) {
+
+      // 找到锚点
+
+      const anchorElement = document.getElementById(anchorName);
+
+      // 如果对应id的锚点存在，就跳转到锚点
+
+      if (anchorElement) {
+        anchorElement.scrollIntoView();
+
+        // anchorElement.scrollIntoView({ behavior: "instant", block: "end", inline: "nearest" });
+      }
+
+    }
+
+  }
   return (
     <div>
       <div className={styles.schedule_table_space}>
         <div className={styles.title}>
-          <div className={styles.title_top}>
-            <IconFont type="icon-jiantouzuo" color="#000028" size={12} />
+          <div className={styles.title_next}>
+            <IconFont type="icon-jiantouzuo" color="#848494" size={10} />
             上一轮
           </div>
-          <div className={styles.title_top} onClick={onPicker}>
+          <div style={{ fontSize: 14 }} >     <div className={styles.title_top} onClick={onPicker}>
             {' '}
             {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
             {getAccordWithLabel(yeardata, pickervalue[1])}
             <IconFont type="icon-zhankai2" color="#000028" size={12} />
-          </div>
+          </div></div>
 
-          <div className={styles.title_top}>
-            下一轮 <IconFont type="icon-jiantouyou" color="#000028" size={12} />
+
+          <div className={styles.title_next}>
+            下一轮 <IconFont type="icon-jiantouyou" color="#848494" size={10} />
           </div>
         </div>
-        {/* <Spin spinning={!props.data?.length}></Spin> */}
-        <div style={{ height: 5, background: '#F7F7F7' }} />
+        <div style={{ height: "500px", overflow: "auto" }}>
 
-        <Table
-          loading={loading}
-          //   dataText={data?.list && data?.sp}
-          rowKey="match_id"
-          dataSource={data}
-          columns={columns(null)}
-        />
+          <div id="activity_1">
+            <div className={styles.title_next_activity}>
+              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
+              111       </div>
+            <Table
+              loading={loading}
+              rowKey="match_id"
+              dataSource={data}
+              columns={columns(null)}
+            />
+          </div>
+          {/* <div id="activity_2">
+            <div className={styles.title_next}>
+              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
+              222         </div>
+            <Table
+              loading={loading}
+              rowKey="match_id"
+              dataSource={data}
+              columns={columns(null)}
+            />
+          </div>
+          <div id="activity_3">
+            <div className={styles.title_next}>
+              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
+              3333        </div>
+            <Table
+              loading={loading}
+              rowKey="match_id"
+              dataSource={data}
+              columns={columns(null)}
+            />
+          </div>
+          <div id="activity_4">
+            <div className={styles.title_next}>
+              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
+              444444      </div>
+            <Table
+              loading={loading}
+              rowKey="match_id"
+              dataSource={data}
+              columns={columns(null)}
+            />
+          </div> */}
+        </div>
       </div>
       <Picker
         defaultValue={pickervalue}
@@ -264,6 +331,9 @@ const Schedule = (props: Props) => {
         onConfirm={(val, extend) => {
           console.log('onSelect', val, extend.items);
           setPickerValue(val);
+
+          scrollToAnchor(`activity_${val[1]}`)
+
         }}
       />
     </div>

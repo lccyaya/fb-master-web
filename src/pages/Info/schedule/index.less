@@ -5,20 +5,57 @@
     padding-bottom: 5px;
     color: #45494C;
 
+    :global .first_columns {
+        border-right: 1px solid #eeee !important;
+    }
+
+    :global .last_columns {
+        border-right: 1px solid #eeee !important;
+    }
+
+    .title_next_activity {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: #000028;
+        margin: 10px 0;
+    }
+
     .title {
         width: 100%;
         text-align: center;
-        height: 50px;
+        height: 45px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 12px;
         color: #000028;
+        background-color: #FAFBFD;
 
         .title_top {
             display: flex;
             align-items: center;
+            font-size: 13px;
         }
+
+
+
+        .title_next {
+            display: flex;
+            align-items: center;
+            color: #848494;
+            font-size: 12px;
+
+
+        }
+    }
+
+    .first_half_score {
+        font-size: 11px;
+        color: #848494;
+        font-weight: normal;
     }
 
     :global .ant-table-thead>tr>th {
@@ -39,7 +76,7 @@
     }
 
     .bfstyle {
-        height: 16px;
+        font-size: 16px;
         color: #45494C;
         font-weight: 500
     }
@@ -48,4 +85,7 @@
         width: 22px;
         height: 22px;
     }
+
+
+
 }

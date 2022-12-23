@@ -58,7 +58,7 @@ const Groupmatch = (props: Props) => {
 
       {/* 判断是否显示规则 */}
       <div style={{ background: "#fff", paddingTop: "20px" }}>
-        <Fule></Fule>
+        <Fule />
       </div>
     </div>
   );

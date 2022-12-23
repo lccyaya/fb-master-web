@@ -36,9 +36,9 @@ const Eliminate = (props: Props) => {
                   <div className={styles.box_top_name}>
                     {/* {item.away_name ? "A" : ""} */}
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -55,9 +55,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_top_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.away_name}</div>
                   </div>
@@ -83,7 +83,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -106,9 +106,9 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_toptwo_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -125,9 +125,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_toptwo_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.away_name}</div>
                   </div>
@@ -152,7 +152,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -174,9 +174,9 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_toptwo_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -193,9 +193,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_toptwo_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.away_name}</div>
                   </div>
@@ -205,14 +205,14 @@ const Eliminate = (props: Props) => {
                   <div
                     className={styles.box_top_line}
                     style={{
-                      height: 20,
+                      height: 15,
                       borderColor: item.winner_team_id == item.home_team_id ? '#7E1132' : '',
                     }}
                   ></div>
                   <div
                     className={styles.box_top_rightline}
                     style={{
-                      height: 20,
+                      height: 15,
                       borderColor: item.winner_team_id == item.away_team_id ? '#7E1132' : '',
                     }}
                   ></div>
@@ -222,7 +222,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -244,11 +244,11 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_toptwo_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 40, height: 40 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 40, height: 35 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />
+                      <img style={{ width: 40, height: 35 }} src={Zanwei} alt="" />
                     )}
-                    <div className={styles.stem_name}> {item.home_name}</div>
+                    <div className={styles.stem_name} > {item.home_name}</div>
                   </div>
 
                   <div style={{ width: 120, textAlign: 'center' }}>
@@ -260,9 +260,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_toptwo_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 40, height: 40 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 40, height: 35 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />
+                      <img style={{ width: 40, height: 35 }} src={Zanwei} alt="" />
                     )}
 
                     <div className={styles.stem_name}> {item.away_name}</div>
@@ -296,12 +296,12 @@ const Eliminate = (props: Props) => {
                     <div className={styles.box_toptwo_name}>
                       {item.home_country_logo ? (
                         <img
-                          style={{ width: 40, height: 40 }}
+                          style={{ width: 40, height: 35 }}
                           src={item.home_country_logo}
                           alt=""
                         />
                       ) : (
-                        <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />
+                        <img style={{ width: 40, height: 35 }} src={Zanwei} alt="" />
                       )}
                       <div className={styles.stem_name}> {item.home_name}</div>
                     </div>
@@ -315,12 +315,12 @@ const Eliminate = (props: Props) => {
                     <div className={styles.box_toptwo_name}>
                       {item.away_country_logo ? (
                         <img
-                          style={{ width: 40, height: 40 }}
+                          style={{ width: 40, height: 35 }}
                           src={item.away_country_logo}
                           alt=""
                         />
                       ) : (
-                        <img style={{ width: 40, height: 40 }} src={Zanwei} alt="" />
+                        <img style={{ width: 40, height: 35 }} src={Zanwei} alt="" />
                       )}
                       <div className={styles.name}>
                         <div className={styles.stem_name}> {item.away_name}</div>
@@ -347,7 +347,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -357,14 +357,14 @@ const Eliminate = (props: Props) => {
                   <div
                     className={styles.box_bottom_line}
                     style={{
-                      height: 20,
+                      height: 15,
                       borderColor: item.winner_team_id == item.home_team_id ? '#7E1132' : '',
                     }}
                   ></div>
                   <div
                     className={styles.box_bottom_rightline}
                     style={{
-                      height: 20,
+                      height: 15,
                       borderColor: item.winner_team_id == item.away_team_id ? '#7E1132' : '',
                     }}
                   ></div>
@@ -372,9 +372,9 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_toptwo_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -390,9 +390,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_toptwo_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
 
                     <div className={styles.stem_name}> {item.away_name}</div>
@@ -417,7 +417,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -439,9 +439,9 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_toptwo_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -457,9 +457,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_toptwo_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.away_name}</div>
                   </div>
@@ -483,7 +483,7 @@ const Eliminate = (props: Props) => {
                   style={{
                     background:
                       item.winner_team_id == item.home_team_id ||
-                      item.winner_team_id == item.away_team_id
+                        item.winner_team_id == item.away_team_id
                         ? '#7E1132'
                         : '',
                   }}
@@ -505,9 +505,9 @@ const Eliminate = (props: Props) => {
                 <div className={styles.box_top}>
                   <div className={styles.box_top_name}>
                     {item.home_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.home_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.home_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.home_name}</div>
                   </div>
@@ -524,9 +524,9 @@ const Eliminate = (props: Props) => {
                   </div>
                   <div className={styles.box_top_name}>
                     {item.away_country_logo ? (
-                      <img style={{ width: 20, height: 20 }} src={item.away_country_logo} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={item.away_country_logo} alt="" />
                     ) : (
-                      <img style={{ width: 20, height: 20 }} src={Zanwei} alt="" />
+                      <img style={{ width: 20, height: 15 }} src={Zanwei} alt="" />
                     )}
                     <div className={styles.stem_name}> {item.away_name}</div>
                   </div>

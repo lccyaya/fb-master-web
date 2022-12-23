@@ -1,16 +1,14 @@
 .detail_box {
     font-size: 16px;
-    color: #fff;
-
+    // color: #fff;
     position: relative;
 
     .content {
         position: absolute;
-        top: 45px;
+        top: 55px;
         width: 100%;
         background-color: #fff;
         border-radius: 10px;
-
 
         .content_list {
             :global .adm-capsule-tabs-tab-list {
@@ -18,17 +16,17 @@
 
                     :global .adm-capsule-tabs-tab-active {
                         width: 70px;
-                        background-color: #fff;
+                        background-color: #FAFBFD;
                         padding: 16px;
                         color: #FA5900;
                         border-radius: 10px 10px 0 0;
+                        background-image: url("~@/assets/match//tabbg.png");
+                        background-position: 100% 100%;
+                        background-size: cover;
+                        background-repeat: no-repeat;
                         // box-shadow: -2px 0 3px -1px green, 0 -2px 3px -1px green, 0 2px 3px -1px green, 2px 0 3px -1px green, ;
                         // box-sizing: border-box;
                     }
-
-                    // :global .adm-capsule-tabs-tab {
-                    //     margin: 0;
-                    // }
 
 
                 }
@@ -75,23 +73,12 @@
         height: 180px;
 
         .detail_year {
-            // padding: 12px;
-            // display: flex;
-            // align-items: flex-start;
-            // justify-content: space-between;
-            // margin-top: 10px;
             background-color: #FA5900;
             position: fixed;
             z-index: 10;
             width: 100%;
 
-
-
-
-
-
             :global .adm-capsule-tabs-header {
-
                 padding: 2px;
             }
 
@@ -101,9 +88,6 @@
             }
         }
     }
-
-
-
 }
 
 :global .adm-picker-view-column-item {
