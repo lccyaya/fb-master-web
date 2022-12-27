@@ -51,11 +51,11 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
         </div>
       ) : null}
       <div className={styles.score_map_tags}>
-        {matchStatusText.text === '完场' && !children ? (
+        {/* {matchStatusText.text === '完场' && !children ? (
           <div className={styles.match_card_ft_tag}>
             <FontSize10 text={matchStatusText.text} position="center" />
           </div>
-        ) : null}
+        ) : null} */}
 
         {children}
       </div>
@@ -73,6 +73,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
             );
           })}
         </div>
+
       ) : null}
     </div>
   );
@@ -97,8 +98,8 @@ const Mobile = ({ data, type = 'score' }) => {
   if (status === MatchStatus.Complete) {
     // matchStatusText.text = 'FT';
     matchStatusText.text = statusDes;
-    matchStatusText.color = '#191919';
-    matchStatusText.headerColor = '#191919';
+    matchStatusText.color = '#999';
+    matchStatusText.headerColor = '#999';
   } else if (status === MatchStatus.TBD) {
     matchStatusText.text = statusDes;
     matchStatusText.color = '#999';
@@ -169,13 +170,15 @@ const Mobile = ({ data, type = 'score' }) => {
         <div className={styles.match_card_header}>
           <div className={styles.match_card_header_left}>
             <Text
-              text={moment(data.match_time * 1000).format('HH:mm') + ' ' + data.competition_name}
+              text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
+                " " + "周三007"
+              }
               numbuerOfLines={1}
               fontSize={12}
               color={'#999999'}
             />
           </div>
-          {data.status !== 8 ? (
+          {/* {data.status !== 8 ? (
             <div className={styles.match_card_header_status}>
               <Text
                 fontSize={12}
@@ -184,7 +187,15 @@ const Mobile = ({ data, type = 'score' }) => {
                 width={'auto'}
               />
             </div>
-          ) : null}
+          ) : null} */}
+          <div className={styles.match_card_header_status}>
+            <Text
+              fontSize={12}
+              color={matchStatusText.headerColor}
+              text={matchStatusText.text}
+              width={'auto'}
+            />
+          </div>
           <div className={styles.match_card_header_right}>
             <Text
               numberOfLines={1}
@@ -195,54 +206,54 @@ const Mobile = ({ data, type = 'score' }) => {
             />
 
             <div>
-                {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
-            <>
-              {hasPlayBack ? (
-                <Tag
-                  // icon="icon-shipin"
-                  color="#E9616B"
-                  text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
-                />
+              {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
+                <>
+                  {hasPlayBack ? (
+                    <Tag
+                      // icon="icon-shipin"
+                      color="#E9616B"
+                      text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
+                    />
+                  ) : null}
+                  {hasHighlight ? (
+                    <Tag
+                      // icon="icon-jijin1"
+                      color="#40A04E"
+                      text={intl.formatMessage({
+                        id: 'key_highlight',
+                        defaultMessage: 'key_highlight',
+                      })}
+                    />
+                  ) : null}
+                  {hasScheme ? (
+                    <Tag
+                      // icon="icon-fangan"
+                      color="#FA5900"
+                      text={
+                        intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
+                        data?.schemes
+                      }
+                    />
+                  ) : null}
+                  {hasLive ? (
+                    <Tag
+                      // icon="icon-shipin"
+                      color="#E9616B"
+                      text={intl.formatMessage({
+                        id: 'key_live_video',
+                        defaultMessage: 'key_live_video',
+                      })}
+                    />
+                  ) : null}
+                  {hasDoingLive ? (
+                    <Tag
+                      // icon="icon-zhibo"
+                      color="#DA000B"
+                      text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
+                    />
+                  ) : null}
+                </>
               ) : null}
-              {hasHighlight ? (
-                <Tag
-                  // icon="icon-jijin1"
-                  color="#40A04E"
-                  text={intl.formatMessage({
-                    id: 'key_highlight',
-                    defaultMessage: 'key_highlight',
-                  })}
-                />
-              ) : null}
-              {hasScheme ? (
-                <Tag
-                  // icon="icon-fangan"
-                  color="#FA5900"
-                  text={
-                    intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
-                    data?.schemes
-                  }
-                />
-              ) : null}
-              {hasLive ? (
-                <Tag
-                  // icon="icon-shipin"
-                  color="#E9616B"
-                  text={intl.formatMessage({
-                    id: 'key_live_video',
-                    defaultMessage: 'key_live_video',
-                  })}
-                />
-              ) : null}
-              {hasDoingLive ? (
-                <Tag
-                  // icon="icon-zhibo"
-                  color="#DA000B"
-                  text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
-                />
-              ) : null}
-            </>
-          ) : null}
             </div>
             <div
               className={styles.macth_subscribe}
@@ -308,7 +319,7 @@ const Mobile = ({ data, type = 'score' }) => {
           away_incidents={data.away_incidents}
           matchStatusText={matchStatusText}
         >
-        
+
         </SocreMaps>
       </div>
     );
@@ -342,7 +353,7 @@ const Mobile = ({ data, type = 'score' }) => {
             />
           </div>
           <div className={styles.match_index_header_right}>
-            
+
             <div className={styles.match_index_header_tags}>
               {hasPlayBack ? (
                 <Tag
@@ -453,7 +464,7 @@ const Mobile = ({ data, type = 'score' }) => {
           <div className={styles.match_index_body_right}>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#FA5900',width:40 ,textAlign:"left"}}>
+                <div style={{ color: '#FA5900', width: 40, textAlign: "left" }}>
                   {eu ? `主 ${normalizeFloat(eu.home)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
@@ -474,7 +485,7 @@ const Mobile = ({ data, type = 'score' }) => {
             </div>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#848494',width:40 ,textAlign:"left" }}>
+                <div style={{ color: '#848494', width: 40, textAlign: "left" }}>
                   {eu ? `平 ${normalizeFloat(eu.draw)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>
@@ -499,7 +510,7 @@ const Mobile = ({ data, type = 'score' }) => {
             </div>
             <div className={styles.match_index_row}>
               <div className={styles.match_index_col}>
-                <div style={{ color: '#39906A',width:40 ,textAlign:"left" }}>
+                <div style={{ color: '#39906A', width: 40, textAlign: "left" }}>
                   {eu ? `客 ${normalizeFloat(eu.away)}` : <div style={{ color: '#c9c6c9' }}>-</div>}
                 </div>
               </div>

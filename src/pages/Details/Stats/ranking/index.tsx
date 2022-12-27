@@ -84,17 +84,22 @@ const Ranking = (props: Props) => {
     const away = [];
 
     // eslint-disable-next-line @typescript-eslint/no-for-in-array
-    for (const key in match.home) {
-      match.home[key].label = key;
-      home.push(match.home[key]);
+    if (match.home?.all) {
+
+      // eslint-disable-next-line @typescript-eslint/no-for-in-array
+      for (const key in match.home) {
+        match.home[key].label = key;
+        home.push(match.home[key]);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-for-in-array
+      for (const key in match.away) {
+        match.away[key].label = key;
+        away.push(match.away[key]);
+      }
+      const data = { home, away };
+      setDataSource(data);
     }
-    // eslint-disable-next-line @typescript-eslint/no-for-in-array
-    for (const key in match.away) {
-      match.away[key].label = key;
-      away.push(match.away[key]);
-    }
-    const data = { home, away };
-    setDataSource(data);
+
     // setDataSource;
   }, []);
   return (

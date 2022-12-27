@@ -94,11 +94,7 @@ const Details: React.FC<DetailProps> = (props) => {
   const { matchId } = props.match.params;
   const { showTips } = props;
   // const { TabPane } = Tabs;
-  const tab = [
-    { title: '同主客', key: '0' },
-    { title: '同赛事', key: '1' },
-    { title: '20场', key: '2' },
-  ];
+
   const init = async (showLoading = true) => {
     if (showLoading) {
       setLoading(true);
@@ -111,9 +107,12 @@ const Details: React.FC<DetailProps> = (props) => {
       const status = getMatchStatus(match.status);
       console.log(match, status, '&&&&');
       setHasScheme(match.has_scheme);
-
       if (match.has_scheme) {
+
+
         const tab = location?.query?.tab;
+        setDetailType('scheme');
+
         if (tab === 'scheme') {
           setDetailType('scheme');
         }
