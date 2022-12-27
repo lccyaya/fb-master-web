@@ -66,6 +66,7 @@
     "antd-mobile": "^5.18.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "blueimp-md5": "^2.19.0",
+    "browserlist": "^1.0.1",
     "callapp-lib": "^3.5.1",
     "classnames": "^2.2.6",
     "clipboardy": "^3.0.0",
