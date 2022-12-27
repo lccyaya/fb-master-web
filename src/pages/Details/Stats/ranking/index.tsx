@@ -82,8 +82,9 @@ const Ranking = (props: Props) => {
   useEffect(() => {
     const home = [];
     const away = [];
-
+    // 处理数据
     // eslint-disable-next-line @typescript-eslint/no-for-in-array
+
     for (const key in match.home) {
       match.home[key].label = key;
       home.push(match.home[key]);
