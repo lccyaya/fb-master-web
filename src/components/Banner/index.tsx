@@ -90,6 +90,7 @@ const BannerWidget: React.FC<CarouselProps> = (props) => {
             type: 'global/setHomeActiveKey',
             payload: 'app',
           });
+          history.push(`/zh/home`);
           break;
         default:
           break;
