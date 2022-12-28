@@ -75,7 +75,10 @@
       console.log('开始设置默认的语言')
       var defaultLang = 'th';
       var localKey = 'umi_locale';
-      var settingLang = localStorage?.getItem(localKey);
+      if (!window.localStorage) {
+        return;
+      }
+      var settingLang = window.localStorage.getItem(localKey);
       if (settingLang) {
         console.log('默认语言已经设置是', settingLang)
         return;
@@ -97,8 +100,10 @@
       };
       var item = Object.keys(supportedLangs).find((k) => supportedLangs[k].includes(lang));
       console.log('默认设置语言是，', item || defaultLang)
-      localStorage.setItem('umi_locale', item || defaultLang);
+      window.localStorage.setItem('umi_locale', item || defaultLang);
     })();
+    </script>
+    <script>
     (function flexible(window, document) {
       var docEl = document.documentElement;
       var dpr = window.devicePixelRatio || 1;
@@ -155,7 +160,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196818290-2"></script> -->
 
-  </script>
+  <!-- </script> -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {

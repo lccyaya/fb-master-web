@@ -59,7 +59,7 @@ const SchemeCreateStep2 = (props: Props) => {
 
     editor.config = {
       ...editor.config,
-      menus: ['head', 'indent', 'emoticon', 'undo', 'redo'],
+      menus: ['head', 'bold', 'foreColor', 'fontSize', 'indent', 'emoticon', 'undo', 'redo'],
       withCredentials: true,
       height: 400,
       zIndex: 100,
@@ -87,42 +87,39 @@ const SchemeCreateStep2 = (props: Props) => {
       ...state,
       ...values,
       expert_id: user?.expert?.id,
-      published_at: Math.round(Date.now()/1000),
+      published_at: Math.round(Date.now() / 1000),
       detail_count: values.detail ? getPlainText(values.detail)?.length : 0,
     };
 
     const result = await getMatchOdds({ match_id: state.match_id, type_id: state.type_id });
     if (result.err) {
-      message.error(result.message)
-      return
+      message.error(result.message);
+      return;
     }
-    const odds = result.data.odds as Array<any>
-    const oddsItem = odds.find(item => item.odd_scheme_id == state.odd_scheme_id)
-    const tagOdds = oddsItem.odds.find(item => item.tag == state.tag)
+    const odds = result.data.odds as Array<any>;
+    const oddsItem = odds.find((item) => item.odd_scheme_id == state.odd_scheme_id);
+    const tagOdds = oddsItem.odds.find((item) => item.tag == state.tag);
     if (tagOdds.odd != state.odd) {
       Modal.confirm({
         title: '赔率发生了变化，是否继续？',
         content: `选择的比赛：${state.home_team_name} VS ${state.away_team_name},最新赔率是${tagOdds.odd}`,
         onOk() {
-          submitScheme(params)
+          submitScheme(params);
         },
-        onCancel() {
-          
-        },
+        onCancel() {},
       });
-    }else {
-      submitScheme(params)
+    } else {
+      submitScheme(params);
     }
-
   };
 
   const submitScheme = async (params: any) => {
     const result = await addScheme(params);
     if (result.err) {
-      message.error(result.message)
-      return
-    }else {
-      history.push('/zh/profile/center')
+      message.error(result.message);
+      return;
+    } else {
+      history.push('/zh/profile/center');
     }
   };
 
