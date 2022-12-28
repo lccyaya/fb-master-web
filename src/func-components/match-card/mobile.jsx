@@ -171,7 +171,7 @@ const Mobile = ({ data, type = 'score' }) => {
           <div className={styles.match_card_header_left}>
             <Text
               text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
-                " " + "周三007"
+                " " + data.issue
               }
               numbuerOfLines={1}
               fontSize={12}

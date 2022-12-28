@@ -3,9 +3,11 @@
     // color: #fff;
     position: relative;
 
+
+
     .content {
         position: absolute;
-        top: 55px;
+        top: 45px;
         width: 100%;
         background-color: #fff;
         border-radius: 10px;
@@ -27,8 +29,6 @@
                         // box-shadow: -2px 0 3px -1px green, 0 -2px 3px -1px green, 0 2px 3px -1px green, 2px 0 3px -1px green, ;
                         // box-sizing: border-box;
                     }
-
-
                 }
 
             }
@@ -69,14 +69,24 @@
     }
 
     .detail {
-        background-color: #FA5900;
         height: 180px;
 
+        background-color: #FA5900;
+
         .detail_year {
-            background-color: #FA5900;
+            // background-color: #FA5900;
+            background-image: url("~@/assets/match/match_nav_bg.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
             position: fixed;
             z-index: 10;
             width: 100%;
+            // height: 54px;
+
+            .navbar {
+                color: #fff;
+            }
 
             :global .adm-capsule-tabs-header {
                 padding: 2px;

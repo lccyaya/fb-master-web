@@ -98,7 +98,7 @@ const Detail = (props: Props) => {
       <div className={styles.detail}>
         <div className={styles.detail_year}>
           <NavBar
-            style={{ color: '#fff', background: '#FA5900' }}
+            className={styles.navbar}
             onBack={() => {
               history.goBack();
             }}

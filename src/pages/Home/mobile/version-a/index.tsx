@@ -12,15 +12,17 @@ import styles from "./index.less";
 export default function MobileHomeA() {
   return (
     <div className={styles.container}>
-      <Ad />
-      {/* <TopRecommend /> */}
-      <MajorMatch />
-      {/* <DownloadTip /> */}
-      {/* <Highlight /> */}
-      <HotExpert />
-      {/* <HotNews /> */}
-      {/* <LeagueNews /> */}
-      <HotSchemes />
+      <div className={styles.container_list}>
+        <Ad />
+        {/* <TopRecommend /> */}
+        <MajorMatch />
+        {/* <DownloadTip /> */}
+        {/* <Highlight /> */}
+        <HotExpert />
+        {/* <HotNews /> */}
+        {/* <LeagueNews /> */}
+        <HotSchemes />
+      </div>
     </div>
   );
 }

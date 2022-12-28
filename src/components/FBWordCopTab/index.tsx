@@ -9,13 +9,14 @@ type titleprops = {
 
 type Props = {
   list: titleprops[];
-  defaultActiveKey: string;
+  defaultActiveKey?: string;
   onChange: Function;
   mini?: boolean;
+  activeKey?: string
 };
 
 const FBWordCopTab = (props: Props) => {
-  const { defaultActiveKey, list, mini, onChange = () => {} } = props;
+  const { activeKey, defaultActiveKey, list, mini, onChange = () => { } } = props;
   const onChangetab = (key: string) => {
     onChange(key);
   };
@@ -26,6 +27,7 @@ const FBWordCopTab = (props: Props) => {
         <CapsuleTabs
           className={styles.cap_tab}
           defaultActiveKey={defaultActiveKey}
+          activeKey={activeKey}
           onChange={onChangetab}
         >
           {list.map((item) => {

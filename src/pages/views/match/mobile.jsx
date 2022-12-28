@@ -48,6 +48,8 @@ const Mobile = () => {
   const [calenderValtime, setCalendarValtime] = useState(
     `今天 ${moment(new Date()).format('YYYY-MM-DD ddd')}`,
   ); // 日历组件显示内容
+
+  const [jskey, setJskey] = useState("1"); // 即使默认选择key
   const toggleData = [
     {
       name: '比分',
@@ -325,14 +327,16 @@ const Mobile = () => {
   const handleFilterClose = () => {
     setFilterVisible(false);
   };
+  // 筛选按钮ok
   const handleFilterOk = (ids) => {
     const idStr = JSON.stringify(ids);
     sessionStorage.setItem(SESS_STORAGE_SELECTED_LEAGUES, idStr);
     onParamsChange({ competition_ids: ids });
     setFilterVisible(false);
   };
-
+  // 筛选按钮
   const handleTypeChange = (type) => {
+    setJskey(type.toString())
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
       type,
@@ -348,7 +352,25 @@ const Mobile = () => {
     setApiTimestamp('');
     onParamsChange({ timestamp: Math.floor(Number(time) / 1000) });
   };
+  // 即使tab切换数据
+  const handletabChange = (type) => {
+    setJskey(type)
 
+    getMatchFilterData({
+      timestamp: apiTimestamp || params.timestamp,
+      type,
+      [params.param_key]: params.param_value,
+    }).then((res) => {
+      const ids = []
+      res.map((item) => {
+        let idsarr = item.competitions.map((items) => {
+          ids.push(items.id)
+        })
+
+      })
+      handleFilterOk(ids)
+    });
+  }
   // 初始化
   useEffect(() => {
     if (menuList === null) {
@@ -480,24 +502,24 @@ const Mobile = () => {
   const tab = [
     {
       title: <FormattedMessage id={'key_matchall'} />,
-      key: 'key_worldcap_focusing',
+      key: '5',
     },
     {
       title: <FormattedMessage id={'key_importance'} />,
-      key: 'key_worldcap_schedule',
+      key: '1',
     },
     {
       title: <FormattedMessage id={'key_jingcai'} />,
-      key: 'key_worldcap_analysis',
+      key: '2',
     },
     {
       title: <FormattedMessage id={'key_beidan'} />,
-      key: 'key_scheme',
+      key: '3',
     },
 
     {
       title: <FormattedMessage id={'key_scheme'} />,
-      key: 'key_worldcap_rankinglist',
+      key: '4',
     },
   ];
   return (
@@ -529,10 +551,10 @@ const Mobile = () => {
             <div className={styles.active}>
               <FBWorldCapTab
                 list={tab}
-                defaultActiveKey="key_scheme"
+                activeKey={jskey}
                 mini
-              // onChange={onChangetab}
-              ></FBWorldCapTab>
+                onChange={handletabChange}
+              />
             </div>
           </div>
         )}

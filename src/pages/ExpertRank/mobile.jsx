@@ -72,18 +72,18 @@ const ExpertRank = ({ currentUser = {} }) => {
           <TabPane tab={n.title} key={n.key} />
         ))}
       </Tabs> */}
-      <div className={classnames(styles.rank_bg, curKey === '1' ? styles.hidden : '')}>
+      <div className={classnames(styles.rank_bg, curKey === '1' || curKey === "2" ? styles.hidden : '')}>
         <img src={rankBg} alt="" />
       </div>
 
       <div className={styles.list_box} style={{ height: curKey === '0' ? "100%" : null }}>
-        <div className={curKey === '2' ? styles.list_box_version : null} >
+        <div className={curKey !== '0' ? styles.list_box_version : styles.list_box_version_def} >
           <FBTabs
             items={items}
             activeKey={curKey}
             onChange={setCurKey}
-            selectStyle={{ fontSize: '20px', color: curKey === '0' || curKey === '2' ? '#FFFFFF' : '#FA5900' }}
-            normalStyle={{ color: curKey === '0' || curKey === '2' ? '#EEEEFF' : '#848494' }}
+            selectStyle={{ fontSize: '20px', color: "#FFFFFF" }}
+            normalStyle={{ color: "#FFF" }}
           />
         </div>
         <div style={{ flex: 1 }}>
