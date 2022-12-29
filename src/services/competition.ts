@@ -2,23 +2,42 @@ import request from '@/utils/request';
 import { normalizeResponse } from '@/utils/tools';
 import type { MatchRankingType } from '@/services/match';
 
-export type CompetitionItemType = {
-  id: number;
+
+
+
+export type CompetitionCategoryProps = {
+  id: string;
+  name: string
+}
+export type CompetitionsCategoryItemProps = {
   name: string;
+  competitions: CompetitionCategoryProps[];
 }
 
 export type CompetitionsCategoryItemType = {
-  name: string;
-  competitions: CompetitionItemType[];
-}
 
+  categories: CompetitionsCategoryItemProps[]
+}
 export type CompetitionCategoryType = {
-  categories: CompetitionsCategoryItemType[];
+  categories: CompetitionCategoryProps[];
+}
+export type CategorysParams = {
+  id: string
 }
 
+// export async function category() {
+//   const result = await request('/api/competition/category');
+//   return normalizeResponse<CompetitionCategoryType>(result);
+// }
+// 一级导航
 export async function category() {
-  const result = await request('/api/competition/category');
+  const result = await request('/api/competition/categorylist');
   return normalizeResponse<CompetitionCategoryType>(result);
+}
+// 二级导航/三级导航
+export async function categorys(params: CategorysParams) {
+  const result = await request('/api/competition/categorys', { params });
+  return normalizeResponse<CompetitionsCategoryItemType>(result);
 }
 
 export type FetchRankingParams = {

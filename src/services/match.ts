@@ -397,3 +397,4 @@ export async function getSeasonList(competition_id: string) {
   const result = await request(`/api/competition/season?competition_id=${competition_id}`);
   return normalizeResponse<{}>(result);
 }
+

@@ -248,3 +248,16 @@ export const getAccordWithLabel = (array, value) => {
 
 
 };
+
+// 资料库导航
+export function getnavList(arr: any, name: string) {
+  let list: any = null
+  arr.map((item) => {
+
+    if (item.name == name) {
+      list = item.competitions
+
+    }
+  })
+  return list
+}
