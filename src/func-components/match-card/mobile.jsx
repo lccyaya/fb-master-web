@@ -159,26 +159,28 @@ const Mobile = ({ data, type = 'score' }) => {
   ].join('');
   if (type === 'score') {
     return (
-      <div
-        className={styles.match_card_box}
-        onClick={() => {
-          const lang = toShortLangCode(locale.getLocale());
-          handleReport({ action: 'match_enter', tag: data.status + '' });
-          history.push(`/${lang}/details/${data.match_id}`);
-        }}
-      >
-        <div className={styles.match_card_header}>
-          <div className={styles.match_card_header_left}>
-            <Text
-              text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
-                " " + data.issue
-              }
-              numbuerOfLines={1}
-              fontSize={12}
-              color={'#999999'}
-            />
-          </div>
-          {/* {data.status !== 8 ? (
+      <div >
+        <div
+          className={styles.match_card_box}
+          onClick={() => {
+            const lang = toShortLangCode(locale.getLocale());
+            handleReport({ action: 'match_enter', tag: data.status + '' });
+            history.push(`/${lang}/details/${data.match_id}`);
+          }}
+        >
+
+          <div className={styles.match_card_header}>
+            <div className={styles.match_card_header_left}>
+              <Text
+                text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
+                  " " + data.issue
+                }
+                numbuerOfLines={1}
+                fontSize={12}
+                color={'#999999'}
+              />
+            </div>
+            {/* {data.status !== 8 ? (
             <div className={styles.match_card_header_status}>
               <Text
                 fontSize={12}
@@ -188,139 +190,140 @@ const Mobile = ({ data, type = 'score' }) => {
               />
             </div>
           ) : null} */}
-          <div className={styles.match_card_header_status}>
-            <Text
-              fontSize={12}
-              color={matchStatusText.headerColor}
-              text={matchStatusText.text}
-              width={'auto'}
-            />
-          </div>
-          <div className={styles.match_card_header_right}>
-            <Text
-              numberOfLines={1}
-              fontSize={12}
-              text={AET_PEN_TEXT}
-              width="auto"
-              color={'#999999'}
-            />
+            <div className={styles.match_card_header_status}>
+              <Text
+                fontSize={12}
+                color={matchStatusText.headerColor}
+                text={matchStatusText.text}
+                width={'auto'}
+              />
+            </div>
+            <div className={styles.match_card_header_right}>
+              <Text
+                numberOfLines={1}
+                fontSize={12}
+                text={AET_PEN_TEXT}
+                width="auto"
+                color={'#999999'}
+              />
 
-            <div>
-              {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
-                <>
-                  {hasPlayBack ? (
-                    <Tag
-                      // icon="icon-shipin"
-                      color="#E9616B"
-                      text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
-                    />
-                  ) : null}
-                  {hasHighlight ? (
-                    <Tag
-                      // icon="icon-jijin1"
-                      color="#40A04E"
-                      text={intl.formatMessage({
-                        id: 'key_highlight',
-                        defaultMessage: 'key_highlight',
-                      })}
-                    />
-                  ) : null}
-                  {hasScheme ? (
-                    <Tag
-                      // icon="icon-fangan"
-                      color="#FA5900"
-                      text={
-                        intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
-                        data?.schemes
-                      }
-                    />
-                  ) : null}
-                  {hasLive ? (
-                    <Tag
-                      // icon="icon-shipin"
-                      color="#E9616B"
-                      text={intl.formatMessage({
-                        id: 'key_live_video',
-                        defaultMessage: 'key_live_video',
-                      })}
-                    />
-                  ) : null}
-                  {hasDoingLive ? (
-                    <Tag
-                      // icon="icon-zhibo"
-                      color="#DA000B"
-                      text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
-                    />
-                  ) : null}
-                </>
+              <div>
+                {hasPlayBack || hasHighlight || hasScheme || hasLive || hasDoingLive ? (
+                  <>
+                    {hasPlayBack ? (
+                      <Tag
+                        // icon="icon-shipin"
+                        color="#E9616B"
+                        text={intl.formatMessage({ id: 'key_playback', defaultMessage: 'key_playback' })}
+                      />
+                    ) : null}
+                    {hasHighlight ? (
+                      <Tag
+                        // icon="icon-jijin1"
+                        color="#40A04E"
+                        text={intl.formatMessage({
+                          id: 'key_highlight',
+                          defaultMessage: 'key_highlight',
+                        })}
+                      />
+                    ) : null}
+                    {hasScheme ? (
+                      <Tag
+                        // icon="icon-fangan"
+                        color="#FA5900"
+                        text={
+                          intl.formatMessage({ id: 'key_scheme', defaultMessage: 'key_scheme' }) +
+                          data?.schemes
+                        }
+                      />
+                    ) : null}
+                    {hasLive ? (
+                      <Tag
+                        // icon="icon-shipin"
+                        color="#E9616B"
+                        text={intl.formatMessage({
+                          id: 'key_live_video',
+                          defaultMessage: 'key_live_video',
+                        })}
+                      />
+                    ) : null}
+                    {hasDoingLive ? (
+                      <Tag
+                        // icon="icon-zhibo"
+                        color="#DA000B"
+                        text={intl.formatMessage({ id: 'key_living', defaultMessage: 'key_living' })}
+                      />
+                    ) : null}
+                  </>
+                ) : null}
+              </div>
+              <div
+                className={styles.macth_subscribe}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSubscribe(data);
+                  if (!data.subscribed) {
+                    setNotificationVisible(true);
+                  }
+                }}
+              >
+                <Iconfont
+                  color={subscribed ? '#FA5900' : '#999999'}
+                  size={16}
+                  type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.match_card_mid}>
+            <div className={styles.match_home}>
+              {data?.final_scores?.home_red_card ? (
+                <div className={styles.match_red_card}>{data.final_scores.home_red_card}</div>
+              ) : null}
+
+              <div className={styles.match_home_name}>
+                <Text text={data.home_team_name} fontSize={13} color={'#333'} />
+              </div>
+              <img src={data.home_team_logo || EmptyLogo} className={styles.match_home_logo} alt="" />
+            </div>
+            <div className={styles.match_vs}>
+              {isShowVS ? (
+                <Text
+                  text={'VS'}
+                  fontSize={20}
+                  color={MatchStatus.TBD === status ? '#FA5900' : '#FA5900'}
+                  width={'auto'}
+                />
+              ) : null}
+              {isShowScore ? (
+                <Text
+                  text={`${homeScore} - ${awayScore}`}
+                  fontSize={20}
+                  color="#FA5900"
+                  width={'auto'}
+                />
               ) : null}
             </div>
-            <div
-              className={styles.macth_subscribe}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleSubscribe(data);
-                if (!data.subscribed) {
-                  setNotificationVisible(true);
-                }
-              }}
-            >
-              <Iconfont
-                color={subscribed ? '#FA5900' : '#999999'}
-                size={16}
-                type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
-              />
+            <div className={styles.match_away}>
+              <img src={data.away_team_logo || EmptyLogo} className={styles.match_away_logo} alt="" />
+              <div className={styles.match_away_name}>
+                <Text text={data.away_team_name} fontSize={13} color={'#333'} />
+              </div>
+              {data?.final_scores?.away_red_card ? (
+                <div className={styles.match_red_card}>{data.final_scores.away_red_card}</div>
+              ) : null}
             </div>
           </div>
-        </div>
-        <div className={styles.match_card_mid}>
-          <div className={styles.match_home}>
-            {data?.final_scores?.home_red_card ? (
-              <div className={styles.match_red_card}>{data.final_scores.home_red_card}</div>
-            ) : null}
+          {/* 攻略 */}
+          <SocreMaps
+            home_incidents={data.home_incidents}
+            away_incidents={data.away_incidents}
+            matchStatusText={matchStatusText}
+          >
 
-            <div className={styles.match_home_name}>
-              <Text text={data.home_team_name} fontSize={13} color={'#333'} />
-            </div>
-            <img src={data.home_team_logo || EmptyLogo} className={styles.match_home_logo} alt="" />
-          </div>
-          <div className={styles.match_vs}>
-            {isShowVS ? (
-              <Text
-                text={'VS'}
-                fontSize={20}
-                color={MatchStatus.TBD === status ? '#FA5900' : '#FA5900'}
-                width={'auto'}
-              />
-            ) : null}
-            {isShowScore ? (
-              <Text
-                text={`${homeScore} - ${awayScore}`}
-                fontSize={20}
-                color="#FA5900"
-                width={'auto'}
-              />
-            ) : null}
-          </div>
-          <div className={styles.match_away}>
-            <img src={data.away_team_logo || EmptyLogo} className={styles.match_away_logo} alt="" />
-            <div className={styles.match_away_name}>
-              <Text text={data.away_team_name} fontSize={13} color={'#333'} />
-            </div>
-            {data?.final_scores?.away_red_card ? (
-              <div className={styles.match_red_card}>{data.final_scores.away_red_card}</div>
-            ) : null}
-          </div>
+          </SocreMaps>
         </div>
-        {/* 攻略 */}
-        <SocreMaps
-          home_incidents={data.home_incidents}
-          away_incidents={data.away_incidents}
-          matchStatusText={matchStatusText}
-        >
-
-        </SocreMaps>
       </div>
     );
   } else if (type === 'index') {

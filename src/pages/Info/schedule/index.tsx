@@ -57,6 +57,10 @@ const Schedule = (props: Props) => {
         key: 'home',
         width: 80,
         align: 'center',
+        render: (text, record) => (
+          <div className={styles.namestyle}>{text}</div>
+        )
+
       },
       {
         // title: '',
@@ -120,6 +124,9 @@ const Schedule = (props: Props) => {
         className: "last_columns",
 
         align: 'center',
+        render: (text, record) => (
+          <div className={styles.namestyle}>{text}</div>
+        )
       },
       {
         // title: '盘',

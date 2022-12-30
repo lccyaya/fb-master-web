@@ -77,7 +77,7 @@ const Detail = (props: Props) => {
       });
       console.log(year);
       // setCurSeason(year[0].label);
-      setCurSeasonId(year[0].value);
+      setCurSeasonId(year[0]?.value);
       setSeasonList([year]);
     }
   };
@@ -138,14 +138,16 @@ const Detail = (props: Props) => {
       />
       <div className={styles.content}>
         <div className={styles.tabfelx}>
-          <div
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            {' '}
-            {getAccordWithLabel(yeardata, curSeasonId)}
-            <IconFont type="icon-zhankai2" color="#000028" size={12} />
+          <div>
+            {curSeasonId && <div
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              {' '}
+              {getAccordWithLabel(yeardata, curSeasonId)}
+              <IconFont type="icon-zhankai2" color="#000028" size={12} />
+            </div>}
           </div>
 
           <div className={styles.tab}>

@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { NavBar } from 'antd-mobile';
 import { useHistory } from 'umi';
 import { Tabs, SideBar } from 'antd-mobile';
-
 import * as competitionService from '@/services/competition';
 import styles from './index.less';
-
 import FBNavList from '@/components/FBNavList';
 import useWindowSize from '@/hooks/useWindowSize';
 import { getnavList } from "@/utils/match"
 import type { CompetitionsCategoryItemProps, CompetitionCategoryProps } from '@/services/competition';
+import Empty from '@/components/Empty';
 
-type Props = {};
-
-const Info = (props: Props) => {
+const Info = () => {
+  const { height } = useWindowSize();
   const history = useHistory();
   const [innerHeight, setInnerHeight] = useState<number>(0)
   const [navtab, setNavtab] = useState<CompetitionCategoryProps[]>([]);//一级导航默数据列表
@@ -21,21 +19,21 @@ const Info = (props: Props) => {
   const [navtablist, setNavTabList] = useState<CompetitionsCategoryItemProps[]>([]);//二级导航默数据列表
   const [navtablistkey, setNavTabListKey] = useState("热门");//二级导航默认选择
   const [navtabitem, setNavTabitem] = useState([]);//三级导航默认数据列表
-  const { height } = useWindowSize();
+
 
   // 导航栏
   const init = async () => {
-    // setLoading(!hideLoading);
-    // setClientTouched(true);
-    const result = await competitionService.category();
+    const result: any = await competitionService.category();
     if (result.success) {
-      setNavtab(result.data.categories);
-      const navlistres = await competitionService.categorys({ id: navtabkey });
-      setNavTabList(navlistres.data.categories)
-      if (navlistres.data.categories) {
-        const item_name = navlistres.data.categories[0].name
+      setNavtab(result?.data?.categories);
+      const navlistres: any = await competitionService.categorys({ id: navtabkey });
+      setNavTabList(navlistres?.data?.categories)
+
+      if (navlistres?.data?.categories) {
+
+        const item_name = navlistres?.data?.categories[0].name
         setNavTabListKey(item_name)
-        const navitems = getnavList(navlistres.data.categories, item_name)
+        const navitems = getnavList(navlistres?.data?.categories, item_name)
         setNavTabitem(navitems)
       }
 
@@ -43,9 +41,7 @@ const Info = (props: Props) => {
   };
   // 一级导航切换
   const onTabChange = (key: string) => {
-
     setNavTabKey(key)
-
   }
   // 二级导航切换
   const onNavListChange = (key: string) => {
@@ -60,7 +56,7 @@ const Info = (props: Props) => {
   useEffect(() => {
     const height1 = height - 90;
     setInnerHeight(height1);
-    init();
+    // init();
   }, [height]);
 
   return (
@@ -87,9 +83,8 @@ const Info = (props: Props) => {
           {navtab?.map((item: any) => {
             return (
               <Tabs.Tab title={item.name} key={item.id} >
-                <div className={styles.nav_child}>
-                  {/* <div>{data?.name}</div> */}
-                  <SideBar
+                {navtablist ? <div className={styles.nav_child}>
+                  {navtabkey !== "0" && <SideBar
                     style={{
                       '--width': '130px',
                       '--height': `${innerHeight}px`,
@@ -103,12 +98,13 @@ const Info = (props: Props) => {
                       return <SideBar.Item key={itemnav.name} title={<div style={{ fontSize: "16px" }}>{itemnav.name}</div>} />
                     })}
 
-                  </SideBar>
-                  <div style={{ height: innerHeight, width: "100%", overflow: "auto" }}>
-                    <FBNavList data={navtabitem} />
+                  </SideBar>}
+
+                  <div style={{ height: innerHeight, width: "100%", overflow: "auto", }}>
+                    <FBNavList data={navtabitem} type={navtabkey} />
                   </div>
 
-                </div>
+                </div> : <Empty message='暂无数据' />}
               </Tabs.Tab>
             );
           })}

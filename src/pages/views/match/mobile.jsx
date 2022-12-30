@@ -362,8 +362,8 @@ const Mobile = () => {
       [params.param_key]: params.param_value,
     }).then((res) => {
       const ids = []
-      res.map((item) => {
-        let idsarr = item.competitions.map((items) => {
+      res?.map((item) => {
+        item?.competitions?.map((items) => {
           ids.push(items.id)
         })
 
