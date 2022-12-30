@@ -60,29 +60,29 @@ const MobileLayout: React.FC<IProps> = (props) => {
       ),
     },
 
-    {
-      key: 'worldcup',
-      pathRegex: pageRegex.get('worldcap'),
-      path: '/zh/worldcup',
-      locale: 'key_worldcup',
-      icon: (active: boolean) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%',
-          }}
-        >
-          {!active ? (
-            <IconFont type={'icon-a-3123'} size={22} />
-          ) : (
-            <img style={{ width: 22, height: 22 }} src={CapLogo} alt=""></img>
-          )}
-        </div>
-      ),
-      worldcup: true,
-    },
+    // {
+    //   key: 'worldcup',
+    //   pathRegex: pageRegex.get('worldcap'),
+    //   path: '/zh/worldcup',
+    //   locale: 'key_worldcup',
+    //   icon: (active: boolean) => (
+    //     <div
+    //       style={{
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //         height: '100%',
+    //       }}
+    //     >
+    //       {!active ? (
+    //         <IconFont type={'icon-a-3123'} size={22} />
+    //       ) : (
+    //         <img style={{ width: 22, height: 22 }} src={CapLogo} alt=""></img>
+    //       )}
+    //     </div>
+    //   ),
+    //   worldcup: true,
+    // },
     {
       key: 'expert',
       pathRegex: pageRegex.get('expert'),
