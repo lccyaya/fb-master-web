@@ -20,6 +20,8 @@ const Group = (props: Props) => {
   const [scoresList, setScoresList] = useState<scoresListprops[] | scoresListprops>();
   const [loading, setLoading] = useState<boolean>(false);
   const { competition_id, season_id, integrate } = props;
+
+
   // 世界杯
   // 联赛 columns
 

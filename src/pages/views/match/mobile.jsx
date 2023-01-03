@@ -23,6 +23,7 @@ import { useUpdateMatch } from '@/hooks/update-match';
 import cls from 'classnames';
 import { handleReport } from '@/utils/report';
 import { getCalendarTitle, handlerData, initParams, initPageData } from './tools';
+import { number } from 'echarts';
 // import {getMainIds} from "@/func-components/league/tools"; // 比赛页面的公用方法
 
 // import {FBTabs} from "@/components/fbt"
@@ -317,6 +318,7 @@ const Mobile = () => {
 
   const handleFilter = () => {
     setFilterVisible(true);
+    setJskey("1")
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
       type: 1,
@@ -336,6 +338,7 @@ const Mobile = () => {
   };
   // 筛选按钮
   const handleTypeChange = (type) => {
+
     setJskey(type.toString())
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
@@ -368,7 +371,7 @@ const Mobile = () => {
         })
 
       })
-      handleFilterOk(ids)
+      handleFilterOk(ids, type)
     });
   }
   // 初始化
@@ -390,6 +393,7 @@ const Mobile = () => {
         keywords: params.keywords,
         page: params.page,
         size: params.size,
+        type: Number(jskey)
         // competition_ids
       };
       data[params.param_key] = params.param_value;

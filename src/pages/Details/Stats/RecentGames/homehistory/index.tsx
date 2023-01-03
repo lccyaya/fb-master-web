@@ -29,7 +29,7 @@ const Ranking = (props: Props) => {
         render: (text, record) => (
           <div>
             {text}
-            <div>{moment(record.match_time * 1000).format('YYYY-MM-DD')}</div>
+            <div>{moment(record.match_time * 1000).format('YY/MM/DD')}</div>
           </div>
         ),
       },
@@ -51,37 +51,33 @@ const Ranking = (props: Props) => {
         title: '',
         dataIndex: 'home',
         key: 'home',
-        width: 20,
+        width: 30,
         align: 'center',
         render: (text, record) => (
-          <div className={styles.bfstyle}>
-            <span
-              style={{
-                color: Color.numColor(
-                  record?.home?.score > record.away?.score
-                    ? '赢'
-                    : record?.home?.score == record.away?.score
+          <div className={styles.bfstyle} >
+
+            <span style={{
+
+              color: record?.home?.team_name == sp?.team_name ? Color.numColor(
+                record?.home?.score > record.away?.score
+                  ? '赢'
+                  : record?.home?.score == record.away?.score
                     ? '走'
                     : '输',
-                ),
-              }}
-            >
-              {record.home.score}
-            </span>
-            :
-            <span
-              style={{
-                color: Color.numColor(
-                  record?.home?.score < record.away?.score
-                    ? '赢'
-                    : record?.home?.score == record.away?.score
+
+              ) : Color.numColor(
+                record?.home?.score < record.away?.score
+                  ? '赢'
+                  : record?.home?.score == record.away?.score
                     ? '走'
                     : '输',
-                ),
-              }}
-            >
-              {record.away.score}
+
+              ),
+            }}>{record.home.score}:{record.away.score}
             </span>
+            <span className={styles.scores}>({record.home.scores[0]}:{record.away.scores[0]})
+            </span>
+
           </div>
         ),
       },

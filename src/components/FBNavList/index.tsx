@@ -27,7 +27,7 @@ const FBNavList = (props: Props) => {
 
             // className={type == 0 ? styles.navlist_flex_bg : styles.navlist_flex}
             onClick={() => {
-              history.push(`/zh/library/detail?id=${item.id}&&name=${item?.name}`);
+              history.push(`/zh/library/detail?id=${item.id}&&name=${item?.name}&&type=${item?.type}`);
               report({
                 cate: REPORT_CATE.info,
                 action: REPORT_ACTION.info_tab2 + item?.name,

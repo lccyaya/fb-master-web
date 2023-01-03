@@ -15,7 +15,7 @@ import { getAccordWithLabel } from '@/utils/match';
 type Props = {};
 
 const Detail = (props: Props) => {
-  const { id, name } = props.location.query;
+  const { id, name, type } = props.location.query;
   // 年份列表
   const [yeardata, setSeasonList] = useState<any>([]);
   // 年份弹框显示状态
@@ -161,12 +161,13 @@ const Detail = (props: Props) => {
         </div>
         <div className={styles.content_list}>
           {picktabvalue == '1' && (
-            <Groupmatch competition_id={id} season_id={curSeasonId} integrate={integrate} />
+            <Groupmatch competition_id={id} season_id={curSeasonId} integrate={integrate} type={type} />
           )}
           {picktabvalue == '2' && <Schedule competition_id={id} season_id={curSeasonId} />}
           {picktabvalue == '3' && <Ranking competition_id={id} season_id={curSeasonId} />}
         </div>
       </div>
+
     </div>
   );
 };

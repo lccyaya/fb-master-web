@@ -12,11 +12,13 @@ type Props = {
   season_id: number;
   competition_id: number;
   integrate: any;
+  type: string
 };
 
 const Groupmatch = (props: Props) => {
-  const { competition_id, season_id, integrate } = props;
+  const { competition_id, season_id, integrate, type } = props;
   const [active, setActive] = useState('0');
+
   const cuptab = [
     {
       title: '分组赛',
@@ -34,7 +36,7 @@ const Groupmatch = (props: Props) => {
     },
   ];
 
-  const onChangetab = (value) => {
+  const onChangetab = (value: string) => {
     setActive(value);
   };
 
@@ -42,9 +44,9 @@ const Groupmatch = (props: Props) => {
     <div className={styles.groupmatch}>
       <div style={{ background: "#FAFBFD", width: "100%" }}>
 
-        <div className={styles.tab} style={{ width: competition_id == 1 ? '180px' : '100px' }}>
+        <div className={styles.tab} style={{ width: type == "2" ? '180px' : '100px' }}>
           <FBWorldCapTab
-            list={competition_id == 1 ? cuptab : tabmatch}
+            list={type == "2" ? cuptab : tabmatch}
             defaultActiveKey={active}
             mini
             onChange={onChangetab}
@@ -52,14 +54,15 @@ const Groupmatch = (props: Props) => {
         </div>
       </div>
       {active == '0' && (
-        <Group competition_id={competition_id} season_id={season_id} integrate={integrate}></Group>
+        <Group competition_id={competition_id} season_id={season_id} integrate={integrate} />
       )}
-      {active == '1' && <Eliminate season_id={season_id}></Eliminate>}
+      {active == '1' && <Eliminate season_id={season_id} />}
 
       {/* 判断是否显示规则 */}
       <div style={{ background: "#fff", paddingTop: "20px" }}>
         <Fule />
       </div>
+
     </div>
   );
 };

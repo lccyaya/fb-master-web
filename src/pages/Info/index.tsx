@@ -110,6 +110,9 @@ const Info = () => {
           })}
         </Tabs >
       </div >
+
+
+
     </div >
   );
 };

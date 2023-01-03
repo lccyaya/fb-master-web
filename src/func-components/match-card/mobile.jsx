@@ -87,7 +87,6 @@ const Mobile = ({ data, type = 'score' }) => {
   useEffect(() => {
     setSubscribed(data?.subscribed);
   }, [data]);
-
   let status = getMatchStatus(data.status);
   let statusDes = getMatchStatusDes(data.status);
   let matchStatusText = {
@@ -173,12 +172,14 @@ const Mobile = ({ data, type = 'score' }) => {
             <div className={styles.match_card_header_left}>
               <Text
                 text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
-                  " " + data.issue
+                  " "
                 }
                 numbuerOfLines={1}
                 fontSize={12}
                 color={'#999999'}
               />
+              {/* {data.issue ? data.issue : ""} */}
+              {data.issue}{data.issue2}
             </div>
             {/* {data.status !== 8 ? (
             <div className={styles.match_card_header_status}>
