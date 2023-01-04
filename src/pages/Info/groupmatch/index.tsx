@@ -43,7 +43,6 @@ const Groupmatch = (props: Props) => {
   return (
     <div className={styles.groupmatch}>
       <div style={{ background: "#FAFBFD", width: "100%" }}>
-
         <div className={styles.tab} style={{ width: type == "2" ? '180px' : '100px' }}>
           <FBWorldCapTab
             list={type == "2" ? cuptab : tabmatch}

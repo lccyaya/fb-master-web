@@ -12,22 +12,24 @@ import Ranking from '../ranking';
 
 import { getAccordWithLabel } from '@/utils/match';
 
-type Props = {};
+type Props = { location: any };
 
 const Detail = (props: Props) => {
   const { id, name, type } = props.location.query;
-  // 年份列表
+  // 年份 列表
   const [yeardata, setSeasonList] = useState<any>([]);
-  // 年份弹框显示状态
+  // 年份 弹框显示状态
   const [visible, setVisible] = useState(false);
-  // 年份选中值状态
+  // 年份 选中值状态
   const [curSeasonId, setCurSeasonId] = useState<any>();
   // 积分 赛程 榜单显示状态
   const [tabvisible, setTabVisible] = useState(false);
-  // 积分 赛程 榜单状态
+  // 积分 赛程 榜单选中值
   const [picktabvalue, setPicTabValue] = useState('1');
+  // 积分 弹框列表选中值
   const [integrate, setIntegrate] = useState<any>('1');
   const history = useHistory();
+  // 右侧积分tab弹框列表
   const picktab = [
     [
       { label: '积分', value: '1' },
@@ -35,15 +37,14 @@ const Detail = (props: Props) => {
       { label: '客场', value: '3' },
     ],
   ];
+  // 右侧tab列表
   const tab = [
     {
       title: (
         <div
           onClick={() => {
-
             if (picktabvalue == "1") {
               setTabVisible(true);
-
             }
           }}
         >
@@ -68,11 +69,11 @@ const Detail = (props: Props) => {
   ];
 
   // 赛季年份
-  const fetchSeasonData = async (competitionId: any) => {
+  const fetchSeasonData = async (competitionId: string) => {
     const result = await matchService.getSeasonList(competitionId);
     if (result.success) {
-      const seasonList = result.data;
-      const year = seasonList?.map((item) => {
+      const seasonList: any = result.data;
+      const year = seasonList?.map((item: { year: number, ID: number }) => {
         return { label: item.year, value: item.ID };
       });
       console.log(year);
@@ -86,8 +87,8 @@ const Detail = (props: Props) => {
 
     setPicTabValue(value);
   };
-  // 表格
 
+  // 表格
   useEffect(() => {
     fetchSeasonData(id);
   }, []);
@@ -107,7 +108,7 @@ const Detail = (props: Props) => {
           </NavBar>
         </div>
       </div>
-      {/* 日期弹框 */}
+      {/* 时间弹框 */}
       <Picker
         defaultValue={[curSeasonId]}
         columns={yeardata}
@@ -123,7 +124,7 @@ const Detail = (props: Props) => {
           setCurSeasonId(val[0]);
         }}
       />
-      {/* 积分弹框 */}
+      {/* tab积分弹框 */}
       <Picker
         defaultValue={[picktabvalue]}
         columns={picktab}
@@ -138,6 +139,7 @@ const Detail = (props: Props) => {
       />
       <div className={styles.content}>
         <div className={styles.tabfelx}>
+          {/* 左侧时间 */}
           <div>
             {curSeasonId && <div
               onClick={() => {
@@ -149,7 +151,7 @@ const Detail = (props: Props) => {
               <IconFont type="icon-zhankai2" color="#000028" size={12} />
             </div>}
           </div>
-
+          {/*右侧 积分 赛程 榜单 */}
           <div className={styles.tab}>
             <FBWorldCapTab
               list={tab}
@@ -160,10 +162,13 @@ const Detail = (props: Props) => {
           </div>
         </div>
         <div className={styles.content_list}>
+          {/* 积分 */}
           {picktabvalue == '1' && (
             <Groupmatch competition_id={id} season_id={curSeasonId} integrate={integrate} type={type} />
           )}
+          {/* 赛程 */}
           {picktabvalue == '2' && <Schedule competition_id={id} season_id={curSeasonId} />}
+          {/* 榜单 */}
           {picktabvalue == '3' && <Ranking competition_id={id} season_id={curSeasonId} />}
         </div>
       </div>

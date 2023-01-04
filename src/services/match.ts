@@ -398,3 +398,4 @@ export async function getSeasonList(competition_id: string) {
   return normalizeResponse<{}>(result);
 }
 
+

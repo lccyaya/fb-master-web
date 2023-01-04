@@ -4,17 +4,14 @@ import IconFont from '@/components/IconFont';
 import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
 import * as matchPageService from '@/services/matchPage';
-import { getAccordWithLabel } from '@/utils/match';
+import { getMatchDataList } from '@/services/matchPage';
+import { getPickerList, getNextList, getUpList } from "@/utils/match"
 
+import { getAccordWithLabel } from '@/utils/match';
 import moment from 'moment';
 import { Color } from '@/utils/match';
-import { Picker } from 'antd-mobile';
-// import type {
-//   AnalysisListRes,
-//   analysisType,
-//   AnalysisListParams,
-//   spType,
-// } from '@/services/matchdetail';
+import { CascadePicker } from 'antd-mobile';
+import type { analysisType } from '@/services/matchdetail';
 
 type Props = {
   competition_id: number;
@@ -27,45 +24,39 @@ export type MatchDateFormatDataItem = {
   data: matchPageService.matchType[];
 };
 
-interface IProps {
-  competitionId: number;
-  seasonId?: number;
-}
 
 const Schedule = (props: Props) => {
-  const columns = (sp: spType | undefined): ColumnsType<analysisType> => {
+  const columns = (): ColumnsType<analysisType> => {
     return [
       {
         // title: '赛事',
-        dataIndex: 'competition_name',
-        key: 'competition_name',
+        dataIndex: 'MatchTime',
+        key: 'match_time',
         // width: 40,
         className: "first_columns",
         align: 'center',
         render: (text, record) => (
           <div >
             {/* {text} */}
-            <div>{moment(record.match_time * 1000).format('MM-DD')}</div>
-            <div>{moment(record.match_time * 1000).format('HH:mm')}</div>
-
+            <div>{moment(text * 1000).format('MM-DD')}</div>
+            <div>{moment(text * 1000).format('HH:mm')}</div>
           </div>
         ),
       },
       {
         // title: '主队',
-        dataIndex: 'home_team_name',
+        dataIndex: 'HomeTeam',
         key: 'home',
         width: 80,
-        align: 'center',
+        align: 'right',
         render: (text, record) => (
-          <div className={styles.namestyle}>{text}</div>
+          <div className={styles.namestyle}>{text.name}</div>
         )
-
       },
       {
         // title: '',
-        dataIndex: 'status',
-        key: 'status',
+        dataIndex: 'StatusID',
+        key: 'StatusID',
         width: 20,
         align: 'center',
         render: (text, record) => (
@@ -73,64 +64,36 @@ const Schedule = (props: Props) => {
             {text > 1 ? <div>
               <div style={{
                 color: Color.numColor(
-                  record.final_scores.home > record.final_scores.away
+                  record.HomeScores[0] > record.AwayScores[0]
                     ? '赢'
-                    : record.final_scores.home == record.final_scores.away
+                    : record.HomeScores[0] == record.AwayScores[0]
                       ? '走'
                       : '输',
                 ),
               }}>
-                {record.final_scores.home}:{record.final_scores.away}
+                {record.HomeScores[0]}:{record.AwayScores[0]}
               </div>
               <div className={styles.first_half_score}>
-                ({record.final_scores.first_half_home}:{record.final_scores.first_half_away})
+                ({record.HomeScores[1]}:{record.AwayScores[1]})
               </div>
             </div> : <div style={{ color: "#848494" }}>VS</div>}
-            {/* <span
-              style={{
-                color: Color.numColor(
-                  record?.home?.score > record.away?.score
-                    ? '赢'
-                    : record?.home?.score == record.away?.score
-                      ? '走'
-                      : '输',
-                ),
-              }}
-            >
-              {record.home.score}
-            </span>
-            :
-            <span
-              style={{
-                color: Color.numColor(
-                  record?.home?.score < record.away?.score
-                    ? '赢'
-                    : record?.home?.score == record.away?.score
-                      ? '走'
-                      : '输',
-                ),
-              }}
-            >
-              {record.away.score}
-            </span> */}
           </div>
         ),
       },
       {
         // title: '客队',
-        dataIndex: 'away_team_name',
+        dataIndex: 'AwayTeam',
         width: 80,
         key: 'away',
         className: "last_columns",
-
         align: 'center',
-        render: (text, record) => (
-          <div className={styles.namestyle}>{text}</div>
+        render: (text) => (
+          <div className={styles.namestyle}>{text.name}</div>
         )
       },
       {
         // title: '盘',
-        dataIndex: 'odds',
+        dataIndex: '',
 
         align: 'center',
         render: (text) => (
@@ -168,26 +131,16 @@ const Schedule = (props: Props) => {
   };
 
   const { competition_id, season_id } = props;
+  // 表格数据
   const [data, setData] = useState<any>();
   // 弹窗
   const [visible, setVisible] = useState<boolean>(false);
-  const [pickervalue, setPickerValue] = useState<any>(['one', '1']);
-  //   const [pickertext, setPickertext] = useState<any>(['0', '5']);
+  // 弹窗选中值
+  const [pickervalue, setPickerValue] = useState<any>();
+  const [yeardata, setyeardata] = useState<any>([]);
 
-  const yeardata = [
-    [
-      { label: '分组赛', value: 'one' },
-      { label: '1/8决赛', value: 'two' },
-      { label: '1/4决赛', value: 'three' },
-    ],
-    [
-      { label: '第1轮', value: '1' },
-      { label: '第2轮', value: '2' },
-      { label: '第3轮', value: '3' },
+  // const [pickertext, setPickerText] = useState<any>("");
 
-      { label: '第4轮', value: '4' },
-    ],
-  ];
   const [loading, setLoading] = useState<boolean>(false);
 
   //   const [matchList, setMatchList] = useState<MatchDateFormatDataItem[]>([]);
@@ -213,124 +166,125 @@ const Schedule = (props: Props) => {
   //     });
   //     return _list;
   //   }
+  // 跳转对应锚点链接
+  const scrollToAnchor = (anchorName: string) => {
+    if (anchorName) {
+      // 找到锚点
+      const anchorElement = document.getElementById(anchorName);
+      // 如果对应id的锚点存在，就跳转到锚点
+      if (anchorElement) {
+        anchorElement.scrollIntoView();
+      }
+    }
+  }
   const init = async () => {
     setLoading(true);
-    const result = await matchPageService.fetchMatchListForInfo({
-      tab_type: 0,
+    const result = await getMatchDataList({
       competition_id: competition_id,
-      timestamp: 0,
-      asc: true,
       season_id: season_id,
     });
     setLoading(false);
     if (result.success) {
-      const { matches } = result.data;
-      console.log(matches);
+      setData(result.data);
+      const picker_data = getPickerList(result.data)
+      setyeardata(picker_data)
+      // 第一轮
+      // setPickerValue([picker_data[0].value, picker_data[0].children[0].value])
 
-      if (matches) {
-        setData(matches);
+      const rounds = picker_data[0].children.length ? picker_data[0].children[0].value : null
+
+      console.log(rounds);
+      if (rounds) {
+        scrollToAnchor(`activity_${picker_data[0].value}_${rounds}`)
       } else {
-        setMatchList([]);
+        scrollToAnchor(`activity_${picker_data[0].value}_0`)
+
       }
+      setPickerValue([picker_data[0].value, rounds])
     }
   };
-  useEffect(() => {
+  // 下一轮
+  const onNext = () => {
 
-    init();
-  }, [season_id]);
-  const onPicker = () => {
-    setVisible(true);
-  };
-  const scrollToAnchor = (anchorName) => {
 
-    if (anchorName) {
-
-      // 找到锚点
-
-      const anchorElement = document.getElementById(anchorName);
-
-      // 如果对应id的锚点存在，就跳转到锚点
-
-      if (anchorElement) {
-        anchorElement.scrollIntoView();
-
-        // anchorElement.scrollIntoView({ behavior: "instant", block: "end", inline: "nearest" });
-      }
+    const next_yeardata: any = getNextList(yeardata, pickervalue)
+    console.log(next_yeardata, "kekekekekeekkekeke");
+    setPickerValue(next_yeardata)
+    if (next_yeardata[1]) {
+      scrollToAnchor(`activity_${next_yeardata[0]}_${next_yeardata[1]}`)
+    } else {
+      scrollToAnchor(`activity_${next_yeardata[0]}_0`)
 
     }
 
   }
+  const onUpList = () => {
+    const next_yeardata: any = getUpList(yeardata, pickervalue)
+    console.log(next_yeardata, "kekekekekeekkekeke");
+    setPickerValue(next_yeardata)
+    if (next_yeardata[1]) {
+      scrollToAnchor(`activity_${next_yeardata[0]}_${next_yeardata[1]}`)
+    } else {
+      scrollToAnchor(`activity_${next_yeardata[0]}_0`)
+
+    }
+
+  }
+
+  useEffect(() => {
+    init();
+  }, [season_id]);
+  // 显示弹框按钮事件
+  const onPicker = () => {
+    setVisible(true);
+
+  };
+
   return (
     <div>
       <div className={styles.schedule_table_space}>
         <div className={styles.title}>
-          <div className={styles.title_next}>
+          <div className={styles.title_next} onClick={onUpList}>
             <IconFont type="icon-jiantouzuo" color="#848494" size={10} />
             上一轮
           </div>
           <div style={{ fontSize: 14 }} >     <div className={styles.title_top} onClick={onPicker}>
             {' '}
-            {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
-            {getAccordWithLabel(yeardata, pickervalue[1])}
+            {/* {pickertext} */}
             <IconFont type="icon-zhankai2" color="#000028" size={12} />
           </div></div>
-
-
-          <div className={styles.title_next}>
+          <div className={styles.title_next} onClick={onNext}>
             下一轮 <IconFont type="icon-jiantouyou" color="#848494" size={10} />
           </div>
         </div>
-        <div style={{ height: "500px", overflow: "auto" }}>
+        <div style={{ height: "700px", overflow: "auto" }}>
+          {data?.map((item_stage) => {
 
-          <div id="activity_1">
-            <div className={styles.title_next_activity}>
-              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
-              111       </div>
-            <Table
-              loading={loading}
-              rowKey="match_id"
-              dataSource={data}
-              columns={columns(null)}
-            />
-          </div>
-          {/* <div id="activity_2">
-            <div className={styles.title_next}>
-              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
-              222         </div>
-            <Table
-              loading={loading}
-              rowKey="match_id"
-              dataSource={data}
-              columns={columns(null)}
-            />
-          </div>
-          <div id="activity_3">
-            <div className={styles.title_next}>
-              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
-              3333        </div>
-            <Table
-              loading={loading}
-              rowKey="match_id"
-              dataSource={data}
-              columns={columns(null)}
-            />
-          </div>
-          <div id="activity_4">
-            <div className={styles.title_next}>
-              {getAccordWithLabel(yeardata, pickervalue[0])}{' '}
-              444444      </div>
-            <Table
-              loading={loading}
-              rowKey="match_id"
-              dataSource={data}
-              columns={columns(null)}
-            />
-          </div> */}
+            return <div key={item_stage.stage}>
+
+              {item_stage.rounds.map((item_rounds, index) => {
+                return <div id={`activity_${item_rounds.round_data.stage_num}_${item_rounds.round_data.round_name}`} key={index}>
+                  <div className={styles.title_next_activity}>
+                    {item_rounds.round_data.show_name}
+                  </div>
+
+                  <Table
+                    loading={loading}
+                    rowKey="match_id"
+                    dataSource={item_rounds.match_list}
+                    columns={columns()}
+                  />
+                </div>
+              })}
+
+            </div>
+          })}
+
         </div>
       </div>
-      <Picker
-        defaultValue={pickervalue}
-        columns={yeardata}
+      <CascadePicker
+        options={yeardata}
+        value={pickervalue}
         visible={visible}
         onClose={() => {
           setVisible(false);
@@ -339,8 +293,16 @@ const Schedule = (props: Props) => {
           console.log('onSelect', val, extend.items);
           setPickerValue(val);
 
-          scrollToAnchor(`activity_${val[1]}`)
+          if (val[1]) {
 
+            scrollToAnchor(`activity_${val[0]}_${val[1]}`)
+          } else {
+            scrollToAnchor(`activity_${val[0]}_0`)
+
+          }
+        }}
+        onSelect={val => {
+          console.log('onSelect', val)
         }}
       />
     </div>

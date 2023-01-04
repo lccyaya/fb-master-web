@@ -77,7 +77,6 @@ const Group = (props: Props) => {
             )}
             {integrate == 2 && (
               <div>
-
                 <div className={styles.title_left_img}></div>
                 <Table titletext="排名" data={scoresList?.home} />
                 <div style={{ height: 2, width: '100%', background: '#F7F7F7' }} />
@@ -85,9 +84,7 @@ const Group = (props: Props) => {
             )}
             {integrate == 3 && (
               <div>
-
-
-                <div className={styles.title_left_img}></div>
+                <div className={styles.title_left_img} />
                 <Table titletext="排名" data={scoresList?.away} />
               </div>
             )}

@@ -21,22 +21,19 @@ const Info = () => {
   const [navtabitem, setNavTabitem] = useState([]);//三级导航默认数据列表
 
 
-  // 导航栏
+  // 导航栏数据
   const init = async () => {
     const result: any = await competitionService.category();
     if (result.success) {
       setNavtab(result?.data?.categories);
       const navlistres: any = await competitionService.categorys({ id: navtabkey });
       setNavTabList(navlistres?.data?.categories)
-
       if (navlistres?.data?.categories) {
-
         const item_name = navlistres?.data?.categories[0].name
         setNavTabListKey(item_name)
         const navitems = getnavList(navlistres?.data?.categories, item_name)
         setNavTabitem(navitems)
       }
-
     }
   };
   // 一级导航切换
@@ -53,14 +50,16 @@ const Info = () => {
   useEffect(() => {
     init()
   }, [navtabkey])
+
+  // 获取屏幕高度
   useEffect(() => {
-    const height1 = height - 90;
-    setInnerHeight(height1);
-    // init();
+    const newheight = height - 90;
+    setInnerHeight(newheight);
   }, [height]);
 
   return (
     <div className={styles.library}>
+      {/* 头部返回导航 */}
       <NavBar
         style={{ fontWeight: '500' }}
         onBack={() => {
@@ -71,6 +70,7 @@ const Info = () => {
       </NavBar>
 
       <div className={styles.nav}>
+        {/* 列表一级导航 */}
         <Tabs
           onChange={onTabChange}
           style={{
@@ -84,6 +84,7 @@ const Info = () => {
             return (
               <Tabs.Tab title={item.name} key={item.id} >
                 {navtablist ? <div className={styles.nav_child}>
+                  {/* 左边侧边栏（二级导航） */}
                   {navtabkey !== "0" && <SideBar
                     style={{
                       '--width': '130px',
@@ -99,20 +100,16 @@ const Info = () => {
                     })}
 
                   </SideBar>}
-
+                  {/* 右侧内容区域 */}
                   <div style={{ height: innerHeight, width: "100%", overflow: "auto", }}>
                     <FBNavList data={navtabitem} type={navtabkey} />
                   </div>
-
                 </div> : <Empty message='暂无数据' />}
               </Tabs.Tab>
             );
           })}
         </Tabs >
       </div >
-
-
-
     </div >
   );
 };

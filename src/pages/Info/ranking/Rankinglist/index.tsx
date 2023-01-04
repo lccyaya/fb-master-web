@@ -5,6 +5,8 @@ import { SideBar } from 'antd-mobile';
 import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import type { PlayerGoalListParams } from '@/services/worldcup';
+import avatarImg from '@/assets/mine/avatar.png';
+
 
 import Empty from '@/components/Empty';
 
@@ -63,7 +65,7 @@ const teamplayer_columns: ColumnsType<DataType> = [
     // ellipsis: true,
     render: (text, record, index) => (
       <div className={styles.logo}>
-        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.logo} alt="" />
+        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.logo ? record.logo : avatarImg} alt="" />
 
         <div style={{
           textAlign: "left",

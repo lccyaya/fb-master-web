@@ -75,7 +75,7 @@ const Ranking = (props: Props) => {
               ),
             }}>{record.home.score}:{record.away.score}
             </span>
-            <span className={styles.scores}>({record.home.scores[0]}:{record.away.scores[0]})
+            <span className={styles.scores}>({record.home.scores[1]}:{record.away.scores[1]})
             </span>
 
           </div>
@@ -127,7 +127,7 @@ const Ranking = (props: Props) => {
         render: (text) => (
           <div>
             <div>{text.branch}</div>
-            <div> {text.name}</div>
+            <div>{text.name}</div>
           </div>
         ),
       },

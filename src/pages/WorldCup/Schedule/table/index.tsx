@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, ConfigProvider } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Spin } from 'antd';
+import avatarImg from '@/assets/mine/avatar.png';
 import { useHistory } from 'umi';
 import Empty from '@/components/Empty';
 // import { ScoresList } from "@/services/worldcup"
@@ -49,10 +50,10 @@ const TablePage = (props: Props) => {
           display: 'flex',
           alignItems: "center"
         }}>
-          <div style={{ margin: ' 0 5px' }}>{record.position}</div>
+          <div style={{ width: 20, textAlign: "center" }}>{record.position}</div>
           <img
             style={{ width: 20, height: 15, margin: ' 0 5px', objectFit: 'contain' }}
-            src={record.team_logo}
+            src={record.team_logo ? record.team_logo : avatarImg}
             alt=""
           />
           <div style={{
@@ -60,7 +61,7 @@ const TablePage = (props: Props) => {
             overflow: "hidden",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis"
-          }}>  {text}</div>
+          }}>{text}</div>
 
         </div>
       ),

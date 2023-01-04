@@ -416,3 +416,8 @@ export async function matchFilter(params: IMatchFilterParams) {
   const result = await request('/api/v3/competition/filter', { params });
   return normalizeResponse<ICategoryRes>(result);
 }
+
+export async function getMatchDataList(params) {
+  const result = await request(`/api/match/list`, { params });
+  return normalizeResponse<{}>(result);
+}

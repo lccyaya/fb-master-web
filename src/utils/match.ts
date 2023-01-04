@@ -235,6 +235,7 @@ export namespace Color {
 }
 // 弹窗值筛选
 export const getAccordWithLabel = (array, value) => {
+
   let newArray;
   array.map(data => {
     const list = data.filter(item => {
@@ -261,3 +262,67 @@ export function getnavList(arr: any, name: string) {
   })
   return list
 }
+
+// 资料库赛程积分弹框列表
+export function getPickerList(arr: any) {
+
+  const list = arr.map((item) => {
+    const children = []
+    for (let i = 1; i <= item.round_count; i++) {
+      children.push({ value: i, label: `第${i}轮`, })
+    }
+
+
+    return { value: item.stage, label: item.stage_name, children, }
+  })
+  console.log(list);
+  return list
+}
+
+// 资料库赛程下一轮筛选
+export function getNextList(arr: any, arr_value: any) {
+  console.log(arr, arr_value);
+  let res
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i].children;
+    if (arr_value[0] == arr[i].value && arr_value[1] < element.length) {
+      // res = [arr[i].value, arr_value[1] + 1]
+
+      res = [arr[i].value, arr_value[1] + 1]
+      console.log(res, "ppppppppp");
+    }
+    if (arr_value[0] == arr[i].value && !arr_value[1] || arr_value[1] == element.length) {
+      // res = [arr[i].value, arr_value[1] + 1]
+      console.log("zhixingma");
+      res = [arr[i + 1].value, null]
+      console.log(res, "ppppppppp");
+    }
+  }
+
+  return res
+
+}
+// 资料库赛程下一轮筛选
+// export function getUpList(arr: any, arr_value: any) {
+//   console.log(arr, arr_value);
+//   let res
+//   for (let i = 0; i < arr.length; i++) {
+//     const element = arr[i].children;
+//     if (arr_value[0] == arr[i].value && arr_value[1] > 1) {
+//       // res = [arr[i].value, arr_value[1] + 1]
+//       res = [arr[i].value, arr_value[1] - 1]
+//       // res = [arr[i].value, arr_value[1] - 1]
+
+//       console.log(res, "pppppppppkkkk到底是");
+//     }
+//     if (arr_value[0] == arr[i].value && !arr_value[1]) {
+//       // res = [arr[i].value, arr_value[1] + 1]
+//       console.log("zhixingma");
+//       res = [arr[i - 1]?.value, null]
+//       // console.log(res, "ppppppppp");
+//     }
+//   }
+
+//   return res
+
+// }

@@ -46,6 +46,7 @@ export type analysisType = {
     // interval: number
     // match_id: number
     // match_time: number
+    final_scores: any
     match_time: number
     team_name: string
     home: matchType
