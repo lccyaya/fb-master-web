@@ -212,12 +212,17 @@ const Schedule = (props: Props) => {
       const roundname = activity_info_md[i].getAttribute("data-roundname");
       const heighttop = activity_info_md[i].offsetTop;//距离父元素的top
       const heightlast = activity_info_md[i + 1]?.offsetTop;
+
       if (top + 60 >= heighttop && top + 60 < heightlast) {
         arr.push(Number(stagenum), Number(roundname))
         return arr
-
       }
+
     }
+    const one = activity_info_md[activity_info_md.length - 1].getAttribute("data-stagenum");
+    const two = activity_info_md[activity_info_md.length - 1].getAttribute("data-roundname");
+    arr.push(Number(one), Number(two))
+    return arr
 
   }
   const onScroll = () => {

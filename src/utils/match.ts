@@ -282,7 +282,6 @@ export function getNextList(arr: any, arr_value: any) {
   let ind;
 
   const a = arr.filter((item, index) => {
-
     if (item.value === arr_value[0]) {
       ind = index;
     }
@@ -316,7 +315,6 @@ export function getNextList(arr: any, arr_value: any) {
         res = [arr[ind + 1].value, null];
       }
     } else {
-
       res = arr_value;
     }
   }
@@ -387,6 +385,7 @@ export const getFirst = (arr, res) => {
   if (firstarr.children.length) {
     boolen = firstarr.children[0].value === res[1];
   } else {
+
     boolen = firstarr.value === res[0];
   }
   return boolen;
@@ -404,10 +403,8 @@ export const getlabel = (arr, res) => {
       if (items.value == res[1]) {
         num = items?.label
       }
-
     })
   } else {
-
     num = ""
   }
   return data[0]?.label + num
@@ -423,12 +420,12 @@ export const geMatchLastList = (arr) => {
       })
       if (str !== -1) {
         return arr[index].rounds[j]?.match_list[str]?.MatchId
+
       }
     }
   }
   const last = arr[arr.length - 1].rounds
   const last_match = last[last.length - 1]?.match_list
-
   return last_match[last_match.length - 1]?.MatchId
 
 };
