@@ -393,7 +393,7 @@ const Mobile = () => {
         keywords: params.keywords,
         page: params.page,
         size: params.size,
-        type: Number(jskey)
+        type: Number(jskey) == 2 ? 1 : Number(jskey) == 3 ? 2 : undefined
         // competition_ids
       };
       data[params.param_key] = params.param_value;
@@ -521,10 +521,10 @@ const Mobile = () => {
       key: '3',
     },
 
-    {
-      title: <FormattedMessage id={'key_scheme'} />,
-      key: '4',
-    },
+    // {
+    //   title: <FormattedMessage id={'key_scheme'} />,
+    //   key: '4',
+    // },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -672,7 +672,7 @@ const Mobile = () => {
             <Spining show={pageInfo.isLoading === 'pre'} />
 
             {liveList?.map((item, key) => (
-              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} jskey={jskey} />
             ))}
             {/* 列表渲染 */}
             {renderList.map((dataKey, key) => (
@@ -681,16 +681,16 @@ const Mobile = () => {
                 <TimeTitle title={dataKey} sticky key={key} className="time_title" />
 
                 {renderData[dataKey].map((item, key) => (
-                  <MatchCard data={item} key={key} type={indexVal ? 'index' : 'score'} />
+                  <MatchCard data={item} key={key} type={indexVal ? 'index' : 'score'} jskey={jskey} />
                 ))}
               </div>
             ))}
 
             {finishedList?.map((item, key) => (
-              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} jskey={jskey} />
             ))}
             {errorList?.map((item, key) => (
-              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} />
+              <MatchCard data={item} key={item.match_id} type={indexVal ? 'index' : 'score'} jskey={jskey} />
             ))}
             <Spining show={pageInfo.isLoading === 'next'} />
 

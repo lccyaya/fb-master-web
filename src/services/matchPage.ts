@@ -421,3 +421,16 @@ export async function getMatchDataList(params) {
   const result = await request(`/api/match/list`, { params });
   return normalizeResponse<{}>(result);
 }
+
+export async function getMatchStageList(params) {
+  const result = await request(`/api/competition/stage/list`, { params });
+  return normalizeResponse<{}>(result);
+}
+export async function getMatchStagidList(params) {
+  const result = await request(`/api/competition/match/list`, { params });
+  return normalizeResponse<{}>(result);
+}
+export async function getMatchRuleList(params) {
+  const result = await request(`/api/competition/rule`, { params });
+  return normalizeResponse<{}>(result);
+}

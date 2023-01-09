@@ -80,7 +80,7 @@ const SocreMaps = ({ home_incidents = [], away_incidents = [], matchStatusText, 
 };
 
 // type 支持 score【比分模式】和 index[指数模式]
-const Mobile = ({ data, type = 'score' }) => {
+const Mobile = ({ jskey, data, type = 'score' }) => {
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const intl = useIntl();
@@ -170,16 +170,30 @@ const Mobile = ({ data, type = 'score' }) => {
 
           <div className={styles.match_card_header}>
             <div className={styles.match_card_header_left}>
-              <Text
-                text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
-                  " "
-                }
-                numbuerOfLines={1}
-                fontSize={12}
-                color={'#999999'}
-              />
-              {/* {data.issue ? data.issue : ""} */}
-              {data.issue}{data.issue2}
+              <div style={{ display: "flex" }}>
+                <Text
+                  text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
+                    " "
+                  }
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />
+                {jskey == 2 && <Text
+                  text={data.issue}
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />}
+                {jskey == 3 && <Text
+                  text={data.issue2}
+
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />}
+              </div>
+
             </div>
             {/* {data.status !== 8 ? (
             <div className={styles.match_card_header_status}>
@@ -272,7 +286,7 @@ const Mobile = ({ data, type = 'score' }) => {
                 <Iconfont
                   color={subscribed ? '#FA5900' : '#999999'}
                   size={16}
-                  type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
+                  type={subscribed ? 'icon-guanzhu' : 'icon-guanzhubiankuang'}
                 />
               </div>
             </div>
@@ -340,12 +354,29 @@ const Mobile = ({ data, type = 'score' }) => {
         <div className={styles.match_index_header}>
           <div className={styles.match_index_header_left}>
             <div style={{ paddingLeft: 12 }}>
-              <Text
-                text={moment(data.match_time * 1000).format('HH:mm') + ' ' + data.competition_name}
-                numbuerOfLines={1}
-                fontSize={12}
-                color={'#999999'}
-              />
+              <div style={{ display: "flex" }}>
+                <Text
+                  text={data.competition_name + ' ' + moment(data.match_time * 1000).format('HH:mm') +
+                    " "
+                  }
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />
+                {jskey == 2 && <Text
+                  text={data.issue}
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />}
+                {jskey == 3 && <Text
+                  text={data.issue2}
+
+                  numbuerOfLines={1}
+                  fontSize={12}
+                  color={'#999999'}
+                />}
+              </div>
             </div>
           </div>
           <div className={styles.match_index_header_status}>
@@ -419,7 +450,7 @@ const Mobile = ({ data, type = 'score' }) => {
               <Iconfont
                 color={subscribed ? '#FA5900' : '#999999'}
                 size={16}
-                type={subscribed ? 'icon-dingyue-xuanzhong' : 'icon-dingyue-weixuanzhong'}
+                type={subscribed ? 'icon-guanzhu' : 'icon-guanzhubiankuang'}
               />
             </div>
           </div>

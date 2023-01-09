@@ -31,7 +31,7 @@ export type CategorysParams = {
 // }
 // 一级导航
 export async function category() {
-  const result = await request('/api/competition/categorylist');
+  const result = await request('/api/competition/category/list');
   return normalizeResponse<CompetitionCategoryType>(result);
 }
 // 二级导航/三级导航

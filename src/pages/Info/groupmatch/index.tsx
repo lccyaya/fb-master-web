@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import FBWorldCapTab from '@/components/FBWordCopTab';
-// import Table from '@/pages/WorldCup/Schedule/table';
-// import type { ColumnsType } from 'antd/es/table';
-// import type { cupmatchListType, cupmatchTypeList } from '@/services/matchdetail';
-// import { MatchRanking } from '@/utils/match';
+import { getMatchStageList, getMatchStagidList, getMatchRuleList } from '@/services/matchPage';
+import { Spin } from 'antd';
+
+
 import Fule from './fule';
 import Group from './group';
-import Eliminate from './eliminate';
 type Props = {
   season_id: number;
   competition_id: number;
@@ -17,49 +16,86 @@ type Props = {
 
 const Groupmatch = (props: Props) => {
   const { competition_id, season_id, integrate, type } = props;
-  const [active, setActive] = useState('0');
+  const [active, setActive] = useState();
+  const [cuptab, setCuptab] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [rule, setRule] = useState<any>();
 
-  const cuptab = [
-    {
-      title: '分组赛',
-      key: '0',
-    },
-    {
-      title: '淘汰赛',
-      key: '1',
-    },
-  ];
-  const tabmatch = [
-    {
-      title: '联赛',
-      key: '0',
-    },
-  ];
+  const getdatalist = async (activekey: any) => {
+    const resultlist = await getMatchStagidList({ stage_id: activekey })
+    if (resultlist.success) {
+      setData(resultlist.data.list)
+    }
+  }
+  const init = async () => {
+    if (season_id) {
+      setLoading(true)
+      const params = {
+        competition_id: competition_id,
+        season_id: season_id,
+      }
+      const result = await getMatchStageList(params);
+      setLoading(false)
 
-  const onChangetab = (value: string) => {
+      if (result.success && result?.data) {
+        // console.log([result?.data[0]]);
+
+        const arr = result?.data.map((item, index) => {
+          return { title: item.name, key: item.stage_id }
+        })
+
+        setActive(result?.data[0].stage_id)
+        setCuptab(arr)
+        getdatalist(result?.data[0].stage_id)
+
+      }
+      const resultrule = await getMatchRuleList(params);
+      if (resultrule.success) {
+        const ruledata = resultrule?.data?.text.split("\n")
+        setRule(ruledata)
+
+      }
+    }
+
+  };
+
+  useEffect(() => {
+    init();
+  }, [season_id]);
+
+  const onChangetab = (value: any) => {
     setActive(value);
+    getdatalist(value)
   };
 
   return (
     <div className={styles.groupmatch}>
-      <div style={{ background: "#FAFBFD", width: "100%" }}>
-        <div className={styles.tab} style={{ width: type == "2" ? '180px' : '100px' }}>
-          <FBWorldCapTab
-            list={type == "2" ? cuptab : tabmatch}
-            defaultActiveKey={active}
-            mini
-            onChange={onChangetab}
-          />
+      {active &&
+        <div> <div style={{ background: "#FAFBFD", width: "100%" }}>
+          <div className={styles.tab} >
+            <FBWorldCapTab
+              list={cuptab}
+              activeKey={active?.toString()}
+              mini
+              onChange={onChangetab}
+            />
+          </div>
         </div>
-      </div>
-      {active == '0' && (
-        <Group competition_id={competition_id} season_id={season_id} integrate={integrate} />
-      )}
-      {active == '1' && <Eliminate season_id={season_id} />}
+          <Spin spinning={loading}>
+
+            <Group scoresList={data} type={type} integrate={integrate} />
+
+
+
+
+          </Spin>
+        </div>
+      }
 
       {/* 判断是否显示规则 */}
       <div style={{ background: "#fff", paddingTop: "20px" }}>
-        <Fule />
+        <Fule rule={rule} />
       </div>
 
     </div>

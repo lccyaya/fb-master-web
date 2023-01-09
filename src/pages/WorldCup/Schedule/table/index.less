@@ -5,6 +5,25 @@
          font-weight: 500;
      }
 
+     .bgheight {
+         height: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         position: relative;
+
+         .row_tip {
+             position: absolute;
+             font-size: 10px;
+             color: #fff;
+             padding: 0 5px;
+             top: -2px;
+             border-radius: 0 0 5px 5px;
+         }
+
+     }
+
+
      :global .ant-table-thead>tr>th {
          color: #000028 !important;
          background-color: #FAFBFD;
@@ -14,17 +33,19 @@
 
      }
 
-     :global .rowbgcolor {
-         background-color: antiquewhite;
-     }
+     //  :global .jf_bgrow_table {
+     //      padding: 0;
+     //  }
 
      :global .ant-table-cell::before {
          width: 0 !important;
      }
 
+
      :global .ant-table-tbody>tr>td {
          font-size: 13px;
-         padding: 10px;
+         height: 46px;
+         padding: 0px;
      }
 
  }

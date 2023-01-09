@@ -271,8 +271,6 @@ export function getPickerList(arr: any) {
     for (let i = 1; i <= item.round_count; i++) {
       children.push({ value: i, label: `第${i}轮`, })
     }
-
-
     return { value: item.stage, label: item.stage_name, children, }
   })
   console.log(list);
@@ -281,48 +279,167 @@ export function getPickerList(arr: any) {
 
 // 资料库赛程下一轮筛选
 export function getNextList(arr: any, arr_value: any) {
-  console.log(arr, arr_value);
-  let res
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i].children;
-    if (arr_value[0] == arr[i].value && arr_value[1] < element.length) {
-      // res = [arr[i].value, arr_value[1] + 1]
+  let res;
+  let ind;
 
-      res = [arr[i].value, arr_value[1] + 1]
-      console.log(res, "ppppppppp");
+  const a = arr.filter((item, index) => {
+    if (item.value === arr_value[0]) {
+      ind = index;
     }
-    if (arr_value[0] == arr[i].value && !arr_value[1] || arr_value[1] == element.length) {
-      // res = [arr[i].value, arr_value[1] + 1]
-      console.log("zhixingma");
-      res = [arr[i + 1].value, null]
-      console.log(res, "ppppppppp");
+    return item.value === arr_value[0];
+  });
+  if (a[0].children.length) {
+    if (a[0].children.length === arr_value[1]) {
+      if (arr[ind + 1]) {
+        // 到底了
+        if (arr[ind + 1].children.length) {
+          // 子的第一个
+          res = [arr[ind + 1].value, arr[ind + 1].children[0].value];
+        } else {
+          // 父级
+          res = [arr[ind + 1].value, null];
+        }
+      } else {
+        res = arr_value;
+      }
+    } else {
+      // 当前的下一个
+      res = [arr_value[0], arr_value[1] + 1];
+    }
+  } else {
+    if (arr[ind + 1]) {
+      if (arr[ind + 1].children.length) {
+        // 子的第一个
+        res = [arr[ind + 1].value, arr[ind + 1].children[0].value];
+      } else {
+        // 父级
+        res = [arr[ind + 1].value, null];
+      }
+    } else {
+      console.log('最后一个');
+      res = arr_value;
+    }
+  }
+  return res;
+}
+// 资料库赛程上一轮筛选
+export function getUpList(arr: any, arr_value: any) {
+  let res;
+  let ind;
+  const a = arr.filter((item, index) => {
+    if (item.value === arr_value[0]) {
+      ind = index;
+    }
+    return item.value === arr_value[0];
+  });
+  if (a[0].children.length) {
+    if (arr_value[1] == 1) {
+      if (arr[ind - 1]) {
+        // 到底了
+        if (arr[ind - 1].children.length) {
+          // 子的第一个
+          res = [arr[ind - 1].value, arr[ind - 1].children[arr[ind - 1].children.length - 1].value];
+        } else {
+          // 父级
+          res = [arr[ind - 1].value, null];
+        }
+      } else {
+        res = arr_value;
+      }
+    } else {
+      // 当前的下一个
+      res = [arr_value[0], arr_value[1] - 1];
+    }
+  } else {
+    if (arr[ind - 1]) {
+      if (arr[ind - 1].children.length) {
+        // 子的第一个
+        res = [arr[ind - 1].value, arr[ind - 1].children[arr[ind - 1].children.length - 1].value];
+      } else {
+        // 父级
+        res = [arr[ind - 1].value, null];
+      }
+    } else {
+      res = arr_value;
+    }
+  }
+  return res;
+}
+// 是否为最后一轮
+export const getLast = (arr, res) => {
+
+  let boolen;
+  const lastarr = arr[arr.length - 1];
+
+  if (lastarr.children.length) {
+
+    boolen = lastarr.children[lastarr.children.length - 1].value === res[1];
+  } else {
+    boolen = lastarr.value === res[0];
+  }
+  return boolen;
+};
+// 是否为第一轮
+export const getFirst = (arr, res) => {
+
+  let boolen;
+  const firstarr = arr[0];
+  if (firstarr.children.length) {
+    boolen = firstarr.children[0].value === res[1];
+  } else {
+    boolen = firstarr.value === res[0];
+  }
+  return boolen;
+};
+
+// 赛程筛选label的值
+export const getlabel = (arr, res) => {
+
+  let data = arr.filter((item) => {
+    return res?.includes(item.value)
+  })
+  let num = null
+  if (data[0]?.children.length) {
+    data[0].children.map((items) => {
+      if (items.value == res[1])
+        num = items?.label
+    })
+  } else {
+    num = ""
+  }
+  return data[0]?.label + num
+};
+
+
+// 赛程筛选最后一场比赛的位置
+export const geMatchLastList = (arr) => {
+  let id
+  // arr.forEach(item => {
+  //   item.rounds.forEach((a) => {
+  //     const str = a.match_list.find((b) => {
+  //       return b.StatusID < 2
+  //     })
+  //     if (str !== -1) {
+  //       id = str
+  //     }
+  //   })
+  // });
+  // console.log(id, '11111111111');
+  // return id
+
+  for (let index = 0; index < arr.length; index++) {
+    for (let j = 0; j < arr[index].rounds.length; j++) {
+
+      const str = arr[index].rounds[j].match_list.findIndex((b) => {
+        return b.StatusID < 2
+      })
+      if (str !== -1) {
+        return arr[index].rounds[j].match_list[str - 1].MatchId
+      }
     }
   }
 
-  return res
+};
 
-}
-// 资料库赛程下一轮筛选
-// export function getUpList(arr: any, arr_value: any) {
-//   console.log(arr, arr_value);
-//   let res
-//   for (let i = 0; i < arr.length; i++) {
-//     const element = arr[i].children;
-//     if (arr_value[0] == arr[i].value && arr_value[1] > 1) {
-//       // res = [arr[i].value, arr_value[1] + 1]
-//       res = [arr[i].value, arr_value[1] - 1]
-//       // res = [arr[i].value, arr_value[1] - 1]
 
-//       console.log(res, "pppppppppkkkk到底是");
-//     }
-//     if (arr_value[0] == arr[i].value && !arr_value[1]) {
-//       // res = [arr[i].value, arr_value[1] + 1]
-//       console.log("zhixingma");
-//       res = [arr[i - 1]?.value, null]
-//       // console.log(res, "ppppppppp");
-//     }
-//   }
 
-//   return res
-
-// }

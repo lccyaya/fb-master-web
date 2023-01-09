@@ -43,17 +43,18 @@ const Detail = (props: Props) => {
       title: (
         <div
           onClick={() => {
-            if (picktabvalue == "1") {
+            if (picktabvalue == "1" && type == 1) {
               setTabVisible(true);
             }
           }}
         >
           {getAccordWithLabel(picktab, integrate)}
-          <IconFont
+          {type == 1 && <IconFont
             type="icon-zhankai2"
             color={picktabvalue == '1' ? '#FA5900' : '#848494'}
             size={10}
-          />
+          />}
+
         </div>
       ),
       key: '1',
