@@ -283,6 +283,7 @@ export function getNextList(arr: any, arr_value: any) {
   let ind;
 
   const a = arr.filter((item, index) => {
+
     if (item.value === arr_value[0]) {
       ind = index;
     }
@@ -401,45 +402,47 @@ export const getlabel = (arr, res) => {
   let num = null
   if (data[0]?.children.length) {
     data[0].children.map((items) => {
-      if (items.value == res[1])
+      if (items.value == res[1]) {
         num = items?.label
+      }
+
     })
   } else {
     num = ""
   }
+  console.log(data[0]?.label + num, "kanyiyan");
+
   return data[0]?.label + num
 };
 
 
 // 赛程筛选最后一场比赛的位置
 export const geMatchLastList = (arr) => {
-  let id
-  // arr.forEach(item => {
-  //   item.rounds.forEach((a) => {
-  //     const str = a.match_list.find((b) => {
-  //       return b.StatusID < 2
-  //     })
-  //     if (str !== -1) {
-  //       id = str
-  //     }
-  //   })
-  // });
-  // console.log(id, '11111111111');
-  // return id
 
   for (let index = 0; index < arr.length; index++) {
     for (let j = 0; j < arr[index].rounds.length; j++) {
-
-      const str = arr[index].rounds[j].match_list.findIndex((b) => {
+      const str = arr[index].rounds[j]?.match_list.findIndex((b) => {
         return b.StatusID < 2
       })
       if (str !== -1) {
-        return arr[index].rounds[j].match_list[str - 1].MatchId
+        return arr[index].rounds[j]?.match_list[str - 1]?.MatchId
       }
     }
   }
+  const last = arr[arr.length - 1].rounds
+  const last_match = last[last.length - 1]?.match_list
+  // console.log(last_match[last_match.length - 1]?.MatchId, "看id");
+
+  return last_match[last_match.length - 1]?.MatchId
 
 };
+
+
+
+
+
+
+
 
 
 

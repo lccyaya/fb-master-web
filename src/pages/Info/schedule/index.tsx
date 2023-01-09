@@ -42,6 +42,7 @@ const Schedule = (props: Props) => {
         className: "first_columns",
         align: 'center',
         render: (text, record) => (
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
           <div id={geMatchLastList(data) == record?.MatchId ? `match_${record?.MatchId}` : ""}>
             <div>{moment(text * 1000).format('MM-DD')}</div>
             <div>{moment(text * 1000).format('HH:mm')}</div>
@@ -134,19 +135,17 @@ const Schedule = (props: Props) => {
   const [showfirst, setShowFirst] = useState<any>(true);
   // 赛程高度
   const [innerHeight, setInnerHeight] = useState<number>(0);
-  // const [pickertext, setPickerText] = useState<any>("");
 
   const [loading, setLoading] = useState<boolean>(false);
   const { run, cancel } = useThrottleFn(
     async () => {
       const arr = await onThrottleFn()
       const boolen = await getFirst(yeardata, arr);
-      console.log(arr);
 
       setShowFirst(boolen)
       setPickerValue(arr)
     },
-    { wait: 500 },
+    { wait: 600 },
   );
   // 跳转对应锚点链接
   const scrollToAnchor = (anchorName: string) => {
@@ -165,36 +164,27 @@ const Schedule = (props: Props) => {
       competition_id: competition_id,
       season_id: season_id,
     });
+    console.log(result, "ksksslskskk");
+
     setLoading(false);
     if (result.success) {
       setData(result.data);
       const picker_data = getPickerList(result.data)
+
       setyeardata(picker_data)
+      if (geMatchLastList(result.data)) {
+        scrollToAnchor(`match_${geMatchLastList(result.data)}`)
 
-      console.log(geMatchLastList(result.data), '1111234567');
+      }
 
-
-      scrollToAnchor(`match_${geMatchLastList(result.data)}`)
-
-      // 第一轮
-
-      // const rounds = picker_data[0].children.length ? picker_data[0].children[0].value : null
-      // console.log(rounds);
-      // if (rounds) {
-      //   // rounds.findi
-      //   // geMatchLastList(picker_data)
-      //   scrollToAnchor(`activity_${picker_data[0].value}_${rounds}`)
-      // } else {
-      //   scrollToAnchor(`activity_${picker_data[0].value}_0`)
-
-      // }
-      // setPickerValue([picker_data[0].value, rounds])
     }
   };
 
   // 下一轮
   const onNext = () => {
     const next_yeardata: any = getNextList(yeardata, pickervalue);
+    console.log(next_yeardata, "xxxxxxxx");
+
     if (next_yeardata) {
       if (next_yeardata[1]) {
         scrollToAnchor(`activity_${next_yeardata[0]}_${next_yeardata[1]}`);
