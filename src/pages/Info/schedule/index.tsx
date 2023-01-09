@@ -172,6 +172,14 @@ const Schedule = (props: Props) => {
       const picker_data = getPickerList(result.data)
 
       setyeardata(picker_data)
+      // if (result.data[0].round_count > 0) {
+      //   setPickerValue([result.data[0].stage, result.data[0].round_count])
+
+      // } else {
+      //   setPickerValue([result.data[0].stage, null])
+      // }
+      setPickerValue([result.data[0].stage, result.data[0].round_count])
+
       if (geMatchLastList(result.data)) {
         setInitialize(geMatchLastList(result.data))
         scrollToAnchor(`match_${geMatchLastList(result.data)}`)
