@@ -273,7 +273,6 @@ export function getPickerList(arr: any) {
     }
     return { value: item.stage, label: item.stage_name, children, }
   })
-  console.log(list);
   return list
 }
 
@@ -317,7 +316,7 @@ export function getNextList(arr: any, arr_value: any) {
         res = [arr[ind + 1].value, null];
       }
     } else {
-      console.log('最后一个');
+
       res = arr_value;
     }
   }
@@ -408,30 +407,27 @@ export const getlabel = (arr, res) => {
 
     })
   } else {
+
     num = ""
   }
-  console.log(data[0]?.label + num, "kanyiyan");
-
   return data[0]?.label + num
 };
 
 
 // 赛程筛选最后一场比赛的位置
 export const geMatchLastList = (arr) => {
-
   for (let index = 0; index < arr.length; index++) {
     for (let j = 0; j < arr[index].rounds.length; j++) {
       const str = arr[index].rounds[j]?.match_list.findIndex((b) => {
         return b.StatusID < 2
       })
       if (str !== -1) {
-        return arr[index].rounds[j]?.match_list[str - 1]?.MatchId
+        return arr[index].rounds[j]?.match_list[str]?.MatchId
       }
     }
   }
   const last = arr[arr.length - 1].rounds
   const last_match = last[last.length - 1]?.match_list
-  // console.log(last_match[last_match.length - 1]?.MatchId, "看id");
 
   return last_match[last_match.length - 1]?.MatchId
 

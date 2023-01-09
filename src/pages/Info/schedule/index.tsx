@@ -43,7 +43,7 @@ const Schedule = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           // eslint-disable-next-line @typescript-eslint/no-use-before-define
-          <div id={geMatchLastList(data) == record?.MatchId ? `match_${record?.MatchId}` : ""}>
+          <div id={initialize == record?.MatchId ? `match_${record?.MatchId}` : ""}>
             <div>{moment(text * 1000).format('MM-DD')}</div>
             <div>{moment(text * 1000).format('HH:mm')}</div>
           </div>
@@ -135,6 +135,8 @@ const Schedule = (props: Props) => {
   const [showfirst, setShowFirst] = useState<any>(true);
   // 赛程高度
   const [innerHeight, setInnerHeight] = useState<number>(0);
+  const [initialize, setInitialize] = useState<any>();
+
 
   const [loading, setLoading] = useState<boolean>(false);
   const { run, cancel } = useThrottleFn(
@@ -164,8 +166,6 @@ const Schedule = (props: Props) => {
       competition_id: competition_id,
       season_id: season_id,
     });
-    console.log(result, "ksksslskskk");
-
     setLoading(false);
     if (result.success) {
       setData(result.data);
@@ -173,6 +173,7 @@ const Schedule = (props: Props) => {
 
       setyeardata(picker_data)
       if (geMatchLastList(result.data)) {
+        setInitialize(geMatchLastList(result.data))
         scrollToAnchor(`match_${geMatchLastList(result.data)}`)
 
       }
@@ -183,7 +184,6 @@ const Schedule = (props: Props) => {
   // 下一轮
   const onNext = () => {
     const next_yeardata: any = getNextList(yeardata, pickervalue);
-    console.log(next_yeardata, "xxxxxxxx");
 
     if (next_yeardata) {
       if (next_yeardata[1]) {
@@ -214,11 +214,11 @@ const Schedule = (props: Props) => {
       const heightlast = activity_info_md[i + 1]?.offsetTop;
       if (top + 60 >= heighttop && top + 60 < heightlast) {
         arr.push(Number(stagenum), Number(roundname))
+        return arr
 
       }
     }
 
-    return arr
   }
   const onScroll = () => {
     run()
