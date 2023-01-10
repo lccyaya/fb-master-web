@@ -15,7 +15,7 @@ export default function MobileHomeA() {
       <div className={styles.container_list}>
         <Ad />
         {/* <TopRecommend /> */}
-        <MajorMatch />
+        {/* <MajorMatch /> */}
         {/* <DownloadTip /> */}
         {/* <Highlight /> */}
         <HotExpert />

@@ -16,8 +16,10 @@ import Scheme from './scheme/index';
 import { Tabs, Badge, CapsuleTabs } from 'antd-mobile';
 // import FBWorldCapTab from '@/components/FBWordCopTab';
 import RightTab from './Stats/RightTab';
-import GoalLost from './Strength/GoalLost';
+import MatchBefore from './Strength/MatchBefore';
+import Goal from './Strength/Goal';
 
+import Injured from './Strength/Injured';
 import IconFont from '@/components/IconFont';
 
 import SupportYourTeam from '../../components/SupportYourTeam';
@@ -386,13 +388,10 @@ const Details: React.FC<DetailProps> = (props) => {
                             <CapsuleTabs>
                               <CapsuleTabs.Tab title="基本面" key="fruits">
                                 <div>
-                                  {isPhone ? <>{Vote}</> : null}
+
                                   <div>
                                     {' '}
                                     <div
-                                      style={{
-                                        marginTop: 12,
-                                      }}
                                     >
                                       <Stats match={data} match_id={matchId as any} />
                                     </div>
@@ -449,39 +448,23 @@ const Details: React.FC<DetailProps> = (props) => {
                                   </div> */}
                                 </div>
                               </CapsuleTabs.Tab>
-                              {/* <CapsuleTabs.Tab title="实力" key="vegetables">
-                                <div className={styles.mobileStatTitle}>
-                                  <div className={styles.mobileStatTitle_title}>
-                                    <div className={styles.title_logo}></div>
-                                    <FormattedMessage id="key_schedule_before" />
-                                  </div>
+                              <CapsuleTabs.Tab title="实力" key="vegetables">
+                                {isPhone ? <>{Vote}</> : null}
+                                {/* 赛前SP */}
 
-                                  <div>
-                                    <div className={styles.getmore}>
-                                      查看更多
-                                      <IconFont
-                                        className={styles.icon}
-                                        size={12}
-                                        type="icon-jiantouyou"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
                                 <div>
-                                  {' '}
-                                  <GoalLost />
+                                  <MatchBefore />
                                 </div>
-
-                                <div className={styles.mobileStatTitle}>
-                                  <div className={styles.mobileStatTitle_title}>
-                                    <div className={styles.title_logo}></div>
-                                    <FormattedMessage id="key_attack_defenseh" />
-                                  </div>
-
-                                  <RightTab tab={tab} />
+                                {/* 进球分布 */}
+                                <div>
+                                  <Goal />
                                 </div>
+                                {/* 攻防对比 */}
+
                                 <Strength />
-                              </CapsuleTabs.Tab> */}
+                                {/* 伤停对比 */}
+                                <Injured />
+                              </CapsuleTabs.Tab>
                             </CapsuleTabs>
                           </div>
                         </>

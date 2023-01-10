@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Banner from '@/components/FBInformationBanner';
 import FBTitle from '@/components/FBTitle';
 import FBInformationList from '@/components/FBInformationList';
+import MajorMatch from '@/pages/Home/mobile/version-a/major-match';
 // import FBInformationImg from "@/components/FBInformationImg"
 // import ShowMoreImg from "./ShowMoreImg"
 // import ShowOnlyImg from "./ShowOnlyImg"
@@ -44,7 +45,7 @@ const Information = (props: Props) => {
     reload();
   }, []);
   const {
-    data = () => {},
+    data = () => { },
     loading,
     loadMoreAsync,
     reload,
@@ -71,6 +72,8 @@ const Information = (props: Props) => {
       <div className={styles.main}>
         {/* 轮播图 */}
         <Banner className={styles.information_banner} />
+        <MajorMatch />
+
         {informationlist.length ? <FBTitle title="热门资讯" /> : ''}
         {/* 列表 */}
         <div className={styles.conent}>

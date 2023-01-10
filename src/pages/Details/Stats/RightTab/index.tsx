@@ -6,7 +6,7 @@ type Props = {
   options: any;
   // value: number;
   // activekey: boolean;
-  onChange: Function;
+  onChange?: Function;
 };
 
 const RightTab = (props: Props) => {

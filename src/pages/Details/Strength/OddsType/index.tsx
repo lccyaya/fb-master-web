@@ -59,40 +59,92 @@ const OddsType = (props: Props) => {
         <div className={styles.oddstype_box_right}>
           <div className={styles.oddstype_title}>
             {' '}
-            <FormattedMessage id="key_inital" />时
+            <FormattedMessage id="key_inital" />始
           </div>
+
           <div className={styles.oddstype}>
-            <div>
-              <FormattedMessage id="key_1x2" />
+            <div className={styles.oddstype_inital}>
+              <div>
+                12
+              </div>
+              <div>
+                13
+              </div>
+              <div>
+                14
+              </div>
             </div>
-            <div>
-              {' '}
-              <FormattedMessage id="key_handicap" />
+            <div className={styles.oddstype_inital}>
+              <div>
+                12
+              </div>
+              <div>
+                13
+              </div>
+              <div>
+                14
+              </div>
             </div>
-            <div>
-              {' '}
-              <FormattedMessage id="key_over_under" />
+            <div className={styles.oddstype_inital}>
+              <div>
+                12
+              </div>
+              <div>
+                13
+              </div>
+              <div>
+                14
+              </div>
             </div>
           </div>
+
+
+
+
         </div>
         <div className={styles.oddstype_box_right}>
           <div className={styles.oddstype_title}>
             {' '}
             <FormattedMessage id="key_spot" />时
           </div>
-          <div className={styles.oddstype} style={{ border: 'none' }}>
-            <div>
-              <FormattedMessage id="key_1x2" />
+          <div className={styles.oddstype}>
+            <div className={styles.oddstype_inital}>
+              <div>
+                1.23
+              </div>
+              <div>
+                1.34
+              </div>
+              <div>
+                1.41
+              </div>
             </div>
-            <div>
-              {' '}
-              <FormattedMessage id="key_handicap" />
+            <div className={styles.oddstype_inital}>
+              <div>
+                1.24
+              </div>
+              <div>
+                13
+              </div>
+              <div>
+                14
+              </div>
             </div>
-            <div>
-              {' '}
-              <FormattedMessage id="key_over_under" />
+            <div className={styles.oddstype_inital}>
+              <div>
+                12
+              </div>
+              <div>
+                13
+              </div>
+              <div>
+                14
+              </div>
             </div>
           </div>
+
+
+
         </div>
       </div>
 
