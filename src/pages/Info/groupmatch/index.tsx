@@ -83,9 +83,7 @@ const Groupmatch = (props: Props) => {
           </div>
         </div>
           <Spin spinning={loading}>
-
             <Group scoresList={data} type={type} integrate={integrate} />
-
           </Spin>
         </div>
       }

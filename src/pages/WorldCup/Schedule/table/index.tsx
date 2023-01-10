@@ -31,7 +31,7 @@ type Props = {
   titletext?: any;
   integrate?: any
 };
-const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', "I", "J", "K", "L", "M", "N",];
 const TablePage = (props: Props) => {
   const history = useHistory();
   const columns: ColumnsType<DataType> = [
