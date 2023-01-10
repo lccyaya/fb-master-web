@@ -52,8 +52,11 @@ const Groupmatch = (props: Props) => {
       }
       const resultrule = await getMatchRuleList(params);
       if (resultrule.success) {
-        const ruledata = resultrule?.data?.text.split("\n")
-        setRule(ruledata)
+        if (resultrule?.data?.text.length) {
+          const ruledata = resultrule?.data?.text.split("\n")
+          setRule(ruledata)
+        }
+
 
       }
     }
@@ -71,27 +74,28 @@ const Groupmatch = (props: Props) => {
 
   return (
     <div className={styles.groupmatch}>
-      {active &&
-        <div> <div style={{ background: "#FAFBFD", width: "100%" }}>
-          <div className={styles.tab} >
+      <div>
+        <div style={{ background: "#FAFBFD", width: "100%" }}>
+          {active && <div className={styles.tab} >
             <FBWorldCapTab
               list={cuptab}
               activeKey={active?.toString()}
               mini
               onChange={onChangetab}
             />
-          </div>
+          </div>}
+
         </div>
-          <Spin spinning={loading}>
-            <Group scoresList={data} type={type} integrate={integrate} />
-          </Spin>
-        </div>
-      }
+        <Spin spinning={loading}>
+          <Group scoresList={data} type={type} integrate={integrate} />
+        </Spin>
+      </div>
 
       {/* 判断是否显示规则 */}
-      <div style={{ background: "#fff", paddingTop: "20px" }}>
+      {rule && <div style={{ background: "#fff", paddingTop: "20px" }}>
         <Fule rule={rule} />
-      </div>
+      </div>}
+
 
     </div>
   );

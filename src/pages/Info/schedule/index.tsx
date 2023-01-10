@@ -170,22 +170,14 @@ const Schedule = (props: Props) => {
     if (result.success) {
       setData(result.data);
       const picker_data = getPickerList(result.data)
-
       setyeardata(picker_data)
-      // if (result.data[0].round_count > 0) {
-      //   setPickerValue([result.data[0].stage, result.data[0].round_count])
-
-      // } else {
-      //   setPickerValue([result.data[0].stage, null])
-      // }
-      setPickerValue([result.data[0].stage, result.data[0].round_count])
-
-      if (geMatchLastList(result.data)) {
-        setInitialize(geMatchLastList(result.data))
-        scrollToAnchor(`match_${geMatchLastList(result.data)}`)
-
+      if (result.data) {
+        setPickerValue([result.data[0]?.stage, result.data[0]?.round_count])
+        if (geMatchLastList(result.data)) {
+          setInitialize(geMatchLastList(result.data))
+          scrollToAnchor(`match_${geMatchLastList(result.data)}`)
+        }
       }
-
     }
   };
 
@@ -262,8 +254,7 @@ const Schedule = (props: Props) => {
                   {!showfirst && <div>   <IconFont type="icon-jiantouzuo" color="#848494" size={10} />上一轮 </div>
                   }
                 </div>
-                <div style={{ fontSize: 14 }} >     <div className={styles.title_top} onClick={onPicker}>
-                  {' '}
+                <div>     <div className={styles.title_top} onClick={onPicker}>
                   {/* {pickertext} */}
                   {yeardata && pickervalue && <div>
                     {getlabel(yeardata, pickervalue)}
@@ -318,7 +309,7 @@ const Schedule = (props: Props) => {
               }}
 
             />
-          </div> : <Empty message="加载中" />
+          </div> : <Empty message="暂无数据" />
         }
       </Spin>
     </div>

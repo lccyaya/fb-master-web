@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from '@/pages/WorldCup/Schedule/table';
 import styles from './index.less';
+import Empty from '@/components/Empty';
 // import { TypeList } from "./tabsconfig"
 // import FBTableType from "@/components/FBTableType"
 
@@ -11,9 +12,10 @@ const Group = (props: Props) => {
   const { scoresList, type, integrate } = props
 
   return (
-    <div className={styles.match_cap_list}>
+    <div>
       {/* 判断什么时候显示 联赛/分组赛淘汰赛*/}
-      <div>
+      {scoresList.length ? <div className={styles.match_cap_list}>
+
         {scoresList?.map((item, index: any) => {
           return (
             <div className={styles.title_left} key={item.groups}>
@@ -25,7 +27,8 @@ const Group = (props: Props) => {
             </div>
           );
         })}
-      </div>
+      </div> : <Empty message="暂无数据" />}
+
     </div>
   );
 };

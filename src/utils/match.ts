@@ -266,7 +266,7 @@ export function getnavList(arr: any, name: string) {
 // 资料库赛程积分弹框列表
 export function getPickerList(arr: any) {
 
-  const list = arr.map((item) => {
+  const list = arr?.map((item) => {
     const children = []
     for (let i = 1; i <= item.round_count; i++) {
       children.push({ value: i, label: `第${i}轮`, })

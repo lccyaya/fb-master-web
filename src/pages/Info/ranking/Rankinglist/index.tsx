@@ -140,11 +140,11 @@ const Rankinglist = (props: Props) => {
   const getPlayerGoalList = async (): Promise<any> => {
     setLoading(true);
 
-    let data: PlayerGoalListParams = {
+    const params: PlayerGoalListParams = {
       competition_id: competition_id,
       season_id: season_id,
     };
-    const result: any = await PlayerGoalList(data);
+    const result: any = await PlayerGoalList(params);
 
     if (result.success == true) {
       setLoading(false);
@@ -155,7 +155,7 @@ const Rankinglist = (props: Props) => {
 
   useEffect(() => {
     getPlayerGoalList();
-    const height1 = height - tabref.current?.clientHeight - 170;
+    const height1 = height - tabref.current?.clientHeight - 160;
     setInnerHeight(height1);
   }, [height, season_id]);
 
