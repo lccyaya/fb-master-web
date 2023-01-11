@@ -135,6 +135,10 @@ const SchemeList: React.FC = (props) => {
             {/* <a onClick={() => {}}>{record.state === 3 || record.state === 4 ? '查看' : '编辑'}</a> */}
             <a
               onClick={() => {
+                if (user?.expert?.status == "4") {
+                  message.error('您的账号已被禁用');
+                  return;
+                }
                 history.push('/zh/profile/center/create/detail', record);
               }}
             >
@@ -178,7 +182,7 @@ const SchemeList: React.FC = (props) => {
                 删除
               </a>
             ) : null} */}
-          </Space>
+          </Space >
         );
       },
     },
@@ -222,11 +226,14 @@ const SchemeList: React.FC = (props) => {
   }, [user]);
 
   const toCreate = () => {
-    if (user?.expert?.status != ExpertStatus.Accept) {
+    if (user?.expert?.status == ExpertStatus.Accept) {
+      history.push('/zh/profile/center/create');
+
+    } else if (user?.expert?.status == ExpertStatus.Disable) {
+      message.error('您的账号已被禁用');
+    } else {
       message.error('您还未通过专家审核，暂不能创建攻略');
-      return;
     }
-    history.push('/zh/profile/center/create');
   };
 
   return (

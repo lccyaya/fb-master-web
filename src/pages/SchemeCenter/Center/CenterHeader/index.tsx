@@ -7,6 +7,7 @@ import styles from './index.less';
 import avatarImg from '@/assets/mine/avatar.png';
 import { Avatar, message } from 'antd';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Disstatus from "@/assets/mine/dis_status.png"
 
 type Props = {};
 
@@ -20,9 +21,16 @@ const CenterHeader: React.FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Avatar src={avatar && avatar.length > 0 ? avatar : avatarImg} size={40} />
-        <span className={styles.nickname_title}>{nickname}</span>
+        <div style={{ fontSize: 13 }}>
+          <span className={styles.nickname_title}>{nickname}</span>
+          {user?.expert?.status == "4" && <div className={styles.dis_status}>
+            <img src={Disstatus} alt="" />
+            禁用</div>}
+        </div>
+
+
       </div>
       <CopyToClipboard text="ty34sports" onCopy={() => message.success('已复制')}>
         <div className={styles.des_title}>

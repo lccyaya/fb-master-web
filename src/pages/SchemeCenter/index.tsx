@@ -54,6 +54,7 @@ const SchemeCenter: React.FC<Props> = (props) => {
     }
   };
 
+
   useEffect(() => {
     getExpertDetail(user?.expert.id);
   }, [user]);
@@ -105,6 +106,10 @@ const SchemeCenter: React.FC<Props> = (props) => {
   };
 
   const toDetail = (record: any) => {
+    if (user?.expert?.status == ExpertStatus.Disable) {
+      message.error('您的账号已被禁用');
+      return;
+    }
     history.push('/zh/profile/center/create/detail', record);
   };
 
@@ -136,19 +141,19 @@ const SchemeCenter: React.FC<Props> = (props) => {
                 </div>
               </div>
             </div>
-            <div className={classnames(styles.record_box,styles.record_box2)}>
+            <div className={classnames(styles.record_box, styles.record_box2)}>
               <div className={styles.record_title}>账号统计</div>
               <div className={styles.record_data_box}>
                 <div className={styles.record_data_item}>
-                  <span className={styles.record_data_title} style={{color:'#FE2222'}}>{detail?.expert?.paid_num}</span>
+                  <span className={styles.record_data_title} style={{ color: '#FE2222' }}>{detail?.expert?.paid_num}</span>
                   <span className={styles.record_data_des}>已售数量</span>
                 </div>
                 <div className={styles.record_data_item}>
-                  <span className={styles.record_data_title} style={{color:'#FE2222'}}>{detail?.record?.amount}</span>
+                  <span className={styles.record_data_title} style={{ color: '#FE2222' }}>{detail?.record?.amount}</span>
                   <span className={styles.record_data_des}>可提现金额</span>
                 </div>
                 <div className={styles.record_data_item}>
-                  <span className={styles.record_data_title} style={{color:'#FE2222'}}>{detail?.record?.amount}</span>
+                  <span className={styles.record_data_title} style={{ color: '#FE2222' }}>{detail?.record?.amount}</span>
                   <span className={styles.record_data_des}>累计金额</span>
                 </div>
               </div>
@@ -156,10 +161,12 @@ const SchemeCenter: React.FC<Props> = (props) => {
             <div className={styles.scheme_list_box}>
               <div className={styles.box_header}>
                 <span className={styles.header_title}>攻略列表</span>
-                <Button className={styles.button} onClick={toCreate}>
+
+                {user?.expert?.status != "4" && <Button className={styles.button} onClick={toCreate}>
                   <IconFont type="icon-chuangjian" color="#FA5900" size={12} />
                   <span className={styles.button_title}>创建</span>
-                </Button>
+                </Button>}
+
               </div>
               <div className={styles.table_header_box}>
                 <Grid columns={7} gap={0}>
