@@ -9,6 +9,10 @@ import ApplicationSteps from './ApplicationSteps';
 import styles from './index.less';
 import Applying from './Applying';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Disuser from "@/assets/mine/dis_user.png"
+import useWindowSize from '@/hooks/useWindowSize';
+
+
 
 type Props = {};
 
@@ -18,6 +22,7 @@ const ExpertApplication: React.FC<Props> = (props) => {
   );
   const history = useHistory();
   const [status, setStatus] = useState(user?.expert?.status ?? ExpertStatus.None);
+  const { height } = useWindowSize();
 
   const back = () => {
     history.goBack();
@@ -34,7 +39,7 @@ const ExpertApplication: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ height: height }}>
       <NavBar className={styles.navbar} onBack={back}>
         申请专家
       </NavBar>
@@ -77,6 +82,19 @@ const ExpertApplication: React.FC<Props> = (props) => {
                 </Button>
               </div>
             ) : null}
+            {status == ExpertStatus.Disable ? (
+              <div className={styles.note_box}>
+                <img style={{ width: 60, height: 60 }} src={Disuser} alt="" />
+                <div className={styles.dis_application_note}>
+                  您的专家账号已被禁用    <br />
+                  如有疑问请联系客服，微信:ty34sports
+                </div>
+                <CopyToClipboard text="ty34sports" onCopy={() => message.success('已复制')}>
+                  <Button className={styles.dis_button}>复制</Button>
+                </CopyToClipboard>
+              </div>
+            ) : null}
+
           </div>
         </div>
       </div>
