@@ -39,7 +39,7 @@ const PieChartVertical: React.FC<PieChartVerticalProps> = (props) => {
           className={classNames(styles.pie, styles[currentClass])}
           type="circle"
           percent={percent}
-          width={60}
+          width={70}
           format={(p) => {
             const value = Math.round(p || 0);
             return `${value}%`;

@@ -11,6 +11,7 @@ import type { OddsItemType } from '@/services/match';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { REPORT_ACTION, REPORT_CATE } from '@/constants';
 import { report } from '@/services/ad';
+import IconFont from '@/components/IconFont';
 
 export type SupportVoteData = {
   home_team_vote: number;
@@ -114,10 +115,16 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
               className={classNames(
                 styles.button,
                 styles.home,
-                disabled ? styles.disable : '',
+                disabled ? styles.disable : "",
                 isSelected(VOTE_TYPE.HOME) ? styles.selected : '',
               )}
-              icon={<LikeOutlined />}
+              icon={
+                <IconFont
+                  type={isSelected(VOTE_TYPE.HOME) ? 'icon-kong' : 'icon-kongbeifen'}
+                  color={isSelected(VOTE_TYPE.HOME) ? '#fff' : '#FA5900'}
+                  size={12}
+                />
+              }
             >
               <FormattedMessage id="key_vote" />
             </Button>
@@ -129,10 +136,17 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
               className={classNames(
                 styles.button,
                 styles.draw,
-                disabled ? styles.disable : '',
+                disabled ? styles.disable : "",
                 isSelected(VOTE_TYPE.DRAW) ? styles.selected : '',
               )}
-              icon={<LikeOutlined />}
+              icon={
+                <IconFont
+                  type={isSelected(VOTE_TYPE.DRAW) ? 'icon-kong' : 'icon-kongbeifen'}
+                  color={isSelected(VOTE_TYPE.DRAW) ? '#fff' : '#4064B2'}
+                  size={12}
+                />
+
+              }
             >
               <FormattedMessage id="key_vote" />
             </Button>
@@ -144,17 +158,24 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
               className={classNames(
                 styles.button,
                 styles.away,
-                disabled ? styles.disable : '',
-                isSelected(VOTE_TYPE.AWAY) ? styles.selected : '',
+                disabled ? styles.disable : "",
+                isSelected(VOTE_TYPE.AWAY) ? styles.selected : "",
               )}
-              icon={<LikeOutlined />}
+              icon={
+                <IconFont
+                  type={isSelected(VOTE_TYPE.AWAY) ? 'icon-kong' : 'icon-kongbeifen'}
+                  color={isSelected(VOTE_TYPE.AWAY) ? '#fff' : '#39906A'}
+                  size={12}
+                />
+
+              }
             >
               <FormattedMessage id="key_vote" />
             </Button>
           </PopupLogin>
         </Row>
       </div>
-    </div>
+    </div >
   );
 };
 export default SupportYourTeam;

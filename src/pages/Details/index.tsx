@@ -34,6 +34,8 @@ import Strength from './Strength';
 import HistoryRanking from './Stats/HistoryRanking';
 import FutureMatch from './Stats/FutureMatch';
 import RecentGames from './Stats/RecentGames';
+import InfoAbount from './InfoAbount';
+
 import Tableold from './Stats/indexold';
 
 // import Strength from './Strength';
@@ -290,6 +292,9 @@ const Details: React.FC<DetailProps> = (props) => {
                       <Tabs.Tab title="分析" key="data" />
                       <Tabs.Tab title={<FormattedMessage id="key_line_up" />} key="lineUp" />
                       <Tabs.Tab title="数据" key="index" />
+                      {/* 判断是否显示 */}
+                      <Tabs.Tab title="动态" key="info" />
+
                     </Tabs>
 
                     {/* {newsTabVisible && (
@@ -474,6 +479,9 @@ const Details: React.FC<DetailProps> = (props) => {
                           <Scheme matchId={matchId} />
                         </div>
                       ) : null}
+                      {detailType === 'info' ? <div>
+                        <InfoAbount />
+                      </div> : null}
                     </div>
                   )}
                 </div>
