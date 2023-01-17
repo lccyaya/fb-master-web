@@ -16,7 +16,6 @@ const Achievements = ({ records = [] }) => {
     const rednum = newrecords.filter((item) => {
         return item == "1"
     })
-    console.log(records, "kankananannana");
     return (
         <div >
             {/* <div className={styles.label}>近期战绩：</div> */}

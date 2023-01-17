@@ -123,8 +123,8 @@
     .voteContainer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin: 0 15px;
+      justify-content: center;
+
 
       .button {
         width: 60px;
@@ -132,14 +132,16 @@
         display: flex;
         align-items: center;
         justify-items: center;
-        // margin: 0 20px;
-        font-weight: 600;
+
+        margin: 0 27px;
+        // font-weight: 600;
         font-size: 12px;
         font-family: Barlow;
         border: none;
-        background-color: #F7FAFB;
+        background-color: #fff;
         font-style: normal;
         word-wrap: break-word;
+        border: 1px solid #BBBBBB;
 
         :global .anticon {
           margin-left: -4px;
@@ -154,46 +156,42 @@
         }
       }
 
-      .disable {
-        color: #848494 !important;
-        background: #fff !important;
-        border: 1px solid #848494 !important;
-      }
-
-      .home {
-        color: #848494;
-        border: 1px solid #FA5900 !important;
-        background: #fff !important;
-
-        &.noselected {
-          color: #848494 !important;
-          background: #fff !important;
-          border: 1px solid #848494 !important;
-        }
-
-        &.selected {
+      .homebutton {
+        .selected {
           color: #fff !important;
           background: #FA5900 !important;
           border: 1px solid #FA5900 !important;
         }
       }
 
-      .draw {
-        color: #848494;
-        border: 1px solid #4064B2 !important;
-        background: #fff !important;
-
-        &.noselected {
-          color: #848494 !important;
-          background: #fff !important;
-          border: 1px solid #848494 !important;
+      .awaybutton {
+        .selected {
+          color: #fff !important;
+          background: #39906A !important;
+          border: 1px solid #39906A !important;
         }
+      }
 
-        &.selected {
+      .drawbutton {
+        .selected {
           color: #fff !important;
           background: #4064B2 !important;
           border: 1px solid #4064B2 !important;
         }
+      }
+
+
+      .home {
+        color: #848494 !important;
+        border: 1px solid #FA5900 !important;
+        background: #fff !important;
+
+      }
+
+      .draw {
+        color: #848494;
+        border: 1px solid #4064B2;
+        background: #fff;
 
 
       }
@@ -201,21 +199,75 @@
       .away {
         color: @away-color;
         color: #848494;
-        border: 1px solid #39906A !important;
-        background: #fff !important;
+        border: 1px solid #39906A;
+        background: #fff;
 
-        &.noselected {
-          color: #848494 !important;
-          background: #fff !important;
-          border: 1px solid #848494 !important;
-        }
-
-        &.selected {
-          color: #fff !important;
-          background: #39906A !important;
-          border: 1px solid #39906A !important;
-        }
       }
+
+      // .selected {
+      //   color: #fff !important;
+      //   background: #4064B2 !important;
+      //   border: 1px solid #4064B2 !important;
+      // }
+
+      // .home {
+      //   color: #848494 !important;
+      //   border: 1px solid #FA5900 !important;
+      //   background: #fff !important;
+
+      //   &.noselected {
+      //     color: #848494 !important;
+      //     background: #fff !important;
+      //     border: 1px solid #848494 !important;
+      //   }
+
+      //   &.selected {
+      //     color: #fff !important;
+      //     background: #FA5900 !important;
+      //     border: 1px solid #FA5900 !important;
+      //   }
+      // }
+
+      // .draw {
+      //   color: #848494;
+      //   border: 1px solid #4064B2;
+      //   background: #fff;
+
+      //   &.noselected {
+      //     color: #848494 !important;
+      //     background: #fff !important;
+      //     border: 1px solid #848494 !important;
+      //   }
+
+      //   &.selected {
+      //     color: #fff !important;
+      //     background: #4064B2 !important;
+      //     border: 1px solid #4064B2 !important;
+      //   }
+
+
+      // }
+
+
+      // .away {
+      //   color: @away-color;
+      //   color: #848494;
+      //   border: 1px solid #39906A;
+      //   background: #fff;
+
+      //   &.noselected {
+      //     color: #848494 !important;
+      //     background: #fff !important;
+      //     border: 1px solid #848494 !important;
+      //   }
+
+      //   &.selected {
+      //     color: #fff !important;
+      //     background: #39906A !important;
+      //     border: 1px solid #39906A !important;
+      //   }
+      // }
+
     }
   }
 }

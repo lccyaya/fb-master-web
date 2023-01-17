@@ -24,22 +24,23 @@ interface IMatchFilterProps {
   data: ItemProps[];
   typeChange?: (id: number) => void;
   loading?: boolean;
+  select?: any
 }
 
 
 
-const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChange, loading}: IMatchFilterProps) => {
+const MatchFilter = ({ select, title = '', visible = false, onClose, onOk, data, typeChange, loading }: IMatchFilterProps) => {
   const [selectedList, setSelectList] = useState<number[]>([]);
   const [optionSelected, setOptionSelected] = useState<number>();
   // const [actionSelected, setActionSelected] = useState<number>(5);
   useEffect(() => {
-    setOptionSelected(1)
+    setOptionSelected(select)
     // setActionSelected(undefined)
   }, [visible])
   const flatId = (source: ItemProps[]) => {
     const resultList: number[] = [];
     source.forEach(item => {
-      if(item?.competitions) {
+      if (item?.competitions) {
         item.competitions.forEach(competition => {
           resultList.push(competition.id)
         })
@@ -57,7 +58,7 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
   const optionList = [{
     id: 5,
     name: '全部'
-  },{
+  }, {
     id: 1,
     name: '重要'
   }, {
@@ -76,25 +77,25 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
   }]
   const handleItemClick = (id: number) => {
     const hasId = selectedList.includes(id);
-    if(hasId) {
+    if (hasId) {
       setSelectList((prevState) => prevState.filter(x => x !== id))
     } else {
       setSelectList((prevState) => [...prevState, id])
     }
   }
   const handleOptionClick = (id: number) => {
-    if(optionSelected !== id) {
+    if (optionSelected !== id) {
       setOptionSelected(id);
       setSelectList([])
-      if(typeChange) typeChange(id)
+      if (typeChange) typeChange(id)
     }
   }
   const handleActionClick = (id: number) => {
     const idList = flatId(data);
-    if(id === 1) {
+    if (id === 1) {
       // 全选
       setSelectList(idList)
-    } else if(id === 2) {
+    } else if (id === 2) {
       // 反选
       const filterList = idList.filter(x => !selectedList.includes(x))
       setSelectList(filterList)
@@ -114,14 +115,14 @@ const MatchFilter = ({title = '', visible = false, onClose, onOk, data, typeChan
       <div className={classNames(styles.inner)}>
         <div className={styles.headerWrapper}>
           <span className={styles.title}>{title}</span>
-          <IconFont type='icon-guanbi' onClick={handleClose}/>
+          <IconFont type='icon-guanbi' onClick={handleClose} />
         </div>
         <Spin spinning={loading ?? false}>
           <div className={styles.container}>
             <IndexBar>
               {
                 data.map(item => {
-                  const {name, competitions} = item;
+                  const { name, competitions } = item;
                   return (
                     <IndexBar.Panel
                       index={name}

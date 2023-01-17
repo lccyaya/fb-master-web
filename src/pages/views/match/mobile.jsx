@@ -318,10 +318,10 @@ const Mobile = () => {
 
   const handleFilter = () => {
     setFilterVisible(true);
-    setJskey("1")
+    // setJskey("1")
     getMatchFilterData({
       timestamp: apiTimestamp || params.timestamp,
-      type: 1,
+      type: jskey,
       [params.param_key]: params.param_value,
     });
   };
@@ -735,6 +735,7 @@ const Mobile = () => {
       </div>
       <MatchFilter
         title="赛事筛选"
+        select={Number(jskey)}
         visible={filterVisible}
         onClose={handleFilterClose}
         onOk={handleFilterOk}

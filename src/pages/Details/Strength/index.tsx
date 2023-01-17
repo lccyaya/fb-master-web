@@ -8,7 +8,6 @@ import { FormattedMessage } from 'umi';
 type Props = {};
 
 const Ranking = (props: Props) => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
   const options = [
     { label: '同主客', value: 'event' },
@@ -24,7 +23,8 @@ const Ranking = (props: Props) => {
         </div>
 
         <div>
-          <RightTab options={options} onChange={() => {
+          <RightTab options={options} onChange={(key: any) => {
+
 
           }} />
         </div>

@@ -292,7 +292,7 @@ const Details: React.FC<DetailProps> = (props) => {
                       <Tabs.Tab title="分析" key="data" />
                       <Tabs.Tab title={<FormattedMessage id="key_line_up" />} key="lineUp" />
                       <Tabs.Tab title="数据" key="index" />
-                      {/* 判断是否显示 */}
+                      {/* 判断是否显示动态 */}
                       <Tabs.Tab title="动态" key="info" />
 
                     </Tabs>

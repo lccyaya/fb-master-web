@@ -34,6 +34,17 @@ type Props = {
 const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', "I", "J", "K", "L", "M", "N",];
 const TablePage = (props: Props) => {
   const history = useHistory();
+  const bgprops = (record, index) => {
+    return {
+      borderTop:
+        props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
+          record.promotions?.color !== "" && record.promotions?.name !== ''
+          ? `2px solid ${record.promotions?.color}`
+          : '',
+      background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
+    }
+  }
+
   const columns: ColumnsType<DataType> = [
     {
       title: (
@@ -48,14 +59,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div
           className={styles.bgheight}
-          style={{
-            borderTop:
-              props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-                record.promotions?.name !== ''
-                ? `2px solid ${record.promotions?.color}`
-                : '',
-            background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-          }}
+          style={bgprops(record, index)}
         >
           <div style={{ width: 20, textAlign: 'center' }}>{record.position}</div>
           <img
@@ -76,36 +80,6 @@ const TablePage = (props: Props) => {
         </div>
       ),
     },
-    // {
-    //   // title: '赛',
-    //   dataIndex: 'team',
-    //   key: 'team',
-    //   width: 50,
-    //   align: 'center',
-    //   render: (text, record, index) => (
-    //     <div
-    //       className={styles.bgheight}
-    //       style={{
-    //         background: record.promotions?.color + 30,
-    //         borderTop:
-    //           props.data[index - 1]?.promotions?.name !== record.promotions?.name &&
-    //             record.promotions?.name !== ''
-    //             ? `2px solid ${record.promotions?.color}`
-    //             : '',
-    //         flexDirection: 'column',
-    //       }}
-    //     >
-    //       <div style={{ background: record.promotions?.color }} className={styles.row_tip}>
-    //         {props.data[index - 1]?.promotions?.name !== record.promotions?.name ? (
-    //           <div></div>
-    //         ) : (
-    //           ''
-    //         )}
-    //       </div>
-
-    //     </div>
-    //   ),
-    // },
     {
       title: '赛',
       dataIndex: 'team',
@@ -115,15 +89,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div
           className={styles.bgheight}
-          style={{
-            background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-            borderTop:
-              props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-                record.promotions?.name !== ''
-                ? `2px solid ${record.promotions?.color}`
-                : '',
-            flexDirection: 'column',
-          }}
+          style={bgprops(record, index)}
         >
           <div style={{ background: record.promotions?.color }} className={styles.row_tip}>
             {props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" ? (
@@ -145,14 +111,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div
           className={styles.bgheight}
-          style={{
-            background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-            borderTop:
-              props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-                record.promotions?.name !== ''
-                ? `2px solid ${record.promotions?.color}`
-                : '',
-          }}
+          style={bgprops(record, index)}
         >
           {record.won}/{record.drawn}/{record.lost}
         </div>
@@ -166,14 +125,7 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div
           className={styles.bgheight}
-          style={{
-            background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-            borderTop:
-              props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-                record.promotions?.name !== ''
-                ? `2px solid ${record.promotions?.color}`
-                : '',
-          }}
+          style={bgprops(record, index)}
         >
           {record.goals}/{record.against}/{record.diff}
         </div>
@@ -188,21 +140,14 @@ const TablePage = (props: Props) => {
       render: (text, record, index) => (
         <div
           className={styles.bgheight}
-          style={{
-
-            background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-            borderTop:
-              props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-                record.promotions?.name !== ''
-                ? `2px solid ${record.promotions?.color}`
-                : '',
-          }}
+          style={bgprops(record, index)}
         >
           {text}
         </div>
       ),
     },
   ];
+
   const customizeRenderEmpty = () => (
     <div style={{ textAlign: 'center' }}>
       <Empty style={{ fontSize: 20 }} />

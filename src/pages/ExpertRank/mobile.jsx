@@ -89,9 +89,7 @@ const ExpertRank = ({ currentUser = {} }) => {
         <div style={{ flex: 1 }}>
           {curKey === '0' ? <RankList /> : null}
           {curKey === '1' ? <Watch /> : null}
-
           {curKey === '2' ? <VersionA /> : null}
-
 
         </div>
       </div>

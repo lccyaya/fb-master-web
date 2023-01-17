@@ -109,69 +109,85 @@ const SupportYourTeam: React.FC<SupportYourTeamProps> = (props) => {
         <PiechartVertical data={pieData} />
         <Row className={styles.voteContainer}>
           <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.HOME)}>
-            <Button
-              disabled={disabled}
-              loading={homeLoading}
-              className={classNames(
-                styles.button,
-                styles.home,
-                disabled ? styles.disable : "",
-                isSelected(VOTE_TYPE.HOME) ? styles.selected : '',
-              )}
-              icon={
-                <IconFont
-                  type={isSelected(VOTE_TYPE.HOME) ? 'icon-kong' : 'icon-kongbeifen'}
-                  color={isSelected(VOTE_TYPE.HOME) ? '#fff' : '#FA5900'}
-                  size={12}
-                />
-              }
-            >
-              <FormattedMessage id="key_vote" />
-            </Button>
-          </PopupLogin>
-          <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.DRAW)}>
-            <Button
-              disabled={disabled}
-              loading={drawLoading}
-              className={classNames(
-                styles.button,
-                styles.draw,
-                disabled ? styles.disable : "",
-                isSelected(VOTE_TYPE.DRAW) ? styles.selected : '',
-              )}
-              icon={
-                <IconFont
-                  type={isSelected(VOTE_TYPE.DRAW) ? 'icon-kong' : 'icon-kongbeifen'}
-                  color={isSelected(VOTE_TYPE.DRAW) ? '#fff' : '#4064B2'}
-                  size={12}
-                />
+            <div className={styles.homebutton}>
+              <Button
+                disabled={disabled}
+                loading={homeLoading}
+                className={classNames(
+                  styles.button,
 
-              }
-            >
-              <FormattedMessage id="key_vote" />
-            </Button>
+
+                  // disabled ? : "",
+                  isSelected(VOTE_TYPE.HOME) ? styles.selected : disabled ? styles.disable : styles.home,
+                )}
+                icon={
+                  <IconFont
+                    type={isSelected(VOTE_TYPE.HOME) ? 'icon-kong' : 'icon-kongbeifen'}
+                    color={isSelected(VOTE_TYPE.HOME) ? '#fff' : disabled ? "#bbbbbb" : '#FA5900'}
+                    size={12}
+                  />
+                }
+              >
+                <FormattedMessage id="key_vote" />
+              </Button>
+            </div>
+
+          </PopupLogin>
+
+          <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.DRAW)}>
+            <div className={styles.drawbutton}>
+              <Button
+                disabled={disabled}
+                loading={drawLoading}
+                className={classNames(
+                  styles.button,
+
+                  // styles.draw,
+                  // disabled ? styles.disable : "",
+                  // isSelected(VOTE_TYPE.DRAW) ? styles.selected : '',
+                  isSelected(VOTE_TYPE.DRAW) ? styles.selected : disabled ? styles.disable : styles.draw,
+
+                )}
+                icon={
+                  <IconFont
+                    type={isSelected(VOTE_TYPE.DRAW) ? 'icon-kong' : 'icon-kongbeifen'}
+                    color={isSelected(VOTE_TYPE.DRAW) ? '#fff' : disabled ? "#bbbbbb" : '#4064B2'}
+                    size={12}
+                  />
+
+                }
+              >
+                <FormattedMessage id="key_vote" />
+              </Button>
+            </div>
+
           </PopupLogin>
           <PopupLogin onLogin={() => voteHandler(VOTE_TYPE.AWAY)}>
-            <Button
-              disabled={disabled}
-              loading={awayLoading}
-              className={classNames(
-                styles.button,
-                styles.away,
-                disabled ? styles.disable : "",
-                isSelected(VOTE_TYPE.AWAY) ? styles.selected : "",
-              )}
-              icon={
-                <IconFont
-                  type={isSelected(VOTE_TYPE.AWAY) ? 'icon-kong' : 'icon-kongbeifen'}
-                  color={isSelected(VOTE_TYPE.AWAY) ? '#fff' : '#39906A'}
-                  size={12}
-                />
+            <div className={styles.awaybutton} >
+              <Button
+                disabled={disabled}
+                loading={awayLoading}
+                className={classNames(
+                  styles.button,
+                  // styles.away,
+                  // disabled ? styles.disable : "",
+                  // isSelected(VOTE_TYPE.AWAY) ? styles.selected : "",
+                  isSelected(VOTE_TYPE.AWAY) ? styles.selected : disabled ? styles.disable : styles.away,
 
-              }
-            >
-              <FormattedMessage id="key_vote" />
-            </Button>
+                )}
+                icon={
+                  <IconFont
+                    type={isSelected(VOTE_TYPE.AWAY) ? 'icon-kong' : 'icon-kongbeifen'}
+                    color={isSelected(VOTE_TYPE.AWAY) ? '#fff' : disabled ? "#bbbbbb" : '#39906A'}
+                    size={12}
+                  />
+
+                }
+              >
+                <FormattedMessage id="key_vote" />
+              </Button>
+            </div>
+
           </PopupLogin>
         </Row>
       </div>
