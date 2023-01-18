@@ -10,7 +10,7 @@ type Props = {
 };
 
 const RightTab = (props: Props) => {
-  const { options, onChange } = props;
+  const { options, onChange = () => { } } = props;
   return (
     <div className={styles.right_tab}>
       <Selector

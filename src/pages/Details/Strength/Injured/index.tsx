@@ -10,15 +10,12 @@ const Injured = (props: Props) => {
         <div>
             <div className={styles.mobile_stat_title}>
                 <div className={styles.mobile_stat_title_list}>
-                    <div className={styles.title_logo}></div>
+                    <div className={styles.title_logo} />
                     <FormattedMessage id="key_Injured_defenseh" />
                 </div>
-
-
             </div>
             <div>
                 <Tabel />
-
                 <Tabel />
             </div>
 

@@ -21,10 +21,9 @@ const Ranking = (props: Props) => {
           <div className={styles.title_logo} />
           <FormattedMessage id="key_attack_defenseh" />
         </div>
-
         <div>
           <RightTab options={options} onChange={(key: any) => {
-
+            console.log(key);
 
           }} />
         </div>
@@ -34,7 +33,6 @@ const Ranking = (props: Props) => {
         <Table type="shou" />
       </div>
     </div>
-
   );
 };
 
