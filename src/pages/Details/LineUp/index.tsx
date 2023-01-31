@@ -7,6 +7,8 @@ import MEmpty from '@/components/Empty';
 import { connect } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import { FormattedMessage } from 'umi';
+import Info from "./Info/index"
+import Substitutes from "./Substitutes/index"
 
 import classnames from 'classnames';
 import styles from './index.less';
@@ -66,6 +68,8 @@ const LineUp: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     init();
+    console.log(props.match);
+
   }, []);
 
   return (
@@ -76,7 +80,9 @@ const LineUp: React.FC<IProps> = (props) => {
             <div className={styles.formatWrapper}>
               <div className={styles.formatStr}>
                 <div className={classnames(styles.formatInfo)}>
-                  <span className={styles.name}>{data.home_name}</span>
+                  <span className={styles.name}>
+
+                    {data.home_name}</span>
                   <span className={styles.format}>{data.home_formation}</span>
                 </div>
                 <div className={classnames(styles.formatInfo, styles.rightInfo)}>
@@ -84,6 +90,10 @@ const LineUp: React.FC<IProps> = (props) => {
                   <span className={styles.format}>{data.away_formation}</span>
                 </div>
               </div>
+              {/* 信息 */}
+              {/* <Info />
+              <Substitutes data={data} match={props.match} /> */}
+
               <Court
                 isPhone={checkIsPhone()}
                 data={[...data.away.filter(i => i.first).map(i => {

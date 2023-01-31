@@ -4,6 +4,8 @@ import * as matchService from '@/services/match';
 import { Spin } from 'antd';
 import { SideBar } from 'antd-mobile'
 import Ranking from "../datatable"
+import useWindowSize from '@/hooks/useWindowSize';
+
 type Props = {
     matchId: number;
     id: number;
@@ -12,6 +14,8 @@ type Props = {
 }
 
 const Table = (props: Props) => {
+    const { height } = useWindowSize();
+
     const [loading, setLoading] = useState<boolean>(false);
     const [data, setData] = useState({});
     const init = async (id) => {
@@ -45,9 +49,9 @@ const Table = (props: Props) => {
 
 
     return (
-        <div className={styles.main}>
+        <div className={styles.main} >
 
-            <div style={{ display: "flex", background: "#fff", height: "100%" }}>
+            <div style={{ display: "flex", background: "#fff", height: height - 158 }}>
                 <div className={styles.sideBar}>
                     <div className={styles.company_id} style={{ borderRadius: "8px 0 0 0" }}>  公司</div>
                     <SideBar style={{ "--background-color": "#F3F4F6", '--item-border-radius': '0px', }} defaultActiveKey={props.id} onChange={(key) => {

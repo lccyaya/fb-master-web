@@ -7,6 +7,7 @@ import ScrollView from 'react-custom-scrollbars';
 import Empty from '@/components/Empty';
 import type { ColumnProps } from 'antd/es/table';
 import Mark from '@/components/Mark';
+import useWindowSize from '@/hooks/useWindowSize';
 
 import type * as matchService from '@/services/match';
 
@@ -21,6 +22,8 @@ interface IProps {
   // name: string;
 }
 const Ranking: React.FC<IProps> = (props) => {
+  const { height } = useWindowSize();
+
   // const intl = useIntl()
   const { data: dataSource } = props;
 
@@ -153,7 +156,7 @@ const Ranking: React.FC<IProps> = (props) => {
         autoHeight
 
         autoHeightMin={300}
-        autoHeightMax={675}
+        autoHeightMax={height - 158}
 
       >
         <div className={styles.stats}>

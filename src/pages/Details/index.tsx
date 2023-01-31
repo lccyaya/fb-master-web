@@ -384,8 +384,9 @@ const Details: React.FC<DetailProps> = (props) => {
                         </>
                       )}
                       {detailType === 'index' && <IndexTab match={data} matchId={matchId as any} />}
+                      {/* 阵容 */}
                       {detailType === 'lineUp' && (
-                        <LineUp matchId={matchId as any} status={data.status} />
+                        <LineUp match={data} matchId={matchId as any} status={data.status} />
                       )}
                       {detailType === 'data' && (
                         <>
