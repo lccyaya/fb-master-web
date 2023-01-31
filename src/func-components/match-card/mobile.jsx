@@ -179,6 +179,7 @@ const Mobile = ({ jskey, data, type = 'score' }) => {
                   fontSize={12}
                   color={'#999999'}
                 />
+                <div style={{ width: 4 }}></div>
                 {jskey == 2 && <Text
                   text={data.issue}
                   numbuerOfLines={1}

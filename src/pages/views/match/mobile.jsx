@@ -11,6 +11,8 @@ import MatchFilter from '@/components/MatchFilter';
 import Toggle from '@/components/Toggle';
 import DateTab from '@/components/DateTab';
 import FBWorldCapTab from '@/components/FBWordCopTab';
+import empty from '@/assets/match/before.png';
+
 
 
 // import filterIcon from '@/assets/icon/filter.svg';
@@ -697,7 +699,7 @@ const Mobile = () => {
             {/* 无数据 */}
             {/* && (searchShow && params.keywords)  */}
             {/* && (searchShow && params.keywords) */}
-            {isEmpty ? <Empty /> : null}
+            {isEmpty ? <Empty pic={empty} /> : null}
           </ScrollView>
         </Spin>
 

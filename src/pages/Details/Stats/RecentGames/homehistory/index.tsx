@@ -41,7 +41,8 @@ const Ranking = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div
-            className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            // className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            className={styles.wrapnamestyle}
           >
             {text.team_name}
           </div>
@@ -89,7 +90,9 @@ const Ranking = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div
-            className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            // className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            className={styles.wrapnamestyle}
+
           >
             {text.team_name}
           </div>
