@@ -43,28 +43,24 @@ const Stats: React.FC<IProps> = (props) => {
       <Spin style={{ minHeight: 70 }} spinning={loading}>
         {data?.list && (
           <div>
-            <div className={styles.mobileStatTitle_title}>
-              <div className={styles.title_logo} />
-              <FBTitle
-                size="18px"
-                color="#45494C"
-                title={<FormattedMessage id="key_league_ranking" />}
-              />
-            </div>
+            <FBTitle
+              size="18px"
+              color="#45494C"
+              logo={true}
+              title={<FormattedMessage id="key_league_ranking" />}
+            />
             <Ranking match={data?.list} matchTypeData={props.match} />
           </div>
         )}
 
         {data?.cup && (
           <div>
-            <div className={styles.mobileStatTitle_title}>
-              <div className={styles.title_logo} />
-              <FBTitle
-                size="18px"
-                color="#45494C"
-                title={<FormattedMessage id="key_cup_match_ranking" />}
-              />
-            </div>
+            <FBTitle
+              size="18px"
+              color="#45494C"
+              logo={true}
+              title={<FormattedMessage id="key_cup_match_ranking" />}
+            />
             <div>
               <CutMatchRank dataSource={data?.cup} matchTypeData={props.match} />
             </div>

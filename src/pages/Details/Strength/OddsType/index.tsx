@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Picker } from 'antd-mobile';
 import { FormattedMessage } from 'umi';
 import IconFont from '@/components/IconFont';
+import { oddsDetails } from '@/services/matchdetail';
 
 import styles from './index.less';
 
-type Props = {};
+type Props = {
+  data: any;
+};
 
 const OddsType = (props: Props) => {
   // 是否展示
@@ -33,13 +36,13 @@ const OddsType = (props: Props) => {
           }}
         >
           <div className={styles.oddstype_title}>
-            {lable}
-            <IconFont
+            {/* {lable} */}
+            {/* <IconFont
               color="#848494"
               className={styles.icon}
               size={10}
               type="icon-biaoqianjiantou"
-            />
+            /> */}
           </div>
 
           <div className={styles.oddstype}>
@@ -64,43 +67,21 @@ const OddsType = (props: Props) => {
 
           <div className={styles.oddstype}>
             <div className={styles.oddstype_inital}>
-              <div>
-                12
-              </div>
-              <div>
-                13
-              </div>
-              <div>
-                14
-              </div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>
-                12
-              </div>
-              <div>
-                13
-              </div>
-              <div>
-                14
-              </div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>
-                12
-              </div>
-              <div>
-                13
-              </div>
-              <div>
-                14
-              </div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
             </div>
           </div>
-
-
-
-
         </div>
         <div className={styles.oddstype_box_right}>
           <div className={styles.oddstype_title}>
@@ -109,42 +90,21 @@ const OddsType = (props: Props) => {
           </div>
           <div className={styles.oddstype}>
             <div className={styles.oddstype_inital}>
-              <div>
-                1.23
-              </div>
-              <div>
-                1.34
-              </div>
-              <div>
-                1.41
-              </div>
+              <div>1.23</div>
+              <div>1.34</div>
+              <div>1.41</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>
-                1.24
-              </div>
-              <div>
-                13
-              </div>
-              <div>
-                14
-              </div>
+              <div>1.24</div>
+              <div>13</div>
+              <div>14</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>
-                12
-              </div>
-              <div>
-                13
-              </div>
-              <div>
-                14
-              </div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
             </div>
           </div>
-
-
-
         </div>
       </div>
 

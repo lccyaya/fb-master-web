@@ -112,8 +112,6 @@ const Details: React.FC<DetailProps> = (props) => {
       console.log(match, status, '&&&&');
       setHasScheme(match.has_scheme);
       if (match.has_scheme) {
-
-
         const tab = location?.query?.tab;
         setDetailType('scheme');
 
@@ -294,7 +292,6 @@ const Details: React.FC<DetailProps> = (props) => {
                       <Tabs.Tab title="数据" key="index" />
                       {/* 判断是否显示动态 */}
                       <Tabs.Tab title="动态" key="info" />
-
                     </Tabs>
 
                     {/* {newsTabVisible && (
@@ -394,25 +391,20 @@ const Details: React.FC<DetailProps> = (props) => {
                             <CapsuleTabs>
                               <CapsuleTabs.Tab title="基本面" key="fruits">
                                 <div>
-
                                   <div>
                                     {' '}
-                                    <div
-                                    >
+                                    <div>
                                       <Stats match={data} match_id={matchId as any} />
                                     </div>
                                   </div>
 
                                   <div>
-                                    {' '}
-                                    <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo} />
-                                      <FBTitle
-                                        size="18px"
-                                        color="#45494C"
-                                        title={<FormattedMessage id="key_history_ranking" />}
-                                      />
-                                    </div>
+                                    <FBTitle
+                                      size="18px"
+                                      color="#45494C"
+                                      logo={true}
+                                      title={<FormattedMessage id="key_history_ranking" />}
+                                    />
                                     <div>
                                       <HistoryRanking
                                         // matchTypeData={data}
@@ -421,29 +413,24 @@ const Details: React.FC<DetailProps> = (props) => {
                                     </div>
                                   </div>
                                   <div>
-                                    {' '}
-                                    <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo} />
-                                      <FBTitle
-                                        size="18px"
-                                        color="#45494C"
-                                        title={<FormattedMessage id="key_recent_games" />}
-                                      />
-                                    </div>
+                                    <FBTitle
+                                      logo={true}
+                                      size="18px"
+                                      color="#45494C"
+                                      title={<FormattedMessage id="key_recent_games" />}
+                                    />
                                     <div>
                                       <RecentGames match_id={matchId as any} />
                                     </div>
                                   </div>
                                   <div>
                                     {' '}
-                                    <div className={styles.mobileStatTitle_title}>
-                                      <div className={styles.title_logo} />
-                                      <FBTitle
-                                        size="18px"
-                                        color="#45494C"
-                                        title={<FormattedMessage id="key_future_match" />}
-                                      />
-                                    </div>
+                                    <FBTitle
+                                      logo={true}
+                                      size="18px"
+                                      color="#45494C"
+                                      title={<FormattedMessage id="key_future_match" />}
+                                    />
                                     <div>
                                       <FutureMatch match_id={matchId as any} />
                                     </div>
@@ -459,17 +446,17 @@ const Details: React.FC<DetailProps> = (props) => {
                                 {/* 赛前SP */}
 
                                 <div>
-                                  <MatchBefore />
+                                  <MatchBefore match_id={matchId as any} />
                                 </div>
                                 {/* 进球分布 */}
                                 <div>
-                                  <Goal />
+                                  <Goal match_id={matchId as any} />
                                 </div>
                                 {/* 攻防对比 */}
 
-                                <Strength />
+                                <Strength match_id={matchId as any} />
                                 {/* 伤停对比 */}
-                                <Injured />
+                                <Injured match_id={matchId as any} />
                               </CapsuleTabs.Tab>
                             </CapsuleTabs>
                           </div>
@@ -480,9 +467,11 @@ const Details: React.FC<DetailProps> = (props) => {
                           <Scheme matchId={matchId} />
                         </div>
                       ) : null}
-                      {detailType === 'info' ? <div>
-                        <InfoAbount />
-                      </div> : null}
+                      {detailType === 'info' ? (
+                        <div>
+                          <InfoAbount />
+                        </div>
+                      ) : null}
                     </div>
                   )}
                 </div>

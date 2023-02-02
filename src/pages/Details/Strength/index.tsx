@@ -3,12 +3,11 @@ import RightTab from '../Stats/RightTab';
 import styles from './index.less';
 import Table from './table';
 import { FormattedMessage } from 'umi';
-
+import FBTitle from '@/components/FBTitle';
 
 type Props = {};
 
 const Ranking = (props: Props) => {
-
   const options = [
     { label: '同主客', value: 'event' },
     { label: '同赛事', value: 'sameCompetition' },
@@ -17,19 +16,24 @@ const Ranking = (props: Props) => {
   return (
     <div>
       <div className={styles.mobile_stat_title}>
-        <div className={styles.mobile_stat_title_list}>
-          <div className={styles.title_logo} />
-          <FormattedMessage id="key_attack_defenseh" />
-        </div>
+        <FBTitle
+          logo={true}
+          size="18px"
+          color="#45494C"
+          title={<FormattedMessage id="key_attack_defenseh" />}
+        />
         <div>
-          <RightTab options={options} onChange={(key: any) => {
-            console.log(key);
-
-          }} />
+          <RightTab
+            options={options}
+            onChange={(key: any) => {
+              console.log(key);
+            }}
+          />
         </div>
       </div>
       <div className={styles.strength_main}>
         <Table />
+        <div style={{ height: 10 }}></div>
         <Table type="shou" />
       </div>
     </div>

@@ -429,9 +429,22 @@ export const geMatchLastList = (arr) => {
   return last_match[last_match.length - 1]?.MatchId
 
 };
+// 球员位置
+export function Position(state: string) {
+  switch (state) {
+    case "F":
+      return "前锋"
+    case "M":
+      return "中场"
+    case "D":
+      return "后卫"
+    case "G":
+      return "守门员"
+    default:
+      return "未知"
 
-
-
+  }
+}
 
 
 

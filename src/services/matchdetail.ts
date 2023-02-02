@@ -100,6 +100,49 @@ export type CupmatchListRes = {
     cup: cupmatchListType[]
 
 };
+
+export type GoalDistributionParams = {
+    match_id: number
+    tab: number
+};
+export type goalDistributionList = {
+    dis: any
+    lower: number
+    name: string
+    total: number
+    up: number
+
+};
+export type GoalDistributionListRes = {
+    home: goalDistributionList
+    away: goalDistributionList
+};
+
+export type InjuryParams = {
+    match_id: number
+};
+export type injuryArr = {
+    id: number,
+    name: string,
+    position: string,
+    logo: string,
+    reason: string,
+    missed_matches: number,
+    start_time: number,
+    end_time: number,
+    type: number,
+    market_value: number
+};
+export type injuryList = {
+    team_name: string
+    injury: injuryArr
+};
+
+export type InjuryListRes = {
+    home: injuryList
+    away: injuryList
+
+};
 // 未来三场比赛
 export async function futureList(params: FutureListParams) {
     const result = await request('/api/matches/future', { params });
@@ -117,4 +160,22 @@ export async function analysisList(params: AnalysisListParams) {
 export async function cupmatchList(params: AnalysisListParams) {
     const result = await request('/api/scores/list', { params });
     return normalizeResponse<CupmatchListRes>(result);
+}
+
+//实力对比
+export async function goalDistribution(params: GoalDistributionParams) {
+    const result = await request('/api/team/stats/goal_distribution', { params });
+    return normalizeResponse<GoalDistributionListRes>(result);
+}
+
+//进球分布
+export async function injury(params: InjuryParams) {
+    const result = await request('/api/team/stats/injury', { params });
+    return normalizeResponse<InjuryListRes>(result);
+}
+
+//进球分布
+export async function oddsDetails(params: InjuryParams) {
+    const result = await request('/api/match/odds/details', { params });
+    return normalizeResponse<InjuryListRes>(result);
 }

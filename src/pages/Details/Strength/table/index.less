@@ -1,24 +1,51 @@
 .strength_main_gong {
     width: 100%;
-    min-height: 250px;
-    background-image: url("~@/assets/match/gong.png");
-    background-size: 100% 100%;
+    min-height: 150px;
     color: #848494;
     font-size: 14px;
-    padding: 40px 25px 15px 25px;
+    border-radius: 6px;
+
 }
 
-.strength_main_shou {
-    width: 100%;
-    min-height: 250px;
+.gong_bg {
+
+    background-image: url("~@/assets/match/gong.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-top: 8px;
+
+
+    .border_bg {
+        border: 1px solid #FA5900;
+        padding: 20px 12px 0 12px;
+        border-radius: 4px;
+    }
+}
+
+.shou_bg {
+
     background-image: url("~@/assets/match/shou.png");
     background-size: 100% 100%;
-    margin-top: 10px;
-    color: #848494;
-    font-size: 14px;
-    padding: 10px;
-    padding: 40px 25px 15px 25px;
+    background-repeat: no-repeat;
+    padding-top: 8px;
+
+
+    .border_bg {
+        border: 1px solid #5985FF;
+        padding: 20px 12px 0 12px;
+        border-radius: 4px;
+    }
 }
+
+.type_bg {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+
 
 .strength_main_text {
     display: flex;

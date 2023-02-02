@@ -7,9 +7,9 @@ import MEmpty from '@/components/Empty';
 import { connect } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import { FormattedMessage } from 'umi';
-import Info from "./Info/index"
-import Substitutes from "./Substitutes/index"
-
+import Info from './Info/index';
+import Substitutes from './Substitutes/index';
+import State from './State/index';
 import classnames from 'classnames';
 import styles from './index.less';
 import { checkIsPhone } from '@/utils/utils';
@@ -69,7 +69,6 @@ const LineUp: React.FC<IProps> = (props) => {
   useEffect(() => {
     init();
     console.log(props.match);
-
   }, []);
 
   return (
@@ -80,9 +79,7 @@ const LineUp: React.FC<IProps> = (props) => {
             <div className={styles.formatWrapper}>
               <div className={styles.formatStr}>
                 <div className={classnames(styles.formatInfo)}>
-                  <span className={styles.name}>
-
-                    {data.home_name}</span>
+                  <span className={styles.name}>{data.home_name}</span>
                   <span className={styles.format}>{data.home_formation}</span>
                 </div>
                 <div className={classnames(styles.formatInfo, styles.rightInfo)}>
@@ -93,14 +90,21 @@ const LineUp: React.FC<IProps> = (props) => {
               {/* 信息 */}
               {/* <Info />
               <Substitutes data={data} match={props.match} /> */}
-
+              <State />
               <Court
                 isPhone={checkIsPhone()}
-                data={[...data.away.filter(i => i.first).map(i => {
-                  return { ...i, isHome: false }
-                }), ...data.home.filter(i => i.first).map(i => {
-                  return { ...i, isHome: true }
-                })]}
+                data={[
+                  ...data.away
+                    .filter((i) => i.first)
+                    .map((i) => {
+                      return { ...i, isHome: false };
+                    }),
+                  ...data.home
+                    .filter((i) => i.first)
+                    .map((i) => {
+                      return { ...i, isHome: true };
+                    }),
+                ]}
                 status={props.status}
               />
               <PlayerList
@@ -114,26 +118,36 @@ const LineUp: React.FC<IProps> = (props) => {
                   {
                     type: 'bench',
                     name: <FormattedMessage id="key_bench" />,
-                    home: data.home.filter(i => !i.first).map(i => {
-                      return { ...i, isHome: true }
-                    }),
-                    away: data.away.filter(i => !i.first).map(i => {
-                      return { ...i, isHome: false }
-                    }),
+                    home: data.home
+                      .filter((i) => !i.first)
+                      .map((i) => {
+                        return { ...i, isHome: true };
+                      }),
+                    away: data.away
+                      .filter((i) => !i.first)
+                      .map((i) => {
+                        return { ...i, isHome: false };
+                      }),
                   },
                   {
                     type: 'absence',
                     name: <FormattedMessage id="key_absence" />,
-                    home: data.home_absence && data.home_absence.map(i => {
-                      return {
-                        ...i, isHome: true,
-                      }
-                    }) as any,
-                    away: data.away_absence && data.away_absence.map(i => {
-                      return {
-                        ...i, isHome: false,
-                      }
-                    }) as any,
+                    home:
+                      data.home_absence &&
+                      (data.home_absence.map((i) => {
+                        return {
+                          ...i,
+                          isHome: true,
+                        };
+                      }) as any),
+                    away:
+                      data.away_absence &&
+                      (data.away_absence.map((i) => {
+                        return {
+                          ...i,
+                          isHome: false,
+                        };
+                      }) as any),
                   },
                 ]}
               />
@@ -146,7 +160,6 @@ const LineUp: React.FC<IProps> = (props) => {
     </Spin>
   );
 };
-
 
 export default connect(({ user, divice }: ConnectState) => ({
   isPhone: divice.isPhone,

@@ -387,6 +387,8 @@ const Mobile = () => {
         });
       }
     } else {
+      console.log(params, "spsosskkdej");
+      // setJskey(type)
       const data = {
         zone: params.zone,
         timestamp: apiTimestamp || params.timestamp,

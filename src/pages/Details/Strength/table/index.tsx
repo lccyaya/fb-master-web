@@ -29,17 +29,25 @@ const Table = (props: Props) => {
       away: 2.9,
     },
   ];
+  console.log(type, 'ppppppp');
+
   return (
-    <div className={type == 'shou' ? styles.strength_main_shou : styles.strength_main_gong}>
-      {data.map((item, index) => {
-        return (
-          <div className={styles.strength_main_text} key={index}>
-            <div className={styles.left_text}>{item.home}个</div>
-            <div className={styles.center_text}>{item.text}</div>
-            <div className={styles.right_text}>{item.away}</div>
+    <div className={styles.strength_main_gong}>
+      <div className={type == 'shou' ? styles.shou_bg : styles.gong_bg}>
+        <div className={styles.border_bg}>
+          <div className={styles.type_bg}>
+            {data.map((item, index) => {
+              return (
+                <div className={styles.strength_main_text} key={index}>
+                  <div className={styles.left_text}>{item.home}个</div>
+                  <div className={styles.center_text}>{item.text}</div>
+                  <div className={styles.right_text}>{item.away}</div>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      </div>
     </div>
   );
 };
