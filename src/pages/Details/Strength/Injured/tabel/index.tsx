@@ -3,16 +3,16 @@ import { FormattedMessage } from 'umi';
 import { Position } from '@/utils/match';
 import Empty from '@/components/Empty';
 import type { injuryList } from '@/services/matchdetail';
-
+import { playerValue } from '@/utils/match';
+import { injuredValue } from './config';
 import styles from './index.less';
 
 type Props = {
-  data: injuryList;
+  data: injuryList | undefined;
 };
 
 const Tabel = (props: Props) => {
   const { data } = props;
-  console.log(data, 'lslslslslsl');
 
   return (
     <div>
@@ -59,9 +59,8 @@ const Tabel = (props: Props) => {
                   <div className={styles.oddstype_box_right} style={{ width: '35%' }}>
                     <div className={styles.oddstype}>
                       <div className={styles.oddstype_flex}>
-                        <div>
-                          <img className={styles.oddstype_img} src={item.logo} alt="" />
-                        </div>
+                        <img className={styles.oddstype_img} src={item.logo} alt="" />
+
                         <div>{item.name}</div>
                       </div>
                     </div>
@@ -74,16 +73,19 @@ const Tabel = (props: Props) => {
                   <div className={styles.oddstype_box_right} style={{ width: '35%' }}>
                     <div className={styles.oddstype} style={{ border: 'none' }}>
                       <div className={styles.oddstype_flex}>
-                        <div className={styles.oddstype_img_logo}>
-                          <img src="" alt="" />
-                        </div>
-                        <div>{item.reason}</div>
+                        <img
+                          className={styles.oddstype_img_logo}
+                          src={injuredValue(item.type)}
+                          alt=""
+                        />
+
+                        <div>{item.reason ? item.reason : '受伤'}</div>
                       </div>
                     </div>
                   </div>
                   <div className={styles.oddstype_box_right} style={{ width: '15%' }}>
                     <div className={styles.oddstype} style={{ border: 'none' }}>
-                      <div>{(item.market_value / 10000).toFixed(0)}万</div>
+                      <div>{playerValue(item.market_value)}</div>
                     </div>
                   </div>
                 </div>

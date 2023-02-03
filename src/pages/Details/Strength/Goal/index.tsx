@@ -68,9 +68,7 @@ const GoalLost = (props: Props) => {
               </div>
             </div>
             <div>
-              <div>
-                <RightTab options={options} onChange={() => {}} />
-              </div>
+              <div>{/* <RightTab options={options} onChange={() => {}} /> */}</div>
             </div>
           </div>
           <div className={styles.goallost_match_tab}>

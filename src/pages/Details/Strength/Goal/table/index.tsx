@@ -18,13 +18,13 @@ const Table = (props: Props) => {
       <div className={styles.oddstype_box} style={{ height: 30 }}>
         <div />
         <div className={styles.oddstype_time}>
-          <span className={styles.oddstype_time}>00‘</span>
-          <span className={styles.oddstype_time}>15’</span>
-          <span className={styles.oddstype_time}>30‘</span>
-          <span className={styles.oddstype_time}>45‘</span>
-          <span className={styles.oddstype_time}>60‘</span>
-          <span className={styles.oddstype_time}>75‘</span>
-          <span className={styles.oddstype_time}>90‘</span>
+          <span className={styles.oddstype_time}>00`</span>
+          <span className={styles.oddstype_time}>15`</span>
+          <span className={styles.oddstype_time}>30`</span>
+          <span className={styles.oddstype_time}>45`</span>
+          <span className={styles.oddstype_time}>60`</span>
+          <span className={styles.oddstype_time}>75`</span>
+          <span className={styles.oddstype_time}>90`</span>
         </div>
       </div>
 
@@ -33,74 +33,50 @@ const Table = (props: Props) => {
 
         <div className={styles.oddstype}>
           <div style={{ width: '30%', textAlign: 'right' }}>
-            {data?.home?.total} ({data?.home?.up}:{data?.home?.lower})
+            {data?.home?.total} ({data?.home?.up}|{data?.home?.lower})
           </div>
-          {data?.home?.dis?.length ? (
-            <div className={styles.oddstype_list_box}>
-              {data?.home?.dis?.map((item: goalDistributionList, index: number) => {
-                return (
-                  <div
-                    style={{ marginRight: index == 2 ? 5 : 0 }}
-                    key={index}
-                    className={styles.oddstype_list}
-                  >
-                    {item}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className={styles.oddstype_list_box}>
-              {[1, 2, 3, 4, 5, 6].map((item: any, index: number) => {
-                return (
-                  <div
-                    style={{ marginRight: index == 2 ? 5 : 0 }}
-                    key={index}
-                    className={styles.oddstype_list}
-                  >
-                    -
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
+          <div className={styles.oddstype_list_box}>
+            {data?.home?.dis?.map((item: any, index: number) => {
+              return (
+                <div
+                  style={{
+                    marginRight: index == 2 ? 5 : 0,
+                    background: Math.max(...data?.home?.dis) == item ? '#FFE2E2' : '',
+                  }}
+                  key={index}
+                  className={styles.oddstype_list}
+                >
+                  {item}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className={styles.oddstype_box}>
         <div className={styles.oddstype_title}>{data?.away?.name}</div>
         <div className={styles.oddstype}>
           <div style={{ width: '30%', textAlign: 'right' }}>
-            {data?.away?.total} ({data?.away?.up}:{data?.away?.lower})
+            {data?.away?.total} ({data?.away?.up}|{data?.away?.lower})
           </div>
-          {data?.home?.dis?.length ? (
-            <div className={styles.oddstype_list_box}>
-              {data?.away?.dis?.map((item: goalDistributionList, index: number) => {
-                return (
-                  <div
-                    style={{ marginRight: index == 2 ? 5 : 0 }}
-                    key={index}
-                    className={styles.oddstype_list}
-                  >
-                    {item}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className={styles.oddstype_list_box}>
-              {[1, 2, 3, 4, 5, 6].map((item: any, index: number) => {
-                return (
-                  <div
-                    style={{ marginRight: index == 2 ? 5 : 0 }}
-                    key={index}
-                    className={styles.oddstype_list}
-                  >
-                    -
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
+          <div className={styles.oddstype_list_box}>
+            {data?.away?.dis?.map((item: any, index: number) => {
+              return (
+                <div
+                  style={{
+                    marginRight: index == 2 ? 5 : 0,
+                    background: Math.max(...data?.away?.dis) == item ? '#D7E8E1' : '',
+                  }}
+                  key={index}
+                  className={styles.oddstype_list}
+                >
+                  {item}
+                </div>
+              );
+            })}
+          </div>
 
           {/* <Empty style={{ fontSize: 20 }} /> */}
         </div>

@@ -1,18 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RightTab from '../Stats/RightTab';
 import styles from './index.less';
 import Table from './table';
 import { FormattedMessage } from 'umi';
 import FBTitle from '@/components/FBTitle';
+import { statsDetails } from '@/services/matchdetail';
+import type { StatsDetailsParams, StatsDetailsRes } from '@/services/matchdetail';
 
-type Props = {};
+import { Spin } from 'antd';
+
+type Props = {
+  match_id: number;
+};
 
 const Ranking = (props: Props) => {
-  const options = [
-    { label: '同主客', value: 'event' },
-    { label: '同赛事', value: 'sameCompetition' },
-    { label: '20场', value: 'size' },
-  ];
+  const [data, setData] = useState<StatsDetailsRes>();
+  const { match_id } = props;
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getStatsDetails = async (params: StatsDetailsParams) => {
+    setLoading(true);
+
+    const res = await statsDetails(params);
+    setLoading(false);
+    if (res.success) {
+      setData(res.data);
+    }
+  };
+  useEffect(() => {
+    const params = {
+      match_id,
+      tab: 0,
+      num: 20,
+    };
+    getStatsDetails(params);
+  }, []);
+
+  // 切换按钮
+  const onChange = (value: any) => {
+    const params: any = {
+      match_id,
+
+      tab: value.includes('event') ? 1 : 0,
+      sameCompetition: value.includes('sameCompetition') ? 1 : 0,
+      // num: value.includes('num') ? 20 : 10,
+      num: 20,
+    };
+    getStatsDetails(params);
+  };
+
   return (
     <div>
       <div className={styles.mobile_stat_title}>
@@ -23,18 +59,18 @@ const Ranking = (props: Props) => {
           title={<FormattedMessage id="key_attack_defenseh" />}
         />
         <div>
-          <RightTab
-            options={options}
-            onChange={(key: any) => {
-              console.log(key);
-            }}
-          />
+          <RightTab options={options} onChange={onChange} />
         </div>
       </div>
       <div className={styles.strength_main}>
-        <Table />
-        <div style={{ height: 10 }}></div>
-        <Table type="shou" />
+        <Spin spinning={loading}>
+          <Table data={data} />
+        </Spin>
+
+        <div style={{ height: 10 }} />
+        <Spin spinning={loading}>
+          <Table type="shou" data={data} />
+        </Spin>
       </div>
     </div>
   );

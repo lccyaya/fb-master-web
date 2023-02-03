@@ -143,6 +143,69 @@ export type InjuryListRes = {
     away: injuryList
 
 };
+
+export type OddsDetailsParams = {
+    match_id: number
+
+
+};
+export type initList = {
+    away: number
+    closed: number
+    draw: number
+    home: number
+    match_offset: string
+    score: string
+    state: number
+    updated_at: number
+
+
+};
+export type oddsDetailsList = {
+    hot: boolean
+    id: number
+    init: initList
+    name: string
+    spot: initList
+
+};
+export type OddsDetailsRes = {
+    asia: oddsDetailsList[]
+    bs: oddsDetailsList[]
+    eu: oddsDetailsList[]
+};
+export type StatsDetailsParams = {
+    match_id: number
+    tab: number
+    num: number
+
+};
+export type guardaList = {
+    attack: string
+    ballControlRate: string
+    cornerBall: string
+    dangerouAttack: string
+    goalpPerGame: string
+    orthophoto: string
+    projectivdeviation: string
+    ryCard: string
+};
+export type attackList = {
+    coverBallControlRate: string
+    coverGoalpPerGame: string
+    coverOrthophoto: string
+    coverProjectivdeviation: string
+
+};
+export type StatsDetailsRes = {
+    attacka: attackList
+    attackh: attackList
+    guarda: guardaList
+    guardh: guardaList
+
+};
+
+
 // 未来三场比赛
 export async function futureList(params: FutureListParams) {
     const result = await request('/api/matches/future', { params });
@@ -168,14 +231,20 @@ export async function goalDistribution(params: GoalDistributionParams) {
     return normalizeResponse<GoalDistributionListRes>(result);
 }
 
-//进球分布
+//伤停对比
 export async function injury(params: InjuryParams) {
     const result = await request('/api/team/stats/injury', { params });
     return normalizeResponse<InjuryListRes>(result);
 }
 
 //进球分布
-export async function oddsDetails(params: InjuryParams) {
+export async function oddsDetails(params: OddsDetailsParams) {
     const result = await request('/api/match/odds/details', { params });
-    return normalizeResponse<InjuryListRes>(result);
+    return normalizeResponse<OddsDetailsRes>(result);
+}
+
+//攻防对比
+export async function statsDetails(params: StatsDetailsParams) {
+    const result = await request('/api/team/stats/details', { params });
+    return normalizeResponse<StatsDetailsRes>(result);
 }

@@ -31,24 +31,28 @@ const GoalLost = (props: Props) => {
   }, []);
   return (
     <div>
-      <div className={styles.mobile_stat_title}>
-        <FBTitle
-          logo={true}
-          size="18px"
-          color="#45494C"
-          title={<FormattedMessage id="key_schedule_before" />}
-        />
+      {data?.bs?.length > 0 && data?.asia?.length > 0 && data?.eu?.length > 0 && (
         <div>
-          <div className={styles.getmore}>
-            查看更多
-            <IconFont className={styles.icon} size={10} type="icon-jiantouyou" />
+          <div className={styles.mobile_stat_title}>
+            <FBTitle
+              logo={true}
+              size="18px"
+              color="#45494C"
+              title={<FormattedMessage id="key_schedule_before" />}
+            />
+            <div>
+              <div className={styles.getmore}>
+                查看更多
+                <IconFont className={styles.icon} size={10} type="icon-jiantouyou" />
+              </div>
+            </div>
+          </div>
+          <div className={styles.goallost_match_tab}>
+            <OddsType data={data} />
+            {/* <div>xxxx</div> */}
           </div>
         </div>
-      </div>
-      <div className={styles.goallost_match_tab}>
-        <OddsType data={data} />
-        {/* <div>xxxx</div> */}
-      </div>
+      )}
     </div>
   );
 };

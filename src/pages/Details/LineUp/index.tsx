@@ -90,7 +90,7 @@ const LineUp: React.FC<IProps> = (props) => {
               {/* 信息 */}
               {/* <Info />
               <Substitutes data={data} match={props.match} /> */}
-              <State />
+              {/* <State /> */}
               <Court
                 isPhone={checkIsPhone()}
                 data={[

@@ -446,6 +446,19 @@ export function Position(state: string) {
   }
 }
 
+// 球员位置
+export function playerValue(num: number) {
+  if (num == 0) {
+    return "-"
+  } else if (num.toString().length > 8) {
+    return (num / 100000000).toFixed(0) + "亿"
+  } else {
+    return (num / 10000).toFixed(0) + "万"
+  }
+}
+
+
+
 
 
 

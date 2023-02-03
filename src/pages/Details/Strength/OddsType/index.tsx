@@ -2,39 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Picker } from 'antd-mobile';
 import { FormattedMessage } from 'umi';
 import IconFont from '@/components/IconFont';
-import { oddsDetails } from '@/services/matchdetail';
+import type { OddsDetailsRes } from '@/services/matchdetail';
 
 import styles from './index.less';
 
 type Props = {
-  data: any;
+  data: OddsDetailsRes;
 };
 
 const OddsType = (props: Props) => {
-  // 是否展示
-  const [visible, setVisible] = useState(false);
-  // 选中的值
-  const [value, setValue] = useState<(string | null)[]>(['Mon']);
-  const [lable, setLabel] = useState<(string | null)[]>(['周一']);
+  const { data } = props;
 
-  const basicColumns = [
-    [
-      { label: '周一', value: 'Mon' },
-      { label: '周二', value: 'Tues' },
-      { label: '周三', value: 'Wed' },
-      { label: '周四', value: 'Thur' },
-      { label: '周五', value: 'Fri' },
-    ],
-  ];
   return (
     <div className={styles.oddstype_main}>
       <div className={styles.oddstype_box}>
-        <div
-          className={styles.oddstype_box_left}
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
+        <div className={styles.oddstype_box_left}>
           <div className={styles.oddstype_title}>
             {/* {lable} */}
             {/* <IconFont
@@ -67,19 +49,19 @@ const OddsType = (props: Props) => {
 
           <div className={styles.oddstype}>
             <div className={styles.oddstype_inital}>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
+              <div className={styles.oddstype_odd}>{data?.eu[0]?.init?.home}</div>
+              <div className={styles.oddstype_odd}>{data?.eu[0]?.init?.draw}</div>
+              <div className={styles.oddstype_odd}>{data?.eu[0]?.init?.away}</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
+              <div className={styles.oddstype_odd}>{data?.asia[0]?.init?.home}</div>
+              <div className={styles.oddstype_odd}>{data?.asia[0]?.init?.draw}</div>
+              <div className={styles.oddstype_odd}>{data?.asia[0]?.init?.away}</div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
+              <div className={styles.oddstype_odd}>{data?.bs[0]?.init?.home}</div>
+              <div className={styles.oddstype_odd}>{data?.bs[0]?.init?.draw}</div>
+              <div className={styles.oddstype_odd}>{data?.bs[0]?.init?.away}</div>
             </div>
           </div>
         </div>
@@ -90,38 +72,131 @@ const OddsType = (props: Props) => {
           </div>
           <div className={styles.oddstype}>
             <div className={styles.oddstype_inital}>
-              <div>1.23</div>
-              <div>1.34</div>
-              <div>1.41</div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.eu[0]?.spot?.home > data?.eu[0]?.init?.home
+                      ? '#FA5900'
+                      : data?.eu[0]?.spot?.home < data?.eu[0]?.init?.home
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.eu[0]?.spot?.home}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.eu[0]?.spot?.draw > data?.eu[0]?.init?.draw
+                      ? '#FA5900'
+                      : data?.eu[0]?.spot?.draw < data?.eu[0]?.init?.draw
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.eu[0]?.spot?.draw}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.eu[0]?.spot?.away > data?.eu[0]?.init?.away
+                      ? '#FA5900'
+                      : data?.eu[0]?.spot?.away < data?.eu[0]?.init?.away
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.eu[0]?.spot?.away}
+              </div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>1.24</div>
-              <div>13</div>
-              <div>14</div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.asia[0]?.spot?.home > data?.asia[0]?.init?.home
+                      ? '#FA5900'
+                      : data?.asia[0]?.spot?.home < data?.asia[0]?.init?.home
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.asia[0]?.spot?.home}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.asia[0]?.spot?.draw > data?.asia[0]?.init?.draw
+                      ? '#FA5900'
+                      : data?.asia[0]?.spot?.draw < data?.asia[0]?.init?.draw
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.asia[0]?.spot?.draw}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.asia[0]?.spot?.away > data?.asia[0]?.init?.away
+                      ? '#FA5900'
+                      : data?.asia[0]?.spot?.away < data?.asia[0]?.init?.away
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.asia[0]?.spot?.away}
+              </div>
             </div>
             <div className={styles.oddstype_inital}>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.bs[0]?.spot?.home > data?.bs[0]?.init?.home
+                      ? '#FA5900'
+                      : data?.bs[0]?.spot?.home < data?.bs[0]?.init?.home
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.bs[0]?.spot?.home}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.bs[0]?.spot?.draw > data?.bs[0]?.init?.draw
+                      ? '#FA5900'
+                      : data?.bs[0]?.spot?.draw < data?.bs[0]?.init?.draw
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.bs[0]?.spot?.draw}
+              </div>
+              <div
+                className={styles.oddstype_odd}
+                style={{
+                  color:
+                    data?.bs[0]?.spot?.away > data?.bs[0]?.init?.away
+                      ? '#FA5900'
+                      : data?.bs[0]?.spot?.away < data?.bs[0]?.init?.away
+                      ? '#39906A'
+                      : '',
+                }}
+              >
+                {data?.bs[0]?.spot?.away}
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <Picker
-        columns={basicColumns}
-        visible={visible}
-        onClose={() => {
-          setVisible(false);
-        }}
-        defaultValue={value}
-        // value={value}
-        onConfirm={(v, extend: any) => {
-          // const { item } = extend;
-          setLabel(extend.items[0].label);
-          setValue(v);
-        }}
-      />
     </div>
   );
 };
