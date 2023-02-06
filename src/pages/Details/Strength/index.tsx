@@ -30,14 +30,14 @@ const Ranking = (props: Props) => {
     const params = {
       match_id,
       tab: 0,
-      sameCompetition: 0,
+      same_competition: 0,
       num: 10,
     };
     getStatsDetails(params);
   }, []);
   const options = [
     { label: '同主客', value: 'tab' },
-    { label: '同赛事', value: 'sameCompetition' },
+    { label: '同赛事', value: 'same_competition' },
     { label: '20场', value: 'num' },
   ];
   // 切换按钮
@@ -45,7 +45,7 @@ const Ranking = (props: Props) => {
     const params: any = {
       match_id,
       tab: value.includes('tab') ? 1 : 0,
-      sameCompetition: value.includes('sameCompetition') ? 1 : 0,
+      same_competition: value.includes('same_competition') ? 1 : 0,
       num: value.includes('num') ? 20 : 10,
       // num: 20,
     };
