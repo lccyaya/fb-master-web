@@ -343,7 +343,7 @@ export default {
     "key_scan_and_download": "扫码下载",
     "key_schedule": "赛程",
     "key_schedule_before": "赛前趋势",
-    "key_schedule_goal": "进球分布",
+    "key_schedule_goal": "进/失球分布",
     "key_schedule_lost": "失球分布",
 
 
