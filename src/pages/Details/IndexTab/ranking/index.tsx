@@ -32,7 +32,7 @@ const Ranking: React.FC<IProps> = (props) => {
   const { data: dataSource, smallView } = props;
   const [historyVisible, setHistoryVisible] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<matchService.OddsCompanyType | null>(null);
-  const history = useHistory()
+  const history = useHistory();
 
   const columns: ColumnProps<matchService.OddsCompanyType>[] = [
     {
@@ -42,11 +42,11 @@ const Ranking: React.FC<IProps> = (props) => {
       width: '10%',
       render: (name) => {
         return (
-          <div className={classnames(styles.title)} style={{ color: "#45494C" }}>
+          <div className={classnames(styles.title)} style={{ color: '#45494C' }}>
             {/* <Mark className={styles.mark} text="Hot" color="red" textColor="#fff" /> */}
             {!smallView && <img className={styles.mark} src={hot} />}
 
-            <span className={styles.name} >{name}</span>
+            <span className={styles.name}>{name}</span>
           </div>
         );
       },
@@ -59,15 +59,15 @@ const Ranking: React.FC<IProps> = (props) => {
       render: (_, record) => {
         return (
           <div className={`${styles.company} ${smallView ? styles.smallView : ''}`}>
-
-
             <div>
               <FormattedMessage id="key_inital" />
             </div>
-            <div style={{ borderBottom: "1px solid #fff", }}></div>
-            <div style={{
-              borderRadius: 5
-            }}>
+            <div style={{ borderBottom: '1px solid #fff' }}></div>
+            <div
+              style={{
+                borderRadius: 5,
+              }}
+            >
               <FormattedMessage id="key_spot" />
             </div>
           </div>
@@ -86,10 +86,17 @@ const Ranking: React.FC<IProps> = (props) => {
             className={classnames(styles.company, styles.home, smallView ? styles.smallView : '')}
           >
             <div>{normalizeFloat(record.init.home)}</div>
-            <div style={{ borderBottom: "1px solid #fff", }}></div>
+            <div style={{ borderBottom: '1px solid #fff' }}></div>
 
-
-            <div className={normalizeFloat(record.spot.home) > normalizeFloat(record.init.home) ? styles.spot : styles.spotlow}>{normalizeFloat(record.spot.home)}</div>
+            <div
+              className={
+                normalizeFloat(record.spot.home) > normalizeFloat(record.init.home)
+                  ? styles.spot
+                  : styles.spotlow
+              }
+            >
+              {normalizeFloat(record.spot.home)}
+            </div>
           </div>
         );
       },
@@ -107,8 +114,16 @@ const Ranking: React.FC<IProps> = (props) => {
           >
             <div>{normalizeFloat(record.init.draw)}</div>
 
-            <div style={{ borderBottom: "1px solid #fff", }}></div>
-            <div className={normalizeFloat(record.spot.draw) > normalizeFloat(record.init.draw) ? styles.spot : styles.spotlow}>{normalizeFloat(record.spot.draw)}</div>
+            <div style={{ borderBottom: '1px solid #fff' }}></div>
+            <div
+              className={
+                normalizeFloat(record.spot.draw) > normalizeFloat(record.init.draw)
+                  ? styles.spot
+                  : styles.spotlow
+              }
+            >
+              {normalizeFloat(record.spot.draw)}
+            </div>
           </div>
         );
       },
@@ -126,8 +141,16 @@ const Ranking: React.FC<IProps> = (props) => {
           >
             <div>{normalizeFloat(record.init.away)}</div>
 
-            <div style={{ borderBottom: "1px solid #fff", }}></div>
-            <div className={normalizeFloat(record.spot.away) > normalizeFloat(record.init.away) ? styles.spot : styles.spotlow}>{normalizeFloat(record.spot.away)}</div>
+            <div style={{ borderBottom: '1px solid #fff' }}></div>
+            <div
+              className={
+                normalizeFloat(record.spot.away) > normalizeFloat(record.init.away)
+                  ? styles.spot
+                  : styles.spotlow
+              }
+            >
+              {normalizeFloat(record.spot.away)}
+            </div>
           </div>
         );
       },
@@ -141,9 +164,9 @@ const Ranking: React.FC<IProps> = (props) => {
       render: (_, record) => {
         if (!hasInit(record)) return '-';
         return (
-          <div className={styles.title} style={{ color: "#666666" }}>
-            <div>{moment(new Date(record.spot.updated_at * 1000)).format('DD MMM')}</div>
-            <div>{moment(new Date(record.spot.updated_at * 1000)).format('hh:mm A')}</div>
+          <div className={styles.title} style={{ color: '#666666' }}>
+            <div>{moment(new Date(record.spot.updated_at * 1000)).format('DD-MM')}</div>
+            <div>{moment(new Date(record.spot.updated_at * 1000)).format('hh:mm')}</div>
             {/* 
             {<div>{moment(new Date(record.spot.updated_at * 1000)).format('MM-DD hh:mm')}</div>}
             {<div>{moment(new Date(record.spot.updated_at * 1000)).format('MM-DD hh:mm')}</div>} */}
@@ -154,9 +177,14 @@ const Ranking: React.FC<IProps> = (props) => {
     },
   ];
   return (
-    <div style={{
-      padding: 10, borderRadius: 7, background: "#fff"
-    }} className={`${styles.stats} ${smallView ? styles.smallView : ''}`}>
+    <div
+      style={{
+        padding: 10,
+        borderRadius: 7,
+        background: '#fff',
+      }}
+      className={`${styles.stats} ${smallView ? styles.smallView : ''}`}
+    >
       <Table
         locale={{ emptyText: <MEmpty style={{ paddingBottom: '40px' }} /> }}
         onRow={(record) => {
@@ -170,8 +198,8 @@ const Ranking: React.FC<IProps> = (props) => {
                 matchId: props.matchId,
                 data: dataSource,
                 match: props.match,
-                type: props.type
-              })
+                type: props.type,
+              });
               // setHistoryVisible(true);
               // setCurrentItem(record);
               report({
@@ -187,22 +215,20 @@ const Ranking: React.FC<IProps> = (props) => {
         columns={columns}
         rowKey="id"
       />
-      {
-        currentItem && (
-          <HistoryModal
-            type={props.type}
-            matchId={props.matchId}
-            match={props.match}
-            odd={currentItem}
-            visible={historyVisible}
-            onCancel={() => {
-              setHistoryVisible(false);
-              setCurrentItem(null);
-            }}
-          />
-        )
-      }
-    </div >
+      {currentItem && (
+        <HistoryModal
+          type={props.type}
+          matchId={props.matchId}
+          match={props.match}
+          odd={currentItem}
+          visible={historyVisible}
+          onCancel={() => {
+            setHistoryVisible(false);
+            setCurrentItem(null);
+          }}
+        />
+      )}
+    </div>
   );
 };
 
