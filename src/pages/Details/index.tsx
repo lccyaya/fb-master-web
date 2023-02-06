@@ -272,7 +272,7 @@ const Details: React.FC<DetailProps> = (props) => {
                     <Tabs
                       activeLineMode="fixed"
                       style={{ color: '#848494', '--fixed-active-line-width': '15px' }}
-                      defaultActiveKey={detailType}
+                      activeKey={detailType}
                       onChange={handleDetailTypeClick}
                     >
                       {newsTabVisible && (
@@ -446,7 +446,10 @@ const Details: React.FC<DetailProps> = (props) => {
                                 {/* 赛前SP */}
 
                                 <div>
-                                  <MatchBefore match_id={matchId as any} />
+                                  <MatchBefore
+                                    match_id={matchId as any}
+                                    setDetailType={setDetailType}
+                                  />
                                 </div>
                                 {/* 进球分布 */}
                                 <div>

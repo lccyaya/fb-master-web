@@ -20,7 +20,6 @@ const Ranking = (props: Props) => {
 
   const getStatsDetails = async (params: StatsDetailsParams) => {
     setLoading(true);
-
     const res = await statsDetails(params);
     setLoading(false);
     if (res.success) {
@@ -31,20 +30,24 @@ const Ranking = (props: Props) => {
     const params = {
       match_id,
       tab: 0,
-      num: 20,
+      sameCompetition: 0,
+      num: 10,
     };
     getStatsDetails(params);
   }, []);
-
+  const options = [
+    { label: '同主客', value: 'tab' },
+    { label: '同赛事', value: 'sameCompetition' },
+    { label: '20场', value: 'num' },
+  ];
   // 切换按钮
   const onChange = (value: any) => {
     const params: any = {
       match_id,
-
-      tab: value.includes('event') ? 1 : 0,
+      tab: value.includes('tab') ? 1 : 0,
       sameCompetition: value.includes('sameCompetition') ? 1 : 0,
-      // num: value.includes('num') ? 20 : 10,
-      num: 20,
+      num: value.includes('num') ? 20 : 10,
+      // num: 20,
     };
     getStatsDetails(params);
   };
