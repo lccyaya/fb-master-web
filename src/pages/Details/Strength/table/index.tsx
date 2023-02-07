@@ -35,15 +35,15 @@ const Table = (props: Props) => {
       unit: '次',
     },
     {
-      text: '场球控球率',
+      text: '场均控球率',
       value: 'ballControlRate',
     },
     {
-      text: '场球红黄牌率',
+      text: '场均红黄牌率',
       value: 'ryCard',
     },
     {
-      text: '场球角率',
+      text: '场均角率',
       value: 'cornerBall',
     },
   ];
