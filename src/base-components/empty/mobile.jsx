@@ -2,7 +2,7 @@ import React from 'react';
 import { Empty } from 'antd';
 import { FormattedMessage } from 'umi';
 import styles from './mobile.module.less';
-import empty from '@/assets/icon/empty.svg';
+import empty from '@/assets/empty.png';
 
 const EmptyCom = (props) => <Empty
   style={props.style}

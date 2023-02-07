@@ -115,8 +115,8 @@ const Mobile = ({ jskey, data, type = 'score' }) => {
   const { asia, bs, eu } = data.odds;
   const isShowVS = status === MatchStatus.Before || status === MatchStatus.TBD;
   const isShowScore = status === MatchStatus.Going || status === MatchStatus.Complete;
-  const homeScore = getScore(data.home_score);
-  const awayScore = getScore(data.away_score);
+  const homeScore = data.home_score[0]
+  const awayScore = data.away_score[1]
   // 是否有集锦
   const hasHighlight = status === MatchStatus.Complete && data.has_highlight;
   // 是否有回放
@@ -152,9 +152,9 @@ const Mobile = ({ jskey, data, type = 'score' }) => {
     }
   };
   const AET_PEN_TEXT = [
-    final.has_ot ? `AET: ${final.ot_home || 0}-${final.ot_away || 0}` : '',
+    final.has_ot ? `加时: ${final.ot_home || 0}-${final.ot_away || 0}` : '',
     final.has_ot && final.has_penalty ? ' ' : '',
-    final.has_penalty ? `PEN: ${final.penalty_home || 0}-${final.penalty_away || 0}` : '',
+    final.has_penalty ? `点球: ${final.penalty_home || 0}-${final.penalty_away || 0}` : '',
   ].join('');
   if (type === 'score') {
     return (
@@ -179,6 +179,7 @@ const Mobile = ({ jskey, data, type = 'score' }) => {
                   fontSize={12}
                   color={'#999999'}
                 />
+                <div style={{ width: 4 }}></div>
                 {jskey == 2 && <Text
                   text={data.issue}
                   numbuerOfLines={1}

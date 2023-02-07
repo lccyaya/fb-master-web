@@ -42,6 +42,7 @@ const RecentGames = (props: Props) => {
         render: (text, record) => (
           <div
             className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            // className={styles.wrapnamestyle}
           >
             {text.team_name}
           </div>
@@ -54,30 +55,32 @@ const RecentGames = (props: Props) => {
         width: 20,
         align: 'center',
         render: (text, record) => (
-          <div className={styles.bfstyle} >
-
-            <span style={{
-
-              color: record?.home?.team_name == sp?.team_name ? Color.numColor(
-                record?.home?.score > record.away?.score
-                  ? '赢'
-                  : record?.home?.score == record.away?.score
-                    ? '走'
-                    : '输',
-
-              ) : Color.numColor(
-                record?.home?.score < record.away?.score
-                  ? '赢'
-                  : record?.home?.score == record.away?.score
-                    ? '走'
-                    : '输',
-
-              ),
-            }}>{record.home.score}:{record.away.score}
+          <div className={styles.bfstyle}>
+            <span
+              style={{
+                color:
+                  record?.home?.team_name == sp?.team_name
+                    ? Color.numColor(
+                        record?.home?.score > record.away?.score
+                          ? '赢'
+                          : record?.home?.score == record.away?.score
+                          ? '走'
+                          : '输',
+                      )
+                    : Color.numColor(
+                        record?.home?.score < record.away?.score
+                          ? '赢'
+                          : record?.home?.score == record.away?.score
+                          ? '走'
+                          : '输',
+                      ),
+              }}
+            >
+              {record.home.score}:{record.away.score}
             </span>
-            <span className={styles.scores}>({record.home.scores[1]}:{record.away.scores[1]})
+            <span className={styles.scores}>
+              ({record.home.scores[1]}:{record.away.scores[1]})
             </span>
-
           </div>
         ),
       },
@@ -90,6 +93,7 @@ const RecentGames = (props: Props) => {
         render: (text, record) => (
           <div
             className={sp?.team_name == text.team_name ? styles.namestyle : styles.wrapnamestyle}
+            // className={styles.wrapnamestyle}
           >
             {text.team_name}
           </div>

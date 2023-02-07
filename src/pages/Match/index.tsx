@@ -316,7 +316,7 @@ const Match: React.FC<IProps> = (props) => {
     try {
       ids = JSON.parse(sessionStorage.getItem(SESS_STORAGE_SELECTED_LEAGUES) || '[]');
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
     setSelectedCompetitionIds(ids);
   }, []);
 

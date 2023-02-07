@@ -10,10 +10,11 @@ const Text = ({
   return (
     <div
       style={{
-        width,
+        // width,
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         display: '-webkit-box',
+        // textAlign: "center",
         WebkitBoxOrient: 'vertical',
         WebkitLineClamp: numberOfLines,
         wordBreak: 'break-all',

@@ -20,6 +20,8 @@ import { FormattedMessage } from '@@/plugin-locale/localeExports';
 import CallAppModal from '@/components/OpenApp/CallAppModal';
 import Iconfont from '@/base-components/iconfont';
 import Weather from './wheater';
+import { login } from '@/services/certification';
+import { useScroll } from 'ahooks';
 
 export default (props: {
   match?: matchService.MatchDetails;
@@ -27,11 +29,13 @@ export default (props: {
   reportAction?: REPORT_ACTION;
 }) => {
   const intl = useIntl();
+  const scroll = useScroll(document);
   const lang = toShortLangCode(locale.getLocale());
   const ref = useRef<HTMLDivElement | null>(null);
   const { match, reportCate, reportAction } = props;
   const [isSubscribed, setIsSubscribed] = useState<boolean>(Boolean(match?.is_subscribed));
   const [notificationVisible, setNotificationVisible] = useState(false);
+
   useEffect(() => {
     setIsSubscribed(match?.is_subscribed);
   }, [match?.is_subscribed]);
@@ -77,6 +81,7 @@ export default (props: {
   );
   const hasPlayback = Boolean(status === MatchStatus.Complete && match?.playback_link);
   const showOtOrPen = final.has_ot || final.has_penalty;
+
   return (
     <div
       className={styles.matchInfo}
@@ -174,6 +179,7 @@ export default (props: {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
+              height: '100%',
             }}
           >
             <div
@@ -182,16 +188,54 @@ export default (props: {
                 history.goBack();
               }}
             >
-              {' '}
               <Iconfont type="icon-gengduo" size={15} color="#fff" />
             </div>
-            <div className={styles.name}>
-              {match.competition_name} {match.round?.show_name}
-            </div>
 
-            <div className={styles.time}>{time}</div>
+            {scroll?.top > 100 ? (
+              <div className={styles.no_nav_title_flex}>
+                <div className={styles.no_nav_title_logo}>
+                  <img src={match.home_team_logo || emptyLogo} />
+                </div>
+                <div>VS</div>
+                <div className={styles.no_nav_title_logo}>
+                  <img src={match.away_team_logo || emptyLogo} />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className={styles.name}>
+                  {match.competition_name} {match.round?.show_name}
+                </div>
+                <div className={styles.time}>{time}</div>
+              </div>
+            )}
           </div>
         </div>
+        {/* {scroll?.top > 100 ? (
+          <div className={styles.no_nav_title}>
+            <div className={styles.no_nav_title_flexbox}>
+              <div
+                className={styles.nav_title_back}
+                onClick={() => {
+                  history.goBack();
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                <Iconfont type="icon-gengduo" size={15} color="#fff" />
+              </div>
+              <div className={styles.no_nav_title_flex}>
+                <div className={styles.no_nav_title_logo}>
+                  <img src={match.home_team_logo || emptyLogo} />
+                </div>
+                <div>VS</div>
+                <div className={styles.no_nav_title_logo}>
+                  <img src={match.away_team_logo || emptyLogo} />
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null} */}
+
         <div className={styles.progress}>
           {status === MatchStatus.Complete && getMatchStatusDes(match.status)}
           {status === MatchStatus.TBD && getMatchStatusDes(match.status)}
