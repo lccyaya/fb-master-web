@@ -36,10 +36,45 @@
       bottom: 0;
       left: 0;
       transform: translateY(90);
-      background: url('~@/assets/icon/mobile/court_bg.png');
-      // background: url('~@/assets/icon/34sport_bg.png');
+      // background: url('~@/assets/icon/mobile/court_bg.png');
+      background: url('~@/assets/icon/34sport_bg.png');
       background-repeat: no-repeat;
       background-size: 100% 100%;
+    }
+
+    .team_logo {
+      width: 25px;
+      height: 25px;
+    }
+
+    .home_name {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      z-index: 9;
+      font-size: 14px;
+      color: #fff;
+      padding: 5px;
+
+      .home_name_logo {
+        padding: 5px;
+        background-color: aqua;
+      }
+    }
+
+    .away_name {
+
+      position: absolute;
+      bottom: 15px;
+      left: 20px;
+      z-index: 9;
+      font-size: 14px;
+      color: #fff;
+
+      .away_name_logo {
+        padding: 5px;
+        background-color: aqua;
+      }
     }
   }
 }

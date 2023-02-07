@@ -3,12 +3,66 @@
   display: inline-block;
   text-align: center;
   width: 50px;
+
+
+
   &.home {
     transform: translate(-50%, 50%);
   }
 
   &.away {
     transform: translate(50%, -50%);
+  }
+
+  .palyer_img {
+    position: relative;
+    font-size: 12px;
+
+
+    .shirt_number {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      line-height: 15px;
+      text-align: center;
+      background-color: #FFFFFF;
+      position: absolute;
+      top: 0;
+      left: 15px;
+      z-index: 10;
+      color: #999999
+    }
+
+    .shirt_incidents {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      // background-color: #FFFFFF;
+      position: absolute;
+      top: 0;
+      right: 20px;
+      z-index: 10;
+    }
+
+    .home_rating {
+      width: 35px;
+      height: 15px;
+      line-height: 15px;
+      font-size: 10px;
+      background-color: #FE2222;
+      border-radius: 2px;
+    }
+
+    .away_rating {
+      width: 35px;
+      height: 15px;
+      line-height: 15px;
+      font-size: 10px;
+      background-color: #5985FF;
+      border-radius: 2px;
+    }
   }
 
   .info {
@@ -20,6 +74,14 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     word-wrap: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .name {
+      font-size: 10px;
+    }
 
     .number {
       margin-right: 4px;
@@ -33,6 +95,7 @@
     display: inline-block;
     text-align: center;
     width: 80px;
+
     &.home {
       transform: translate(-50%, 50%);
     }
@@ -41,9 +104,13 @@
       transform: translate(50%, -50%);
     }
 
-    .avatar{
-      height: 30px;
-      width: 30px;
+    .avatar {
+      height: 35px;
+      width: 35px;
+      background-color: #fff;
+      border-radius: 50%;
+
+      img {}
     }
 
     .info {

@@ -6,22 +6,34 @@ import classnames from 'classnames';
 import { STATS_CODE } from '@/constants';
 
 // 红牌
-import RedCard from '@/assets/icon/status_red.svg';
+// import RedCard from '@/assets/icon/status_red.svg';
+// 新icon的红牌
+import RedCard from '@/assets/match/state/redp_state.png';
+
 // 进球
-import Goal from '@/assets/icon/status_goal.svg'
+// import Goal from '@/assets/icon/status_goal.svg';
+// 新icon的进球
+import Goal from '@/assets/match/state/win_state.png';
+
 // 换人
-import Substitution from '@/assets/icon/status_substitution.svg'
+import Substitution from '@/assets/icon/status_substitution.svg';
 // 点球
-import PenaltyKick from '@/assets/icon/status_spot.svg'
+// import PenaltyKick from '@/assets/icon/status_spot.svg';
+// 新icon的点球
+import PenaltyKick from '@/assets/match/state/pk_state.png';
+
 // 乌龙
-import OwnGoal from '@/assets/icon/status_own.svg'
+// import OwnGoal from '@/assets/icon/status_own.svg';
+// 新icon的乌龙
+import OwnGoal from '@/assets/match/state/wl_state.png';
+
 // 黄牌
-import YellowCard from '@/assets/icon/status_yellow.svg';
+// import YellowCard from '@/assets/icon/status_yellow.svg';
+// 新icon的黄牌
+import YellowCard from '@/assets/match/state/yellowp_state.png';
 
 // import Out from '@/assets/icon/status_out.svg';
 import StatusIcon from '../../StatusIcon';
-
-
 
 export type ICourt = {
   data: matchService.Incident[];
@@ -31,8 +43,8 @@ const Court: React.FC<ICourt> = (props) => {
   const { data, noBackground } = props;
   return (
     <Space>
-      {
-        data && data.map(i => {
+      {data &&
+        data.map((i) => {
           switch (i.type) {
             case STATS_CODE.RedCard:
               return <StatusIcon noBackground={noBackground} src={RedCard} />;
@@ -49,8 +61,7 @@ const Court: React.FC<ICourt> = (props) => {
             default:
               return null;
           }
-        })
-      }
+        })}
     </Space>
   );
 };

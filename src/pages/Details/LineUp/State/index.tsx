@@ -6,14 +6,12 @@ import { Grid } from 'antd-mobile';
 type Props = {};
 
 const State = (props: Props) => {
-  console.log(state, 'poopooojjjjjj');
-
   return (
     <div className={styles.lineup_mian}>
       <Grid columns={5}>
-        {state.map((item) => {
+        {state.map((item, index) => {
           return (
-            <div className={styles.lineup_state} key={item.id}>
+            <div className={styles.lineup_state} key={index}>
               <Grid.Item>
                 <div className={styles.lineup_img}>
                   <img className={styles.img} src={item.img} alt="" />

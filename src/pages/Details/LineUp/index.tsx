@@ -77,7 +77,7 @@ const LineUp: React.FC<IProps> = (props) => {
         {data && data.confirmed ? (
           <div className={styles.container}>
             <div className={styles.formatWrapper}>
-              <div className={styles.formatStr}>
+              {/* <div className={styles.formatStr}>
                 <div className={classnames(styles.formatInfo)}>
                   <span className={styles.name}>{data.home_name}</span>
                   <span className={styles.format}>{data.home_formation}</span>
@@ -86,11 +86,10 @@ const LineUp: React.FC<IProps> = (props) => {
                   <span className={styles.name}>{data.away_name}</span>
                   <span className={styles.format}>{data.away_formation}</span>
                 </div>
-              </div>
+              </div> */}
               {/* 信息 */}
-              {/* <Info />
-              <Substitutes data={data} match={props.match} /> */}
-              {/* <State /> */}
+              <Info />
+
               <Court
                 isPhone={checkIsPhone()}
                 data={[
@@ -105,9 +104,11 @@ const LineUp: React.FC<IProps> = (props) => {
                       return { ...i, isHome: true };
                     }),
                 ]}
+                dataTeam={data}
+                dataName={props.match}
                 status={props.status}
               />
-              <PlayerList
+              {/* <PlayerList
                 data={[
                   {
                     type: 'coach',
@@ -150,7 +151,9 @@ const LineUp: React.FC<IProps> = (props) => {
                       }) as any),
                   },
                 ]}
-              />
+              /> */}
+              <Substitutes data={data} match={props.match} />
+              <State />
             </div>
           </div>
         ) : (

@@ -74,6 +74,7 @@
     }
 
     .text {
+        width: 100%;
         display: flex;
         // align-items: center;
         justify-content: center;
@@ -83,10 +84,38 @@
     .teacher {
         color: #999999;
         font-size: 12px;
+        display: flex;
+        align-items: center;
+
+        .home_rating {
+            text-align: center;
+            line-height: 13px;
+            background-color: #FE2222;
+            color: #fff;
+            border-radius: 10px;
+            height: 13px;
+            width: 30px;
+            margin: 0 5px;
+        }
+
+        .away_rating {
+            text-align: center;
+            line-height: 13px;
+            background-color: #5985FF;
+            color: #fff;
+            border-radius: 10px;
+            height: 13px;
+            width: 30px;
+            margin: 0 5px;
+        }
     }
 
     .name {
+        width: 100%;
         line-height: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .right_grid {
