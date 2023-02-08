@@ -36,12 +36,7 @@ const Injured = (props: Props) => {
     <div>
       {data?.home?.injury.length > 0 || data?.away?.injury.length > 0 ? (
         <div>
-          <FBTitle
-            logo={true}
-            size="18px"
-            color="#45494C"
-            title={<FormattedMessage id="key_Injured_defenseh" />}
-          />
+          <FBTitle logo={true} title={<FormattedMessage id="key_Injured_defenseh" />} />
           <div>
             <Spin spinning={loading}>
               <Tabel data={data?.home} />

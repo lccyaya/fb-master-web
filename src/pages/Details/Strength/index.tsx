@@ -55,12 +55,7 @@ const Ranking = (props: Props) => {
   return (
     <div>
       <div className={styles.mobile_stat_title}>
-        <FBTitle
-          logo={true}
-          size="18px"
-          color="#45494C"
-          title={<FormattedMessage id="key_attack_defenseh" />}
-        />
+        <FBTitle logo={true} title={<FormattedMessage id="key_attack_defenseh" />} />
         <div>
           <RightTab options={options} onChange={onChange} />
         </div>

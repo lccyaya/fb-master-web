@@ -50,12 +50,7 @@ const GoalLost = (props: Props) => {
         <div>
           <div className={styles.mobile_stat_title}>
             <div className={styles.mobile_stat_flex}>
-              <FBTitle
-                logo={true}
-                size={'18px'}
-                color="#45494C"
-                title={<FormattedMessage id="key_schedule_goal" />}
-              />
+              <FBTitle logo={true} title={<FormattedMessage id="key_schedule_goal" />} />
             </div>
             <div className={styles.mobile_goal_flex}>
               <div className={titleType == 1 ? styles.active : styles.no_active} onClick={onGoal}>

@@ -11,6 +11,9 @@ import Info from './Info/index';
 import Substitutes from './Substitutes/index';
 import State from './State/index';
 import classnames from 'classnames';
+import FBTitle from '@/components/FBTitle';
+import FBWordCopTab from '@/components/FBWordCopTab';
+
 import styles from './index.less';
 import { checkIsPhone } from '@/utils/utils';
 
@@ -56,6 +59,21 @@ interface IProps {
 const LineUp: React.FC<IProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<matchService.MatchLineup>();
+  const [activeKey, setActiveKey] = useState('key_now_line_up');
+
+  const tab = [
+    {
+      title: <FormattedMessage id={'key_now_line_up'} />,
+      key: 'key_now_line_up',
+    },
+    {
+      title: <FormattedMessage id={'key_last_line_up'} />,
+      key: 'key_last_line_up',
+    },
+  ];
+  const onChangetab = (key: string) => {
+    setActiveKey(key);
+  };
 
   const init = async () => {
     setLoading(true);
@@ -87,6 +105,20 @@ const LineUp: React.FC<IProps> = (props) => {
                   <span className={styles.format}>{data.away_formation}</span>
                 </div>
               </div> */}
+              <div className={styles.title_flex}>
+                <div className={styles.title_flex_tip}>
+                  <FBTitle logo={true} title={<FormattedMessage id="key_line_up" />} />
+                  <div className={styles.title_tip}>（点击球员查看个人统计）</div>
+                </div>
+                <div className={styles.title_tab} style={{ width: 170 }}>
+                  <FBWordCopTab
+                    list={tab}
+                    mini
+                    defaultActiveKey={activeKey}
+                    onChange={onChangetab}
+                  />
+                </div>
+              </div>
               {/* 信息 */}
               <Info />
 

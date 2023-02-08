@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Space } from 'antd';
+import { Popup } from 'antd-mobile';
+
 import styles from './index.less';
 import * as matchService from '@/services/match';
 import defaultAvatar from '@/assets/icon/avatar.svg';
 import classnames from 'classnames';
 import Status from './Status';
+import PlayerDetail from '@/components/FBPlayerInfo/PlayerDetail';
+
 import { checkIsPhone } from '@/utils/utils';
 
 export type ICourt = matchService.PlayerItem & { isHome: boolean; isPhone?: boolean };
 const Court: React.FC<ICourt> = (props) => {
   const { incidents } = props;
+  const [visible, setVisible] = useState(false);
+
   const isPhone = checkIsPhone();
+  const onShowInfo = () => {
+    setVisible(true);
+  };
   return (
     <div
       style={
@@ -32,7 +41,7 @@ const Court: React.FC<ICourt> = (props) => {
       <div className={styles.status}>
         {incidents && <Status data={incidents} />}
       </div> */}
-      <div className={styles.palyer_img}>
+      <div className={styles.palyer_img} onClick={onShowInfo}>
         <div className={styles.shirt_number}>{props.shirt_number}</div>
         {incidents && (
           <div className={styles.shirt_incidents}>
@@ -51,6 +60,21 @@ const Court: React.FC<ICourt> = (props) => {
           </div>
         </div>
       </div>
+      <Popup
+        visible={visible}
+        onMaskClick={() => {
+          setVisible(false);
+        }}
+        bodyStyle={{
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+          // maxHeight: '80vh',
+        }}
+      >
+        <div>
+          <PlayerDetail />
+        </div>
+      </Popup>
     </div>
   );
 };

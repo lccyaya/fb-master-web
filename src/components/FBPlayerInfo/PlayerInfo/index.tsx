@@ -78,7 +78,9 @@ const PlayerInfo = (props: Props) => {
                                 </div>
                                 <div className={styles.teacher}>
                                   {Position(item?.position)}
-                                  <div className={styles.home_rating}>{item?.rating}</div>
+                                  {item?.rating !== '0.0' && (
+                                    <span className={styles.home_rating}>{item?.rating}</span>
+                                  )}
                                   <div style={{ width: 20 }}>
                                     {item?.incidents?.map((item, index) => {
                                       return (
@@ -131,10 +133,34 @@ const PlayerInfo = (props: Props) => {
                               <div style={{ marginTop: 5 }}>{item.shirt_number}</div>
                             </div>
                             <div className={styles.text}>
-                              <div className={styles.name}>{item?.name}</div>
+                              <div className={styles.name}>
+                                {item?.name}
+                                <div style={{ width: 20 }}>
+                                  {item?.incidents?.map((item, index) => {
+                                    return (
+                                      <div key={index}>
+                                        {item.type == 9 && <FBFootball type={item.type} />}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
                               <div className={styles.teacher}>
                                 {Position(item?.position)}
-                                <span className={styles.away_rating}>{item?.rating}</span>
+                                {item?.rating !== '0.0' && (
+                                  <span className={styles.away_rating}>{item?.rating}</span>
+                                )}
+
+                                <div style={{ width: 20 }}>
+                                  {item?.incidents?.map((item, index) => {
+                                    return (
+                                      <div key={index}>
+                                        {item.type !== 9 && <FBFootball type={item.type} />}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             </div>
                           </div>

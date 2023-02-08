@@ -38,7 +38,7 @@ const PlayerInjured = (props: Props) => {
           {' '}
           <Grid.Item>
             <Grid columns={1}>
-              {data.home_absence.map((item) => {
+              {data?.home_absence?.map((item) => {
                 // eslint-disable-next-line react/jsx-key
                 return (
                   <div key={item.id}>
@@ -64,7 +64,7 @@ const PlayerInjured = (props: Props) => {
 
         <Grid.Item>
           <Grid columns={1}>
-            {data.away_absence.map((item) => {
+            {data?.away_absence?.map((item) => {
               // eslint-disable-next-line react/jsx-key
               return (
                 <div key={item.id}>

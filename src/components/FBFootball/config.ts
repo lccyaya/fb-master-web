@@ -10,7 +10,9 @@ import RedCard from '@/assets/match/state/redp_state.png';
 import Goal from '@/assets/match/state/win_state.png';
 
 // 换人
-import Substitution from '@/assets/icon/status_substitution.svg';
+// import Substitution from '@/assets/icon/status_substitution.svg';
+// import Substitution from '@/assets/match/state/lh_down_state.png';
+import Substitution from '@/assets/match/state/lh_up_state.png';
 // 点球
 // import PenaltyKick from '@/assets/icon/status_spot.svg';
 // 新icon的点球

@@ -6,10 +6,44 @@
     justify-content: space-between;
     flex-direction: column;
 
+    .title_flex {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .title_tip {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        color: #999999;
+      }
+
+      .title_flex_tip {
+        display: flex;
+      }
+
+      .title_tab {
+        background-color: #E8E8E8;
+        border-radius: 20px;
+
+        :global .adm-capsule-tabs-tab-active {
+          background-color: #fff;
+          color: #333333;
+        }
+
+        // :global .adm-capsule-tabs-tab {
+        //   background-color: #E8E8E8;
+        //   color: #333333;
+        // }
+      }
+    }
+
     .formatStr {
       display: flex;
       justify-content: space-between;
       margin: 12px 0 8px 0;
+
       .formatInfo {
         display: flex;
         color: @font-color-6;

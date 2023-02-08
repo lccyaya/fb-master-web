@@ -16,20 +16,15 @@ const Substitutes = (props: Props) => {
 
   return (
     <div className={styles.substitutes}>
-      <FBTitle
-        logo={true}
-        size="18px"
-        color="#45494C"
-        title={<FormattedMessage id="key_bench_lineup" />}
-      />
+      <FBTitle logo={true} title={<FormattedMessage id="key_bench_lineup" />} />
       <PlayerInfo match={match} data={data} />
-      <FBTitle
-        logo={true}
-        size="18px"
-        color="#45494C"
-        title={<FormattedMessage id="key_absence_db" />}
-      />
-      <PlayerInjured match={match} data={data} />
+
+      {data?.home_absence?.length > 0 || data?.away_absence?.length > 0 ? (
+        <div>
+          <FBTitle logo={true} title={<FormattedMessage id="key_absence_db" />} />
+          <PlayerInjured match={match} data={data} />
+        </div>
+      ) : null}
     </div>
   );
 };

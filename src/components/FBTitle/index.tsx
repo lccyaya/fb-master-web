@@ -11,7 +11,10 @@ const FBTitle = (props: Props) => {
   return (
     <div
       className={styles['font_size']}
-      style={{ fontSize: props.size ? props.size : '', color: props.color ? props.color : '' }}
+      style={{
+        fontSize: props.size ? props.size : '18px',
+        color: props.color ? props.color : '#45494C',
+      }}
     >
       <div className={props.logo ? styles.mobileStatTitle_title : ''}>
         <div className={props.logo ? styles.title_logo : ''} />
