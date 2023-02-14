@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, Space } from 'antd';
 import { Popup } from 'antd-mobile';
-
+import { Position, rating } from '@/utils/match';
 import styles from './index.less';
 import * as matchService from '@/services/match';
 import defaultAvatar from '@/assets/icon/avatar.svg';
@@ -55,9 +55,11 @@ const Court: React.FC<ICourt> = (props) => {
         <div className={styles.info}>
           {/* <span className={styles.number}>{props.shirt_number}</span> */}
           <span className={styles.name}>{props.name}</span>
-          <div className={props.isHome ? styles.home_rating : styles.away_rating}>
-            {props.rating}
-          </div>
+          {rating(props.rating) && (
+            <div className={props.isHome ? styles.home_rating : styles.away_rating}>
+              {props.rating}
+            </div>
+          )}
         </div>
       </div>
       <Popup

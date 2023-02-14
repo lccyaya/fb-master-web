@@ -28,18 +28,31 @@ export const ABTEST_UN_LOGGED_NAME = 'ABTEST_UN_LOGGED_VERSION';
 
 export enum STATS_CODE {
   // 技术统计状态码
+  Goal = 1, // 进球
+  Corner = 2, // 角球
+  YellowCard = 3, // 黄牌
+  RedCard = 4, // 红牌
+  Offside = 5, // 越位
+  AnyBall = 6, // 任意球
+  PenaltyKick = 8, // 点球
+  Substitution = 9, // 换人
+  YellowRed = 15, // 两黄变红
+  PointSphere = 16, // 点球未进
+  OwnGoal = 17, // 乌龙球
+  Assist = 18, // 助攻
   ShotsOnTarget = 21, // 射正次数
   ShotsOffTarget = 22, // 射偏次数
-  Possession = 25, // 控球率
   Attack = 23, // 进攻
   DangerousAttack = 24, // 危险进攻
-  Corner = 2, // 角球
-  RedCard = 4, // 红牌
-  YellowCard = 3, // 黄牌
-  Substitution = 9, // 换人
-  Goal = 1, // 进球
-  PenaltyKick = 8, // 点球
-  OwnGoal = 17, // 乌龙球
+  Possession = 25, // 控球率
+  VAR = 28, // 视频助理裁判
+  PenaltyKickPK = 29, // 点球(点球大战)(type_v2字段返回)
+  PenaltyKickNo = 30, // 点球未进(点球大战)(type_v2字段返回)
+
+
+
+
+
 }
 
 export enum POP_POSITION_PC {

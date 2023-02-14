@@ -50,7 +50,7 @@ const PlayerInjured = (props: Props) => {
                         <div className={styles.text}>
                           <div className={styles.name}>{item?.name}</div>
                           <div className={styles.teacher}>
-                            {Position(item?.position)}｜{item?.reason}
+                            {Position(item?.position)}｜{item.reason ? item.reason : '受伤'}
                           </div>
                         </div>
                       </div>
@@ -76,7 +76,7 @@ const PlayerInjured = (props: Props) => {
                       <div className={styles.text}>
                         <div className={styles.name}>{item?.name}</div>
                         <div className={styles.teacher}>
-                          {Position(item?.position)}｜{item?.reason}
+                          {Position(item?.position)}｜{item.reason ? item.reason : '受伤'}
                         </div>
                       </div>
                       <div>

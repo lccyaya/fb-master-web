@@ -153,6 +153,9 @@ export default {
     "key_future_match": "未来三场赛事",
     "key_attack_defenseh": "攻防对比",
     "key_Injured_defenseh": "伤停对比",
+    "key_baseInfo": "能力值",
+    "key_transfer_record": "转会记录",
+    "key_honour_record": "荣誉记录",
     "key_Now_info": "最新资讯",
     "key_handicap": "让球数",
     "key_have_account": "已经有账号了？",
@@ -487,4 +490,7 @@ export default {
     "key_jingcai": "竞彩",
     "key_beidan": "北单",
     "key_importance": "重要",
+    "key_new_goalkeeper": "门将",
+    "key_pass_ball": "传球",
+    "key_guard": "防守",
 }

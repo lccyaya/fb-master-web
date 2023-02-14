@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styles from './index.less';
 import { Grid } from 'antd-mobile';
 import FBFootball from '@/components/FBFootball/index';
-import { Position } from '@/utils/match';
+import { Position, rating } from '@/utils/match';
 
 type Props = {
   data: any;
@@ -70,7 +70,9 @@ const PlayerInfo = (props: Props) => {
                                     {item?.incidents?.map((item, index) => {
                                       return (
                                         <div key={index}>
-                                          {item.type == 9 && <FBFootball type={item.type} />}
+                                          {item.type == 9 && (
+                                            <FBFootball type={item.type} isUp={1} />
+                                          )}
                                         </div>
                                       );
                                     })}
@@ -78,10 +80,11 @@ const PlayerInfo = (props: Props) => {
                                 </div>
                                 <div className={styles.teacher}>
                                   {Position(item?.position)}
-                                  {item?.rating !== '0.0' && (
+
+                                  {rating(item?.rating) && (
                                     <span className={styles.home_rating}>{item?.rating}</span>
                                   )}
-                                  <div style={{ width: 20 }}>
+                                  <div style={{ width: 20, display: 'flex' }}>
                                     {item?.incidents?.map((item, index) => {
                                       return (
                                         <div key={index}>
@@ -139,7 +142,7 @@ const PlayerInfo = (props: Props) => {
                                   {item?.incidents?.map((item, index) => {
                                     return (
                                       <div key={index}>
-                                        {item.type == 9 && <FBFootball type={item.type} />}
+                                        {item.type == 9 && <FBFootball type={item.type} isUp={1} />}
                                       </div>
                                     );
                                   })}
@@ -152,7 +155,7 @@ const PlayerInfo = (props: Props) => {
                                   <span className={styles.away_rating}>{item?.rating}</span>
                                 )}
 
-                                <div style={{ width: 20 }}>
+                                <div style={{ width: 20, display: 'flex' }}>
                                   {item?.incidents?.map((item, index) => {
                                     return (
                                       <div key={index}>

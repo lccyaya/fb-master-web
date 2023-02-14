@@ -5,14 +5,15 @@ import { State } from './config';
 
 type Props = {
   type: number;
+  isUp?: number;
 };
 
 const FBFootball = (props: Props) => {
-  const { type } = props;
+  const { type, isUp } = props;
 
   return (
     <div>
-      <img className={styles.football_img} src={State(type)} alt="" />
+      <img className={styles.football_img} src={State(type, isUp)} alt="" />
     </div>
   );
 };

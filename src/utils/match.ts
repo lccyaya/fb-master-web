@@ -446,7 +446,7 @@ export function Position(state: string) {
   }
 }
 
-// 球员位置
+// 球员身价
 export function playerValue(num: number) {
   if (num == 0) {
     return "-"
@@ -456,6 +456,17 @@ export function playerValue(num: number) {
     return (num / 10000).toFixed(0) + "万"
   }
 }
+
+// 球员评分
+export function rating(num: string) {
+
+  if (Number(num) > 0) {
+    return num
+  } else {
+    return null
+  }
+}
+
 
 
 

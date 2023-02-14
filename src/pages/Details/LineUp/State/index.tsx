@@ -1,5 +1,5 @@
 import React from 'react';
-import { state } from './config';
+import { state } from '@/components/FBFootball/config';
 import styles from './index.less';
 import { Grid } from 'antd-mobile';
 
@@ -14,7 +14,7 @@ const State = (props: Props) => {
             <div className={styles.lineup_state} key={index}>
               <Grid.Item>
                 <div className={styles.lineup_img}>
-                  <img className={styles.img} src={item.img} alt="" />
+                  <img className={styles.img} src={item?.img} alt="" />
                   {item.text}
                 </div>
               </Grid.Item>

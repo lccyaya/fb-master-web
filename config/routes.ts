@@ -172,6 +172,11 @@
               cate: 'match_detail',
             },
             {
+              path: '/:locale/player/:matchId',
+              component: '../pages/PlayerInfo',
+              cate: 'match_detail',
+            },
+            {
               path: '/:locale/datadetails/:matchId',
               component: '../pages/Details/IndexTab/datadetails',
               cate: 'match_datadetails',

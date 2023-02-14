@@ -13,7 +13,7 @@ const PlayerInfo = (props: Props) => {
   return (
     <div className={styles.player_info}>
       <div>
-        <InfoHeader></InfoHeader>
+        <InfoHeader icon={true} rate={true}></InfoHeader>
 
         <div className={styles.title_flex_tip}>
           <FBTitle logo={true} title={<FormattedMessage id="key_first_data" />} />
