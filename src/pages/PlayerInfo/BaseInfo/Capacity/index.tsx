@@ -12,12 +12,18 @@ const Capacity = (props: Props) => {
     radar: {
       // shape: 'circle',
       indicator: [
-        { name: '进攻', max: 6500 },
-        { name: '技术', max: 16000 },
-        { name: '战术', max: 30000 },
-        { name: '防守', max: 38000 },
-        { name: '意识', max: 52000 },
-        { name: '创造力', max: 25000 },
+        // { name: '进攻', max: 6500 },
+        // { name: '技术', max: 16000 },
+        // { name: '战术', max: 30000 },
+        // { name: '防守', max: 38000 },
+        // { name: '意识', max: 52000 },
+        // { name: '创造力', max: 25000 },
+        { name: '进攻' },
+        { name: '技术' },
+        { name: '战术' },
+        { name: '防守' },
+        { name: '意识' },
+        { name: '创造力' },
       ],
       splitLine: {
         show: false,
@@ -66,7 +72,6 @@ const Capacity = (props: Props) => {
 
         lineStyle: {
           width: 1.5,
-
           splitArea: {
             show: false,
           },
@@ -74,7 +79,7 @@ const Capacity = (props: Props) => {
 
         data: [
           {
-            value: [4200, 3000, 20000, 35000, 50000, 18000],
+            value: [4200, 3000, 13500, 3500, 50000, 18000],
             // name: 'Allocated Budget',
             areaStyle: {
               color: 'rgba(89, 133, 255, 0.22)',
