@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PlayerTechnology from '@/components/FBPlayerInfo/PlayerTechnology';
+import FBShadowTab from '@/components/FBShadowTab';
 import styles from './index.less';
 import { FormattedMessage } from 'umi';
 import FBTitle from '@/components/FBTitle';
+import { Tabs } from 'antd-mobile';
+
 import Date from './Date';
 type Props = {};
 
 const Technology = (props: Props) => {
+  const [activeKey, setActiveKey] = useState('1');
+  const tab = [
+    {
+      key: '1',
+      title: '联赛',
+    },
+    {
+      key: '2',
+      title: '杯赛',
+    },
+  ];
+  const onChangeTab = (key: string) => {
+    console.log(key, 'kskskksks');
+    setActiveKey(key);
+  };
   const onClick = (key) => {
     console.log(key, 'ssss');
   };
@@ -14,7 +32,9 @@ const Technology = (props: Props) => {
   return (
     <div className={styles.technology}>
       <div className={styles.technology_tab}>
-        <div>联赛 杯赛 国家队 </div>
+        <div>
+          <FBShadowTab tab={tab} activeKey={activeKey} onChangeTab={onChangeTab} />
+        </div>
         <Date onClick={onClick}></Date>
       </div>
       <div className={styles.technology_tab}>

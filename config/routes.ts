@@ -174,7 +174,12 @@
             {
               path: '/:locale/player/:matchId',
               component: '../pages/PlayerInfo',
-              cate: 'match_detail',
+              cate: 'player_detail',
+            },
+            {
+              path: '/:locale/transferrecord/:id',
+              component: '../pages/TransfeRecord',
+              cate: 'transferrecord_detail',
             },
             {
               path: '/:locale/datadetails/:matchId',

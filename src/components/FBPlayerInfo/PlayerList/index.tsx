@@ -8,14 +8,14 @@ const PlayerList = (props: Props) => {
     <div className={styles.player_info_card}>
       <div className={styles.player_info_card_flex}>
         <div className={styles.player_info_card_text}>
-          <div>巴西</div>
+          <div className={styles.text}>巴西</div>
           <img className={styles.img} src="" alt="" />
           <img className={styles.img} src="" alt="" />
           <img className={styles.img} src="" alt="" />
-          <div>巴西</div>
+          <div className={styles.text}>巴西</div>
         </div>
         <div className={styles.player_info_card_value}>
-          <div>转会</div>
+          <div>转会 4500万</div>
           <div className={styles.player_info_data}>2023-01-6</div>
         </div>
       </div>
