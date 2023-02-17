@@ -21,11 +21,24 @@ const Technology = (props: Props) => {
       title: '杯赛',
     },
   ];
+  const formatted = [
+    {
+      key: 'key_new_goalkeeper',
+    },
+    {
+      key: 'key_attack',
+    },
+    {
+      key: 'key_pass_ball',
+    },
+    {
+      key: 'key_guard',
+    },
+  ];
   const onChangeTab = (key: string) => {
-    console.log(key, 'kskskksks');
     setActiveKey(key);
   };
-  const onClick = (key) => {
+  const onClick = (key: string) => {
     console.log(key, 'ssss');
   };
 
@@ -44,27 +57,17 @@ const Technology = (props: Props) => {
       <div style={{ padding: '12px' }}>
         <PlayerTechnology />
       </div>
-
-      <div className={styles.demoblock_height} />
-      <div style={{ padding: '12px' }}>
-        <FBTitle logo={true} title={<FormattedMessage id="key_new_goalkeeper" />} />
-        <PlayerTechnology />
-      </div>
-      <div className={styles.demoblock_height} />
-      <div style={{ padding: '12px' }}>
-        <FBTitle logo={true} title={<FormattedMessage id="key_attack" />} />
-        <PlayerTechnology />
-      </div>
-      <div className={styles.demoblock_height} />
-      <div style={{ padding: '12px' }}>
-        <FBTitle logo={true} title={<FormattedMessage id="key_pass_ball" />} />
-        <PlayerTechnology />
-      </div>
-      <div className={styles.demoblock_height} />
-      <div style={{ padding: '12px' }}>
-        <FBTitle logo={true} title={<FormattedMessage id="key_guard" />} />
-        <PlayerTechnology />
-      </div>
+      {formatted.map((item) => {
+        return (
+          <div key={item.key}>
+            <div className={styles.demoblock_height} />
+            <div style={{ padding: '12px' }}>
+              <FBTitle logo={true} title={<FormattedMessage id={item.key} />} />
+              <PlayerTechnology />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
