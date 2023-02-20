@@ -67,7 +67,7 @@ const Table = (props: Props) => {
                 <div
                   style={{
                     marginRight: index == 2 ? 5 : 0,
-                    background: Math.max(...data?.away?.dis) == item ? '#D7E8E1' : '',
+                    background: item != 0 && Math.max(...data?.away?.dis) == item ? '#D7E8E1' : '',
                   }}
                   key={index}
                   className={styles.oddstype_list}
