@@ -30,7 +30,26 @@ const PlayerMiniGround = (props: Props) => {
         </div>
       </div>
 
-      <div className={styles.right}>c</div>
+      <div className={styles.right}>
+        <div className={styles.position}>
+          <div className={styles.right_position}>DL</div>
+          <div className={styles.right_position}>ML</div>
+          <div className={styles.right_position}>LW</div>
+        </div>
+        <div className={styles.position} style={{ width: 165 }}>
+          <div className={styles.right_position}>GK</div>
+          <div className={styles.right_position}>DC</div>
+          <div className={styles.right_position}>DM</div>
+          <div className={styles.right_position}>MC</div>
+          <div className={styles.right_position}>AM</div>
+          <div className={styles.right_position}>ST</div>
+        </div>
+        <div className={styles.position}>
+          <div className={styles.right_position}>DR</div>
+          <div className={styles.right_position}>MR</div>
+          <div className={styles.right_position}>RW</div>
+        </div>
+      </div>
     </div>
   );
 };

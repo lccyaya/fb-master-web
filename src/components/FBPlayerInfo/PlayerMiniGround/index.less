@@ -28,8 +28,34 @@
     }
 
     .right {
-        width: 50%;
+        width: 183px;
         height: 120px;
-        background-color: aquamarine;
+        background-image: url("~@/assets/player/mini_ground.png");
+        background-position: 100% 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+
+        .position {
+            width: 140px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .right_position {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
