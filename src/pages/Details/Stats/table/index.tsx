@@ -76,16 +76,16 @@ const TablePage = (props: Props) => {
           dataSource={dataSource}
           rowKey={rowKey}
 
-        // onRow={record => {
-        //     return {
-        //         onClick: event => {
-        //             console.log(record, "pppp");
+          // onRow={record => {
+          //     return {
+          //         onClick: event => {
+          //             console.log(record, "pppp");
 
-        //             history.push(`/zh/teamdetails/${record.team_id}`)
-        //         }, // 点击行
+          //             history.push(`/zh/teamdetails/${record.team_id}`)
+          //         }, // 点击行
 
-        //     };
-        // }}
+          //     };
+          // }}
         />
       </ConfigProvider>
     </div>

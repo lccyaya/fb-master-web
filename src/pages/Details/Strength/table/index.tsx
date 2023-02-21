@@ -84,7 +84,7 @@ const Table = (props: Props) => {
                     </div>
                     <div className={styles.center_text}>{item.text}</div>
                     <div className={styles.right_text}>
-                      {data?.guardh[item.value]} {item.unit}
+                      {data?.guarda[item.value]} {item.unit}
                     </div>
                   </div>
                 );

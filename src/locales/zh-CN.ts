@@ -150,7 +150,7 @@ export default {
     "key_attack_defenseh": "攻防对比",
     "key_Injured_defenseh": "伤停对比",
     "key_Now_info": "最新资讯",
-    "key_handicap": "让球数",
+    "key_handicap": "让球",
     "key_have_account": "已经有账号了？",
     "key_have_already_voter": "抱歉，您已经投过票了",
     "key_have_followed_matches": "表示该日有您关注的比赛",

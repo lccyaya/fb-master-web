@@ -57,7 +57,7 @@ const Table = (props: Props) => {
       <div className={styles.oddstype_box}>
         <div className={styles.oddstype_title}>{data?.away?.name}</div>
         <div className={styles.oddstype}>
-          <div style={{ width: '30%', textAlign: 'right' }}>
+          <div style={{ width: '30%', textAlign: 'right', fontSize: 12 }}>
             {data?.away?.total} ({data?.away?.up}|{data?.away?.lower})
           </div>
 
