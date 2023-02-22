@@ -34,7 +34,7 @@ const Injured = (props: Props) => {
   }, []);
   return (
     <div>
-      {data?.home?.injury.length > 0 || data?.away?.injury.length > 0 ? (
+      {data?.home?.injury?.length > 0 || data?.away?.injury?.length > 0 ? (
         <div>
           <FBTitle
             logo={true}

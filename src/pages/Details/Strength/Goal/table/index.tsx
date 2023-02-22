@@ -16,15 +16,15 @@ const Table = (props: Props) => {
   return (
     <div className={styles.oddstype_main}>
       <div className={styles.oddstype_box} style={{ height: 30 }}>
-        <div />
+        <div style={{ width: '30%' }} />
         <div className={styles.oddstype_time}>
-          <span className={styles.oddstype_time}>00`</span>
-          <span className={styles.oddstype_time}>15`</span>
-          <span className={styles.oddstype_time}>30`</span>
-          <span className={styles.oddstype_time}>45`</span>
-          <span className={styles.oddstype_time}>60`</span>
-          <span className={styles.oddstype_time}>75`</span>
-          <span className={styles.oddstype_time}>90`</span>
+          <div className={styles.oddstype_time_list}>00`</div>
+          <div className={styles.oddstype_time_list}>15`</div>
+          <div className={styles.oddstype_time_list}>30`</div>
+          <div className={styles.oddstype_time_list}>45`</div>
+          <div className={styles.oddstype_time_list}>60`</div>
+          <div className={styles.oddstype_time_list}>75`</div>
+          <div className={styles.oddstype_time_list}>90`</div>
         </div>
       </div>
 

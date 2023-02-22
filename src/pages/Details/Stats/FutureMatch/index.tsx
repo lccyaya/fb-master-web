@@ -25,12 +25,13 @@ const Ranking = (props: Props) => {
         ),
         dataIndex: 'competition_name',
         key: 'competition_name',
-        width: 80,
+        width: 70,
         align: 'center',
       },
 
       {
         title: '日期',
+        width: 80,
         dataIndex: 'match_time',
         key: 'match_time',
         align: 'center',
@@ -58,6 +59,7 @@ const Ranking = (props: Props) => {
       },
       {
         title: '间隔',
+        width: 40,
         dataIndex: 'interval',
         key: 'interval',
         align: 'center',

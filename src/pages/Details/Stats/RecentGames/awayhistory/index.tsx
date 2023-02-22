@@ -25,7 +25,7 @@ const Ranking = (props: Props) => {
         dataIndex: 'competition_name',
         key: 'competition_name',
         align: 'center',
-
+        width: 70,
         render: (text, record) => (
           <div>
             {text}
@@ -38,7 +38,7 @@ const Ranking = (props: Props) => {
         title: '主队',
         dataIndex: 'home',
         key: 'home',
-        width: 80,
+        width: 70,
         align: 'center',
         render: (text, record) => (
           <div
@@ -53,7 +53,7 @@ const Ranking = (props: Props) => {
         title: '',
         dataIndex: 'home',
         key: 'home',
-        width: 20,
+        width: 30,
         align: 'center',
         render: (text, record) => (
           <div className={styles.bfstyle}>
@@ -88,7 +88,7 @@ const Ranking = (props: Props) => {
       {
         title: '客队',
         dataIndex: 'away',
-        width: 80,
+        width: 70,
         key: 'away',
         align: 'center',
         render: (text, record) => (
@@ -103,7 +103,7 @@ const Ranking = (props: Props) => {
       {
         title: '盘',
         dataIndex: 'asia',
-
+        width: 35,
         align: 'center',
         render: (text) => (
           <div style={{ color: Color.numColor(text.name) }}>
@@ -116,7 +116,7 @@ const Ranking = (props: Props) => {
       {
         title: '进',
         dataIndex: 'bs',
-
+        width: 35,
         align: 'center',
         render: (text, record) => (
           <div style={{ color: Color.numColor(text.name) }}>
@@ -128,6 +128,7 @@ const Ranking = (props: Props) => {
       {
         title: '角',
         dataIndex: 'cr',
+        width: 35,
         align: 'center',
         render: (text) => (
           <div>
