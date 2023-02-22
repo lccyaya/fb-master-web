@@ -64,7 +64,6 @@ const Ranking = (props: Props) => {
         <Spin spinning={loading}>
           <Table data={data} />
         </Spin>
-
         <div style={{ height: 10 }} />
         <Spin spinning={loading}>
           <Table type="shou" data={data} />

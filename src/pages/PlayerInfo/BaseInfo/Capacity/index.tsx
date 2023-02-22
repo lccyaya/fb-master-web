@@ -35,7 +35,7 @@ const Capacity = (props: Props) => {
       },
       splitArea: {
         areaStyle: {
-          color: ['#BDCBEC', '#E5EAF2', '#EFF2F7', '#F5F6F9', '#FAFAFC'],
+          color: ['#DADFE6', '#E5EAF2', '#EFF2F7', '#F5F6F9', '#FAFAFC'],
         },
       },
       nameGap: 2,
