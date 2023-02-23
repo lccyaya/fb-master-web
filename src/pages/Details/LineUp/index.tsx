@@ -110,7 +110,7 @@ const LineUp: React.FC<IProps> = (props) => {
                   <FBTitle logo={true} title={<FormattedMessage id="key_line_up" />} />
                   <div className={styles.title_tip}>（点击球员查看个人统计）</div>
                 </div>
-                <div className={styles.title_tab} style={{ width: 170 }}>
+                <div className={styles.title_tab} style={{ width: 160 }}>
                   <FBWordCopTab
                     list={tab}
                     mini

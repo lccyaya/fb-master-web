@@ -19,7 +19,7 @@ const TransferRecord = (props: Props) => {
           }}
         >
           查看更多
-          <IconFont type="icon-zhankai2" color="#FA5900" size={10} />
+          <IconFont type="icon-jiantouyou" color="#848494" size={10} />
         </div>
       </div>
       <div className={styles.transfer_record_list}>
