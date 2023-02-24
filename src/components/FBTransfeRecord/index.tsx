@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './index.less';
-type Props = {};
+type Props = {
+  activeKey: string;
+};
 
 const FBTransfeRecord = (props: Props) => {
-  const { configs, data } = props;
+  const { configs, data, activeKey } = props;
   return (
     <div className={styles.player_info_card}>
       <div className={styles.player_info_card_flex}>
@@ -22,14 +24,21 @@ const FBTransfeRecord = (props: Props) => {
           <div className={styles.player_info_card_text}>
             <img className={styles.transfe_record_img} src="" alt="" />
             <div>
+              {}
               <div className={styles.text}>水晶宫</div>
               <div className={styles.info}>2023-01-6</div>
             </div>
           </div>
         </div>
         <div className={styles.player_info_card_value}>
-          <div>转会</div>
-          <div className={styles.player_info_data}>4000万</div>
+          {!activeKey ? (
+            <div>
+              <div>转会</div>
+              <div className={styles.player_info_data}>4000万</div>
+            </div>
+          ) : (
+            <div>转会</div>
+          )}
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ const TransfeRecord = (props: Props) => {
       )}
       {activeKey == '2' && (
         <div className={styles.content}>
-          <FBTransfeRecord />
+          <FBTransfeRecord activeKey={activeKey} />
         </div>
       )}
     </div>

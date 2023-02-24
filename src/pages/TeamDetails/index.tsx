@@ -17,6 +17,8 @@ import { getDateData } from '@/components/MatchList';
 import { checkIsPhone } from '@/utils/utils';
 import PopupLogin from '@/components/PopupLogin';
 import Notification from '@/components/Notification';
+import { NavBar } from 'antd-mobile';
+import IconFont from '@/components/IconFont';
 
 type TabType = 'fixtures' | 'players';
 
@@ -112,12 +114,14 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
       />
       <Row className={styles.headerArea}>
         <Col className={styles.head} xs={24} sm={24} md={24} lg={15} xl={15}>
-          <div className={styles.back} onClick={handleBack}>
+          {/* <div className={styles.back} onClick={handleBack}>
             <ArrowLeftOutlined className={styles.arrow} />
             <div className={styles.text}>
               <FormattedMessage id="key_back" />
             </div>
-          </div>
+          </div> */}
+          <NavBar onBack={handleBack} />
+
           {teamSubscribed ? (
             <PopupLogin
               onLogin={() => {
@@ -126,6 +130,7 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
               }}
             >
               <Button type="dashed" className={styles.followButton}>
+                <IconFont type="icon-tianjia" color="FA5900" size={10} />
                 <FormattedMessage id="key_following" />
               </Button>
             </PopupLogin>
@@ -138,19 +143,25 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
               }}
             >
               <Button type="primary" className={styles.followButton}>
+                <IconFont type="icon-tianjia" color="FA5900" size={10} />
                 <FormattedMessage id="key_follow" />
               </Button>
             </PopupLogin>
           )}
         </Col>
+        <div className={styles.detailCard}>
+          <img className={styles.logo} src={teamLogo || emptyLogo} />
+          <div className={styles.text}>{teamName}</div>
+        </div>
+        <div>dddd</div>
       </Row>
       <div className={styles.main}>
         <Row className={styles.container} gutter={24} style={checkIsPhone() ? { margin: 0 } : {}}>
           <Col className={styles.left} xs={24} sm={24} md={24} lg={15} xl={15}>
-            <div className={styles.detailCard}>
+            {/* <div className={styles.detailCard}>
               <img className={styles.logo} src={teamLogo || emptyLogo} />
               <div className={styles.text}>{teamName}</div>
-            </div>
+            </div> */}
             <Row className={styles.header}>
               <CheckableTag
                 className={styles.tabButton}
