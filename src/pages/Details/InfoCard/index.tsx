@@ -196,7 +196,9 @@ export default (props: {
                 <div className={styles.no_nav_title_logo}>
                   <img src={match.home_team_logo || emptyLogo} />
                 </div>
-                <div>VS</div>
+                <span>{showScore ? final.home : ''}</span>
+                <span style={{ margin: '0 5px' }}>{showScore ? ':' : 'VS'}</span>
+                <span>{showScore ? final.away : ''}</span>
                 <div className={styles.no_nav_title_logo}>
                   <img src={match.away_team_logo || emptyLogo} />
                 </div>

@@ -31,12 +31,13 @@ const Ranking = (props: Props) => {
         dataIndex: 'label',
         key: 'label',
         align: 'center',
-        width: 80,
+        width: 70,
         render: (text) => <div>{MatchRanking(text)}</div>,
       },
 
       {
         title: '赛',
+        width: 40,
         dataIndex: 'played',
         key: 'played',
         align: 'center',
@@ -45,7 +46,7 @@ const Ranking = (props: Props) => {
       {
         title: '胜/平/负',
         dataIndex: 'won',
-
+        width: 70,
         key: 'won',
         align: 'center',
         render: (text, record) => (
@@ -57,7 +58,7 @@ const Ranking = (props: Props) => {
       {
         title: '进/失/净',
         dataIndex: 'goals',
-
+        width: 70,
         align: 'center',
         render: (text, record) => (
           <div>
@@ -68,11 +69,12 @@ const Ranking = (props: Props) => {
       {
         title: '积分',
         dataIndex: 'pts',
-
+        width: 40,
         align: 'center',
       },
       {
         title: '排名',
+        width: 40,
         dataIndex: 'position',
         align: 'center',
         // render: (text, record, index) => <div style={{ color: '#7E1132' }}>{text}</div>,
@@ -85,7 +87,6 @@ const Ranking = (props: Props) => {
 
     // eslint-disable-next-line @typescript-eslint/no-for-in-array
     if (match.home?.all) {
-
       // eslint-disable-next-line @typescript-eslint/no-for-in-array
       for (const key in match.home) {
         match.home[key].label = key;

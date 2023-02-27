@@ -16,15 +16,15 @@ const Table = (props: Props) => {
   return (
     <div className={styles.oddstype_main}>
       <div className={styles.oddstype_box} style={{ height: 30 }}>
-        <div />
+        <div style={{ width: '30%' }} />
         <div className={styles.oddstype_time}>
-          <span className={styles.oddstype_time}>00`</span>
-          <span className={styles.oddstype_time}>15`</span>
-          <span className={styles.oddstype_time}>30`</span>
-          <span className={styles.oddstype_time}>45`</span>
-          <span className={styles.oddstype_time}>60`</span>
-          <span className={styles.oddstype_time}>75`</span>
-          <span className={styles.oddstype_time}>90`</span>
+          <div className={styles.oddstype_time_list}>00`</div>
+          <div className={styles.oddstype_time_list}>15`</div>
+          <div className={styles.oddstype_time_list}>30`</div>
+          <div className={styles.oddstype_time_list}>45`</div>
+          <div className={styles.oddstype_time_list}>60`</div>
+          <div className={styles.oddstype_time_list}>75`</div>
+          <div className={styles.oddstype_time_list}>90`</div>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ const Table = (props: Props) => {
                 <div
                   style={{
                     marginRight: index == 2 ? 5 : 0,
-                    background: Math.max(...data?.home?.dis) == item ? '#FFE2E2' : '',
+                    background: item != 0 && Math.max(...data?.home?.dis) == item ? '#FFE2E2' : '',
                   }}
                   key={index}
                   className={styles.oddstype_list}
@@ -57,7 +57,7 @@ const Table = (props: Props) => {
       <div className={styles.oddstype_box}>
         <div className={styles.oddstype_title}>{data?.away?.name}</div>
         <div className={styles.oddstype}>
-          <div style={{ width: '30%', textAlign: 'right' }}>
+          <div style={{ width: '30%', textAlign: 'right', fontSize: 12 }}>
             {data?.away?.total} ({data?.away?.up}|{data?.away?.lower})
           </div>
 
@@ -67,7 +67,7 @@ const Table = (props: Props) => {
                 <div
                   style={{
                     marginRight: index == 2 ? 5 : 0,
-                    background: Math.max(...data?.away?.dis) == item ? '#D7E8E1' : '',
+                    background: item != 0 && Math.max(...data?.away?.dis) == item ? '#D7E8E1' : '',
                   }}
                   key={index}
                   className={styles.oddstype_list}
