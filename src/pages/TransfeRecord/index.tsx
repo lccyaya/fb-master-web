@@ -4,6 +4,7 @@ import { NavBar } from 'antd-mobile';
 import styles from './index.less';
 import { useHistory } from 'umi';
 import FBTransfeRecord from '@/components/FBTransfeRecord';
+import FBLineTab from '@/components/FBLineTab';
 type Props = {};
 
 const TransfeRecord = (props: Props) => {
@@ -13,6 +14,12 @@ const TransfeRecord = (props: Props) => {
     console.log(key, 'kskskksks');
     setActiveKey(key);
   };
+  const tab = [
+    {
+      title: '球员',
+      key: '1',
+    },
+  ];
   const back = () => {
     history.goBack();
   };
@@ -21,14 +28,7 @@ const TransfeRecord = (props: Props) => {
       <div style={{ position: 'sticky', top: '0', zIndex: 10, background: '#F7F7F7' }}>
         <NavBar onBack={back}>转会记录</NavBar>
 
-        <Tabs
-          activeLineMode="fixed"
-          onChange={onChangeTab}
-          style={{ '--content-padding': '10px 0 10px 0', '--title-font-size': '16px' }}
-        >
-          <Tabs.Tab title="转入球员" key="1" />
-          <Tabs.Tab title="转出球员" key="2" />
-        </Tabs>
+        <FBLineTab tab={tab} onChangeTab={onChangeTab}></FBLineTab>
       </div>
       {activeKey == '1' && (
         <div className={styles.content}>

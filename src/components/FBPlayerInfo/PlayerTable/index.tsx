@@ -93,7 +93,11 @@ const teamplayer_columns: ColumnsType<DataType> = [
     // ellipsis: true
     render: (text, record, index) => (
       <div className={styles.team_logo}>
-        <img style={{ width: 25, height: 25, marginRight: 5 }} src={record.team_logo} alt="" />
+        <img
+          style={{ width: 25, height: 25, marginRight: 5 }}
+          src={record.team_logo ? record.team_logo : avatarImg}
+          alt=""
+        />
       </div>
     ),
   },
@@ -144,6 +148,7 @@ const PlayerTable = (props: Props) => {
       </div>
       <div className={styles.tab_team}>
         <SideBar
+          activeKey="goal"
           style={{
             '--width': '70px',
             '--height': `${innerHeight + 54}px`,

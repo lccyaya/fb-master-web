@@ -36,14 +36,10 @@ const Groupmatch = (props: Props) => {
       };
       const result = await getMatchStageList(params);
       setLoading(false);
-
       if (result.success && result?.data) {
-        // console.log([result?.data[0]]);
-
         const arr = result?.data.map((item, index) => {
           return { title: item.name, key: item.stage_id };
         });
-
         setActive(result?.data[0].stage_id);
         setCuptab(arr);
         getdatalist(result?.data[0].stage_id);
@@ -72,14 +68,17 @@ const Groupmatch = (props: Props) => {
       <div>
         <div style={{ background: '#FAFBFD', width: '100%' }}>
           {active && (
-            <div className={styles.tab}>
+            <div>
               <FBShadowTab tab={cuptab} activeKey={active.toString()} onChangeTab={onChangetab} />
             </div>
           )}
         </div>
+
         <Spin spinning={loading}>
           <Group scoresList={data} type={type} integrate={integrate} />
         </Spin>
+
+        {/* <Empty message="暂无数据" /> */}
       </div>
 
       {/* 判断是否显示规则 */}

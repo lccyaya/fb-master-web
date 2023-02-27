@@ -12,7 +12,6 @@ import styles from './index.less';
 import Trophies from './Trophies';
 import Fixtures from './Fixtures';
 import Players from './Players';
-
 import Button from 'antd/es/button';
 import { getDateData } from '@/components/MatchList';
 import { checkIsPhone } from '@/utils/utils';
@@ -20,12 +19,6 @@ import PopupLogin from '@/components/PopupLogin';
 import Notification from '@/components/Notification';
 import { NavBar } from 'antd-mobile';
 import IconFont from '@/components/IconFont';
-import FBLineTab from '@/components/FBLineTab';
-import FBTabDate from '@/components/FBTabDate';
-import Integral from './Integral';
-import Schedule from './Schedule';
-import Player from './Player';
-import LineUp from './LineUp';
 
 type TabType = 'fixtures' | 'players';
 
@@ -62,36 +55,7 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
   const [notificationVisible, setNotificationVisible] = useState(false);
 
   const { teamId } = props.match.params;
-  const [activeKey, setActiveKey] = useState('1');
-  const [curSeasonId, setCurSeasonId] = useState<any>();
-  // const history = useHistory();
-  const onChangeTab = (key: string) => {
-    console.log(key, 'kskskksks');
-    setActiveKey(key);
-  };
-  const tab = [
-    {
-      title: '资料',
-      key: '1',
-    },
-    {
-      title: '积分',
-      key: '2',
-    },
-    {
-      title: '赛程',
-      key: '3',
-    },
-    {
-      title: '阵容',
-      key: '4',
-    },
 
-    {
-      title: '球员',
-      key: '5',
-    },
-  ];
   const handleBack = () => {
     window.history.back();
   };
@@ -148,15 +112,15 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
         onCancel={() => setNotificationVisible(false)}
         onOk={() => setNotificationVisible(false)}
       />
-      <div>
-        <div className={styles.head} xs={24} sm={24} md={24} lg={15} xl={15}>
+      <Row className={styles.headerArea}>
+        <Col className={styles.head} xs={24} sm={24} md={24} lg={15} xl={15}>
           {/* <div className={styles.back} onClick={handleBack}>
             <ArrowLeftOutlined className={styles.arrow} />
             <div className={styles.text}>
               <FormattedMessage id="key_back" />
             </div>
           </div> */}
-          <NavBar style={{ color: '#fff' }} onBack={handleBack} />
+          <NavBar onBack={handleBack} />
 
           {teamSubscribed ? (
             <PopupLogin
@@ -184,34 +148,76 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
               </Button>
             </PopupLogin>
           )}
+        </Col>
+        <div className={styles.detailCard}>
+          <img className={styles.logo} src={teamLogo || emptyLogo} />
+          <div className={styles.text}>{teamName}</div>
         </div>
-        <Row className={styles.headerArea}>
-          <div className={styles.detailCard}>
-            <img className={styles.logo} src={teamLogo || emptyLogo} />
-            <div className={styles.text}>{teamName}</div>
-          </div>
-          {/* 背景信息展示 */}
-          <div>dddd</div>
-        </Row>
-
-        <div className={styles.main}>
-          <div className={styles.main_tab}>
-            <FBLineTab tab={tab} onChangeTab={onChangeTab}></FBLineTab>
-
-            <div style={{ marginRight: 12 }}>
-              <FBTabDate
-                competition_id={82}
-                curSeasonId={curSeasonId}
-                setCurSeasonId={setCurSeasonId}
-              />
+        <div>dddd</div>
+      </Row>
+      <div className={styles.main}>
+        <Row className={styles.container} gutter={24} style={checkIsPhone() ? { margin: 0 } : {}}>
+          <Col className={styles.left} xs={24} sm={24} md={24} lg={15} xl={15}>
+            {/* <div className={styles.detailCard}>
+              <img className={styles.logo} src={teamLogo || emptyLogo} />
+              <div className={styles.text}>{teamName}</div>
+            </div> */}
+            <Row className={styles.header}>
+              <CheckableTag
+                className={styles.tabButton}
+                onClick={() => setDetailType('fixtures')}
+                key="fixtures"
+                checked={detailType === 'fixtures'}
+              >
+                <FormattedMessage id="key_fixtures" />
+              </CheckableTag>
+              <CheckableTag
+                className={styles.tabButton}
+                onClick={() => setDetailType('players')}
+                checked={detailType === 'players'}
+                key="players"
+              >
+                <FormattedMessage id="key_players" />
+              </CheckableTag>
+            </Row>
+            {teamId && (
+              <div>
+                {detailType === 'fixtures' && <Fixtures data={schedualer} />}
+                {detailType === 'players' && <Players data={playersData} />}
+              </div>
+            )}
+          </Col>
+          <Col className={styles.right} xs={24} sm={24} md={24} lg={9} xl={9}>
+            <Row className={styles.title}>
+              <FormattedMessage id="key_info_tab" />
+            </Row>
+            <div className={styles.info}>
+              <Row>
+                <Col span={7} className={styles.intro}>
+                  <FormattedMessage id="key_founded_in" />
+                </Col>
+                <Col span={17} className={styles.text}>
+                  {info.founded || <FormattedMessage id="key_unknown" />}
+                </Col>
+              </Row>
+              <Row>
+                <Col span={7} className={styles.intro}>
+                  <FormattedMessage id="key_website" />
+                </Col>
+                <Col span={17} className={styles.text}>
+                  {info.website || <FormattedMessage id="key_unknown" />}
+                </Col>
+              </Row>
             </div>
-          </div>
-          {activeKey == '2' && <Integral competition_id={82} season_id={curSeasonId}></Integral>}
-
-          {activeKey == '3' && <Schedule></Schedule>}
-          {activeKey == '4' && <LineUp></LineUp>}
-          {activeKey == '5' && <Player competition_id={82} season_id={curSeasonId}></Player>}
-        </div>
+            <Row className={styles.title}>
+              <FormattedMessage id="key_trophies" />
+            </Row>
+            <Trophies data={trophies} />
+            {/* <Button className={styles.footer}>
+              <FormattedMessage id="key_view_more" />
+            </Button> */}
+          </Col>
+        </Row>
       </div>
     </Spin>
   );

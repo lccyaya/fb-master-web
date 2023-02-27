@@ -9,20 +9,22 @@ type Props = {
 const FBShadowTab = (props: Props) => {
   const { tab, onChangeTab, activeKey } = props;
   return (
-    <div className={styles.shadowtab_box}>
-      {tab.map((item) => {
-        return (
-          <div
-            onClick={() => {
-              onChangeTab(item.key);
-            }}
-            className={activeKey == item.key ? styles.shadowtab : styles.default_shadowtab}
-            key={item.key}
-          >
-            {item.title}
-          </div>
-        );
-      })}
+    <div className={styles.tab}>
+      <div className={styles.shadowtab_box}>
+        {tab.map((item) => {
+          return (
+            <div
+              onClick={() => {
+                onChangeTab(item.key);
+              }}
+              className={activeKey == item.key ? styles.shadowtab : styles.default_shadowtab}
+              key={item.key}
+            >
+              {item.title}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

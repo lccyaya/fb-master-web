@@ -6,7 +6,7 @@ import { FormattedMessage } from 'umi';
 import FBTitle from '@/components/FBTitle';
 import { Tabs } from 'antd-mobile';
 
-import Date from './Date';
+import FBTabDate from '@/components/FBTabDate';
 type Props = {};
 
 const Technology = (props: Props) => {
@@ -48,7 +48,7 @@ const Technology = (props: Props) => {
         <div>
           <FBShadowTab tab={tab} activeKey={activeKey} onChangeTab={onChangeTab} />
         </div>
-        <Date onClick={onClick} />
+        <FBTabDate onClick={onClick} />
       </div>
       <div className={styles.technology_tab}>
         <div>2022-2023</div>
