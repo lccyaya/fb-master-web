@@ -30,6 +30,7 @@ const Integral = (props: Props) => {
     return [
       {
         title: '赛事',
+        width: 70,
         dataIndex: 'competition_name',
         key: 'competition_name',
         align: 'center',
@@ -44,7 +45,7 @@ const Integral = (props: Props) => {
         title: '主队',
         dataIndex: 'home',
         key: 'home',
-        width: 80,
+        width: 70,
         align: 'center',
         render: (text, record) => (
           <div
@@ -59,7 +60,7 @@ const Integral = (props: Props) => {
         title: '',
         dataIndex: 'home',
         key: 'home',
-        width: 20,
+        width: 30,
         align: 'center',
         render: (text, record) => (
           <div className={styles.bfstyle}>
@@ -94,7 +95,7 @@ const Integral = (props: Props) => {
       {
         title: '客队',
         dataIndex: 'away',
-        width: 80,
+        width: 70,
         key: 'away',
         align: 'center',
         render: (text, record) => (
@@ -107,9 +108,9 @@ const Integral = (props: Props) => {
         ),
       },
       {
-        title: '盘',
+        title: '走',
         dataIndex: 'asia',
-
+        width: 35,
         align: 'center',
         render: (text) => (
           <div style={{ color: Color.numColor(text.name) }}>
@@ -120,9 +121,9 @@ const Integral = (props: Props) => {
       },
 
       {
-        title: '进球',
+        title: '进',
         dataIndex: 'bs',
-
+        width: 35,
         align: 'center',
         render: (text, record) => (
           <div style={{ color: Color.numColor(text.name) }}>
@@ -132,9 +133,9 @@ const Integral = (props: Props) => {
         ),
       },
       {
-        title: '角球',
+        title: '角',
         dataIndex: 'cr',
-
+        width: 35,
         align: 'center',
         render: (text) => (
           <div>
