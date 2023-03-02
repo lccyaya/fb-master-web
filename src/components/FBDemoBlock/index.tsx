@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './index.less';
-type Props = {};
+type Props = {
+  height: number;
+};
 
 const FBDemoBlock = (props: Props) => {
-  return <div className={styles.demo_block}></div>;
+  const { height } = props;
+  return <div className={styles.demo_block} style={{ height: height }}></div>;
 };
 
 export default FBDemoBlock;

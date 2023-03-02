@@ -11,7 +11,7 @@ const InfoCard = (props: Props) => {
         return (
           <div className={styles.player_info_card_flex} key={item.value}>
             <div className={styles.player_info_card_text}>{item.text}</div>
-            <div className={styles.player_info_card_value}></div>
+            <div className={styles.player_info_card_value}>{item.value}</div>
           </div>
         );
       })}

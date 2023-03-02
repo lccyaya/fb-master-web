@@ -12,7 +12,7 @@ const FBTitle = (props: Props) => {
     <div
       className={styles['font_size']}
       style={{
-        fontSize: props.size ? props.size : '18px',
+        fontSize: props.size ? props.size : '16px',
         color: props.color ? props.color : '#45494C',
       }}
     >

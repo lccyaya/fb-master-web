@@ -2,6 +2,7 @@ import type { Dispatch } from 'umi';
 import { connect, FormattedMessage } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import React, { useState, useEffect } from 'react';
+import myContext from '@/utils/createContext';
 import { Tag, Row, Spin, Col } from 'antd';
 import type { RouteComponentProps } from 'dva/router';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -26,6 +27,8 @@ import Integral from './Integral';
 import Schedule from './Schedule';
 import Player from './Player';
 import LineUp from './LineUp';
+import Data from './Data';
+import InfoCard from './InfoCard';
 
 type TabType = 'fixtures' | 'players';
 
@@ -63,7 +66,12 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
 
   const { teamId } = props.match.params;
   const [activeKey, setActiveKey] = useState('1');
-  const [curSeasonId, setCurSeasonId] = useState<any>();
+  const [season_id, setSeasonId] = useState<any>();
+
+  const themes = {
+    competition_id: 82,
+    season_id,
+  };
   // const history = useHistory();
   const onChangeTab = (key: string) => {
     console.log(key, 'kskskksks');
@@ -191,26 +199,25 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
             <div className={styles.text}>{teamName}</div>
           </div>
           {/* 背景信息展示 */}
-          <div>dddd</div>
+          <InfoCard></InfoCard>
         </Row>
 
         <div className={styles.main}>
-          <div className={styles.main_tab}>
-            <FBLineTab tab={tab} onChangeTab={onChangeTab}></FBLineTab>
+          <myContext.Provider value={themes}>
+            <div className={styles.main_tab}>
+              <FBLineTab tab={tab} onChangeTab={onChangeTab} />
 
-            <div style={{ marginRight: 12 }}>
-              <FBTabDate
-                competition_id={82}
-                curSeasonId={curSeasonId}
-                setCurSeasonId={setCurSeasonId}
-              />
+              <div style={{ marginRight: 12 }}>
+                <FBTabDate competition_id={82} season_id={season_id} setSeasonId={setSeasonId} />
+              </div>
             </div>
-          </div>
-          {activeKey == '2' && <Integral competition_id={82} season_id={curSeasonId}></Integral>}
+            {activeKey == '1' && <Data />}
+            {activeKey == '2' && <Integral />}
 
-          {activeKey == '3' && <Schedule></Schedule>}
-          {activeKey == '4' && <LineUp></LineUp>}
-          {activeKey == '5' && <Player competition_id={82} season_id={curSeasonId}></Player>}
+            {activeKey == '3' && <Schedule />}
+            {activeKey == '4' && <LineUp />}
+            {activeKey == '5' && <Player />}
+          </myContext.Provider>
         </div>
       </div>
     </Spin>

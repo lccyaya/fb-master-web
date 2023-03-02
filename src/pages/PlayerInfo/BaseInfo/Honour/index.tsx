@@ -11,7 +11,7 @@ const Honour = (props: Props) => {
     <div>
       <div className={styles.honour}>
         <div style={{ paddingLeft: '12px' }}>
-          <FBTitle logo={true} title={<FormattedMessage id="key_honour_record" />} />
+          <FBTitle logo={true} title={<FormattedMessage id="key_team_honour" />} />
         </div>
         <div className={styles.honour_list}>
           <PlayerHonour />

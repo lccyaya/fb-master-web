@@ -156,6 +156,8 @@ export default {
     "key_baseInfo": "能力值",
     "key_transfer_record": "转会记录",
     "key_honour_record": "荣誉记录",
+    "key_team_honour": "球队荣誉",
+    "key_base_info": "基本资料",
     "key_Now_info": "最新资讯",
     "key_handicap": "让球",
     "key_have_account": "已经有账号了？",

@@ -17,10 +17,6 @@ const GoalLost = (props: Props) => {
   const [titleType, setTitleType] = useState(1);
   const [data, setData] = useState<GoalDistributionListRes>();
 
-  const options = [
-    { label: '同主客', value: 'event' },
-    { label: '上季赛', value: 'sameCompetition' },
-  ];
   const getGoalDistributio = async () => {
     const params = {
       match_id,
@@ -30,7 +26,6 @@ const GoalLost = (props: Props) => {
     if (res.success) {
       setData(res.data);
     }
-    console.log(res, '失球分布');
   };
   // 进球分布
   const onGoal = () => {

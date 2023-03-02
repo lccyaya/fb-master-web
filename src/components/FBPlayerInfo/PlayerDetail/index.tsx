@@ -26,10 +26,15 @@ const PlayerInfo = (props: Props) => {
         <div className={styles.title_tip}>（以下均为球员本场比赛的个人数据统计）</div>
       </div>
       <div style={{ height: 450, overflow: 'auto' }}>
-        <InfoCard configs={configs1}></InfoCard>
-        <InfoCard configs={configs}></InfoCard>
-        <InfoCard configs={configs}></InfoCard>
-        <InfoCard configs={configs}></InfoCard>
+        <div style={{ background: '#FAFBFD', marginBottom: 10 }}>
+          <InfoCard configs={configs1}></InfoCard>
+        </div>
+        <div style={{ background: '#FAFBFD', marginBottom: 10 }}>
+          <InfoCard configs={configs}></InfoCard>
+        </div>
+        <div style={{ background: '#FAFBFD', marginBottom: 10 }}>
+          <InfoCard configs={configs}></InfoCard>
+        </div>
       </div>
     </div>
   );

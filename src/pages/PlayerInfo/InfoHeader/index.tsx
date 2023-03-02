@@ -21,27 +21,16 @@ const InfoHeader = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className={styles.player_info_grid}>
-        <Grid columns={3}>
-          <Grid.Item>
-            <div className={styles['grid-demo-item-block']}>
-              <div>7.28亿欧</div>
-              <div className={styles.text}>预计身价</div>
-            </div>
-          </Grid.Item>
-          <Grid.Item>
-            <div className={styles['grid-demo-item-block']}>
-              <div>7.28亿欧</div>
-              <div className={styles.text}>预计身价</div>
-            </div>
-          </Grid.Item>
-          <Grid.Item>
-            <div className={styles['grid-demo-item-block_last']}>
-              <div>7.28亿欧</div>
-              <div className={styles.text}>预计身价</div>
-            </div>
-          </Grid.Item>
-        </Grid>
+      <div className={styles.info_card}>
+        <div className={styles.list}>
+          1<div className={styles.text}>总市值</div>
+        </div>
+        <div className={styles.list_center}>
+          1<div className={styles.text}>总市值</div>
+        </div>
+        <div className={styles.list}>
+          1<div className={styles.text}>总市值</div>
+        </div>
       </div>
     </div>
   );
