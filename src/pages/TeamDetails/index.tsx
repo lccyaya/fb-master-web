@@ -157,7 +157,7 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
         onOk={() => setNotificationVisible(false)}
       />
       <div>
-        <div className={styles.head} xs={24} sm={24} md={24} lg={15} xl={15}>
+        <div className={styles.head}>
           {/* <div className={styles.back} onClick={handleBack}>
             <ArrowLeftOutlined className={styles.arrow} />
             <div className={styles.text}>
@@ -174,7 +174,7 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
               }}
             >
               <Button type="dashed" className={styles.followButton}>
-                <IconFont type="icon-tianjia" color="FA5900" size={10} />
+                {/* <IconFont type="icon-tianjia" color="FA5900" size={10} /> */}
                 <FormattedMessage id="key_following" />
               </Button>
             </PopupLogin>
@@ -199,7 +199,7 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
             <div className={styles.text}>{teamName}</div>
           </div>
           {/* 背景信息展示 */}
-          <InfoCard></InfoCard>
+          <InfoCard />
         </Row>
 
         <div className={styles.main}>
@@ -213,7 +213,6 @@ const TeamDetails: React.FC<DetailProps> = (props) => {
             </div>
             {activeKey == '1' && <Data />}
             {activeKey == '2' && <Integral />}
-
             {activeKey == '3' && <Schedule />}
             {activeKey == '4' && <LineUp />}
             {activeKey == '5' && <Player />}

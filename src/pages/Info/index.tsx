@@ -6,20 +6,22 @@ import * as competitionService from '@/services/competition';
 import styles from './index.less';
 import FBNavList from '@/components/FBNavList';
 import useWindowSize from '@/hooks/useWindowSize';
-import { getnavList } from "@/utils/match"
-import type { CompetitionsCategoryItemProps, CompetitionCategoryProps } from '@/services/competition';
+import { getnavList } from '@/utils/match';
+import type {
+  CompetitionsCategoryItemProps,
+  CompetitionCategoryProps,
+} from '@/services/competition';
 import Empty from '@/components/Empty';
 
 const Info = () => {
   const { height } = useWindowSize();
   const history = useHistory();
-  const [innerHeight, setInnerHeight] = useState<number>(0)
-  const [navtab, setNavtab] = useState<CompetitionCategoryProps[]>([]);//一级导航默数据列表
-  const [navtabkey, setNavTabKey] = useState("0");//一级导航默认选择
-  const [navtablist, setNavTabList] = useState<CompetitionsCategoryItemProps[]>([]);//二级导航默数据列表
-  const [navtablistkey, setNavTabListKey] = useState("热门");//二级导航默认选择
-  const [navtabitem, setNavTabitem] = useState([]);//三级导航默认数据列表
-
+  const [innerHeight, setInnerHeight] = useState<number>(0);
+  const [navtab, setNavtab] = useState<CompetitionCategoryProps[]>([]); //一级导航默数据列表
+  const [navtabkey, setNavTabKey] = useState('0'); //一级导航默认选择
+  const [navtablist, setNavTabList] = useState<CompetitionsCategoryItemProps[]>([]); //二级导航默数据列表
+  const [navtablistkey, setNavTabListKey] = useState('热门'); //二级导航默认选择
+  const [navtabitem, setNavTabitem] = useState([]); //三级导航默认数据列表
 
   // 导航栏数据
   const init = async () => {
@@ -27,29 +29,28 @@ const Info = () => {
     if (result.success) {
       setNavtab(result?.data?.categories);
       const navlistres: any = await competitionService.categorys({ id: navtabkey });
-      setNavTabList(navlistres?.data?.categories)
+      setNavTabList(navlistres?.data?.categories);
       if (navlistres?.data?.categories) {
-        const item_name = navlistres?.data?.categories[0].name
-        setNavTabListKey(item_name)
-        const navitems = getnavList(navlistres?.data?.categories, item_name)
-        setNavTabitem(navitems)
+        const item_name = navlistres?.data?.categories[0].name;
+        setNavTabListKey(item_name);
+        const navitems = getnavList(navlistres?.data?.categories, item_name);
+        setNavTabitem(navitems);
       }
     }
   };
   // 一级导航切换
   const onTabChange = (key: string) => {
-    setNavTabKey(key)
-  }
+    setNavTabKey(key);
+  };
   // 二级导航切换
   const onNavListChange = (key: string) => {
-    setNavTabListKey(key)
-    const navitems = getnavList(navtablist, key)
-    setNavTabitem(navitems)
-
-  }
+    setNavTabListKey(key);
+    const navitems = getnavList(navtablist, key);
+    setNavTabitem(navitems);
+  };
   useEffect(() => {
-    init()
-  }, [navtabkey])
+    init();
+  }, [navtabkey]);
 
   // 获取屏幕高度
   useEffect(() => {
@@ -82,35 +83,45 @@ const Info = () => {
         >
           {navtab?.map((item: any) => {
             return (
-              <Tabs.Tab title={item.name} key={item.id} >
-                {navtablist ? <div className={styles.nav_child}>
-                  {/* 左边侧边栏（二级导航） */}
-                  {navtabkey !== "0" && <SideBar
-                    style={{
-                      '--width': '130px',
-                      '--height': `${innerHeight}px`,
-                      '--item-border-radius': '0',
-                      '--background-color': '#FAFBFD',
-                    }}
-                    onChange={onNavListChange}
-                    activeKey={navtablistkey}
-                  >
-                    {navtablist.map((itemnav) => {
-                      return <SideBar.Item key={itemnav.name} title={<div style={{ fontSize: "16px" }}>{itemnav.name}</div>} />
-                    })}
-
-                  </SideBar>}
-                  {/* 右侧内容区域 */}
-                  <div style={{ height: innerHeight, width: "100%", overflow: "auto", }}>
-                    <FBNavList data={navtabitem} type={navtabkey} />
+              <Tabs.Tab title={item.name} key={item.id}>
+                {navtablist ? (
+                  <div className={styles.nav_child}>
+                    {/* 左边侧边栏（二级导航） */}
+                    {navtabkey !== '0' && (
+                      <SideBar
+                        style={{
+                          '--width': '130px',
+                          '--height': `${innerHeight}px`,
+                          '--item-border-radius': '0',
+                          '--background-color': '#FAFBFD',
+                        }}
+                        onChange={onNavListChange}
+                        activeKey={navtablistkey}
+                      >
+                        {navtablist.map((itemnav) => {
+                          return (
+                            <SideBar.Item
+                              key={itemnav.name}
+                              title={<div style={{ fontSize: '16px' }}>{itemnav.name}</div>}
+                            />
+                          );
+                        })}
+                      </SideBar>
+                    )}
+                    {/* 右侧内容区域 */}
+                    <div style={{ height: innerHeight, width: '100%', overflow: 'auto' }}>
+                      <FBNavList data={navtabitem} type={navtabkey} />
+                    </div>
                   </div>
-                </div> : <Empty message='暂无数据' />}
+                ) : (
+                  <Empty message="暂无数据" />
+                )}
               </Tabs.Tab>
             );
           })}
-        </Tabs >
-      </div >
-    </div >
+        </Tabs>
+      </div>
+    </div>
   );
 };
 

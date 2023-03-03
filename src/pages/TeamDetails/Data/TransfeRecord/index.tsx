@@ -24,7 +24,12 @@ const TransfeRecord = (props: Props) => {
           <IconFont type="icon-jiantouyou" color="#848494" size={10} />
         </div>
       </div>
-
+      <div className={styles.content}>
+        <FBTransfeRecord />
+      </div>
+      <div className={styles.content}>
+        <FBTransfeRecord />
+      </div>
       <div className={styles.content}>
         <FBTransfeRecord />
       </div>

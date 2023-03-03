@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './index.less';
-import InfoCard from '@/components/FBPlayerInfo/PlayerDetail/InfoCard';
 import FBDemoBlock from '@/components/FBDemoBlock';
 import TransfeRecord from './TransfeRecord';
 import Honour from './Honour';

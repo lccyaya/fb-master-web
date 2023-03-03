@@ -84,7 +84,7 @@ type Props = {
 };
 
 const Ranking = (props: Props) => {
-  const { competition_id, season_id } = props
+  const { competition_id, season_id } = props;
 
   return (
     <div>

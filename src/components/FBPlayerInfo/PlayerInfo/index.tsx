@@ -3,6 +3,7 @@ import styles from './index.less';
 import { Grid } from 'antd-mobile';
 import FBFootball from '@/components/FBFootball/index';
 import { Position, rating } from '@/utils/match';
+import defaultAvatar from '@/assets/mine/avatar.png';
 
 type Props = {
   data: any;
@@ -40,7 +41,11 @@ const PlayerInfo = (props: Props) => {
                 {data.home_coach?.name && (
                   <div style={{ display: 'flex' }}>
                     <div>
-                      <img className={styles.coach_img} src={data.home_coach?.logo} alt="" />
+                      <img
+                        className={styles.coach_img}
+                        src={data.home_coach?.logo ? data.home_coach?.logo : defaultAvatar}
+                        alt=""
+                      />
                     </div>
                     <div>
                       <div className={styles.name}>{data.home_coach?.name}</div>
@@ -51,13 +56,12 @@ const PlayerInfo = (props: Props) => {
               </div>
               {/* 主队球员信息 */}
               <Grid columns={1}>
-                {data.home.map((item) => {
+                {data?.home.map((item) => {
                   // eslint-disable-next-line react/jsx-key
                   return (
                     <div key={item.id}>
                       {item.first == 0 ? (
                         <div>
-                          {' '}
                           <Grid.Item>
                             <div className={styles.left_grid}>
                               <div className={styles.logo}>
@@ -108,13 +112,17 @@ const PlayerInfo = (props: Props) => {
 
           <Grid.Item>
             <div className={styles.right_grid}>
-              {data.away_coach?.name && (
+              {data?.away_coach?.name && (
                 <div style={{ display: 'flex' }}>
                   <div>
-                    <img className={styles.coach_img} src={data.away_coach?.logo} alt="" />
+                    <img
+                      className={styles.coach_img}
+                      src={data?.away_coach?.logo ? data?.away_coach?.logo : defaultAvatar}
+                      alt=""
+                    />
                   </div>
                   <div className={styles.text}>
-                    <div className={styles.name}>{data.away_coach?.name}</div>
+                    <div className={styles.name}>{data?.away_coach?.name}</div>
 
                     <div className={styles.teacher}>教练</div>
                   </div>

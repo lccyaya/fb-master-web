@@ -43,18 +43,19 @@ const Detail = (props: Props) => {
       title: (
         <div
           onClick={() => {
-            if (picktabvalue == "1" && type == 1) {
+            if (picktabvalue == '1' && type == 1) {
               setTabVisible(true);
             }
           }}
         >
           {getAccordWithLabel(picktab, integrate)}
-          {type == 1 && <IconFont
-            type="icon-zhankai2"
-            color={picktabvalue == '1' ? '#FA5900' : '#848494'}
-            size={10}
-          />}
-
+          {type == 1 && (
+            <IconFont
+              type="icon-zhankai2"
+              color={picktabvalue == '1' ? '#FA5900' : '#848494'}
+              size={10}
+            />
+          )}
         </div>
       ),
       key: '1',
@@ -74,7 +75,7 @@ const Detail = (props: Props) => {
     const result = await matchService.getSeasonList(competitionId);
     if (result.success) {
       const seasonList: any = result.data;
-      const year = seasonList?.map((item: { year: number, ID: number }) => {
+      const year = seasonList?.map((item: { year: number; ID: number }) => {
         return { label: item.year, value: item.ID };
       });
       console.log(year);
@@ -142,30 +143,32 @@ const Detail = (props: Props) => {
         <div className={styles.tabfelx}>
           {/* 左侧时间 */}
           <div>
-            {curSeasonId && <div
-              onClick={() => {
-                setVisible(true);
-              }}
-            >
-              {' '}
-              {getAccordWithLabel(yeardata, curSeasonId)}
-              <IconFont type="icon-zhankai2" color="#000028" size={12} />
-            </div>}
+            {curSeasonId && (
+              <div
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
+                {' '}
+                {getAccordWithLabel(yeardata, curSeasonId)}
+                <IconFont type="icon-zhankai2" color="#000028" size={12} />
+              </div>
+            )}
           </div>
           {/*右侧 积分 赛程 榜单 */}
           <div className={styles.tab}>
-            <FBWorldCapTab
-              list={tab}
-              defaultActiveKey={picktabvalue}
-              mini
-              onChange={onChangetab}
-            />
+            <FBWorldCapTab list={tab} defaultActiveKey={picktabvalue} mini onChange={onChangetab} />
           </div>
         </div>
         <div className={styles.content_list}>
           {/* 积分 */}
           {picktabvalue == '1' && (
-            <Groupmatch competition_id={id} season_id={curSeasonId} integrate={integrate} type={type} />
+            <Groupmatch
+              competition_id={id}
+              season_id={curSeasonId}
+              integrate={integrate}
+              type={type}
+            />
           )}
           {/* 赛程 */}
           {picktabvalue == '2' && <Schedule competition_id={id} season_id={curSeasonId} />}
@@ -173,7 +176,6 @@ const Detail = (props: Props) => {
           {picktabvalue == '3' && <Ranking competition_id={id} season_id={curSeasonId} />}
         </div>
       </div>
-
     </div>
   );
 };

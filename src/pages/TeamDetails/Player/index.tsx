@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PlayerTable from '@/components/FBPlayerInfo/PlayerTable';
-import Ranking from '@/pages/info/ranking';
+import Ranking from '@/pages/Info/ranking';
 import styles from './index.less';
 import myContext from '@/utils/createContext';
 type Props = {};

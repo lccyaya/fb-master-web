@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './index.less';
+import defaultAvatar from '@/assets/mine/avatar.png';
 type Props = {
   activeKey?: string;
 };
@@ -14,7 +15,7 @@ const FBTransfeRecord = (props: Props) => {
           style={{ width: '80%', justifyContent: 'space-between' }}
         >
           <div className={styles.player_info_card_text}>
-            <img className={styles.img} src="" alt="" />
+            <img className={styles.img} src={defaultAvatar} alt="" />
             <div>
               <div className={styles.text}>巴西</div>
 
