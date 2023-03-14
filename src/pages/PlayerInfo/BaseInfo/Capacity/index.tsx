@@ -12,12 +12,6 @@ const Capacity = (props: Props) => {
     radar: {
       // shape: 'circle',
       indicator: [
-        // { name: '进攻', max: 6500 },
-        // { name: '技术', max: 16000 },
-        // { name: '战术', max: 30000 },
-        // { name: '防守', max: 38000 },
-        // { name: '意识', max: 52000 },
-        // { name: '创造力', max: 25000 },
         { name: '进攻' },
         { name: '技术' },
         { name: '战术' },
@@ -43,16 +37,15 @@ const Capacity = (props: Props) => {
       radius: 90,
       axisName: {
         formatter: (text, item) => {
-          return [, `{a|${text}}`, '{b|50}'].join('\n');
+          return [, `{text|${text}}`, '{num|50}'].join('\n');
         },
-
         rich: {
-          a: {
+          text: {
             color: '#333333',
             lineHeight: 14,
             fontSize: 14,
           },
-          b: {
+          num: {
             with: 50,
             align: 'center',
             // backgroundColor: '#FE2222',
@@ -69,14 +62,12 @@ const Capacity = (props: Props) => {
         type: 'radar',
         symbolSize: 5,
         color: '#5985FF',
-
         lineStyle: {
           width: 1.5,
           splitArea: {
             show: false,
           },
         },
-
         data: [
           {
             value: [4200, 3000, 13500, 3500, 50000, 18000],
@@ -92,7 +83,10 @@ const Capacity = (props: Props) => {
 
   return (
     <div>
-      <FBTitle logo={true} title={<FormattedMessage id="key_baseInfo" />} />
+      <div style={{ padding: '0 12px' }}>
+        <FBTitle logo={true} title={<FormattedMessage id="key_baseInfo" />} />
+      </div>
+
       <div className={styles.player_info_capacity}>
         <ReactECharts className={styles.chart} option={option} />
       </div>

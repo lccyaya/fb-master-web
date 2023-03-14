@@ -11,6 +11,7 @@ type Props = {};
 
 const Technology = (props: Props) => {
   const [activeKey, setActiveKey] = useState('1');
+  const [season_id, setSeasonId] = useState<any>();
   const tab = [
     {
       key: '1',
@@ -48,12 +49,13 @@ const Technology = (props: Props) => {
         <div>
           <FBShadowTab tab={tab} activeKey={activeKey} onChangeTab={onChangeTab} />
         </div>
-        <FBTabDate onClick={onClick} />
+        <FBTabDate competition_id={82} season_id={season_id} setSeasonId={setSeasonId} />
       </div>
       <div className={styles.technology_tab}>
         <div>2022-2023</div>
         <div>西甲-皇马</div>
       </div>
+
       <div style={{ padding: '12px' }}>
         <PlayerTechnology />
       </div>

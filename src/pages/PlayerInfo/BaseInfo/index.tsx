@@ -11,10 +11,9 @@ const BaseInfo = (props: Props) => {
   return (
     <div className={styles.player_info_baseinfo}>
       {/* 能力值 */}
-      <div style={{ padding: '0 12px' }}>
+      <div>
         <Capacity />
       </div>
-
       <div className={styles.demoblock} />
       {/* 小操场 */}
       <MiniGround />

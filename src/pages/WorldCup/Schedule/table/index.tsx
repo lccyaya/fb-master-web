@@ -29,21 +29,26 @@ type Props = {
   group?: string | number;
   data: any;
   titletext?: any;
-  integrate?: any
+  integrate?: any;
 };
-const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', "I", "J", "K", "L", "M", "N",];
+const grouplist = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
 const TablePage = (props: Props) => {
   const history = useHistory();
   const bgprops = (record, index) => {
     return {
       borderTop:
-        props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" &&
-          record.promotions?.color !== "" && record.promotions?.name !== ''
+        props.data[index - 1]?.promotions?.name !== record.promotions?.name &&
+        props.integrate == '1' &&
+        record.promotions?.color !== '' &&
+        record.promotions?.name !== ''
           ? `2px solid ${record.promotions?.color}`
           : '',
-      background: props.integrate == "1" && record.promotions?.color.length ? record.promotions?.color + 30 : "",
-    }
-  }
+      background:
+        props.integrate == '1' && record.promotions?.color.length
+          ? record.promotions?.color + 30
+          : '',
+    };
+  };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -57,10 +62,7 @@ const TablePage = (props: Props) => {
       // width: 100,
       // align: "center",
       render: (text, record, index) => (
-        <div
-          className={styles.bgheight}
-          style={bgprops(record, index)}
-        >
+        <div className={styles.bgheight} style={bgprops(record, index)}>
           <div style={{ width: 20, textAlign: 'center' }}>{record.position}</div>
           <img
             style={{ width: 20, height: 15, margin: ' 0 5px', objectFit: 'contain' }}
@@ -69,7 +71,7 @@ const TablePage = (props: Props) => {
           />
           <div
             style={{
-              width: "130px",
+              width: '130px',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
@@ -87,12 +89,10 @@ const TablePage = (props: Props) => {
       // width: 100,
       align: 'center',
       render: (text, record, index) => (
-        <div
-          className={styles.bgheight}
-          style={bgprops(record, index)}
-        >
+        <div className={styles.bgheight} style={bgprops(record, index)}>
           <div style={{ background: record.promotions?.color }} className={styles.row_tip}>
-            {props.data[index - 1]?.promotions?.name !== record.promotions?.name && props.integrate == "1" ? (
+            {props.data[index - 1]?.promotions?.name !== record.promotions?.name &&
+            props.integrate == '1' ? (
               <div>{record.promotions?.name}</div>
             ) : (
               ''
@@ -109,10 +109,7 @@ const TablePage = (props: Props) => {
       key: 'won',
       align: 'center',
       render: (text, record, index) => (
-        <div
-          className={styles.bgheight}
-          style={bgprops(record, index)}
-        >
+        <div className={styles.bgheight} style={bgprops(record, index)}>
           {record.won}/{record.drawn}/{record.lost}
         </div>
       ),
@@ -123,10 +120,7 @@ const TablePage = (props: Props) => {
       key: 'address',
       align: 'center',
       render: (text, record, index) => (
-        <div
-          className={styles.bgheight}
-          style={bgprops(record, index)}
-        >
+        <div className={styles.bgheight} style={bgprops(record, index)}>
           {record.goals}/{record.against}/{record.diff}
         </div>
       ),
@@ -138,10 +132,7 @@ const TablePage = (props: Props) => {
       align: 'center',
 
       render: (text, record, index) => (
-        <div
-          className={styles.bgheight}
-          style={bgprops(record, index)}
-        >
+        <div className={styles.bgheight} style={bgprops(record, index)}>
           {text}
         </div>
       ),
@@ -167,7 +158,6 @@ const TablePage = (props: Props) => {
           onRow={(record) => {
             return {
               onClick: (event) => {
-                console.log(record, 'pppp');
                 history.push(`/zh/teamdetails/${record.team_id}`);
               }, // 点击行
             };

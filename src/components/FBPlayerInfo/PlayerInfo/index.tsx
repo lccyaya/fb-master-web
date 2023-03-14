@@ -38,21 +38,21 @@ const PlayerInfo = (props: Props) => {
           <Grid.Item>
             <div className={styles.boder_color}>
               <div className={styles.left_grid}>
-                {data.home_coach?.name && (
-                  <div style={{ display: 'flex' }}>
-                    <div>
-                      <img
-                        className={styles.coach_img}
-                        src={data.home_coach?.logo ? data.home_coach?.logo : defaultAvatar}
-                        alt=""
-                      />
-                    </div>
-                    <div>
-                      <div className={styles.name}>{data.home_coach?.name}</div>
-                      <div className={styles.teacher}>教练</div>
-                    </div>
+                <div style={{ display: 'flex' }}>
+                  <div>
+                    <img
+                      className={styles.coach_img}
+                      src={data.home_coach?.logo ? data.home_coach?.logo : defaultAvatar}
+                      alt=""
+                    />
                   </div>
-                )}
+                  <div>
+                    <div className={styles.name}>
+                      {data.home_coach?.name ? data.home_coach?.name : '-'}
+                    </div>
+                    <div className={styles.teacher}>教练</div>
+                  </div>
+                </div>
               </div>
               {/* 主队球员信息 */}
               <Grid columns={1}>
@@ -109,25 +109,24 @@ const PlayerInfo = (props: Props) => {
               </Grid>
             </div>
           </Grid.Item>
-
           <Grid.Item>
             <div className={styles.right_grid}>
-              {data?.away_coach?.name && (
-                <div style={{ display: 'flex' }}>
-                  <div>
-                    <img
-                      className={styles.coach_img}
-                      src={data?.away_coach?.logo ? data?.away_coach?.logo : defaultAvatar}
-                      alt=""
-                    />
-                  </div>
-                  <div className={styles.text}>
-                    <div className={styles.name}>{data?.away_coach?.name}</div>
-
-                    <div className={styles.teacher}>教练</div>
-                  </div>
+              <div style={{ display: 'flex' }}>
+                <div>
+                  <img
+                    className={styles.coach_img}
+                    src={data?.away_coach?.logo ? data?.away_coach?.logo : defaultAvatar}
+                    alt=""
+                  />
                 </div>
-              )}
+                <div className={styles.text}>
+                  <div className={styles.name}>
+                    {data?.away_coach?.name ? data?.away_coach?.name : '-'}
+                  </div>
+
+                  <div className={styles.teacher}>教练</div>
+                </div>
+              </div>
             </div>
             {/* 客队球员信息 */}
             <Grid columns={1}>

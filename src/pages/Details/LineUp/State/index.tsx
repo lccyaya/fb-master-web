@@ -9,7 +9,7 @@ const State = (props: Props) => {
   return (
     <div className={styles.lineup_mian}>
       <Grid columns={5}>
-        {state.map((item, index) => {
+        {state?.map((item, index) => {
           return (
             <div className={styles.lineup_state} key={index}>
               <Grid.Item>
