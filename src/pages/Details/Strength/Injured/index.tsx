@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'umi';
-import styles from './index.less';
+// import styles from './index.less';
 import FBTitle from '@/components/FBTitle';
 import { injury } from '@/services/matchdetail';
 import type { InjuryListRes } from '@/services/matchdetail';

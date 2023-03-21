@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styles from './index.less';
 import { Grid } from 'antd-mobile';
 import FBFootball from '@/components/FBFootball/index';
 import { Position } from '@/utils/match';
 import { injuredValue } from '@/pages/Details/Strength/Injured/tabel/config';
-
-type Props = {
-  data: any;
-  match: any;
-};
+import myContext from '@/utils/createContext';
+// type Props = {
+//   data: any;
+//   match: any;
+// };
 
 const PlayerInjured = (props: Props) => {
-  const { match, data } = props;
-
+  const { data, match } = useContext(myContext);
   return (
     <div className={styles.substitutes_bench}>
       <Grid columns={2}>

@@ -9,7 +9,7 @@ import { useHistory, useSelector } from 'umi';
 
 import styles from './index.less';
 import { ConnectState } from '@/models/connect';
-import { webJsBridge } from "@/services/webjsbridge";
+import { webJsBridge } from '@/services/webjsbridge';
 
 type Props = {};
 
@@ -52,11 +52,11 @@ const WorldCapguess = (props: Props) => {
   // 跳转规则
   const goRule = () => {
     if (isNative) {
-        webJsBridge.callHandler("openSchemeUrl", "sport34://router/news?id=4153", (res: string)=> {
-            console.log(res);
-        })
-    }else {
-        history.push('/zh/informationdetail/4153');
+      webJsBridge.callHandler('openSchemeUrl', 'sport34://router/news?id=4153', (res: string) => {
+        console.log(res);
+      });
+    } else {
+      history.push('/zh/informationdetail/4153');
     }
   };
 
@@ -89,10 +89,10 @@ const WorldCapguess = (props: Props) => {
         )}
       </div>
       <div style={{ height: 150, background: '#F7F7F7' }}></div>
-      {curKey == '0' ? <Guess></Guess> : null}
+      {curKey == '0' ? <Guess /> : null}
 
-      {curKey == '1' ? <GuessCenter></GuessCenter> : null}
-      {curKey == '2' ? <GuessRanking></GuessRanking> : null}
+      {curKey == '1' ? <GuessCenter /> : null}
+      {curKey == '2' ? <GuessRanking /> : null}
     </div>
   );
 };

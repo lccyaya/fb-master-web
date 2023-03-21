@@ -39,7 +39,6 @@ const Guess = (props: Props) => {
       action: isNative ? '去分享' : '去下载',
     },
   ];
-  useSelector;
   const user = useSelector<ConnectState, UserInfoType | null | undefined>(
     (s) => s.user.currentUser,
   );
@@ -53,7 +52,7 @@ const Guess = (props: Props) => {
   }, [user]);
 
   const getMyGuessList = async (page: number, size: number): Promise<any> => {
-    let data: GuessSchemParams = {
+    const data: GuessSchemParams = {
       page,
       size,
     };

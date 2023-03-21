@@ -13,7 +13,7 @@ import State from './State/index';
 import classnames from 'classnames';
 import FBTitle from '@/components/FBTitle';
 import FBWordCopTab from '@/components/FBWordCopTab';
-
+import myContext from '@/utils/createContext';
 import styles from './index.less';
 import { checkIsPhone } from '@/utils/utils';
 
@@ -55,6 +55,7 @@ interface IProps {
   matchId: number;
   isPhone?: boolean;
   status: number;
+  match: any;
 }
 const LineUp: React.FC<IProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,6 +72,10 @@ const LineUp: React.FC<IProps> = (props) => {
       key: 'key_last_line_up',
     },
   ];
+  const themes = {
+    data,
+    match: props.match,
+  };
   const onChangetab = (key: string) => {
     setActiveKey(key);
   };
@@ -184,7 +189,10 @@ const LineUp: React.FC<IProps> = (props) => {
                   },
                 ]}
               /> */}
-              <Substitutes data={data} match={props.match} />
+              {/* 替补阵容 伤停对比 */}
+              <myContext.Provider value={themes}>
+                <Substitutes />
+              </myContext.Provider>
               <State />
             </div>
           </div>

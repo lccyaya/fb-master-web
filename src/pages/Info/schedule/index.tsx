@@ -5,12 +5,19 @@ import styles from './index.less';
 import type { ColumnsType } from 'antd/es/table';
 import * as matchPageService from '@/services/matchPage';
 import { getMatchDataList } from '@/services/matchPage';
-import { getPickerList, getNextList, getUpList, getMatchStatusDes, getFirst, getlabel, geMatchLastList } from "@/utils/match"
+import {
+  getPickerList,
+  getNextList,
+  getUpList,
+  getMatchStatusDes,
+  getFirst,
+  getlabel,
+  geMatchLastList,
+} from '@/utils/match';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useThrottleFn, useDebounceFn } from 'ahooks';
 import { Spin } from 'antd';
 import Empty from '@/components/Empty';
-
 
 import moment from 'moment';
 import { Color } from '@/utils/match';
@@ -29,7 +36,6 @@ export type MatchDateFormatDataItem = {
   data: matchPageService.matchType[];
 };
 
-
 const Schedule = (props: Props) => {
   const columns = (): ColumnsType<analysisType> => {
     return [
@@ -39,11 +45,11 @@ const Schedule = (props: Props) => {
         key: 'match_time',
         // width: 40,
         width: 70,
-        className: "first_columns",
+        className: 'first_columns',
         align: 'center',
         render: (text, record) => (
           // eslint-disable-next-line @typescript-eslint/no-use-before-define
-          <div id={initialize == record?.MatchId ? `match_${record?.MatchId}` : ""}>
+          <div id={initialize == record?.MatchId ? `match_${record?.MatchId}` : ''}>
             <div>{moment(text * 1000).format('MM-DD')}</div>
             <div>{moment(text * 1000).format('HH:mm')}</div>
           </div>
@@ -55,9 +61,7 @@ const Schedule = (props: Props) => {
         key: 'home',
         width: 100,
         align: 'right',
-        render: (text, record) => (
-          <div className={styles.namestyle}>{text.name}</div>
-        )
+        render: (text, record) => <div className={styles.namestyle}>{text.name}</div>,
       },
       {
         // title: '',
@@ -67,27 +71,30 @@ const Schedule = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div className={styles.bfstyle}>
-            {text > 1 && text < 9 ? <div>
-              <div style={{
-                color: Color.numColor(
-                  record.HomeScores[0] > record.AwayScores[0]
-                    ? '赢'
-                    : record.HomeScores[0] == record.AwayScores[0]
-                      ? '走'
-                      : '输',
-                ),
-              }}>
-                {record.HomeScores[0]}:{record.AwayScores[0]}
+            {text > 1 && text < 9 ? (
+              <div>
+                <div
+                  style={{
+                    color: Color.numColor(
+                      record.HomeScores[0] > record.AwayScores[0]
+                        ? '赢'
+                        : record.HomeScores[0] == record.AwayScores[0]
+                        ? '走'
+                        : '输',
+                    ),
+                  }}
+                >
+                  {record.HomeScores[0]}:{record.AwayScores[0]}
+                </div>
+                <div className={styles.first_half_score}>
+                  ({record.HomeScores[1]}:{record.AwayScores[1]})
+                </div>
               </div>
-              <div className={styles.first_half_score}>
-                ({record.HomeScores[1]}:{record.AwayScores[1]})
-              </div>
-            </div> : text > 8 ? <div style={{ fontSize: "13px" }}>
-              {getMatchStatusDes(text)}
-
-            </div> : <div style={{ color: "#848494" }}>VS</div>}
-
-
+            ) : text > 8 ? (
+              <div style={{ fontSize: '13px' }}>{getMatchStatusDes(text)}</div>
+            ) : (
+              <div style={{ color: '#848494' }}>VS</div>
+            )}
           </div>
         ),
       },
@@ -96,11 +103,9 @@ const Schedule = (props: Props) => {
         dataIndex: 'AwayTeam',
         width: 100,
         key: 'away',
-        className: "last_columns",
+        className: 'last_columns',
         align: 'left',
-        render: (text) => (
-          <div className={styles.namestyle}>{text.name}</div>
-        )
+        render: (text) => <div className={styles.namestyle}>{text.name}</div>,
       },
       {
         // title: '角球',
@@ -109,13 +114,16 @@ const Schedule = (props: Props) => {
         align: 'center',
         render: (text, record) => (
           <div>
-            {record.StatusID > 1 && record.StatusID < 9 ? <div>
-              <div style={{ color: "#000028" }}>
-                {record.HomeScores[4] + record.AwayScores[4]}
+            {record.StatusID > 1 && record.StatusID < 9 ? (
+              <div>
+                <div style={{ color: '#000028' }}>
+                  {record.HomeScores[4] + record.AwayScores[4]}
+                </div>
+                {record.HomeScores[4]}-{record.AwayScores[4]}
               </div>
-              {record.HomeScores[4]}-{record.AwayScores[4]}
-            </div> : "-"}
-
+            ) : (
+              '-'
+            )}
           </div>
         ),
       },
@@ -137,15 +145,14 @@ const Schedule = (props: Props) => {
   const [innerHeight, setInnerHeight] = useState<number>(0);
   const [initialize, setInitialize] = useState<any>();
 
-
   const [loading, setLoading] = useState<boolean>(false);
   const { run, cancel } = useThrottleFn(
     async () => {
-      const arr = await onThrottleFn()
+      const arr = await onThrottleFn();
       const boolen = await getFirst(yeardata, arr);
 
-      setShowFirst(boolen)
-      setPickerValue(arr)
+      setShowFirst(boolen);
+      setPickerValue(arr);
     },
     { wait: 600 },
   );
@@ -159,7 +166,7 @@ const Schedule = (props: Props) => {
         anchorElement.scrollIntoView();
       }
     }
-  }
+  };
   const init = async () => {
     setLoading(true);
     const result = await getMatchDataList({
@@ -169,13 +176,13 @@ const Schedule = (props: Props) => {
     setLoading(false);
     if (result.success) {
       setData(result.data);
-      const picker_data = getPickerList(result.data)
-      setyeardata(picker_data)
+      const picker_data = getPickerList(result.data);
+      setyeardata(picker_data);
       if (result.data) {
-        setPickerValue([result.data[0]?.stage, result.data[0]?.round_count])
+        setPickerValue([result.data[0]?.stage, result.data[0]?.round_count]);
         if (geMatchLastList(result.data)) {
-          setInitialize(geMatchLastList(result.data))
-          scrollToAnchor(`match_${geMatchLastList(result.data)}`)
+          setInitialize(geMatchLastList(result.data));
+          scrollToAnchor(`match_${geMatchLastList(result.data)}`);
         }
       }
     }
@@ -203,91 +210,105 @@ const Schedule = (props: Props) => {
     }
   };
   function onThrottleFn() {
-    const activity_info_md = document.querySelectorAll(".activity_info_md")
-    const activity_info_box = document.getElementById("activity_info_box")
-    const top = activity_info_box?.scrollTop
-    const arr = []
+    const activity_info_md = document.querySelectorAll('.activity_info_md');
+    const activity_info_box = document.getElementById('activity_info_box');
+    const top = activity_info_box?.scrollTop;
+    const arr = [];
     for (let i = 0; i < activity_info_md.length; i++) {
-      const stagenum = activity_info_md[i].getAttribute("data-stagenum");
-      const roundname = activity_info_md[i].getAttribute("data-roundname");
-      const heighttop = activity_info_md[i].offsetTop;//距离父元素的top
+      const stagenum = activity_info_md[i].getAttribute('data-stagenum');
+      const roundname = activity_info_md[i].getAttribute('data-roundname');
+      const heighttop = activity_info_md[i].offsetTop; //距离父元素的top
       const heightlast = activity_info_md[i + 1]?.offsetTop;
 
       if (top + 60 >= heighttop && top + 60 < heightlast) {
-        arr.push(Number(stagenum), Number(roundname))
-        return arr
+        arr.push(Number(stagenum), Number(roundname));
+        return arr;
       }
-
     }
-    const one = activity_info_md[activity_info_md.length - 1].getAttribute("data-stagenum");
-    const two = activity_info_md[activity_info_md.length - 1].getAttribute("data-roundname");
-    arr.push(Number(one), Number(two))
-    return arr
-
+    const one = activity_info_md[activity_info_md.length - 1].getAttribute('data-stagenum');
+    const two = activity_info_md[activity_info_md.length - 1].getAttribute('data-roundname');
+    arr.push(Number(one), Number(two));
+    return arr;
   }
   const onScroll = () => {
-    run()
-  }
+    run();
+  };
   useEffect(() => {
-
     const height1 = height - 145;
     setInnerHeight(height1);
   }, [height]);
 
   useEffect(() => {
     init();
-
   }, [season_id]);
   // 显示弹框按钮事件
   const onPicker = () => {
     setVisible(true);
-
   };
   return (
     <div>
       <Spin spinning={loading}>
-        {data ?
+        {data ? (
           <div>
             <div className={styles.schedule_table_space}>
               <div className={styles.title}>
                 <div className={styles.title_next} onClick={onUpList}>
-                  {!showfirst && <div>   <IconFont type="icon-jiantouzuo" color="#848494" size={10} />上一轮 </div>
-                  }
+                  {!showfirst && (
+                    <div>
+                      {' '}
+                      <IconFont type="icon-jiantouzuo" color="#848494" size={10} />
+                      上一轮{' '}
+                    </div>
+                  )}
                 </div>
-                <div>     <div className={styles.title_top} onClick={onPicker}>
-                  {/* {pickertext} */}
-                  {yeardata && pickervalue && <div>
-                    {getlabel(yeardata, pickervalue)}
-                  </div>}
-                  <IconFont type="icon-zhankai2" color="#000028" size={12} />
-                </div></div>
+                <div>
+                  {' '}
+                  <div className={styles.title_top} onClick={onPicker}>
+                    {/* {pickertext} */}
+                    {yeardata && pickervalue && <div>{getlabel(yeardata, pickervalue)}</div>}
+                    <IconFont type="icon-zhankai2" color="#000028" size={12} />
+                  </div>
+                </div>
                 <div className={styles.title_next} onClick={onNext}>
-                  <div>  下一轮 <IconFont type="icon-jiantouyou" color="#848494" size={10} /></div>
-
+                  <div>
+                    {' '}
+                    下一轮 <IconFont type="icon-jiantouyou" color="#848494" size={10} />
+                  </div>
                 </div>
               </div>
-              <div id='activity_info_box' style={{ height: `${innerHeight}px`, overflow: "auto" }} onScroll={onScroll}>
+              <div
+                id="activity_info_box"
+                style={{ height: `${innerHeight}px`, overflow: 'auto' }}
+                onScroll={onScroll}
+              >
                 {data?.map((item_stage) => {
-                  return <div key={item_stage.stage}>
-                    {item_stage.rounds.map((item_rounds, index) => {
-                      return <div key={index} className='activity_info_md' data-stagenum={item_rounds.round_data.stage_num}
-                        data-roundname={item_rounds.round_data.round_name} id={`activity_${item_rounds.round_data.stage_num}_${item_rounds.round_data.round_name}`} key={index}>
-                        <div className={styles.title_next_activity}>
-                          {item_rounds.round_data.show_name}
-                        </div>
-                        <Table
-                          loading={loading}
-                          rowKey="MatchId"
-                          dataSource={item_rounds.match_list}
-                          columns={columns()}
-
-                        />
-                        <div style={{ height: 2, width: '100%', background: '#F7F7F7' }} />
-
-                      </div>
-                    })}
-
-                  </div>
+                  return (
+                    <div key={item_stage.stage}>
+                      {item_stage.rounds.map((item_rounds, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="activity_info_md"
+                            data-stagenum={item_rounds.round_data.stage_num}
+                            data-roundname={item_rounds.round_data.round_name}
+                            id={`activity_${item_rounds.round_data.stage_num}_${item_rounds.round_data.round_name}`}
+                            key={index}
+                          >
+                            <div className={styles.title_next_activity}>
+                              {item_rounds.round_data.show_name}
+                            </div>
+                            <Table
+                              loading={loading}
+                              rowKey="MatchId"
+                              dataSource={item_rounds.match_list}
+                              columns={columns()}
+                            />
+                            <div style={{ height: 2, width: '100%', background: '#F7F7F7' }} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -301,16 +322,16 @@ const Schedule = (props: Props) => {
               onConfirm={(val, extend) => {
                 setPickerValue(val);
                 if (val[1]) {
-                  scrollToAnchor(`activity_${val[0]}_${val[1]}`)
+                  scrollToAnchor(`activity_${val[0]}_${val[1]}`);
                 } else {
-                  scrollToAnchor(`activity_${val[0]}_0`)
-
+                  scrollToAnchor(`activity_${val[0]}_0`);
                 }
               }}
-
             />
-          </div> : <Empty message="暂无数据" />
-        }
+          </div>
+        ) : (
+          <Empty message="暂无数据" />
+        )}
       </Spin>
     </div>
   );

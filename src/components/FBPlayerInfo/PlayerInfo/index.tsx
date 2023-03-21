@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styles from './index.less';
 import { Grid } from 'antd-mobile';
 import FBFootball from '@/components/FBFootball/index';
 import { Position, rating } from '@/utils/match';
 import defaultAvatar from '@/assets/mine/avatar.png';
-
-type Props = {
-  data: any;
-  match: any;
-};
+import myContext from '@/utils/createContext';
+// type Props = {
+//   data: any;
+//   match: any;
+// };
 
 const PlayerInfo = (props: Props) => {
-  const { match, data } = props;
+  // const { match, data } = props;
 
+  const { data, match } = useContext(myContext);
+  console.log(data, match, ';s;s;s;s;s;s;');
   return (
     <div>
       <div className={styles.substitutes_bench}>

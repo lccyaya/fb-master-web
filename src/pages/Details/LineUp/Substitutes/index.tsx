@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './index.less';
 import FBTitle from '@/components/FBTitle';
 import { FormattedMessage } from 'umi';
 import PlayerInfo from '@/components/FBPlayerInfo/PlayerInfo';
 import PlayerInjured from '@/components/FBPlayerInfo/PlayerInjured';
 
+import myContext from '@/utils/createContext';
 type Props = {
-  match: any;
-  data: any;
+  // match: any;
+  // data: any;
 };
 
 const Substitutes = (props: Props) => {
-  const { data, match } = props;
-  console.log(data, ';s;s;s;s;s;s;');
+  const { data, match } = useContext(myContext);
 
   return (
     <div className={styles.substitutes}>
       <FBTitle logo={true} title={<FormattedMessage id="key_bench_lineup" />} />
-      <PlayerInfo match={match} data={data} />
+      <PlayerInfo />
 
       {data?.home_absence?.length > 0 || data?.away_absence?.length > 0 ? (
         <div>
           <FBTitle logo={true} title={<FormattedMessage id="key_absence_db" />} />
-          <PlayerInjured match={match} data={data} />
+          <PlayerInjured />
         </div>
       ) : null}
     </div>
